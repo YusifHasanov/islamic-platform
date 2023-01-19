@@ -1,13 +1,12 @@
 const { google } = require('googleapis');
-const channelId = "UC1B8clCxtmb-bzCDdxmVPDA";
-const apiKey1 = 'AIzaSyCjP_IofsUYjrMAWzKd_ROb5gdBQr4UZxc';
-const apiKey2 = 'AIzaSyC524HaOQ4VzmsyuIIoCzs884QXAV9rvJA';
-const apiKey3 = "AIzaSyC0ms0FHyD6TBw6lVg1daz2Uk2EZGiFDo4";
-const apiKey4 = "AIzaSyBKSsL9icSxXWl1PMA74gDjSeB9KycT8AI"
-const apiKey5 = 'AIzaSyAWYWmaQf4rcWNg7CeSGgzNzCtI-3aCHJA'
-const apiKey6 = 'AIzaSyCMGNRMEQdVIs_AYD4mbxD6vZkAS_TWwr8'
-const apiKey7 = 'AIzaSyBI-s8eiIZV_RsILgOTf1zPslk2qJO8wWs'
-let apiKeys = [apiKey1, apiKey2, apiKey3, apiKey4, apiKey5, apiKey6, apiKey7];
+let apiKeys = [
+    process.env.API_KEY_1, 
+    process.env.API_KEY_2, 
+    process.env.API_KEY_3, 
+    process.env.API_KEY_4, 
+    process.env.API_KEY_5,
+    process.env.API_KEY_6,
+    process.env.API_KEY_7];
 let randomIndex = Math.floor(Math.random() * apiKeys.length);
 const currentApikey = apiKeys[randomIndex];
 
@@ -21,7 +20,7 @@ async function getOnePage(typeOfVideo) {
         if (nextPageToken) {
             res = await youtube.search.list({
                 part: "snippet",
-                channelId: channelId,
+                channelId: process.env.CHANNEL_ID,
                 type: typeOfVideo,
                 maxResults: 50,
                 pageToken: nextPageToken,
@@ -30,7 +29,7 @@ async function getOnePage(typeOfVideo) {
         } else {
             res = await youtube.search.list({
                 part: "snippet",
-                channelId: channelId,
+                channelId: process.env.CHANNEL_ID,
                 type: typeOfVideo,
                 maxResults: 50,
 

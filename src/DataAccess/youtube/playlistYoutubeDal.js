@@ -1,4 +1,4 @@
-const { getAllPages, getAllPagesOfPlaylistItems } = require('./data');
+const { getAllPages } = require('./data');
 
 
 async function getYoutubePlaylists() {
@@ -6,13 +6,11 @@ async function getYoutubePlaylists() {
     try {
         const playlists = await getAllPages('playlist');
         playlists.forEach(element => {
-     
             let playlist = {
                 id: element.id.playlistId,
                 publishedAt: element.snippet.publishedAt,
-                thumbnail: element.snippet.thumbnails?.default?.url ? element.snippet.thumbnails?.default?.url : "",
+                thumbnail: element.snippet.thumbnails?.high?.url ? element.snippet.thumbnails?.high?.url : "",
                 title: element.snippet.title,
-              
                 liveContent: element.snippet.liveBroadcastContent,
             }
             playlistArray.push(playlist);

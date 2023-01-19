@@ -16,7 +16,7 @@ async function getYoutubeVideos() {
                     id: item.id,
                     videoId: item.snippet.resourceId.videoId,
                     publishedAt: item.snippet.publishedAt,
-                    thumbnail: item.snippet.thumbnails?.default?.url ? item.snippet.thumbnails?.default?.url : "",
+                    thumbnail: item.snippet.thumbnails?.high?.url ? item.snippet.thumbnails?.high?.url : "",
                     title: item.snippet.title,
                     playlistId: element.id,
                 }
@@ -34,6 +34,7 @@ async function getYoutubeVideos() {
     } catch (error) {
         console.log(error);
     }
+    
     return videos;
 }
 

@@ -1,5 +1,5 @@
 const { getYoutubeVideos } = require('../DataAccess/youtube/videoYoutubeDal');
-const { addData, deleteData } = require('../DataAccess/mongoDB/mongoDBDal');
+const { addData, deleteData,updateData } = require('../DataAccess/mongoDB/mongoDBDal');
 const { Video } = require('../Entities/video');
 async function videoService(dbData) {
     let videos = []
@@ -8,14 +8,18 @@ async function videoService(dbData) {
     } catch (error) {
         console.log(error);
     }
- 
+
     let dbDataCopy = [...dbData];
     let newVideos = [];
     let oldVideos = [];
+    let updateVideos = [];
+
     if (videos.length > 0) {
         videos.forEach(video => {
-            if (!dbDataCopy.find(dbVideo => dbVideo.id === video.id)) {
-                newVideos.push(video);
+            if (video.thumbnail !== "") {
+                if (!dbDataCopy.find(dbVideo => dbVideo.id === video.id)) {
+                    newVideos.push(video);
+                }
             }
         })
         dbDataCopy.forEach(dbVideo => {
@@ -23,8 +27,16 @@ async function videoService(dbData) {
                 oldVideos.push(dbVideo);
             }
         })
+        videos.forEach(video => {
+            if (video.thumbnail !== "") {
+                let findedData = dbDataCopy.find(dbVideo => dbVideo.id === video.id);
+                    if (findedData && (findedData.title !== video.title|| findedData.thumbnail !== video.thumbnail)) {
+                        updateVideos.push(video);
+                    }
+            }
+        })
     }
- 
+
     oldVideos.forEach(video => {
         deleteData(Video, video._id);
     })
@@ -32,7 +44,9 @@ async function videoService(dbData) {
     newVideos.forEach(video => {
         addData(Video, video);
     })
-   
+    updateVideos.forEach(video => {
+        updateData(Video, video);
+    })
 }
 
 
