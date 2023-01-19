@@ -24,7 +24,6 @@ async function getOnePage(typeOfVideo) {
                 type: typeOfVideo,
                 maxResults: 50,
                 pageToken: nextPageToken,
-
             });
         } else {
             res = await youtube.search.list({
