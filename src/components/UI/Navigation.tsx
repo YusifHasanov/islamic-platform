@@ -5,19 +5,25 @@ import { useRouter } from 'next/router'
 import { FaBars } from 'react-icons/fa'
 import { AiOutlineClose } from 'react-icons/ai'
 import Image from 'next/image'
-import {  BsMoonFill, BsSunFill } from 'react-icons/bs'
+import { BsMoonFill, BsSunFill } from 'react-icons/bs'
+
+
+
+
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
 }
 
 export default function Example() {
-  const { pathname } = useRouter()
+  const router = useRouter()
+  const { pathname } = router;
+
   const navigation = [
     { name: 'Ana Səhifə', href: '/', current: pathname === '/' },
     { name: 'Sual Cavab', href: '/questions', current: pathname === '/questions' },
     { name: 'Haqqımızda', href: "about-us", current: pathname === '/about-us' },
-    { name: 'Kitablar', href: '/books', current: pathname === '/books' },
-    { name: 'Videolar', href: '/videos', current: pathname === '/videos' },
+    { name: 'Kitablar', href: '/books', current: pathname.includes('/books') },
+    { name: 'Videolar', href: '/videos', current: pathname.includes('/videos') },
     { name: 'Məqalələr', href: '/articles', current: pathname === '/articles' },
     { name: 'Əlaqə', href: '/contact', current: pathname === '/contact' },
   ]
@@ -50,15 +56,17 @@ export default function Example() {
               <div className="flex flex-1 items-center justify-center lg:items-stretch lg:justify-start">
                 <div className="flex flex-shrink-1 items-center">
                   <Image
-                    className="block h-9 w-auto lg:hidden" src={"/assets/logo.png"}
+                    className="block h-9 w-auto lg:hidden cursor-pointer" src={"/assets/logo.png"}
                     alt="Your Company"
                     width={100} height={100}
+                    onClick={() => { router.push('/') }}
                   />
                   <Image
-                    className="hidden h-9 w-auto lg:block"
+                    className="hidden h-9 w-auto cursor-pointer lg:block"
                     src={"/assets/logo.png"}
                     alt="Your Company"
                     width={100} height={100}
+                    onClick={() => { router.push('/') }}
                   />
                 </div>
                 <div className="hidden sm:ml-6 lg:block">
@@ -95,8 +103,8 @@ export default function Example() {
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">
                   <div>
-                    <Menu.Button className="flex rounded-full  p-2 bg-green-600 text-white  text-sm focus:outline-none focus:ring-1 focus:ring-white focus:ring-offset-2  ">                      
-                      {menuItems.find(i=>i.current===true)?.name}
+                    <Menu.Button className="flex rounded-full  p-2 bg-green-600 text-white  text-sm focus:outline-none focus:ring-1 focus:ring-white focus:ring-offset-2  ">
+                      {menuItems.find(i => i.current === true)?.name}
                     </Menu.Button>
                   </div>
                   <Transition
@@ -136,7 +144,7 @@ export default function Example() {
                   as="a"
                   href={item.href}
                   className={classNames(
-                    item.current ? 'bg-yellow-400 text-white hover:bg-yellow-500' : 'text-gray-300 hover:bg-yellow-400 hover:text-white','block rounded-md px-3 py-2 text-base font-medium'
+                    item.current ? 'bg-yellow-400 text-white hover:bg-yellow-500' : 'text-gray-300 hover:bg-yellow-400 hover:text-white', 'block rounded-md px-3 py-2 text-base font-medium'
                   )} aria-current={item.current ? 'page' : undefined}  >
                   {item.name}
                 </Disclosure.Button>

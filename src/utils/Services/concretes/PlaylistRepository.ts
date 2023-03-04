@@ -4,7 +4,11 @@ import { Playlist } from "../../types/Types";
 
 export default class VideoRepository implements IRepository<Playlist> {
   async getAll(): Promise<Playlist[]> {
-    const data = await prisma.playlist.findMany();
+    const data = await prisma.playlist.findMany({
+      orderBy: {
+        publishedAt: "desc",
+      }
+    });
     return data as Playlist[];
   }
   async getWhere(limit: number, order: string, cursor: any): Promise<Playlist[]> {
@@ -38,13 +42,20 @@ export default class VideoRepository implements IRepository<Playlist> {
 
 
   async update(id: string, data: Playlist): Promise<Playlist> {
-    const updatedVideos = await prisma.playlist.update({
-      where: { id },
+    console.log(id, data)
+    let updatedVideos : any;
+   try {
+      updatedVideos = await prisma.playlist.update({
+      where: { playlistId : id },
       data: {
         title: data.title,
         thumbnail: data.thumbnail,
       },
+       
     });
+   } catch (error) {
+      console.log(error)
+   }
     return updatedVideos as Playlist;
   }
 }

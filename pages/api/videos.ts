@@ -9,22 +9,22 @@ export default async function handler(
     res: NextApiResponse<any>
 ) {
     const { method } = req;
-    const {  order } = req.query;
+    const { order } = req.query;
     const limit = Number(req.query.limit) || 8;
     const cursor = req.query.cursor ?? "";
-
+    const playlistId = req.query.playlistId??"" ;
     try {
         switch (method) {
             case 'GET':
-                if (req.query.id) {
-                    const data = await videoRepo.getById(req.query.id as string);
+                if (req.query.videoId) {
+                    const data = await videoRepo.getById(req.query.videoId as string);
                     res.status(200).json(data);
                 } else {
                     if (limit && order) {
-                       
+
                         const data =
-                            await videoRepo.getWhere(limit, (order as string), (cursor as any));
-                            return res.json({ data, nextId: data.length === limit ? data[limit - 1].id : undefined })
+                            await videoRepo.getWhere(limit, (order as string), (cursor as any),playlistId as string );
+                        return res.json({ data, nextId: data.length === limit ? data[limit - 1].id : undefined })
                     } else {
                         const data = await videoRepo.getAll();
                         res.status(200).json(data);

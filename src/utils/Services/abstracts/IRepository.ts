@@ -6,7 +6,7 @@ export interface IRepository<T extends BaseFields> {
    
    getAll(): Promise<T[]> 
 
-   getWhere(limit:number,order:string,cursor:any) : Promise<T[]>
+ 
 
    getById( id: string): Promise<T>  
 

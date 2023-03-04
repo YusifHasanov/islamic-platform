@@ -7,18 +7,25 @@ import RenderedSkeleton from '../RenderedSkeleton'
 import Spinner from '../Spinner'
 import RenderedVideos from '@/src/components/UI/videos/renderedVideos'
 
+const queryFn = async ({ pageParam = "" }, playlistId: string ) => {
+    let url = `/api/videos?limit=${16}&order=desc&cursor=${pageParam}`;
+    if (playlistId) {
+        url += `&playlistId=${playlistId}`;
+    }
+    const { data } = await axios.get(url)
+    return data
+}
+type InfinitiVideoScrollProps = {
+    playlistId: string;
+};
 
-const InfinitiVideoScroll = () => {
+const InfinitiVideoScroll: FC<InfinitiVideoScrollProps> = ({ playlistId }) => {
     const [ref, inView] = useInView()
-    const query: UseInfiniteQueryResult<any, unknown> = useInfiniteQuery("videos",
-        async ({ pageParam = "" }) => {
-            const { data } =
-                await axios.get(`/api/videos?limit=${12}&order=desc&cursor=${pageParam}`)
-            return data
-        },
+    const query: UseInfiniteQueryResult<any, unknown> = useInfiniteQuery(["videos", playlistId],
+        async ({ pageParam }) => queryFn({ pageParam }, playlistId),
         {
             getNextPageParam: (lastPage) => lastPage.nextId ?? false,
-            staleTime: 100 ,
+            staleTime: 100,
         })
 
     useEffect(() => {
@@ -33,7 +40,7 @@ const InfinitiVideoScroll = () => {
     if (query.isError) return <div>Error</div>
 
     return (
-        <>
+        <div>
             <Head>
                 <title>Videolar</title>
             </Head>
@@ -54,7 +61,7 @@ const InfinitiVideoScroll = () => {
                 {query.isFetchingNextPage && <Spinner />}
             </div>
 
-        </>
+        </div>
     )
 }
 

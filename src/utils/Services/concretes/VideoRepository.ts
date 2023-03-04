@@ -7,11 +7,16 @@ export default class VideoRepository implements IRepository<Video> {
     const data = await prisma.video.findMany();
     return data as Video[];
   }
-  async getWhere(limit: number, order: string, cursor: any): Promise<Video[]> {
+  async getWhere(limit: number, order: string, cursor: any, playlist: string): Promise<Video[]> {
     const data = await prisma.video.findMany({
       take: limit,
       skip: cursor === "" ? 0 : 1,
       cursor: cursor === "" ? undefined : { id: cursor },
+      where: {
+        playlistId: playlist.length > 0 ? playlist : undefined
+      },
+
+
       orderBy: {
         publishedAt: order,
       } as any,
@@ -20,7 +25,7 @@ export default class VideoRepository implements IRepository<Video> {
   }
   async getById(id: string): Promise<Video> {
     const data = await prisma.video.findUnique({
-      where: { id },
+      where: { videoId: id },
     });
     return data as Video;
   }
@@ -39,7 +44,7 @@ export default class VideoRepository implements IRepository<Video> {
 
   async update(id: string, data: Video): Promise<Video> {
     const updatedVideos = await prisma.video.update({
-      where: { id },
+      where: { videoId: id },
       data: {
         title: data.title,
         thumbnail: data.thumbnail,

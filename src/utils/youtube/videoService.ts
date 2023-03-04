@@ -35,16 +35,17 @@ export async function videoService(dbData: any[]) {
             }
         })
     }
-
+ 
     oldVideos.forEach(video => {
-        videoRepo.delete(video.id);
+      
+        videoRepo.delete(video.videoId);
     })
 
     newVideos.forEach(video => {
         videoRepo.create(video);
     })
     updateVideos.forEach(video => {
-        videoRepo.update(video.id, video);
+        videoRepo.update(video.videoId, video);
     })
 }
 

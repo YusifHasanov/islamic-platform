@@ -16,6 +16,7 @@ export async function getYoutubePlaylists() {
     } catch (error: any) {
         throw new Error(error);
     }
+    
     return playlistArray;
 }
 

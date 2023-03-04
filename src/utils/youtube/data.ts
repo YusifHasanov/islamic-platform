@@ -5,11 +5,12 @@ let randomIndex = Math.floor(Math.random() * apiKeys.length);
 const currentApikey = apiKeys[0];
 
 let nextPageToken: string | undefined;
-let youtube = google.youtube({ version: 'v3', auth: currentApikey });
+
 
 
 //get nuymber of subscribers
 export async function getSubscribers() {
+    let youtube = google.youtube({ version: 'v3', auth: currentApikey });
     let res: any;
     try {
         res = await youtube.channels.list({
@@ -26,6 +27,7 @@ export async function getSubscribers() {
 
 
 async function getOnePage(typeOfVideo: string) {
+    let youtube = google.youtube({ version: 'v3', auth: currentApikey });
     let res: any;
 
     try {
@@ -66,12 +68,11 @@ export async function getAllPages(typeOfVideo: string) {
     } catch (error: any) {
         throw new Error(error);
     }
-
     return channelVideos;
 }
 async function getOnePageOfPlaylistItems(playlistId: string) {
     let res: any;
-
+    let youtube = google.youtube({ version: 'v3', auth: currentApikey });
     try {
         if (nextPageToken) {
             res = await youtube.playlistItems.list({
