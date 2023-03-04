@@ -139,15 +139,17 @@ export default function Example() {
           <Disclosure.Panel className="lg:hidden">
             <div className="space-y-1 px-2 pt-2 pb-3">
               {navigation.map((item) => (
+               <Link href={item.href}>
                 <Disclosure.Button
                   key={item.name}
-                  as="a"
-                  href={item.href}
+                   
+                  
                   className={classNames(
                     item.current ? 'bg-yellow-400 text-white hover:bg-yellow-500' : 'text-gray-300 hover:bg-yellow-400 hover:text-white', 'block rounded-md px-3 py-2 text-base font-medium'
                   )} aria-current={item.current ? 'page' : undefined}  >
                   {item.name}
                 </Disclosure.Button>
+               </Link>
               ))}
             </div>
           </Disclosure.Panel>
