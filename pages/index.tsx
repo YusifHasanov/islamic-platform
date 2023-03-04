@@ -1,18 +1,16 @@
 import React from 'react'
 import Head from 'next/head' 
-import { JetBrains_Mono } from 'next/font/google'
+import {  Montserrat} from 'next/font/google'
+ 
 
-
-
-
-const jetbrains = JetBrains_Mono({ subsets: ['latin'] })
+const monserrat = Montserrat({ subsets: ['latin'] })
 
 export default function Home(props :any) {
  
   return (
     <>
       <Header />
-      <main className={jetbrains.className} >
+      <main className={monserrat.className} >
         <div className='homePage '>
           Əhli Sünnə Mədrəsəsi
         </div>
