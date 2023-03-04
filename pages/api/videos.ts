@@ -12,28 +12,33 @@ export default async function handler(
     const { order } = req.query;
     const limit = Number(req.query.limit) || 8;
     const cursor = req.query.cursor ?? "";
-    const playlistId = req.query.playlistId??"" ;
+    const playlistId = req.query.playlistId ?? "";
     try {
         switch (method) {
             case 'GET':
                 if (req.query.videoId) {
                     const data = await videoRepo.getById(req.query.videoId as string);
-                    res.status(200).json(data);
+                    res.setHeader('Content-Type', 'application/json');
+                      res.status(200).json(data);
                 } else {
                     if (limit && order) {
 
                         const data =
-                            await videoRepo.getWhere(limit, (order as string), (cursor as any),playlistId as string );
-                        return res.json({ data, nextId: data.length === limit ? data[limit - 1].id : undefined })
+                            await videoRepo.getWhere(limit, (order as string), (cursor as any), playlistId as string);
+                        res.setHeader('Content-Type', 'application/json');
+                         res.status(200).json({ data, nextId: data.length === limit ? data[limit - 1].id : undefined })
                     } else {
                         const data = await videoRepo.getAll();
-                        res.status(200).json(data);
+
+                        res.setHeader('Content-Type', 'application/json');
+                          res.status(200).json(data);
                     }
                 }
+                break;
             case 'POST':
                 const postBody: Video = req.body;
                 const createdData = await videoRepo.create(postBody);
-                res.status(200).json(createdData);
+                  res.status(200).json(createdData);
                 break;
             case 'PUT':
                 const putBody: Video = req.body;

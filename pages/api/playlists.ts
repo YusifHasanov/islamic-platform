@@ -14,11 +14,14 @@ export default async function handler(
       case 'GET':
         if (req.query.id) {
           const data = await playlistRepo.getById(req.query.id as string);
+          res.setHeader('Content-Type', 'application/json');
           res.status(200).json(data);
         } else {
           const data = await playlistRepo.getAll();
+          res.setHeader('Content-Type', 'application/json');
           res.status(200).json(data);
         }
+        break;
       case 'POST':
         const postBody: Playlist = req.body;
         const createdData = await playlistRepo.create(postBody);

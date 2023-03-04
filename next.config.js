@@ -4,6 +4,8 @@ const nextConfig = {
   images: {
     domains: ['i.ytimg.com'],
     unoptimized: true,
+    
+      
   },
  
    
