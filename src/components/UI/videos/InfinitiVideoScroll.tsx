@@ -32,7 +32,7 @@ const InfinitiVideoScroll: FC<InfinitiVideoScrollProps> = ({ playlist }) => {
     }, [inView, query])
 
     if (query.isLoading) return (
-        <div className=' grid p-4 w-full  grid-cols-4 gap-4 px-3' >
+        <div className=' grid p-4 w-full rounded  grid-cols-4 gap-4 px-3' >
             <RenderedSkeleton number={16} />
         </div>
     )
@@ -57,7 +57,7 @@ const InfinitiVideoScroll: FC<InfinitiVideoScrollProps> = ({ playlist }) => {
                     }
                     <span ref={ref} style={{ visibility: "hidden" }}>intersaction observer</span>
                 </div>
-                <div className=' grid  grid-cols-4 gap-4 px-3 w-100 p-4 mb-4' >
+                <div className=' grid  rounded-lg grid-cols-4 gap-4 px-3 w-100 p-4 mb-4' >
                     {query.isFetchingNextPage && <RenderedSkeleton number={4} />}
                 </div>
 

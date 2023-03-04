@@ -5,7 +5,7 @@ const VideoComponent: FC<Video> = ({ id, title, videoId, thumbnail }) => {
     const router = useRouter();
 
     return (
-        <div className="flex justify-center"
+        <div className="flex  justify-center"
             onClick={() => router.push(`/videos/${videoId}`)}
         >
             <div className="rounded-lg shadow-lg bg-white max-w-sm">
