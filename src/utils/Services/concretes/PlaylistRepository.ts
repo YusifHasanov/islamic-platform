@@ -1,6 +1,7 @@
+import { Playlist } from "@prisma/client";
 import IRepository from "../abstracts/IRepository"; 
 import prisma from "@/prisma/prisma";
-import { Playlist } from "../../types/Types";
+
 
 export default class VideoRepository implements IRepository<Playlist> {
   async getAll(): Promise<Playlist[]> {

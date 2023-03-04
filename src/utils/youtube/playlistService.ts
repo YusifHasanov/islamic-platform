@@ -14,9 +14,7 @@ export async function playlistService(dbData: any[]) {
     let newPlaylists: any[] = [];
     let oldPlayliists: any[] = [];
     let updateVideos: any[] = [];
-    setTimeout(()=>{
-            console.log(videos)
-    },1000)
+   
     if (videos.length > 0) {
       
 
@@ -41,10 +39,11 @@ export async function playlistService(dbData: any[]) {
         })
        
     }
-
-        console.log("newPlaylists", newPlaylists);
         console.log("oldPlayliists", oldPlayliists);
+        console.log("newPlaylists", newPlaylists);
         console.log("updateVideos", updateVideos);
+
+ 
     oldPlayliists.forEach(video => {
 
         playlistRepo.delete(video.playlistId);

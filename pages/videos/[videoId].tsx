@@ -11,7 +11,7 @@ const Index = () => {
     const { data } = await axios.get(`/api/videos?videoId=${videoId}`)
     return data
   }, {
-    staleTime: 10000000,
+    staleTime: 600000 ,
   })
   if (videoQuery.isLoading) return <div>Loading</div>
   if (videoQuery.isError) return <div>error</div>

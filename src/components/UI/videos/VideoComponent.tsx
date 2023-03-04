@@ -12,7 +12,7 @@ const VideoComponent: FC<Video> = ({ id, title, videoId, thumbnail }) => {
                 <div className='p-3'>
                     <img className=' cursor-pointer rounded-xl' src={thumbnail} alt="" />
                 </div>
-                <div className="p-6">
+                <div className="p-4">
                     <h5 className="text-gray-900 text-xl font-medium mb-2"> {title}</h5>
 
                 </div>

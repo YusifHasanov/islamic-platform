@@ -6,26 +6,25 @@ import Head from 'next/head'
 import RenderedSkeleton from '../RenderedSkeleton'
 import Spinner from '../Spinner'
 import RenderedVideos from '@/src/components/UI/videos/renderedVideos'
+import { Playlist } from '@prisma/client'
 
-const queryFn = async ({ pageParam = "" }, playlistId: string ) => {
-    let url = `/api/videos?limit=${16}&order=desc&cursor=${pageParam}`;
-    if (playlistId) {
-        url += `&playlistId=${playlistId}`;
-    }
+const queryFn = async ({ pageParam = "" }, playlistId: string) => {
+    let url = `/api/videos?limit=${16}&order=desc&cursor=${pageParam}&playlistId=${playlistId}`;
+    
     const { data } = await axios.get(url)
     return data
 }
 type InfinitiVideoScrollProps = {
-    playlistId: string;
+    playlist: Playlist|null;
 };
 
-const InfinitiVideoScroll: FC<InfinitiVideoScrollProps> = ({ playlistId }) => {
+const InfinitiVideoScroll: FC<InfinitiVideoScrollProps> = ({ playlist }) => {
     const [ref, inView] = useInView()
-    const query: UseInfiniteQueryResult<any, unknown> = useInfiniteQuery(["videos", playlistId],
-        async ({ pageParam }) => queryFn({ pageParam }, playlistId),
+    const query: UseInfiniteQueryResult<any, unknown> = useInfiniteQuery(["videos", playlist?.playlistId],
+        async ({ pageParam }) => queryFn({ pageParam }, playlist?.playlistId??""),
         {
             getNextPageParam: (lastPage) => lastPage.nextId ?? false,
-            staleTime: 100,
+            staleTime: 600000 ,
         })
 
     useEffect(() => {
@@ -44,21 +43,27 @@ const InfinitiVideoScroll: FC<InfinitiVideoScrollProps> = ({ playlistId }) => {
             <Head>
                 <title>Videolar</title>
             </Head>
-            <div className='grid p-4 w-full  grid-cols-4 gap-4 px-3' >
-                {query.data && query.data.pages.map((page) => (
-                    <Fragment key={page.nextId ?? "lastpage"}>
-                        <RenderedVideos videos={page.data} />
-                    </Fragment>
-                ))
-                }
-                <span ref={ref} style={{ visibility: "hidden" }}>intersaction observer</span>
-            </div>
-            <div className=' grid  grid-cols-4 gap-4 px-3 w-100 p-4 mb-4' >
-                {query.isFetchingNextPage && <RenderedSkeleton number={4} />}
-            </div>
 
             <div>
-                {query.isFetchingNextPage && <Spinner />}
+                <h3
+                    className="my-5 text-5xl font-bold text-green-700 dark:text-gray-200 text-center w-full" 
+                >{playlist ? `${playlist.title}`: "Videolar"}</h3>
+                <div className='grid p-4 w-full  grid-cols-4 gap-4 px-5' >
+                    {query.data && query.data.pages.map((page) => (
+                        <Fragment key={page.nextId ?? "lastpage"}>
+                            <RenderedVideos videos={page.data} />
+                        </Fragment>
+                    ))
+                    }
+                    <span ref={ref} style={{ visibility: "hidden" }}>intersaction observer</span>
+                </div>
+                <div className=' grid  grid-cols-4 gap-4 px-3 w-100 p-4 mb-4' >
+                    {query.isFetchingNextPage && <RenderedSkeleton number={4} />}
+                </div>
+
+                <div>
+                    {query.isFetchingNextPage && <Spinner />}
+                </div>
             </div>
 
         </div>

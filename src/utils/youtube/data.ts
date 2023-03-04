@@ -8,11 +8,12 @@ let nextPageToken: string | undefined;
 
 
 
-//get nuymber of subscribers
+ 
 export async function getSubscribers() {
     let youtube = google.youtube({ version: 'v3', auth: currentApikey });
     let res: any;
     try {
+        
         res = await youtube.channels.list({
             part: "statistics",
             id: process.env.CHANNEL_ID,
@@ -32,7 +33,7 @@ async function getOnePage(typeOfVideo: string) {
 
     try {
         if (nextPageToken) {
-            res = await youtube.search.list({
+            res = await youtube.playlists.list({
                 part: "snippet",
                 channelId: process.env.CHANNEL_ID,
                 type: typeOfVideo,
@@ -40,7 +41,7 @@ async function getOnePage(typeOfVideo: string) {
                 pageToken: nextPageToken,
             } as any);
         } else {
-            res = await youtube.search.list({
+            res = await youtube.playlists.list({
                 part: "snippet",
                 channelId: process.env.CHANNEL_ID,
                 type: typeOfVideo,

@@ -36,7 +36,7 @@ export default function Example() {
   ]
 
   return (
-    <Disclosure as="nav" className=" z-40 sticky top-0 bg-gradient-to-l from-yellow-300 via-green-700 to-green-700">
+    <Disclosure as="nav" className="navigation_container  z-40 sticky top-0 bg-gradient-to-l from-yellow-300 via-green-700 to-green-700">
       {({ open }: { open: any }) => (
         <>
 
@@ -136,7 +136,7 @@ export default function Example() {
             </div>
           </div>
 
-          <Disclosure.Panel className="sm:hidden">
+          <Disclosure.Panel className="lg:hidden">
             <div className="space-y-1 px-2 pt-2 pb-3">
               {navigation.map((item) => (
                 <Disclosure.Button

@@ -16,10 +16,9 @@ export interface Playlist extends BaseEntity  {
     playlistId: string;
     publishedAt: Date;
     thumbnail: string;
-    title: string;
-    liveContent: string;
+    title: string; 
     videos: Video[];
-};
+};  
 
  
 
@@ -33,8 +32,7 @@ export interface BaseFields {
     id: string;
     title: string;
     publishedAt: Date;
-    thumbnail: string;
-    liveContent?: string;
+    thumbnail: string; 
   }
 
 
