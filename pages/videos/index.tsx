@@ -9,8 +9,8 @@ const queryFn = async () => {
 }
 
 const Videos = () => {
-  const [playlistId, setPlaylistId] = React.useState<string >("")
-  const query = useQuery("playlists", queryFn )
+  const [playlistId, setPlaylistId] = React.useState<string>("")
+  const query = useQuery("playlists", async () => queryFn())
   if (query.isLoading) return <div>Loading</div>
   if (query.isError) return <div>Error</div>
   const togglePlaylist = (id: string) => {
@@ -19,7 +19,7 @@ const Videos = () => {
       setPlaylistId("")
     } else {
       setPlaylistId(id)
- 
+
     }
   }
   return (
