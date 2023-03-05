@@ -15,6 +15,7 @@ export default async function handler(
         if (methods.includes(method as string)) {
             const videos = await videoRepo.getAll();
             await videoService(videos);
+            res.setHeader('Content-Type', 'application/json');
             res.status(200).json({ message: 'Videos Updated' });
         }
     } catch (error: any) {

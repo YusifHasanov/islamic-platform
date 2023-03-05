@@ -19,36 +19,39 @@ export default async function handler(
                 if (req.query.videoId) {
                     const data = await videoRepo.getById(req.query.videoId as string);
                     res.setHeader('Content-Type', 'application/json');
-                      res.status(200).json(data);
+                    res.status(200).json(data);
                 } else {
                     if (limit && order) {
 
                         const data =
                             await videoRepo.getWhere(limit, (order as string), (cursor as any), playlistId as string);
                         res.setHeader('Content-Type', 'application/json');
-                         res.status(200).json({ data, nextId: data.length === limit ? data[limit - 1].id : undefined })
+                        res.status(200).json({ data, nextId: data.length === limit ? data[limit - 1].id : undefined })
                     } else {
                         const data = await videoRepo.getAll();
 
                         res.setHeader('Content-Type', 'application/json');
-                          res.status(200).json(data);
+                        res.status(200).json(data);
                     }
                 }
                 break;
             case 'POST':
                 const postBody: Video = req.body;
                 const createdData = await videoRepo.create(postBody);
-                  res.status(200).json(createdData);
+                res.setHeader('Content-Type', 'application/json');
+                res.status(200).json(createdData);
                 break;
             case 'PUT':
                 const putBody: Video = req.body;
                 console.log(putBody);
                 const updatedData = await videoRepo.update(putBody.id, putBody);
+                res.setHeader('Content-Type', 'application/json');
                 res.status(200).json(updatedData);
                 break;
             case 'DELETE':
                 const deleteBody: Video = req.body;
                 await videoRepo.delete(deleteBody.id);
+                res.setHeader('Content-Type', 'application/json');
                 res.status(200).json({ message: 'Deleted' });
                 break;
             default:

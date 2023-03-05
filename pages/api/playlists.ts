@@ -25,6 +25,7 @@ export default async function handler(
       case 'POST':
         const postBody: Playlist = req.body;
         const createdData = await playlistRepo.create(postBody);
+        res.setHeader('Content-Type', 'application/json');
         res.status(200).json(createdData);
         break;
       case 'PUT':
@@ -32,11 +33,13 @@ export default async function handler(
         const id = req.query.id;
         console.log(putBody);
         const updatedData = await playlistRepo.update(id as string, putBody);
+        res.setHeader('Content-Type', 'application/json');
         res.status(200).json(updatedData);
         break;
       case 'DELETE':
         const deleteBody: Playlist = req.body;
         await playlistRepo.delete(deleteBody.id);
+        res.setHeader('Content-Type', 'application/json');
         res.status(200).json({ message: 'Deleted' });
         break;
       default:

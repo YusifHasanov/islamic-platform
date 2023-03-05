@@ -14,6 +14,7 @@ export default async function handler(
         if (methods.includes(method as string)) {
             const playlists = await playlistRepo.getAll();
             await playlistService(playlists);
+            res.setHeader('Content-Type', 'application/json');
             res.status(200).json({ message: 'Playlists Updated' });
         }
     } catch (error: any) {
