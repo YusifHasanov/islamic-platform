@@ -6,7 +6,7 @@ const VideoComponent: FC<Video> = ({ id, title, videoId, thumbnail }) => {
     const router = useRouter();
 
     return (
-        <div className="video_component flex bg-gray-100 dark:bg-gray-900  rounded-xl justify-center  " onClick={() => router.push(`/videos/${videoId}`)}
+        <div className="video_component dark:border-gray-700   hover:cursor-pointer flex bg-gray-100 dark:bg-gray-900  rounded-xl justify-center  " onClick={() => router.push(`/videos/${videoId}`)}
         >
             <div className=" rounded-3xl md:flex-col items-center justify-between flex flex-row shadow-lgmax-w-sm">
                 <div className='p-3 w-full relative flex items-center justify-center'>
