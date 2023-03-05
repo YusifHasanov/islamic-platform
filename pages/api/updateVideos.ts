@@ -1,8 +1,8 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-import { videoRepo } from '@/src/utils/Services/Repositories';
-import { videoService } from '@/src/utils/youtube/videoService';
+import { videoRepo } from '@/src/Services/Repositories';
+import { videoService } from '@/src/youtube/videoService';
 
 const methods = ['POST', 'PUT', 'DELETE', 'GET'];
 export default async function handler(
