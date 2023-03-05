@@ -19,7 +19,8 @@ const Index = () => {
   return (
     <div>
       <h1>{videoQuery.data?.title}</h1>
-      <Image src={videoQuery.data?.thumbnail ?? ""} alt={videoQuery.data?.title ?? ""} width={50} height={50} />
+      
+      <Image src={videoQuery.data?.thumbnail ?? ""} alt={videoQuery.data?.title ?? ""} width={500} height={500} />
     </div>
   )
 }

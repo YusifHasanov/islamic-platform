@@ -36,7 +36,7 @@ export default function Example() {
   ]
 
   return (
-    <Disclosure as="nav" className="navigation_container  z-40 sticky top-0 bg-gradient-to-l from-yellow-300 via-green-700 to-green-700">
+    <Disclosure as="nav" className="navigation_container z-40 sticky top-0 bg-gradient-to-l from-yellow-300 via-green-700 to-green-700">
       {({ open }: { open: any }) => (
         <>
 

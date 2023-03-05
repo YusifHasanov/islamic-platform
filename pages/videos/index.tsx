@@ -5,12 +5,12 @@ import { Playlist } from '@prisma/client'
 
 
 const Videos = () => {
-  const [playlist, setPlaylist] = React.useState<Playlist | null>(null)
+
 
   return (
-    <div className='videos_container bg-gray-200 dark:bg-gray-800'  >
-      <Playlists playlist={playlist} setPlaylist={setPlaylist} />
-      <InfinitiVideoScroll playlist={playlist} />
+    <div className='videos_container  bg-gray-200 dark:bg-gray-800'  >
+      <Playlists  />
+      <InfinitiVideoScroll   />
     </div>
   )
 }
