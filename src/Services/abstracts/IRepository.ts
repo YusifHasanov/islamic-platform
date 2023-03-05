@@ -1,12 +1,8 @@
-import { BaseFields } from "../../types/Types";
 
 
-
-export interface IRepository<T extends BaseFields> {
+export interface IRepository<T> {
    
    getAll(): Promise<T[]> 
-
- 
 
    getById( id: string): Promise<T>  
 

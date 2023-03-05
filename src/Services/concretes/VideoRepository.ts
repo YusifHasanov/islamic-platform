@@ -1,6 +1,6 @@
 import IRepository from "../abstracts/IRepository";
 import prisma from "@/prisma/prisma";
-import { Video } from "../../types/Types";
+import { Video } from "@prisma/client";
 
 export default class VideoRepository implements IRepository<Video> {
   async getAll(): Promise<Video[]> {

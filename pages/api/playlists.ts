@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { playlistRepo } from '@/src/utils/Services/Repositories';
-import { Playlist } from '@/src/utils/types/Types';
+import { playlistRepo } from '@/src/Services/Repositories';
+ import { Playlist } from '@prisma/client';
 
 export default async function handler(
   req: NextApiRequest,

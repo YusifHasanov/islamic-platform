@@ -1,4 +1,4 @@
-import Navigation from '@/src/components/UI/Navigation'
+import Navigation from '@/src/components/Navigation' 
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 import {
@@ -14,13 +14,14 @@ export default function App({ Component, pageProps }: AppProps) {
 
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <Hydrate state={pageProps.dehydratedState}>
-        <Navigation />
-        <Component {...pageProps} />
-      </Hydrate>
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
-
+   
+      <QueryClientProvider client={queryClient}>
+        <Hydrate state={pageProps.dehydratedState}>
+          <Navigation />
+          <Component {...pageProps} />
+        </Hydrate>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
+      
   )
 }

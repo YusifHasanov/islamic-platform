@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { videoRepo } from '@/src/utils/Services/Repositories';
-import { Video } from '@/src/utils/types/Types';
+import { videoRepo } from '@/src/Services/Repositories';
+import { Video } from '@prisma/client';
 import prisma from '@/prisma/prisma';
 
 export default async function handler(

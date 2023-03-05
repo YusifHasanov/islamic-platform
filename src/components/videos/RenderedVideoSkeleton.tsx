@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import Skeleton from '@/src/components/UI/Skeleton'
+import Skeleton from '@/src/components/videos/VideoSkeleton'
 
 interface Props {
     number: number
