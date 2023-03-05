@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
-import { Video } from '@/src/utils/types/Types'
+
 import { useRouter } from 'next/router';
+import { Video } from '@prisma/client';
 const VideoComponent: FC<Video> = ({ id, title, videoId, thumbnail }) => {
     const router = useRouter();
 

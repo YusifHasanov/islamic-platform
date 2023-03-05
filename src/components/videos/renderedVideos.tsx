@@ -1,6 +1,7 @@
-import { Video } from '@/src/utils/types/Types'
+
 import React, { FC } from 'react'
 import VideoComponent from './VideoComponent'
+import { Video } from '@prisma/client'
 
 
 

@@ -1,8 +1,8 @@
 import React from 'react'
 import { NextRouter, useRouter } from 'next/router';
 import axios from 'axios';
-import { Video } from '@/src/utils/types/Types';
 import { useQuery } from 'react-query';
+import { Video } from '@prisma/client';
 
 const Index = () => {
   const router: NextRouter = useRouter();
