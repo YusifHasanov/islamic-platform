@@ -40,7 +40,7 @@ const VideoPlaylists = ({ videoId }: { videoId: videoIdType }) => {
 
     return (
 
-        <div className='flex flex-col items-center w-full'>
+        <div className='flex flex-col py-8 items-center w-full'>
             <h3 className='text-green-500 mb-6 playlist_title px-3 text-2xl uppercase' >{query.data.playlist.title}</h3>
             <div className='video_playlists pt-2 px-5'>
                 {query.data.videos.map((video: Video) => (
