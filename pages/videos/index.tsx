@@ -8,7 +8,7 @@ const Videos = () => {
 
 
   return (
-    <div className='videos_container  bg-gray-200 dark:bg-gray-800'  >
+    <div className='videos_container '  >
       <Playlists  />
       <InfinitiVideoScroll   />
     </div>

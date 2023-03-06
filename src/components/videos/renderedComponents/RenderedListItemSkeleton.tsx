@@ -1,5 +1,5 @@
 import React,{FC} from 'react'
-import ListItemSkeleton from './ListItemSkeleton'
+import ListItemSkeleton from '../singleComponents/ListItemSkeleton'
 
 interface Props {
     number: number

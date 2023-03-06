@@ -3,9 +3,9 @@ import { UseInfiniteQueryResult, useInfiniteQuery } from 'react-query'
 import axios from 'axios'
 import { useInView } from 'react-intersection-observer'
 import Head from 'next/head'
-import RenderedSkeleton from './RenderedVideoSkeleton'
+import RenderedSkeleton from './renderedComponents/RenderedVideoSkeleton'
 import Spinner from '../Spinner'
-import RenderedVideos from '@/src/components/videos/renderedVideos'
+import RenderedVideos from '@/src/components/videos/renderedComponents/renderedVideos'
 import { useAtomValue } from 'jotai'
 import { playlistState } from '@/src/jotai/atoms'
 import HeaderSkeleton from '../HeaderSkeleton'
@@ -47,12 +47,12 @@ const InfinitiVideoScroll = () => {
     if (query.isError) return <div>Error</div>
 
     return (
-        <div>
+        <div className='w-full'>
             <Head>
                 <title>Videolar</title>
             </Head>
 
-            <div>
+            <div className='' >
                 <h3 className="my-5 text-5xl font-bold text-green-700 dark:text-slate-300 text-center w-full">{playlist?.title ?? "Videolar"}</h3>
                 <div className='grid  w-full  xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 lg:px-5   gap-4 px-10' >
                     {query.data && query.data.pages.map((page) => (

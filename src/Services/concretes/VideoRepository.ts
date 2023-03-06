@@ -9,14 +9,12 @@ export default class VideoRepository implements IRepository<Video> {
   }
   async getWhere(limit: number, order: string, cursor: any, playlist: string): Promise<Video[]> {
     const data = await prisma.video.findMany({
-      take: limit,
+      take: limit < 0 ? undefined : limit,
       skip: cursor === "" ? 0 : 1,
       cursor: cursor === "" ? undefined : { id: cursor },
       where: {
         playlistId: playlist.length > 0 ? playlist : undefined
       },
-
-
       orderBy: {
         publishedAt: order,
       } as any,

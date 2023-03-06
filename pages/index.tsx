@@ -11,7 +11,7 @@ export default function Home(props :any) {
     <>
       <Header />
       <main className={monserrat.className} >
-        <div className='homePage '>
+        <div className='homePage  '>
           Əhli Sünnə Mədrəsəsi
         </div>
         

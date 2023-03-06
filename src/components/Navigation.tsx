@@ -21,7 +21,7 @@ export default function Example() {
   const navigation = [
     { name: 'Ana Səhifə', href: '/', current: pathname === '/' },
     { name: 'Sual Cavab', href: '/questions', current: pathname === '/questions' },
-    { name: 'Haqqımızda', href: "about-us", current: pathname === '/about-us' },
+    { name: 'Haqqımızda', href: "/about-us", current: pathname === '/about-us' },
     { name: 'Kitablar', href: '/books', current: pathname.includes('/books') },
     { name: 'Videolar', href: '/videos', current: pathname.includes('/videos') },
     { name: 'Məqalələr', href: '/articles', current: pathname === '/articles' },

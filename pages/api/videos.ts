@@ -10,7 +10,7 @@ export default async function handler(
 ) {
     const { method } = req;
     const { order } = req.query;
-    const limit = Number(req.query.limit) || 8;
+    const limit = Number(req.query.limit) || -1;
     const cursor = req.query.cursor ?? "";
     const playlistId = req.query.playlistId ?? "";
     try {
@@ -21,15 +21,17 @@ export default async function handler(
                     res.setHeader('Content-Type', 'application/json');
                     res.status(200).json(data);
                 } else {
-                    if (limit && order) {
-
+                    if (limit > 0 && order) {
                         const data =
                             await videoRepo.getWhere(limit, (order as string), (cursor as any), playlistId as string);
                         res.setHeader('Content-Type', 'application/json');
                         res.status(200).json({ data, nextId: data.length === limit ? data[limit - 1].id : undefined })
+                    } else if (playlistId.length > 0) {
+                        const data = await videoRepo.getWhere(-1, order as string, '', playlistId as string);
+                        res.setHeader('Content-Type', 'application/json');
+                        res.status(200).json(data);
                     } else {
                         const data = await videoRepo.getAll();
-
                         res.setHeader('Content-Type', 'application/json');
                         res.status(200).json(data);
                     }
