@@ -112,7 +112,7 @@
 .video_playlists {
   height: calc(100vh - 200px);
   top: 64px;
-  overflow-y: scroll;
+  overflow-y: auto;
    
 }
 

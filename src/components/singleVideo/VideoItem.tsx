@@ -13,7 +13,6 @@ async function queryFn(videoId: videoIdType) {
     return data
 }
 
-
 const VideoItem = ({ videoId }: { videoId: videoIdType }) => {
 
     const [selectedPlaylistIdAtom, setSelectedPlaylistIdAtom] = useAtom(selectedPlaylistId)
@@ -31,7 +30,6 @@ const VideoItem = ({ videoId }: { videoId: videoIdType }) => {
     if (videoQuery.isError) return <div>error</div>
     setSelectedPlaylistIdAtom(videoQuery.data?.playlistId)
     return (
-
         <>
             <Head>
                 <title>{videoQuery.data?.title}</title>
