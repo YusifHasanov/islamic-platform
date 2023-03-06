@@ -8,12 +8,21 @@ module.exports = {
     extend: {
       images: {
         domains: ['https://ehlisunne.az'],
+      },
+      "keyframes": {
+        "shimmer": {
+          "100%": {
+            "transform": "translateX(100%)",
+          },
+        },
       }
     },
   },
+  
   plugins: [
     require('@tailwindcss/typography'),
      require('tailwind-scrollbar'),
      require('@tailwindcss/aspect-ratio'),
    ],
+   
 }

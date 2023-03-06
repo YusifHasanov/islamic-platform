@@ -102,6 +102,10 @@
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 
 }
+.custom-grid {
+  display: grid;
+  grid-template-columns: 8fr 4fr;
+}
 
 .single_video_box {}
 
@@ -109,9 +113,11 @@
   height: calc(100vh - 200px);
   top: 64px;
   overflow-y: scroll;
+   
 }
 
 .video_playlists>div {
+ 
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
   transition: all 0.3s ease-in-out;
 }
@@ -120,10 +126,15 @@
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
   scale: 1.05;
 }
-
+.video_playlists>div >p{
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 .responsive_iframe {
   height: 400px;
-  width: 700px;
+  width: 100%;
 }
 
 .playlist_title{
@@ -134,3 +145,26 @@
  
 }
   
+
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.wave-squares {
+  animation: shimmer 2s infinite;
+  background-image: linear-gradient(to right, #e4e4e4 0%, #f4f4f4 50%, #e4e4e4 100%);
+  background-repeat: no-repeat;
+  background-size: 800px 104px;
+  position: relative;
+}
+
+.wave-lines {
+  animation: shimmer 2s infinite;
+  background-image: linear-gradient(to right, #e4e4e4 0%, #f4f4f4 50%, #e4e4e4 100%);
+  background-repeat: no-repeat;
+  background-size: 800px 104px;
+  position: relative;
+}

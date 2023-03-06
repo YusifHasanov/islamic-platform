@@ -7,7 +7,7 @@ interface Props {
 
 
 
-const RenderedListItemSkeleton:FC<Props> = ({number}) => (
+const RenderedListItemSkeleton:FC<Props> = ({number =1} ) => (
   <>
   {
       new Array(number).fill(0).map((s, i) => (

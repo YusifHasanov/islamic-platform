@@ -9,10 +9,8 @@ const Index = () => {
   const { videoId } = router.query;
 
 
-
-
   return (
-    <div className='flex  p-6 '>
+    <div className='grid custom-grid  p-6 '>
 
       <VideoItem videoId={videoId} />
       <VideoPlaylists videoId={videoId}  />

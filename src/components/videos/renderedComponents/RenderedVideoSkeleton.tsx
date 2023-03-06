@@ -4,8 +4,6 @@ import Skeleton from '@/src/components/videos/singleComponents/VideoSkeleton'
 interface Props {
     number: number
 }
-
-
 const RenderedSkeleton: FC<Props> = ({ number }) => (
     <>
         {
