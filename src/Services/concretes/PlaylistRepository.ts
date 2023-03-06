@@ -25,7 +25,7 @@ export default class VideoRepository implements IRepository<Playlist> {
   }
   async getById(id: string): Promise<Playlist> {
     const data = await prisma.playlist.findUnique({
-      where: { id },
+      where: { playlistId: id },
     });
     return data as Playlist;
   }

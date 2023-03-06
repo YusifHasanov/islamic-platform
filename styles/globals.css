@@ -8,6 +8,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'JetBrains Mono', monospace;
+
 }
 
 .homePage {
@@ -123,3 +125,12 @@
   height: 400px;
   width: 700px;
 }
+
+.playlist_title{
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+ 
+}
+  
