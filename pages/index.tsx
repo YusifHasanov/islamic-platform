@@ -1,9 +1,9 @@
 import React from 'react'
 import Head from 'next/head' 
-import {  JetBrains_Mono} from 'next/font/google'
+import {  Oswald} from 'next/font/google'
  
 
-const monserrat = JetBrains_Mono({ subsets: ['latin'] })
+const monserrat = Oswald({ subsets: ['latin'] })
 
 export default function Home(props :any) {
  

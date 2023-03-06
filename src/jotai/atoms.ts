@@ -4,3 +4,6 @@ import { atom } from 'jotai';
 
 
 export const playlistState = atom<Playlist | null>(null)
+
+
+export const selectedPlaylistId = atom<string>("") 
