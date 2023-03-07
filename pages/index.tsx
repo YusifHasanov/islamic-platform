@@ -1,16 +1,16 @@
 import React from 'react'
 import Head from 'next/head' 
-import {  Inter} from 'next/font/google'
+import {  Montserrat} from 'next/font/google'
  
 
-const inter = Inter({ subsets: ['latin'] })
+const montserrat = Montserrat({ subsets: ['latin'] })
 
 export default function Home(props :any) {
  
   return (
     <>
       <Header />
-      <main className={inter.className} >
+      <main className={montserrat.className} >
         <div className='homePage  '>
           Əhli Sünnə Mədrəsəsi
         </div>
