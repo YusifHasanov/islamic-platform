@@ -6,24 +6,12 @@ import VideoItem from '@/src/components/singleVideo/VideoItem';
 import Head from 'next/head';
 import { Video } from '@prisma/client';
 import { useQuery } from 'react-query';
-
-const queryFn = async (videoId: string) => {
-  const { data } = await axios.get(`/api/videos/${videoId}`)
-  return data === null;
-}
-
-
-
+ 
 
 const Index = () => {
   const router = useRouter()
   const { videoId } = router.query
-  const {
-    data,
-    isLoading,
-  } = useQuery(['video', videoId], () => queryFn(videoId as string))
-
-
+ 
  
 
   return (

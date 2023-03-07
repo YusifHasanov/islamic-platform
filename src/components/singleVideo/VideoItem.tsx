@@ -7,7 +7,7 @@ import Head from 'next/head';
 import VideoItemSkeleton from './VideoItemSkeleton';
 import HeaderSkeleton from '../HeaderSkeleton';
 import { useRouter } from 'next/router';
-
+ 
 async function queryFn(videoId: videoIdType) {
     const { data } = await axios.get(`/api/videos/${videoId}`)
 
@@ -18,7 +18,7 @@ async function queryFn(videoId: videoIdType) {
 const VideoItem = ({ videoId }: { videoId: videoIdType }) => {
     const router = useRouter()
 
-
+    const [selectedPlaylistIdState,setSelectedPlaylistState] = useAtom(selectedPlaylistId)
     const videoQuery = useQuery<any, unknown>(["video", videoId],
         async () => await queryFn(videoId), {
         staleTime: 1000 * 60 * 60 * 24, // 24 hours
@@ -33,7 +33,7 @@ const VideoItem = ({ videoId }: { videoId: videoIdType }) => {
     if (videoQuery.isError  ) {
         router.push('/404')
         }
-        console.log(videoQuery.data?.title) 
+        setSelectedPlaylistState(videoQuery.data?.playlistId)
     return (
         <>
             <Head>
