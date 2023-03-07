@@ -17,7 +17,7 @@ const Index = () => {
   return (
     <>
       <Head>
-        <title>Əhli Sünnə Mədrəsəsi</title>
+        <title>Əhli Sünnə Mədrəsəsi</title> 
       </Head>
   
       <div
