@@ -36,11 +36,11 @@ export default function Example() {
   ]
 
   return (
-    <Disclosure as="nav" className="navigation_container z-40 sticky top-0 bg-gradient-to-l from-yellow-300 via-green-700 to-green-700">
+    <Disclosure as="nav" className="navigation_container z-40 sticky top-0 bg-gradient-to-l  ">
       {({ open }: { open: any }) => (
         <>
 
-          <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl px-2 sm:px-6 sm:py-1 lg:px-8 lg:py-2">
             <div className="relative flex h-16 items-center justify-between">
               <div className="absolute inset-y-0 left-0 flex items-center lg:hidden">
                 {/* Mobile menu button*/}
@@ -76,8 +76,8 @@ export default function Example() {
                         key={item.name}
                         href={item.href}
                         className={classNames(
-                          item.current ? 'bg-yellow-400  active:bg-yellow-600 text-slate-600 hover:bg-yellow-500 ' : 'text-gray-300 hover:bg-white hover:bg-opacity-25 hover:text-white active:bg-opacity-5',
-                          'rounded-md   px-3 py-2 text-sm font-medium '
+                          item.current ? 'bg-white bg-opacity-25 text-white hover:bg-green-600 ' : 'text-gray-300 hover:bg-white hover:bg-opacity-25 hover:text-white active:bg-opacity-5',
+                          'rounded-md   px-3 py-2 text-md font-medium '
                         )}
                         aria-current={item.current ? 'page' : undefined}
                       >

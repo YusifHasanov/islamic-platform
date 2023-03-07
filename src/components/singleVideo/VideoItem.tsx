@@ -32,8 +32,8 @@ const VideoItem = ({ videoId }: { videoId: videoIdType }) => {
     )
     if (videoQuery.isError  ) {
         router.push('/404')
-    }
-    
+        }
+        console.log(videoQuery.data?.title) 
     return (
         <>
             <Head>

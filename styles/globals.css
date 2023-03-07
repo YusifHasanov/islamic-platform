@@ -8,7 +8,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Montserrat', sans-serif;
+  /* noto sans araic */
+  font-family: 'Inter', sans-serif;
 
 }
 
@@ -32,6 +33,8 @@
 
 .navigation_container {
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  background: rgb(9,100,55);
+background: linear-gradient(90deg, rgba(9,100,55,1) 0%, rgba(4,165,80,1) 100%);
 }
 
 .playlists_container {
