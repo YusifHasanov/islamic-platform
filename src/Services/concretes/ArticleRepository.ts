@@ -4,7 +4,8 @@ import prisma from "@/prisma/prisma";
 export default class ArticleRepository implements IRepository<Article>{
     async getAll(): Promise<Article[]> {
         const data = await prisma.article.findMany();
-        return data as Article[];
+        return data as Article[]; 
+        
     }
     async getById(id: string): Promise<Article> {
         const response = await prisma.article.findUnique({
