@@ -1,5 +1,6 @@
 import Navigation from '@/src/components/Navigation' 
 import '@/styles/globals.css'
+
 import type { AppProps } from 'next/app'
 import {
   Hydrate,
@@ -11,8 +12,6 @@ import { ReactQueryDevtools } from 'react-query/devtools'
 export const queryClient = new QueryClient()
 
 export default function App({ Component, pageProps }: AppProps) {
-
-
   return (
    
       <QueryClientProvider client={queryClient}>

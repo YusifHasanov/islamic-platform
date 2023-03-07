@@ -28,15 +28,15 @@ export default class VideoRepository implements IRepository<Video> {
     return data as Video;
   }
   async create(data: Video): Promise<Video> {
-    const createdData = await prisma.video.create({
-      data,
-    } as any);
+    const createdData = await prisma.video.create({ data, } as any);
     return createdData as Video;
   }
-  async delete(id: string): Promise<void> {
-    await prisma.video.delete({
+  async delete(id: string): Promise<Video> {
+    const response = await prisma.video.delete({
       where: { id },
     });
+
+    return response as Video;
   }
 
 

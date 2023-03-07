@@ -19,6 +19,6 @@
       "@types/*": ["./src/types.d.ts"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/article/index.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/article/index.tsx", "pages/videos/[videoId].tsx"],
   "exclude": ["node_modules"]
 }

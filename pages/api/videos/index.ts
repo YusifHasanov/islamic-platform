@@ -19,6 +19,7 @@ export default async function handler(
                 if (req.query.videoId) {
                     const data = await videoRepo.getById(req.query.videoId as string);
                     res.setHeader('Content-Type', 'application/json');
+
                     res.status(200).json(data);
                 } else {
                     if (limit > 0 && order) {

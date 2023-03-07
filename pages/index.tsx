@@ -1,16 +1,16 @@
 import React from 'react'
 import Head from 'next/head' 
-import {  Oswald} from 'next/font/google'
+import {  Inter} from 'next/font/google'
  
 
-const monserrat = Oswald({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'] })
 
 export default function Home(props :any) {
  
   return (
     <>
       <Header />
-      <main className={monserrat.className} >
+      <main className={inter.className} >
         <div className='homePage  '>
           Əhli Sünnə Mədrəsəsi
         </div>

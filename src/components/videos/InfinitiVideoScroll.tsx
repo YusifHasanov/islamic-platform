@@ -35,7 +35,7 @@ const InfinitiVideoScroll = () => {
     }, [inView, query])
 
     if (query.isLoading) return (
-        <div className='flex flex-col h-full w-full' >
+        <div className='flex flex-col h-full w-full pr-4' >
             <HeaderSkeleton/>
             <div className='grid h-full w-full rounded-lg grid-cols-4 gap-4 px-3 w-100 pl-7 p-4 mb-4' >
 
@@ -47,10 +47,7 @@ const InfinitiVideoScroll = () => {
     if (query.isError) return <div>Error</div>
 
     return (
-        <div className='w-full'>
-            <Head>
-                <title>Videolar</title>
-            </Head>
+        <div className='w-full'> 
 
             <div className='' >
                 <h3 className="my-5 text-5xl font-bold text-green-700 dark:text-slate-300 text-center w-full">{playlist?.title ?? "Videolar"}</h3>

@@ -1,8 +1,12 @@
 import React from 'react'
-
+import Head from 'next/head'
+import Editor from '@/src/admin/components/Editor'
 const Books = () => {
   return (
-    <div>Books</div>
+    <>
+      <Head>  <title>Kitablar</title>  </Head>
+      <Editor/>
+    </>
   )
 }
 
