@@ -1,0 +1,67 @@
+import { NextRequest, NextResponse } from 'next/server';
+import { videoRepo } from '@/src/Services/Repositories';
+import axios from 'axios';
+
+const middleware = async (req: NextRequest, res: NextResponse, next: Function) => {
+  const videoId = req.nextUrl.pathname.split('/')[2];
+  const url = req.nextUrl.pathname
+  if (url.startsWith('/videos/')) {
+
+    const response = await fetch(`${process.env.URL}/api/videos/${videoId}`)
+    const isExist = await response.json()
+    if (!isExist) {
+      return NextResponse.redirect(new URL('/404', req.url))
+    } else {
+      return NextResponse.next();
+    }
+
+  }
+
+};
+export const matcher = {
+  path: '/videos/:videoId',
+}
+
+
+export const config = {
+  matcher: [
+    '/videos/:path*',
+    '/((?!api|_next/static|_next/image|favicon.ico).*)',
+  ],
+}
+export default middleware;
+// export const matcher = [
+//   /*
+//    * Match all request paths except for the ones starting with:
+//    * - api (API routes)
+//    * - _next/static (static files)
+//    * - favicon.ico (favicon file)
+//    * - assets (static assets)
+//    */
+//   '/((?!api|_next/static|favicon.ico|assets).*)'
+// ]
+
+/*try {
+    const isExist = await fetch(`http://localhost:3000/api/videos/${videoId}`)
+    const video = await isExist.json()
+ 
+    if(videoId !==null){
+      if (!video   ) {
+        console.log(`Video with id ${videoId} does not exist`);
+        // If the video does not exist, return a 404 response 
+   
+        return NextResponse.redirect(new URL('/404', res.url))
+        
+      } else {
+        // Add the video property to the request object
+        console.log(`Video with id ${videoId} exis  ts`);
+        // If the video exists, call the next middleware function or the route handler
+        return next();
+      }
+    }
+
+  } catch (error: any) {
+    NextResponse.json({ error: error.message });
+  }8
+
+*/ 

@@ -16,27 +16,37 @@ export default async function handler(
     try {
         switch (method) {
             case 'GET':
-                if (req.query.videoId) {
-                    const data = await videoRepo.getById(req.query.videoId as string);
-                    res.setHeader('Content-Type', 'application/json');
-
-                    res.status(200).json(data);
-                } else {
-                    if (limit > 0 && order) {
-                        const data =
-                            await videoRepo.getWhere(limit, (order as string), (cursor as any), playlistId as string);
+                switch (true) {
+                    case (limit >= 0 || playlistId.length > 0):
+                        const data = await videoRepo.getWhere(limit, order as any, cursor, playlistId as string);
                         res.setHeader('Content-Type', 'application/json');
-                        res.status(200).json({ data, nextId: data.length === limit ? data[limit - 1].id : undefined })
-                    } else if (playlistId.length > 0) {
-                        const data = await videoRepo.getWhere(-1, order as string, '', playlistId as string);
+                        if (limit >= 0) {
+                            res.status(200).json({ data, nextId: data.length === limit ? data[limit - 1].id : undefined });
+                        } else {
+                            res.status(200).json(data);
+                        }
+                        break;
+                    default:
+                        const response = await videoRepo.getAll();
                         res.setHeader('Content-Type', 'application/json');
-                        res.status(200).json(data);
-                    } else {
-                        const data = await videoRepo.getAll();
-                        res.setHeader('Content-Type', 'application/json');
-                        res.status(200).json(data);
-                    }
+                        res.status(200).json(response);
+                        break;
                 }
+                // if (limit > 0 && order) {
+                //     const data =
+                //         await videoRepo.getWhere(limit, (order as string), (cursor as any), playlistId as string);
+                //     res.setHeader('Content-Type', 'application/json');
+                //     res.status(200).json({ data, nextId: data.length === limit ? data[limit - 1].id : undefined })
+                // } else if (playlistId.length > 0) {
+                //     const data = await videoRepo.getWhere(-1, order as string, '', playlistId as string);
+                //     res.setHeader('Content-Type', 'application/json');
+                //     res.status(200).json(data);
+                // } else {
+                //     const data = await videoRepo.getAll();
+                //     res.setHeader('Content-Type', 'application/json');
+                //     res.status(200).json(data);
+                // }
+
                 break;
             case 'POST':
                 const postBody: Video = req.body;

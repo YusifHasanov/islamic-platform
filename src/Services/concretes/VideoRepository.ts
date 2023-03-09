@@ -46,8 +46,16 @@ export default class VideoRepository implements IRepository<Video> {
       data: {
         title: data.title,
         thumbnail: data.thumbnail,
+        playlistId: data.playlistId,
       },
     });
     return updatedVideos as Video;
+  }
+
+  async isExist(id: string): Promise<boolean> {
+    const data = await prisma.video.findUnique({
+      where: { videoId: id },
+    });
+    return data !== null;
   }
 }

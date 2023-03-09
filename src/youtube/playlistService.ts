@@ -10,53 +10,51 @@ export async function playlistService(dbData: any[]) {
     } catch (error: any) {
         throw new Error(error);
     }
- 
+
     let dbDataCopy = JSON.parse(JSON.stringify(dbData));
     let newPlaylists: any[] = [];
     let oldPlayliists: any[] = [];
     let updateVideos: any[] = [];
-   
+
     if (videos.length > 0) {
-      
+
 
         videos.forEach(video => {
             if (!dbDataCopy.find((dbVideo: Playlist) => dbVideo.playlistId === video.playlistId)) {
                 newPlaylists.push(video);
+                add(video);
             }
         })
         dbDataCopy.forEach((dbVideo: Playlist) => {
             if (!videos.find(video => video.playlistId === dbVideo.playlistId)) {
                 oldPlayliists.push(dbVideo);
+                remove(dbVideo);
             }
         })
         videos.forEach(video => {
             if (video.thumbnail !== "") {
                 let findedData = dbDataCopy.find((dbVideo: Playlist) => dbVideo.playlistId === video.playlistId);
-     
-                if (findedData && (findedData.title !== video.title || findedData.thumbnail !== video.thumbnail)) {
+
+                if (findedData && (findedData.title !== video.title || findedData.thumbnail !== video.thumbnail || findedData.publishedAt !== video.publishedAt)) {
                     updateVideos.push(video);
+                    update(video);
                 }
             }
         })
-       
+
     }
-        console.log("oldPlayliists", oldPlayliists);
-        console.log("newPlaylists", newPlaylists);
-        console.log("updateVideos", updateVideos);
-
  
-    oldPlayliists.forEach(video => {
 
-        playlistRepo.delete(video.playlistId);
-    })
+    async function remove(video: Playlist) {
+        await playlistRepo.delete(video.playlistId);
+    }
+    async function add(video: Playlist) {
+        await playlistRepo.create(video);
+    }
 
-    newPlaylists.forEach(video => {
-        playlistRepo.create(video );
-    })
-
-    updateVideos.forEach(video => {
-        playlistRepo.update(video.playlistId, video);
-    });
+    async function update(video: Playlist) {
+        await playlistRepo.update(video.playlistId, video);
+    }
 
 }
 

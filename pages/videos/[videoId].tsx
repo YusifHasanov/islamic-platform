@@ -1,34 +1,33 @@
-import React, { useEffect } from 'react'
+import React, { FC, useEffect } from 'react'
 import { NextRouter, useRouter } from 'next/router';
-import axios from 'axios';
 import VideoPlaylists from '@/src/components/singleVideo/VideoPlaylists';
 import VideoItem from '@/src/components/singleVideo/VideoItem';
 import Head from 'next/head';
-import { Video } from '@prisma/client';
-import { useQuery } from 'react-query';
- 
+import { Playlist, Video } from '@prisma/client';
+import axios from 'axios';
 
-const Index = () => {
-  const router = useRouter()
-  const { videoId } = router.query
- 
- 
+interface Props {
+  video: Video
+  videosByPlaylist: Video[]
+  playlistData: Playlist
+}
+const style = {
+  height: "calc((100vh - 64px) - 64px)",
+  overflowY: 'hidden',
+} as any
+
+const Index: FC<Props> = ({ video, videosByPlaylist, playlistData }) => {
+
+  const router = useRouter();
 
   return (
     <>
       <Head>
-        <title>Əhli Sünnə Mədrəsəsi</title> 
+        <title>Əhli Sünnə Mədrəsəsi</title>
       </Head>
-  
-      <div
-        style={{
-          height: "calc((100vh - 64px) - 64px)",
-          overflowY: 'hidden',
-        }}
-        className='grid custom-grid  p-6 '>
-
-        <VideoItem videoId={videoId} />
-        <VideoPlaylists videoId={videoId} />
+      <div style={style} className='grid custom-grid  p-6 '>
+        <VideoItem video={video} />
+        <VideoPlaylists playlistData={playlistData} videosByPlaylist={videosByPlaylist} video={video} />
       </div>
     </>
   )
@@ -36,4 +35,35 @@ const Index = () => {
 
 export default Index
 
+export const getServerSideProps = async (context: any) => {
+  const { videoId } = context.params
+  const { data: video } = await axios.get(`${process.env.URL}/api/videos/${videoId}`)
+  if (!video) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/404",
+      },
+      props: {},
+    };
+  }
 
+  const [videosByPlaylistResponse, playlistDataResponse] = await Promise.all([
+    fetch(`${process.env.URL}/api/videos?playlistId=${video.playlistId}`),
+    fetch(`${process.env.URL}/api/playlists?id=${video.playlistId}`)
+  ])
+
+  const [videosByPlaylist, playlistData] = await Promise.all([
+    videosByPlaylistResponse.json(),
+    playlistDataResponse.json()
+  ])
+
+  return {
+
+    props: {
+      video,
+      videosByPlaylist,
+      playlistData
+    }
+  }
+}

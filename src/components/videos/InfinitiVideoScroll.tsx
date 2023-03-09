@@ -6,9 +6,9 @@ import Head from 'next/head'
 import RenderedSkeleton from './renderedComponents/RenderedVideoSkeleton'
 import Spinner from '../Spinner'
 import RenderedVideos from '@/src/components/videos/renderedComponents/renderedVideos'
-import { useAtomValue } from 'jotai'
-import { playlistState } from '@/src/jotai/atoms'
+ 
 import HeaderSkeleton from '../HeaderSkeleton'
+import { Playlist } from '@prisma/client'
 
 
 
@@ -18,17 +18,18 @@ const queryFn =
         const { data } = await axios.get(url)
         return data
     }
-
-const InfinitiVideoScroll = () => {
+ 
+    
+const InfinitiVideoScroll = ({playlist}:{playlist:Playlist|null}) => {
     const [ref, inView] = useInView()
-    const playlist = useAtomValue(playlistState)
+   
 
-    const query: UseInfiniteQueryResult<any, unknown> = useInfiniteQuery(["videos", playlist?.playlistId],
-        async ({ pageParam }) => queryFn({ pageParam }, playlist?.playlistId ?? ""),
-        {
-            getNextPageParam: (lastPage) => lastPage.nextId ?? false,
-            staleTime: 600000,
-        })
+        const query: UseInfiniteQueryResult<any, unknown> = useInfiniteQuery(["videos", playlist?.playlistId],
+            async ({ pageParam }) => queryFn({ pageParam }, playlist?.playlistId ?? ""),
+            {
+                getNextPageParam: (lastPage) => lastPage.nextId ?? false,
+                staleTime: 600000,
+            })
 
     useEffect(() => {
         if (inView && query.hasNextPage) query.fetchNextPage()

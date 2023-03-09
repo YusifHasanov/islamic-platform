@@ -2,16 +2,16 @@ import React, { FC } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/router';
 import { Video } from '@prisma/client';
-import { useAtom } from 'jotai';
-import { selectedPlaylistId } from '@/src/jotai/atoms';
+
+
 
 
 const VideoComponent: FC<Video> = ({ id, title, videoId, thumbnail, publishedAt, playlistId }) => {
     const router = useRouter();
-    const [, setSelectedPlaylistId] = useAtom(selectedPlaylistId)
-    const clickHandler =  () => {
-          setSelectedPlaylistId(playlistId)
-          router.push(`/videos/${videoId}`)   
+
+    const clickHandler = () => {
+
+        router.push(`/videos/${videoId}`)
     }
 
     return (

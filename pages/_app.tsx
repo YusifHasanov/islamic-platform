@@ -10,6 +10,9 @@ import {
 import { ReactQueryDevtools } from 'react-query/devtools'
 
 export const queryClient = new QueryClient()
+export function reportWebVitals(metric :  any) {
+  console.log(metric)
+}
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
