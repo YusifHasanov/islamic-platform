@@ -94,12 +94,12 @@ export default function Example() {
                 <button
                   onClick={()=>{setTheme(theme === 'dark' ? 'light' : 'dark')}}
                   type="button"
-                  className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                  className="rounded-full bg-gray-300 dark:bg-gray-800 p-1 text-gray-800 dark:text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                 >
 
                   <span className='flex items-center justify-center p-1 '>
                     {
-                      true ? <BsSunFill /> : <BsMoonFill />
+                      theme!=="dark" ? <BsSunFill /> : <BsMoonFill />
                     }
                   </span>
                 </button>
