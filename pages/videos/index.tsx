@@ -33,7 +33,7 @@ export default Videos
 
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
-    const { data } = await axios.get(`http://localhost:3000/api/playlists`)
+    const { data } = await axios.get(`${process.env.URL}/api/playlists}`)
     
     return {
       props: {
