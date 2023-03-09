@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react'
 import Head from 'next/head'
-import { Montserrat } from 'next/font/google'
-
+import { Montserrat } from 'next/font/google' 
 
 const montserrat = Montserrat({ subsets: ['latin'] })
 
 export default function Home(props: any) {
-
+ 
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(function (position) {
@@ -24,7 +23,7 @@ export default function Home(props: any) {
     <>
       <Header />
       <main className={montserrat.className} >
-        <div className='homePage  '>
+        <div className='homePage  ' >
           Əhli Sünnə Mədrəsəsi
         </div>
 

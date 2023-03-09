@@ -14,8 +14,7 @@ interface Props {
 const Videos :FC<Props> = ({playlists}) => {
    
   const playlist = useAtomValue(playlistState)
-   
-  console.log(playlists)
+    
   return (
     <div className='videos_container'  >
       <Head>

@@ -1,6 +1,6 @@
 import Navigation from '@/src/components/Navigation' 
 import '@/styles/globals.css'
-
+import {ThemeProvider} from 'next-themes'
 import type { AppProps } from 'next/app'
 import {
   Hydrate,
@@ -16,7 +16,7 @@ export function reportWebVitals(metric :  any) {
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-   
+   <ThemeProvider attribute='class' >
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
           <Navigation />
@@ -24,6 +24,6 @@ export default function App({ Component, pageProps }: AppProps) {
         </Hydrate>
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
-      
+      </ThemeProvider>
   )
 }

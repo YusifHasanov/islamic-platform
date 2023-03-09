@@ -6,6 +6,7 @@ import { FaBars } from 'react-icons/fa'
 import { AiOutlineClose } from 'react-icons/ai'
 import Image from 'next/image'
 import { BsMoonFill, BsSunFill } from 'react-icons/bs'
+import { useTheme } from 'next-themes'
 
 
 
@@ -17,7 +18,7 @@ function classNames(...classes: any) {
 export default function Example() {
   const router = useRouter()
   const { pathname } = router;
-
+  const {theme, setTheme} = useTheme()
   const navigation = [
     { name: 'Ana Səhifə', href: '/', current: pathname === '/' },
     { name: 'Sual Cavab', href: '/questions', current: pathname === '/questions' },
@@ -91,6 +92,7 @@ export default function Example() {
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 <button
+                  onClick={()=>{setTheme(theme === 'dark' ? 'light' : 'dark')}}
                   type="button"
                   className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                 >
@@ -143,9 +145,6 @@ export default function Example() {
               {navigation.map((item) => (
                <Link href={item.href}  key={item.name}>
                 <Disclosure.Button
-                 
-                   
-                  
                   className={classNames(
                     item.current ? 'bg-yellow-400 text-white hover:bg-yellow-500' : 'text-gray-300 hover:bg-yellow-400 hover:text-white', 'block rounded-md px-3 py-2 text-base font-medium'
                   )} aria-current={item.current ? 'page' : undefined}  >
