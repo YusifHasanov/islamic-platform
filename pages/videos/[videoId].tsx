@@ -12,22 +12,21 @@ interface Props {
   playlistData: Playlist
 }
 const style = {
-  height: "calc((100vh - 64px) - 64px)",
-  overflowY: 'hidden',
+  height: "calc((100vh - 64px) - 64px)", 
 } as any
 
 const Index: FC<Props> = ({ video, videosByPlaylist, playlistData }) => {
 
   const router = useRouter();
-
+  const { videoId } = router.query;
   return (
     <>
       <Head>
         <title>Əhli Sünnə Mədrəsəsi</title>
       </Head>
-      <div style={style} className='grid custom-grid  p-6 '>
+      <div style={style} className=' overflow-y-hidden grid custom-grid p-6'>
         <VideoItem video={video} />
-        <VideoPlaylists playlistData={playlistData} videosByPlaylist={videosByPlaylist} video={video} />
+        <VideoPlaylists   video={video} />
       </div>
     </>
   )
@@ -47,23 +46,11 @@ export const getServerSideProps = async (context: any) => {
       props: {},
     };
   }
-
-  const [videosByPlaylistResponse, playlistDataResponse] = await Promise.all([
-    fetch(`${process.env.URL}/api/videos?playlistId=${video.playlistId}`),
-    fetch(`${process.env.URL}/api/playlists?id=${video.playlistId}`)
-  ])
-
-  const [videosByPlaylist, playlistData] = await Promise.all([
-    videosByPlaylistResponse.json(),
-    playlistDataResponse.json()
-  ])
-
   return {
 
     props: {
-      video,
-      videosByPlaylist,
-      playlistData
+      video
+      
     }
   }
 }

@@ -8,7 +8,7 @@ import { playlistVideosAtom } from '@/src/jotai/atoms'
 import { useQuery } from 'react-query'
 import HeaderSkeleton from '../HeaderSkeleton'
 import axios from 'axios'
- 
+
 async function queryFn(playlistId: string) {
     const videosData = axios.get(`/api/videos?playlistId=${playlistId}`)
     const playlistData = axios.get(`/api/playlists?id=${playlistId}`)
@@ -18,11 +18,10 @@ async function queryFn(playlistId: string) {
 
 interface Props {
     video: Video
-    videosByPlaylist: Video[]
-    playlistData: Playlist
+
 }
 
-const VideoPlaylists: FC<Props> = ({ video, videosByPlaylist, playlistData }) => {
+const VideoPlaylists: FC<Props> = ({ video }) => {
 
     const [playlistVideos, setPlaylistVideos] = useAtom(playlistVideosAtom)
 
@@ -37,10 +36,10 @@ const VideoPlaylists: FC<Props> = ({ video, videosByPlaylist, playlistData }) =>
     if (query.isLoading) return (
         <div className='flex flex-col   items-center'>
             <HeaderSkeleton />
-            <RenderedPlaylistItemSkeleton number={8} />
+            <RenderedPlaylistItemSkeleton number={6} />
         </div>
     )
-   
+
     setPlaylistVideos(query.data?.playlistData)
     if (query.data?.videos?.filter((v: Video) => v.videoId !== video.videoId).length === 0) return <div className='flex w-full justify-center'>no videos</div>
 

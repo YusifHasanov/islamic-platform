@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import Head from 'next/head'
 import { Montserrat } from 'next/font/google' 
-
 const montserrat = Montserrat({ subsets: ['latin'] })
 
 export default function Home(props: any) {

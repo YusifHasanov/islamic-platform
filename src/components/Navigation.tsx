@@ -18,7 +18,7 @@ function classNames(...classes: any) {
 export default function Example() {
   const router = useRouter()
   const { pathname } = router;
-  const {theme, setTheme} = useTheme()
+  const { theme, setTheme } = useTheme()
   const navigation = [
     { name: 'Ana Səhifə', href: '/', current: pathname === '/' },
     { name: 'Sual Cavab', href: '/questions', current: pathname === '/questions' },
@@ -57,14 +57,14 @@ export default function Example() {
               <div className="flex flex-1 items-center justify-center lg:items-stretch lg:justify-start">
                 <div className="flex flex-shrink-1 items-center">
                   <Image
-                  loading='lazy'
+                    loading='lazy'
                     className="block h-9 w-auto lg:hidden cursor-pointer" src={"/assets/logo.png"}
                     alt="Your Company"
                     width={100} height={100}
                     onClick={() => { router.push('/') }}
                   />
                   <Image
-                   loading='lazy'
+                    loading='lazy'
                     className="hidden h-9 w-auto cursor-pointer lg:block"
                     src={"/assets/logo.png"}
                     alt="Your Company"
@@ -92,14 +92,14 @@ export default function Example() {
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 <button
-                  onClick={()=>{setTheme(theme === 'dark' ? 'light' : 'dark')}}
+                  onClick={() => { setTheme(theme === 'dark' ? 'light' : 'dark') }}
                   type="button"
                   className="rounded-full bg-gray-300 dark:bg-gray-800 p-1 text-gray-800 dark:text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                 >
 
                   <span className='flex items-center justify-center p-1 '>
                     {
-                      theme!=="dark" ? <BsSunFill /> : <BsMoonFill />
+                      theme !== "dark" ? <BsSunFill /> : <BsMoonFill />
                     }
                   </span>
                 </button>
@@ -143,14 +143,14 @@ export default function Example() {
           <Disclosure.Panel className="lg:hidden">
             <div className="space-y-1 px-2 pt-2 pb-3">
               {navigation.map((item) => (
-               <Link href={item.href}  key={item.name}>
-                <Disclosure.Button
-                  className={classNames(
-                    item.current ? 'bg-yellow-400 text-white hover:bg-yellow-500' : 'text-gray-300 hover:bg-yellow-400 hover:text-white', 'block rounded-md px-3 py-2 text-base font-medium'
-                  )} aria-current={item.current ? 'page' : undefined}  >
-                  {item.name}
-                </Disclosure.Button>
-               </Link>
+                <Link href={item.href} key={item.name}>
+                  <Disclosure.Button
+                    className={classNames(
+                      item.current ? 'bg-yellow-400 text-white hover:bg-yellow-500' : 'text-gray-300 hover:bg-yellow-400 hover:text-white', 'block rounded-md px-3 py-2 text-base font-medium'
+                    )} aria-current={item.current ? 'page' : undefined}  >
+                    {item.name}
+                  </Disclosure.Button>
+                </Link>
               ))}
             </div>
           </Disclosure.Panel>

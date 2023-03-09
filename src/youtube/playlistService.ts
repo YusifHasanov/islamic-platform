@@ -19,43 +19,80 @@ export async function playlistService(dbData: any[]) {
     if (videos.length > 0) {
 
 
-        videos.forEach(video => {
-            if (!dbDataCopy.find((dbVideo: Playlist) => dbVideo.playlistId === video.playlistId)) {
+        for (const video of videos) {
+            if (!dbDataCopy.find((dbVideo: any) => dbVideo.playlistId === video.playlistId)) {
                 newPlaylists.push(video);
-                add(video);
+                await createWithRetry(video);
             }
-        })
-        dbDataCopy.forEach((dbVideo: Playlist) => {
-            if (!videos.find(video => video.playlistId === dbVideo.playlistId)) {
+        }
+        for (const dbVideo of dbDataCopy) {
+            if (!videos.find((video: any) => video.playlistId === dbVideo.playlistId)) {
                 oldPlayliists.push(dbVideo);
-                remove(dbVideo);
+                await removeWithRetry(dbVideo);
             }
-        })
-        videos.forEach(video => {
-            if (video.thumbnail !== "") {
-                let findedData = dbDataCopy.find((dbVideo: Playlist) => dbVideo.playlistId === video.playlistId);
+        }
 
-                if (findedData && (findedData.title !== video.title || findedData.thumbnail !== video.thumbnail || findedData.publishedAt !== video.publishedAt)) {
+        for (const video of videos) {
+            if (video.thumbnail !== "") {
+                const findedData = dbDataCopy.find((dbVideo: any) => dbVideo.playlistId === video.playlistId);
+                if (findedData && (findedData.title !== video.title || findedData.thumbnail !== video.thumbnail)) {
                     updateVideos.push(video);
-                    update(video);
+                    await updateWithRetry(video);
                 }
             }
-        })
+        }
+
 
     }
- 
 
-    async function remove(video: Playlist) {
-        await playlistRepo.delete(video.playlistId);
-    }
-    async function add(video: Playlist) {
-        await playlistRepo.create(video);
-    }
+    console.log("newPlaylists", newPlaylists);
+    console.log("oldPlayliists", oldPlayliists);
+    console.log("updateVideos", updateVideos);
+    async function createWithRetry(video: any) {
+        let retries = 5;
+        let success = false;
 
-    async function update(video: Playlist) {
-        await playlistRepo.update(video.playlistId, video);
+        while (retries > 0 && !success) {
+            try {
+                await playlistRepo.create(video);
+                success = true;
+            } catch (error) {
+                console.error(`Transaction failed. Retries left: ${retries}`, error);
+                retries--;
+                await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait 1 second before retrying
+            }
+        }
     }
+    async function removeWithRetry(video: any) {
+        let retries = 5;
+        let success = false;
 
+        while (retries > 0 && !success) {
+            try {
+                await playlistRepo.delete(video.playlistId);
+                success = true;
+            } catch (error) {
+                console.error(`Transaction failed. Retries left: ${retries}`, error);
+                retries--;
+                await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait 1 second before retrying
+            }
+        }
+    }
+    async function updateWithRetry(video: any) {
+        let retries = 5;
+        let success = false;
+
+        while (retries > 0 && !success) {
+            try {
+                await playlistRepo.update(video.playlistId, video);
+                success = true;
+            } catch (error) {
+                console.error(`Transaction failed. Retries left: ${retries}`, error);
+                retries--;
+                await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait 1 second before retrying
+            }
+        }
+    }
 }
 
 

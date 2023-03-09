@@ -6,7 +6,7 @@ import Head from 'next/head'
 import RenderedSkeleton from './renderedComponents/RenderedVideoSkeleton'
 import Spinner from '../Spinner'
 import RenderedVideos from '@/src/components/videos/renderedComponents/renderedVideos'
- 
+
 import HeaderSkeleton from '../HeaderSkeleton'
 import { Playlist } from '@prisma/client'
 
@@ -18,26 +18,29 @@ const queryFn =
         const { data } = await axios.get(url)
         return data
     }
- 
-    
-const InfinitiVideoScroll = ({playlist}:{playlist:Playlist|null}) => {
-    const [ref, inView] = useInView()
-   
 
-        const query: UseInfiniteQueryResult<any, unknown> = useInfiniteQuery(["videos", playlist?.playlistId],
-            async ({ pageParam }) => queryFn({ pageParam }, playlist?.playlistId ?? ""),
-            {
-                getNextPageParam: (lastPage) => lastPage.nextId ?? false,
-                staleTime: 600000,
-            })
+interface Props {
+    playlist: Playlist | null
+}
+
+const InfinitiVideoScroll: FC<Props> = ({ playlist }) => {
+    const [ref, inView] = useInView()
+
+
+    const query: UseInfiniteQueryResult<any, unknown> = useInfiniteQuery(["videos", playlist?.playlistId],
+        async ({ pageParam }) => queryFn({ pageParam }, playlist?.playlistId ?? ""),
+        {
+            getNextPageParam: (lastPage) => lastPage.nextId ?? false,
+            staleTime: 600000,
+        })
 
     useEffect(() => {
         if (inView && query.hasNextPage) query.fetchNextPage()
     }, [inView, query])
 
-    if (query.isLoading) return (
+    if (query.isLoading || query.isError) return (
         <div className='flex flex-col h-full w-full pr-4' >
-            <HeaderSkeleton/>
+            <HeaderSkeleton />
             <div className='grid h-full w-full rounded-lg grid-cols-4 gap-4 px-3 w-100 pl-7 p-4 mb-4' >
 
                 <RenderedSkeleton number={16} />
@@ -45,10 +48,8 @@ const InfinitiVideoScroll = ({playlist}:{playlist:Playlist|null}) => {
         </div>
     )
 
-    if (query.isError) return <div>Error</div>
-
     return (
-        <div className='w-full'> 
+        <div className='w-full'>
 
             <div className='' >
                 <h3 className="my-5 text-5xl font-bold text-green-700 dark:text-slate-300 text-center w-full">{playlist?.title ?? "Videolar"}</h3>
