@@ -1,5 +1,5 @@
 import { getYoutubePlaylists } from "./youtubePlaylists";
-import { playlistRepo } from "../Services/Repositories";
+import { playlistRepo } from "../Repositories";
 import { Playlist } from "@prisma/client";
 
 export async function playlistService(dbData: any[]) {

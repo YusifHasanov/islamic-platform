@@ -1,7 +1,7 @@
 // import ArticleRepository from "./concretes/ArticleRepository";
 // import BookRepository from "./concretes/BookRepository";
-import PlaylistRepository from "./concretes/PlaylistRepository";
-import VideoRepository from "./concretes/VideoRepository";
+import PlaylistRepository from "./Data/PlaylistRepository";
+import VideoRepository from "./Data/VideoRepository";
 
 export const playlistRepo = new PlaylistRepository();
 export const videoRepo = new VideoRepository();

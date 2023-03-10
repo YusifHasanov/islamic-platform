@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { playlistService } from '@/src/youtube/playlistService';
+import { playlistService } from '@/src/Services/youtube/playlistService';
 import { playlistRepo } from '@/src/Services/Repositories';
 
 const methods = ['POST', 'PUT', 'DELETE', 'GET'];

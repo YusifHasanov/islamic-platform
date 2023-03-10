@@ -2,7 +2,7 @@ import React from 'react'
 import axios from 'axios';
 import Head from 'next/head';
 import VideoItemSkeleton from './VideoItemSkeleton';
-import HeaderSkeleton from '../HeaderSkeleton';
+import HeaderSkeleton from '../../globals/HeaderSkeleton';
 import { Video } from '@prisma/client';
 
 

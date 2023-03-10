@@ -5,12 +5,11 @@ const VideoItemSkeleton = () => {
   return (
 
     <div
-    style={{
-      height: 'calc((100vh - 300px) )',
-    }}
+      style={{
+        height: 'calc((100vh - 300px) )',
+      }}
       className="
       w-full
-      
       space-y-5 rounded-2xl
     bg-slate-400
       dark:bg-white/5 p-4

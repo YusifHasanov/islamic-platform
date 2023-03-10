@@ -2,7 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 import { videoRepo } from '@/src/Services/Repositories';
-import { videoService } from '@/src/youtube/videoService';
+import { videoService } from '@/src/Services/youtube/videoService';
 
 const methods = ['POST', 'PUT', 'DELETE', 'GET'];
 export default async function handler(

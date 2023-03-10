@@ -11,9 +11,9 @@ const Index = () => {
                 onClick={() => router.push(`/`)}
                 type="button"
                 className="border absolute left-14 flex items-center justify-center dark:border-gray-700 dark:bg-gray-700 hover:text-gray-200 dark:text-gray-100 rounded-md px-2 py-1 m-2 transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline"
-            >  
-            <IoIosArrowBack className="text-md" />
-            Geri
+            >
+                <IoIosArrowBack className="text-md" />
+                Geri
             </button>
 
             <div className="flex justify-between px-4 mx-auto max-w-screen-xl ">

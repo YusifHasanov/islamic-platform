@@ -1,7 +1,25 @@
-import React from 'react'
- 
-const ListItemSkeleton = () => (
-    <div style={{ width: "inherit" }} className="flex mb-5 items-center">
+import React, { FC } from 'react'
+
+
+
+
+interface Props {
+  number: number
+}
+
+
+
+const ListItemSkeleton: FC<Props> = ({ number = 1 }) => (
+  <>
+    {
+      new Array(number).fill(0).map((s, i) => (
+        <Item key={i} />
+      ))
+    }
+  </>
+)
+const Item = () => (
+  <div style={{ width: "inherit" }} className="flex mb-5 items-center">
     <div className="flex-shrink-0 relative">
       <div className="h-12 w-12 rounded-full bg-gradient-to-r
       from-slate-400  via-slate-400   to-slate-400
@@ -14,7 +32,7 @@ const ListItemSkeleton = () => (
       <div className="h-4 w-48 rounded-md bg-slate-400 dark:bg-rose-100/20 animate-pulse"></div>
     </div>
   </div>
-  
+
 )
 
 

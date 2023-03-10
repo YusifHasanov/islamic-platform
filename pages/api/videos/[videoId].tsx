@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { videoRepo } from '@/src/Services/Repositories';
+
 // import  middleware   from '@/middleware';   
  
  
@@ -13,7 +14,7 @@ export default async function handler(
         switch (req.method) {
             case 'GET':
                 const video = await videoRepo.getById(videoId as string)
-
+               
                 res.setHeader('Content-Type', 'application/json');
                 res.status(200).json(video);
         }

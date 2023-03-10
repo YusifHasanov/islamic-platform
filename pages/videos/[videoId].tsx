@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from 'react'
 import { NextRouter, useRouter } from 'next/router';
-import VideoPlaylists from '@/src/components/singleVideo/VideoPlaylists';
-import VideoItem from '@/src/components/singleVideo/VideoItem';
+import VideoPlaylists from '@/src/components/videos/singleVideo/VideoPlaylists';
+import VideoItem from '@/src/components/videos/singleVideo/VideoItem';
 import Head from 'next/head';
 import { Playlist, Video } from '@prisma/client';
 import axios from 'axios';

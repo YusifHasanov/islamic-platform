@@ -8,10 +8,10 @@ import axios from 'axios'
 import { useAtomValue } from 'jotai'
 import { playlistState } from '@/src/jotai/atoms'
 interface Props {
-  playlists: Playlist[]
+ 
 }
 
-const Videos :FC<Props> = ({playlists}) => {
+const Videos :FC<Props> = ( ) => {
    
   const playlist = useAtomValue(playlistState)
     
@@ -20,7 +20,7 @@ const Videos :FC<Props> = ({playlists}) => {
       <Head>
         <title>Videolar</title>
       </Head>
-      <Playlists  playlists={playlists} />
+      <Playlists  />
       <InfinitiVideoScroll playlist={playlist} />
     </div>
   )
@@ -30,22 +30,22 @@ export default Videos
 
 
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  try {
-    const { data } = await axios.get(`${process.env.URL}/api/playlists`)
+// export const getServerSideProps: GetServerSideProps = async () => {
+//   try {
+//     const { data } = await axios.get(`${process.env.URL}/api/playlists`)
     
-    return {
-      props: {
-        playlists: data || [],
-      },
-    }
-  } catch (error) {
-    console.error(error)
-    return {
-      props: {
-        playlists: [],
-      },
-    }
-  }
-}
+//     return {
+//       props: {
+//         playlists: data || [],
+//       },
+//     }
+//   } catch (error) {
+//     console.error(error)
+//     return {
+//       props: {
+//         playlists: [],
+//       },
+//     }
+//   }
+// }
  

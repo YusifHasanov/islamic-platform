@@ -2,11 +2,11 @@ import { Playlist, Video } from '@prisma/client'
 import React, { FC } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import RenderedPlaylistItemSkeleton from './RenderedPlaylistItemSkeleton'
+import PlaylistItemSkeleton from './PlaylistItemSkeleton'
 import { useAtom } from 'jotai'
 import { playlistVideosAtom } from '@/src/jotai/atoms'
 import { useQuery } from 'react-query'
-import HeaderSkeleton from '../HeaderSkeleton'
+import HeaderSkeleton from '../../globals/HeaderSkeleton'
 import axios from 'axios'
 
 async function queryFn(playlistId: string) {
@@ -36,7 +36,7 @@ const VideoPlaylists: FC<Props> = ({ video }) => {
     if (query.isLoading) return (
         <div className='flex flex-col   items-center'>
             <HeaderSkeleton />
-            <RenderedPlaylistItemSkeleton number={6} />
+            <PlaylistItemSkeleton number={6} />
         </div>
     )
 

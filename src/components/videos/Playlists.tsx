@@ -5,25 +5,30 @@ import { Playlist } from '@prisma/client'
 import Image from 'next/image'
 import { atom, useAtom } from 'jotai'
 import { playlistState } from '@/src/jotai/atoms'
-import RenderedListItemSkeleton from './renderedComponents/RenderedListItemSkeleton'
+import ListItemSkeleton from './ListItemSkeleton'
+ 
 
-
-
-
+async function queryFn(){
+    const { data } = await axios.get(`/api/playlists`)
+    return data
+}
 interface Props {
-    playlists: Playlist[]
+ 
 }
 
-const Playlists: FC<Props> = ({ playlists }) => {
+const Playlists: FC<Props> = ( ) => {
 
     const [playlist, setPlaylist] = useAtom(playlistState);
-
+    const query = useQuery('playlists',
+    async () => await queryFn(),{
+        staleTime: 1000 * 60 * 60 * 24,
+    })
     const togglePlaylist = (playlistState: Playlist) =>
         setPlaylist(playlistState.playlistId === playlist?.playlistId ? null : playlistState)
 
-    if (!playlists) return (
+    if (query.isLoading) return (
         <div className='list_skeletons flex flex-col   pl-12  pt-10' >
-            <RenderedListItemSkeleton number={14} />
+            <ListItemSkeleton number={14} />
         </div>
 
     )
@@ -31,7 +36,7 @@ const Playlists: FC<Props> = ({ playlists }) => {
         <aside className=" playlists_container  sticky pt-4 hidden pr-2  max-h-screen min-h-full w-full flex-shrink-0 flex-col justify-between overflow-y-scroll overscroll-none   lg:flex lg:max-w-[260px] xl:max-w-[340px] xl:px-5 xl:pb-15  2xl:max-w-[420px]">
             <ul className="">
                 {
-                    playlists.map((item: Playlist) => (
+                    query.data?.map((item: Playlist) => (
                         <li onClick={() => {
                             togglePlaylist(item)
                             console.log(item.playlistId)

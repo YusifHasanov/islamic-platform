@@ -1,5 +1,5 @@
 import { Playlist } from "@prisma/client";
-import IRepository from "../abstracts/IRepository";
+import IRepository from "./IRepository";
 import prisma from "@/prisma/prisma";
 
 

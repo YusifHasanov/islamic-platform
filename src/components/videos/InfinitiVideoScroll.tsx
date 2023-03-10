@@ -3,12 +3,12 @@ import { UseInfiniteQueryResult, useInfiniteQuery } from 'react-query'
 import axios from 'axios'
 import { useInView } from 'react-intersection-observer'
 import Head from 'next/head'
-import RenderedSkeleton from './renderedComponents/RenderedVideoSkeleton'
-import Spinner from '../Spinner'
-import RenderedVideos from '@/src/components/videos/renderedComponents/renderedVideos'
+import Spinner from '../globals/Spinner' 
 
-import HeaderSkeleton from '../HeaderSkeleton'
-import { Playlist } from '@prisma/client'
+import HeaderSkeleton from '../globals/HeaderSkeleton'
+import { Playlist, Video } from '@prisma/client'
+import VideoSkeleton from './VideoSkeleton'
+import VideoComponent from './VideoComponent'
 
 
 
@@ -43,7 +43,7 @@ const InfinitiVideoScroll: FC<Props> = ({ playlist }) => {
             <HeaderSkeleton />
             <div className='grid h-full w-full rounded-lg grid-cols-4 gap-4 px-3 w-100 pl-7 p-4 mb-4' >
 
-                <RenderedSkeleton number={16} />
+                <VideoSkeleton number={16} />
             </div>
         </div>
     )
@@ -56,13 +56,17 @@ const InfinitiVideoScroll: FC<Props> = ({ playlist }) => {
                 <div className='grid  w-full  xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 lg:px-5   gap-4 px-10' >
                     {query.data && query.data.pages.map((page) => (
                         <Fragment key={page.nextId ?? "lastpage"}>
-                            <RenderedVideos videos={page.data} />
+                            {
+                                page.data?.map((video: Video, id: number) => (
+                                    <VideoComponent {...video} key={id} />
+                                ))
+                            }
                         </Fragment>
                     ))}
                     <span ref={ref} style={{ visibility: "hidden" }}>intersaction observer</span>
                 </div>
                 <div className=' grid  w-full rounded-lg grid-cols-4 gap-4 px-3 w-100 pl-7 p-4 mb-4' >
-                    {query.isFetchingNextPage && <RenderedSkeleton number={4} />}
+                    {query.isFetchingNextPage && <VideoSkeleton number={4} />}
                 </div>
 
                 <div>

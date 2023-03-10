@@ -1,5 +1,5 @@
 import { getYoutubeVideos } from "./youtubeVideos";
-import { videoRepo } from "../Services/Repositories";
+import { videoRepo } from "../Repositories";
 import { Video } from "@prisma/client";
 export async function videoService(dbData: any[]) {
     let videos: any = []
@@ -16,15 +16,15 @@ export async function videoService(dbData: any[]) {
 
     if (videos.length > 0) {
         for (const video of videos) {
-            if (!dbDataCopy.find((dbVideo: any) => dbVideo.videoId === video.videoId)) {
+            if (!dbDataCopy.find((dbVideo: Video) => dbVideo.videoId === video.videoId)) {
                 newVideos.push(video);
-                await createWithRetry(video);
+                await createWithRetry(video as Video);
             }
         }
         for (const dbVideo of dbDataCopy) {
             if (!videos.find((video: any) => video.videoId === dbVideo.videoId)) {
                 oldVideos.push(dbVideo);
-                await removeWithRetry(dbVideo);
+                await removeWithRetry(dbVideo as Video);
             }
         }
 
@@ -34,7 +34,7 @@ export async function videoService(dbData: any[]) {
                 const findedData = dbDataCopy.find(dbVideo => dbVideo.videoId === video.videoId);
                 if (findedData && (findedData.title !== video.title || findedData.thumbnail !== video.thumbnail || findedData.playlistId !== video.playlistId)) {
                     updateVideos.push(video);
-                    await updateWithRetry(video);
+                    await updateWithRetry(video as Video);
                 }
             }
         }

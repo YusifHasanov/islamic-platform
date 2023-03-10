@@ -1,4 +1,4 @@
-import IRepository from "../abstracts/IRepository";
+import IRepository from "./IRepository";
 import prisma from "@/prisma/prisma";
 import { Video } from "@prisma/client";
 
