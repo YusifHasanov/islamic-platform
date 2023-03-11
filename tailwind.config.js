@@ -1,12 +1,12 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-   darkMode: 'class',
+  darkMode: 'class',
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    
+
     extend: {
       images: {
         domains: ['https://ehlisunne.az'],
@@ -20,11 +20,11 @@ module.exports = {
       }
     },
   },
-  
+
   plugins: [
     require('@tailwindcss/typography'),
-     require('tailwind-scrollbar'),
-     require('@tailwindcss/aspect-ratio'),
-   ],
-   
+    require('tailwind-scrollbar'),
+    require('@tailwindcss/aspect-ratio'),
+  ],
+
 }

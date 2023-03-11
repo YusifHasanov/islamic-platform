@@ -53,7 +53,7 @@ export default function Home(props: any) {
     console.log(data[data.length - 1])
     console.log(data.length)
   }
-  return (
+   return (
     <>
       <Header />
       <main className={montserrat.className} >
@@ -62,9 +62,10 @@ export default function Home(props: any) {
           <button
             onClick={clickHandler}
           >click</button>
-
-        </div>
+    
+          </div>
       </main>
+    
     </>
   )
 }

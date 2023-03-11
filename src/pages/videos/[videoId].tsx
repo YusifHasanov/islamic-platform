@@ -15,8 +15,6 @@ const style = {
 
 const Index: FC<Props> = ({ video }) => {
 
-  const router = useRouter();
-  const { videoId } = router.query;
   return (
     <>
       <Head>

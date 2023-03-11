@@ -1,7 +1,8 @@
 import Navigation from '@/src/components/globals/Navigation' 
+import { trpc } from '@/src/utils/trpc'
 import '@/styles/globals.css'
 import {ThemeProvider} from 'next-themes'
-import type { AppProps } from 'next/app'
+import type { AppProps, AppType } from 'next/app'
 import {
   Hydrate,
   QueryClient,
@@ -14,7 +15,7 @@ export function reportWebVitals(metric :  any) {
   console.log(metric)
 }
 
-export default function App({ Component, pageProps }: AppProps) {
+const MyApp :AppType =({ Component, pageProps }: AppProps) =>{
   return (
    <ThemeProvider attribute='class' >
       <QueryClientProvider client={queryClient}>
@@ -27,3 +28,5 @@ export default function App({ Component, pageProps }: AppProps) {
       </ThemeProvider>
   )
 }
+
+export default trpc.withTRPC(MyApp);

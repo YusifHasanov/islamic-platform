@@ -6,23 +6,28 @@ import Image from 'next/image'
 import { atom, useAtom } from 'jotai'
 import { playlistState } from '@/src/jotai/atoms'
 import ListItemSkeleton from './ListItemSkeleton'
- 
+import { trpc } from '@/src/utils/trpc'
 
-async function queryFn(){
+
+async function queryFn() {
     const { data } = await axios.get(`/api/playlists`)
     return data
 }
 interface Props {
- 
+
 }
 
-const Playlists: FC<Props> = ( ) => {
+const Playlists: FC<Props> = () => {
 
     const [playlist, setPlaylist] = useAtom(playlistState);
-    const query = useQuery('playlists',
-    async () => await queryFn(),{
+    const query = trpc.playlist.getAll.useQuery(undefined, {
         staleTime: 1000 * 60 * 60 * 24,
-    })
+    });
+    console.log(query.data)
+    // const query = useQuery('playlists',
+    //     async () => await queryFn(), {
+    //     staleTime: 1000 * 60 * 60 * 24,
+    // })
     const togglePlaylist = (playlistState: Playlist) =>
         setPlaylist(playlistState.playlistId === playlist?.playlistId ? null : playlistState)
 
@@ -32,11 +37,12 @@ const Playlists: FC<Props> = ( ) => {
         </div>
 
     )
+
     return (
         <aside className=" playlists_container  sticky pt-4 hidden pr-2  max-h-screen min-h-full w-full flex-shrink-0 flex-col justify-between overflow-y-scroll overscroll-none   lg:flex lg:max-w-[260px] xl:max-w-[340px] xl:px-5 xl:pb-15  2xl:max-w-[420px]">
             <ul className="">
                 {
-                    query.data?.map((item: Playlist) => (
+                    query.data?.map((item: any) => (
                         <li onClick={() => {
                             togglePlaylist(item)
                             console.log(item.playlistId)
