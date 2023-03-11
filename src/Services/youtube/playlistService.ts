@@ -15,6 +15,7 @@ export async function playlistService(dbData: any[]) {
     let newPlaylists: any[] = [];
     let oldPlayliists: any[] = [];
     let updateVideos: any[] = [];
+    let dublikate: any[] = [];
 
     if (videos.length > 0) {
 
@@ -31,23 +32,39 @@ export async function playlistService(dbData: any[]) {
                 await removeWithRetry(dbVideo);
             }
         }
-
+        //find dublikate
         for (const video of videos) {
             if (video.thumbnail !== "") {
                 const findedData = dbDataCopy.find((dbVideo: any) => dbVideo.playlistId === video.playlistId);
-                if (findedData && (findedData.title !== video.title || findedData.thumbnail !== video.thumbnail)) {
-                    updateVideos.push(video);
-                    await updateWithRetry(video);
+                if (findedData && (findedData.title === video.title && findedData.thumbnail === video.thumbnail)) {
+                    dublikate.push(video);
+                    await removeDublicatesWithRetry(video);
                 }
             }
+
+
+
+            for (const video of videos) {
+                if (video.thumbnail !== "") {
+                    const findedData = dbDataCopy.find((dbVideo: any) => dbVideo.playlistId === video.playlistId);
+                    if (findedData && (findedData.title !== video.title || findedData.thumbnail !== video.thumbnail)) {
+                        updateVideos.push(video);
+                        await updateWithRetry(video);
+                    }
+                }
+            }
+
+
         }
 
+        console.log("newPlaylists", newPlaylists.length);
+        console.log("oldPlayliists", oldPlayliists.length);
+        console.log("updateVideos", updateVideos.length);
+        console.log("dublikate", dublikate.length);
 
     }
 
-    console.log("newPlaylists", newPlaylists);
-    console.log("oldPlayliists", oldPlayliists);
-    console.log("updateVideos", updateVideos);
+
     async function createWithRetry(video: any) {
         let retries = 5;
         let success = false;
@@ -94,5 +111,18 @@ export async function playlistService(dbData: any[]) {
         }
     }
 }
+async function removeDublicatesWithRetry(video: any) {
+    let retries = 5;
+    let success = false;
 
-
+    while (retries > 0 && !success) {
+        try {
+            await playlistRepo.delete(video.playlistId);
+            success = true;
+        } catch (error) {
+            console.error(`Transaction failed. Retries left: ${retries}`, error);
+            retries--;
+            await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait 1 second before retrying
+        }
+    }
+}

@@ -34,8 +34,41 @@ const Index: FC<Props> = ({ video, videosByPlaylist, playlistData }) => {
 
 export default Index
 
-export const getServerSideProps = async (context: any) => {
+// export const getServerSideProps = async (context: any) => {
+//   const { videoId } = context.params
+//   const { data: video } = await axios.get(`${process.env.URL}/api/videos/${videoId}`)
+//   if (!video) {
+//     return {
+//       redirect: {
+//         permanent: false,
+//         destination: "/404",
+//       },
+//       props: {},
+//     };
+//   }
+//   return {
+
+//     props: {
+//       video
+      
+//     }
+//   }
+// }
+
+export const getStaticPaths = async () => {
+  const { data: videos } = await axios.get(`${process.env.URL}/api/videos`)
+  const paths = videos.map((video: any) => ({
+    params: { videoId: video.videoId.toString() }
+  }))
+  return {
+    paths,
+    fallback: false
+  }
+}
+
+export const getStaticProps = async (context: any) => {
   const { videoId } = context.params
+  console.log(videoId)
   const { data: video } = await axios.get(`${process.env.URL}/api/videos/${videoId}`)
   if (!video) {
     return {
@@ -50,7 +83,6 @@ export const getServerSideProps = async (context: any) => {
 
     props: {
       video
-      
     }
   }
 }

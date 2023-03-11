@@ -13,7 +13,6 @@ export async function getYoutubeVideos() {
             playlistItems.forEach((item) => {
 
                 let video = {
-                    id: item.id,
                     videoId: item.snippet.resourceId.videoId,
                     publishedAt: item.snippet.publishedAt,
                     thumbnail: item.snippet.thumbnails?.high?.url ? item.snippet.thumbnails?.high?.url : "",

@@ -1,6 +1,7 @@
 import { getYoutubeVideos } from "./youtubeVideos";
 import { videoRepo } from "../Repositories";
 import { Video } from "@prisma/client";
+import prisma from "@/prisma/prisma";
 export async function videoService(dbData: any[]) {
     let videos: any = []
     try {
@@ -8,41 +9,58 @@ export async function videoService(dbData: any[]) {
     } catch (error: any) {
         throw new Error(error);
     }
-
+    console.log("videos", videos.length);
     let dbDataCopy: any[] = [...dbData];
     let newVideos: any[] = [];
     let oldVideos: any[] = [];
     let updateVideos: any[] = [];
-
-    if (videos.length > 0) {
-        for (const video of videos) {
+    let uniqueVideos: Video[] = [];
+    videos.forEach((video :Video) => {
+        if (!uniqueVideos.some((v) => v.videoId === video.videoId)) {
+          uniqueVideos.push(video);
+        }
+      });
+    if (uniqueVideos.length > 0) {
+        for (const video of uniqueVideos) {
             if (!dbDataCopy.find((dbVideo: Video) => dbVideo.videoId === video.videoId)) {
                 newVideos.push(video);
                 await createWithRetry(video as Video);
             }
         }
         for (const dbVideo of dbDataCopy) {
-            if (!videos.find((video: any) => video.videoId === dbVideo.videoId)) {
+            if (!uniqueVideos.find((video: any) => video.videoId === dbVideo.videoId)) {
                 oldVideos.push(dbVideo);
                 await removeWithRetry(dbVideo as Video);
             }
         }
+        //find dublikate
 
+            // for (const video of videos) {
+            //     if (video.thumbnail !== "") {
+            //         const findedData = dbDataCopy.find((dbVideo: any) => dbVideo.videoId === video.videoId);
+            //         if (findedData && (findedData.title === video.title && findedData.thumbnail === video.thumbnail)) {
+            //             dublikate.push(video);
+            //             await removeDublicatesWithRetry(video);
+            //         }
+            //     }
+            // }
 
-        for (const video of videos) {
+        for (const video of uniqueVideos) {
             if (video.thumbnail !== "") {
                 const findedData = dbDataCopy.find(dbVideo => dbVideo.videoId === video.videoId);
-                if (findedData && (findedData.title !== video.title || findedData.thumbnail !== video.thumbnail || findedData.playlistId !== video.playlistId)) {
+                if (findedData && (`${findedData.title}` !== `${video.title}` || `${findedData.thumbnail}` !== `${video.thumbnail}` || `${findedData.playlistId}` !== `${video.playlistId}`)) {
                     updateVideos.push(video);
                     await updateWithRetry(video as Video);
                 }
+                
             }
         }
 
     }
-    console.log("newVideos", newVideos);
-    console.log("oldVideos", oldVideos);
-    console.log("updateVideos", updateVideos);
+    console.log("newVideos", newVideos.length);
+    console.log("oldVideos", oldVideos.length);
+    console.log("updateVideos", updateVideos.length);
+   
 
     async function updateWithRetry(video: any) {
         let retries = 5;
@@ -104,4 +122,4 @@ export async function videoService(dbData: any[]) {
 
 }
 
-
+ 
