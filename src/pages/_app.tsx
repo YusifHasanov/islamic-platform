@@ -9,7 +9,7 @@ import {
   QueryClientProvider,
 } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
-
+ import {SessionProvider } from 'next-auth/react'
 export const queryClient = new QueryClient()
 export function reportWebVitals(metric :  any) {
   console.log(metric)
@@ -17,6 +17,7 @@ export function reportWebVitals(metric :  any) {
 
 const MyApp :AppType =({ Component, pageProps }: AppProps) =>{
   return (
+    <SessionProvider session={pageProps.session}>
    <ThemeProvider attribute='class' >
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
@@ -26,6 +27,7 @@ const MyApp :AppType =({ Component, pageProps }: AppProps) =>{
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
       </ThemeProvider>
+      </SessionProvider>
   )
 }
 

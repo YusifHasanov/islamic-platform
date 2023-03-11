@@ -1,26 +1,31 @@
 import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 import { Poppins } from 'next/font/google'
+import { trpc } from '../utils/trpc';
+
 const montserrat = Poppins({ weight: ["400", "500", "600", "700"], subsets: ["latin-ext"] })
 
 export default function Home(props: any) {
-  const [prayerTimes, setPrayerTimes] = useState([]);
-  useEffect(() => {
-    const fetchPrayerTimes = async () => {
-      navigator.geolocation.getCurrentPosition(function (position) {
-        fetch(`https://api.aladhan.com/v1/timings?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}&method=13&school=1`)
-          .then(response => response.json())
-          .then(data => setPrayerTimes(data.data.timings))
-          .catch(error => console.error(error));
-      });
-    }
-    fetchPrayerTimes();
 
-    const interval = setInterval(() => {
-      fetchPrayerTimes();
-    }, 60000); // Fetch data every minute 
-    return () => clearInterval(interval);
-  }, [])
+  const p = trpc.playlist.getAll.useQuery();
+  const v1 = trpc.video.oneByVideoId.useQuery("jj81sPdd8fk");
+  const [prayerTimes, setPrayerTimes] = useState([]);
+  // useEffect(() => {
+  //   const fetchPrayerTimes = async () => {
+  //     navigator.geolocation.getCurrentPosition(function (position) {
+  //       fetch(`https://api.aladhan.com/v1/timings?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}&method=13&school=1`)
+  //         .then(response => response.json())
+  //         .then(data => setPrayerTimes(data.data.timings))
+  //         .catch(error => console.error(error));
+  //     });
+  //   }
+  //   fetchPrayerTimes();
+
+  //   const interval = setInterval(() => {
+  //     fetchPrayerTimes();
+  //   }, 60000); // Fetch data every minute 
+  //   return () => clearInterval(interval);
+  // }, [])
 
   const prayerTimeRows = Object.entries(prayerTimes).map(([key, value]) => (
     <tr key={key}>
@@ -53,19 +58,18 @@ export default function Home(props: any) {
     console.log(data[data.length - 1])
     console.log(data.length)
   }
-   return (
+
+
+  return (
     <>
       <Header />
       <main className={montserrat.className} >
         <div className='homePage  ' >
           Əhli Sünnə Mədrəsəsi
-          <button
-            onClick={clickHandler}
-          >click</button>
-    
-          </div>
+
+        </div>
       </main>
-    
+
     </>
   )
 }

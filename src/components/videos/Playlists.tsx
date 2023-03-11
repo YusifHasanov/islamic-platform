@@ -9,10 +9,10 @@ import ListItemSkeleton from './ListItemSkeleton'
 import { trpc } from '@/src/utils/trpc'
 
 
-async function queryFn() {
-    const { data } = await axios.get(`/api/playlists`)
-    return data
-}
+// async function queryFn() {
+//     const { data } = await axios.get(`/api/playlists`)
+//     return data
+// }
 interface Props {
 
 }
@@ -23,7 +23,7 @@ const Playlists: FC<Props> = () => {
     const query = trpc.playlist.getAll.useQuery(undefined, {
         staleTime: 1000 * 60 * 60 * 24,
     });
-    console.log(query.data)
+   
     // const query = useQuery('playlists',
     //     async () => await queryFn(), {
     //     staleTime: 1000 * 60 * 60 * 24,
