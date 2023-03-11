@@ -8,13 +8,12 @@ import axios from 'axios';
 
 interface Props {
   video: Video
-  playlists: Video[]
 }
 const style = {
-  height: "calc((100vh - 64px) - 64px)", 
+  height: "calc((100vh - 64px) - 64px)",
 } as any
 
-const Index: FC<Props> = ({ video, playlists}) => {
+const Index: FC<Props> = ({ video }) => {
 
   const router = useRouter();
   const { videoId } = router.query;
@@ -25,7 +24,7 @@ const Index: FC<Props> = ({ video, playlists}) => {
       </Head>
       <div style={style} className=' overflow-y-hidden grid custom-grid p-6'>
         <VideoItem video={video} />
-        <VideoPlaylists  playlists={playlists}  video={video} />
+        <VideoPlaylists video={video} />
       </div>
     </>
   )
@@ -33,58 +32,24 @@ const Index: FC<Props> = ({ video, playlists}) => {
 
 export default Index
 
-// export const getServerSideProps = async (context: any) => {
-//   const { videoId } = context.params
-//   const { data: video } = await axios.get(`${process.env.URL}/api/videos/${videoId}`)
-//   if (!video) {
-//     return {
-//       redirect: {
-//         permanent: false,
-//         destination: "/404",
-//       },
-//       props: {},
-//     };
-//   }
-//   return {
-
-//     props: {
-//       video
-      
-//     }
-//   }
-// }
-
-export const getStaticPaths = async () => {
-  const { data: videos } = await axios.get(`${process.env.URL}/api/videos`)
-
-  const paths = videos.map((video: any) => ({
-    params: { videoId: video.videoId.toString() }
-  }))
-  return {
-    paths,
-    fallback: false
-  }
-}
-
-export const getStaticProps = async (context: any) => {
+export const getServerSideProps = async (context: any) => {
   const { videoId } = context.params
-  console.log(videoId)
   const { data: video } = await axios.get(`${process.env.URL}/api/videos/${videoId}`)
-  const {data: playlists} = await axios.get(`${process.env.URL}/api/videos?playlistId=${video.playlistId}`)
-  // if (!video) {
-  //   return {
-  //     redirect: {
-  //       permanent: false,
-  //       destination: "/404",
-  //     },
-  //     props: {},
-  //   };
-  // }
+  if (!video) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/404",
+      },
+      props: {},
+    };
+  }
   return {
 
     props: {
-      video,
-      playlists
+      video
+
     }
   }
 }
+

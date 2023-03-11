@@ -17,12 +17,11 @@ async function queryFn(playlistId: string) {
 }
 
 interface Props {
-    video: Video,
-    playlists: Video[]
+    video: Video
 
 }
 
-const VideoPlaylists: FC<Props> = ({ video,playlists }) => {
+const VideoPlaylists: FC<Props> = ({ video }) => {
 
     const [playlistVideos, setPlaylistVideos] = useAtom(playlistVideosAtom)
 
@@ -34,7 +33,7 @@ const VideoPlaylists: FC<Props> = ({ video,playlists }) => {
         staleTime: 1000 * 60 * 60 * 24, // 24 hours
     })
 
-    if (!playlists) return (
+    if (query.isLoading) return (
         <div className='flex flex-col   items-center'>
             <HeaderSkeleton />
             <PlaylistItemSkeleton number={6} />
@@ -49,7 +48,7 @@ const VideoPlaylists: FC<Props> = ({ video,playlists }) => {
         <div className='flex flex-col py-8 items-center w-full'>
             <h3 className='text-green-500 mb-6 playlist_title px-3 text-2xl uppercase' >{query.data?.playlist?.title}</h3>
             <div className='video_playlists pt-2 px-5'>
-                {playlists?.map((video: Video) => (
+                {query.data?.videos?.map((video: Video) => (
                     <div onClick={() => router.push(`/videos/${video.videoId}`)} key={video.id} className='flex   dark:border-slate-900 pl-4 rounded-lg mb-4 justify-between items-center bg-gray-300 dark:bg-slate-800 cursor-pointer  '>
                         <p className='text-gray-600 dark:text-gray-400 text-xl' >{video.title}</p>
                         <Image loading='lazy' className='rounded-tr-md rounded-br-md' src={video.thumbnail} alt={video.title} width={100} height={40} />
