@@ -8,14 +8,13 @@ import axios from 'axios';
 
 interface Props {
   video: Video
-  videosByPlaylist: Video[]
-  playlistData: Playlist
+  playlists: Video[]
 }
 const style = {
   height: "calc((100vh - 64px) - 64px)", 
 } as any
 
-const Index: FC<Props> = ({ video, videosByPlaylist, playlistData }) => {
+const Index: FC<Props> = ({ video, playlists}) => {
 
   const router = useRouter();
   const { videoId } = router.query;
@@ -26,7 +25,7 @@ const Index: FC<Props> = ({ video, videosByPlaylist, playlistData }) => {
       </Head>
       <div style={style} className=' overflow-y-hidden grid custom-grid p-6'>
         <VideoItem video={video} />
-        <VideoPlaylists   video={video} />
+        <VideoPlaylists  playlists={playlists}  video={video} />
       </div>
     </>
   )
@@ -57,6 +56,7 @@ export default Index
 
 export const getStaticPaths = async () => {
   const { data: videos } = await axios.get(`${process.env.URL}/api/videos`)
+
   const paths = videos.map((video: any) => ({
     params: { videoId: video.videoId.toString() }
   }))
@@ -70,19 +70,21 @@ export const getStaticProps = async (context: any) => {
   const { videoId } = context.params
   console.log(videoId)
   const { data: video } = await axios.get(`${process.env.URL}/api/videos/${videoId}`)
-  if (!video) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: "/404",
-      },
-      props: {},
-    };
-  }
+  const {data: playlists} = await axios.get(`${process.env.URL}/api/videos?playlistId=${video.playlistId}`)
+  // if (!video) {
+  //   return {
+  //     redirect: {
+  //       permanent: false,
+  //       destination: "/404",
+  //     },
+  //     props: {},
+  //   };
+  // }
   return {
 
     props: {
-      video
+      video,
+      playlists
     }
   }
 }
