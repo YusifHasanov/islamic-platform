@@ -1,4 +1,4 @@
-import Navigation from '@/src/components/globals/Navigation' 
+import Navigation from '@/src/components/navigation/Navigation' 
 import { trpc } from '@/src/utils/trpc'
 import '@/styles/globals.css'
 import {ThemeProvider} from 'next-themes'
@@ -12,12 +12,12 @@ import { ReactQueryDevtools } from 'react-query/devtools'
  import {SessionProvider } from 'next-auth/react'
 export const queryClient = new QueryClient()
 export function reportWebVitals(metric :  any) {
-  console.log(metric)
+ 
 }
 
 const MyApp :AppType =({ Component, pageProps }: AppProps) =>{
   return (
-    <SessionProvider session={pageProps.session}>
+    // <SessionProvider session={pageProps.session}>
    <ThemeProvider attribute='class' >
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
@@ -27,7 +27,7 @@ const MyApp :AppType =({ Component, pageProps }: AppProps) =>{
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
       </ThemeProvider>
-      </SessionProvider>
+      // </SessionProvider> 
   )
 }
 

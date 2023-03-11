@@ -7,4 +7,4 @@ export const playlistState = atom<Playlist | null>(null)
 
 
 // export const selectedPlaylistId = atom<string>("") 
-export const playlistVideosAtom = atom<Video[]>([])
+// export const playlistVideosAtom = atom<Video[]>([])

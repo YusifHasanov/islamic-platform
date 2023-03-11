@@ -1,7 +1,6 @@
-import Link from 'next/link'
+ 
 import { useRouter } from 'next/router'
-import React from 'react'
-import { TbArrowNarrowRight } from 'react-icons/tb'
+ 
 const ArticleItem = () => {
     const router = useRouter();
     return (

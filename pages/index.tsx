@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 import { Poppins } from 'next/font/google'
-import { trpc } from '../utils/trpc';
+import { trpc } from '@/src/utils/trpc';
+ 
 
 const montserrat = Poppins({ weight: ["400", "500", "600", "700"], subsets: ["latin-ext"] })
 
