@@ -8,7 +8,7 @@ const montserrat = Poppins({ weight: ["400", "500", "600", "700"], subsets: ["la
 export default function Home(props: any) {
 
   const p = trpc.playlist.getAll.useQuery(undefined, { staleTime: 86400000, });
-  const v1 = trpc.video.oneByVideoId.useQuery("jj81sPdd8fk" );
+  const v1 = trpc.video.oneByVideoId.useQuery("jj81sPdd8fk");
   const [prayerTimes, setPrayerTimes] = useState([]);
   // useEffect(() => {
   //   const fetchPrayerTimes = async () => {

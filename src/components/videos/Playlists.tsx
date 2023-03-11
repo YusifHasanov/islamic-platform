@@ -20,8 +20,10 @@ interface Props {
 const Playlists: FC<Props> = () => {
 
     const [playlist, setPlaylist] = useAtom(playlistState);
-    const query = trpc.playlist.getAll.useQuery(undefined, {  staleTime: 86400000, }); // 
-   
+    const [filteredData, setFilteredData] = React.useState<any[]>([])
+    const [wordEntered, setWordEntered] = React.useState("")
+    const query = trpc.playlist.getAll.useQuery(undefined, { staleTime: 86400000, }); // 
+
     // const query = useQuery('playlists',
     //     async () => await queryFn(), {
     //     staleTime: 1000 * 60 * 60 * 24,
@@ -35,12 +37,19 @@ const Playlists: FC<Props> = () => {
         </div>
 
     )
-
+    const handleFilter = (event: any) => {
+        const searchWord = event.target.value;
+        setWordEntered(searchWord);
+    }
     return (
-        <aside className=" playlists_container  sticky pt-4 hidden pr-2  max-h-screen min-h-full w-full flex-shrink-0 flex-col justify-between overflow-y-scroll overscroll-none   lg:flex lg:max-w-[260px] xl:max-w-[340px] xl:px-5 xl:pb-15  2xl:max-w-[420px]">
+        <aside className=" playlists_container  sticky   hidden pr-2  max-h-screen min-h-full w-full flex-shrink-0 flex-col  overflow-y-scroll overscroll-none   lg:flex lg:max-w-[260px] xl:max-w-[340px] xl:px-5 xl:pb-15  2xl:max-w-[420px]">
+        
+            <input type="text" value={wordEntered} onChange={(e) => { handleFilter(e) }} className="bg-gray-50 border mb-2 outline-none  border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 sticky top-0 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Axtarış" required/>
             <ul className="">
                 {
-                    query.data?.map((item: any) => (
+                    query.data?.filter((val: any) => {
+                        return (wordEntered === "" || val.title.toLowerCase().includes(wordEntered.toLowerCase())) ? val : null;
+                    }).map((item: any) => (
                         <li onClick={() => {
                             togglePlaylist(item)
                             console.log(item.playlistId)
