@@ -20,9 +20,7 @@ interface Props {
 const Playlists: FC<Props> = () => {
 
     const [playlist, setPlaylist] = useAtom(playlistState);
-    const query = trpc.playlist.getAll.useQuery(undefined, {
-        staleTime: 1000 * 60 * 60 * 24,
-    });
+    const query = trpc.playlist.getAll.useQuery(undefined, {  staleTime: 86400000, }); // 
    
     // const query = useQuery('playlists',
     //     async () => await queryFn(), {
