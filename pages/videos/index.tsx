@@ -7,12 +7,13 @@ import { GetServerSideProps } from 'next'
 import axios from 'axios'
 import { useAtomValue } from 'jotai'
 import { playlistState } from '@/src/jotai/atoms'
+import { trpc } from '@/src/utils/trpc';
 interface Props {
  
 }
 
 const Videos :FC<Props> = ( ) => {
-   
+  const v1 = trpc.video.oneByVideoId.useQuery("jj81sPdd8fk");
   const playlist = useAtomValue(playlistState)
     
   return (

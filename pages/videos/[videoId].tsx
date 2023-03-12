@@ -5,7 +5,7 @@ import VideoItem from '@/src/components/videos/singleVideo/VideoItem';
 import Head from 'next/head';
 import { Playlist, Video } from '@prisma/client';
 import axios from 'axios';
-
+ 
 interface Props {
   video: Video
 }
@@ -14,7 +14,7 @@ const style = {
 } as any
 
 const Index: FC<Props> = ({ video }) => {
-
+ 
   return (
     <>
       <Head>

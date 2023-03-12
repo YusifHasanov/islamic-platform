@@ -10,9 +10,9 @@
   box-sizing: border-box;
   /* noto sans araic */
 font-family: 'Poppins', sans-serif;
-
+transition: all 0.3s ease-in-out;
 }
-
+ 
 .homePage {
 
   height: calc(100vh - 90px);
@@ -138,7 +138,7 @@ background: linear-gradient(90deg, rgba(9,100,55,1) 0%, rgba(4,165,80,1) 100%);
   grid-template-columns: 8fr 4fr;
 }
 
-.single_video_box {}
+/* .single_video_box {} */
 
 .video_playlists {
   height: calc(100vh - 250px);
@@ -175,7 +175,6 @@ background: linear-gradient(90deg, rgba(9,100,55,1) 0%, rgba(4,165,80,1) 100%);
   overflow: hidden;
  
 }
-  
  
 
 @keyframes shimmer {

@@ -41,6 +41,5 @@ export const playlistRouter = router({
                 data: input
             });
             return playlist;
-        }),
-
+        }) 
 })
