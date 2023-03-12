@@ -10,7 +10,7 @@ function classNames(...classes: any) {
 }
 
 
-const NavList = memo(() => {
+const NavList = () => {
 
     const router = useRouter()
     const { pathname } = router;
@@ -43,6 +43,6 @@ const NavList = memo(() => {
             </div>
         </div>
     )
-})
+}
 
-export default NavList
+export default memo(NavList)

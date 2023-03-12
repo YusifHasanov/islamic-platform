@@ -1,7 +1,7 @@
-import React,{memo} from 'react'
+import React, { memo } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-  const NavImages = memo(() => {
+const NavImages = () => {
     const router = useRouter()
     return (
 
@@ -23,6 +23,6 @@ import { useRouter } from 'next/router'
             />
         </div>
     )
-})
+}
 
-export default  NavImages
+export default memo(NavImages)

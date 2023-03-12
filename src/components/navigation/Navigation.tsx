@@ -18,7 +18,7 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
 }
 
-const Navigation = memo(() => {
+const Navigation =  () => {
   const router = useRouter()
   const { pathname } = router;
   const { theme, setTheme } = useTheme()
@@ -73,5 +73,4 @@ const Navigation = memo(() => {
     </Disclosure>
   )
 }
-)
-export default Navigation
+export default memo(Navigation)
