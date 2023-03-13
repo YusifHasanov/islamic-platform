@@ -1,5 +1,5 @@
 import { Menu, Transition } from '@headlessui/react'
-import React, { Fragment, memo, useEffect, useState, useMemo } from 'react'
+import React, { Fragment, memo, useEffect, useState, useMemo, useCallback } from 'react'
 import moment from 'moment'
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
@@ -43,17 +43,19 @@ const NavPrayTimes = () => {
     });
   }, [prayerTimes])
 
-  const timeCalculator = (times: any) => {
-    console.log("calculated")
-    Object.entries({ ...prayerTimes.timings }).sort((a: any, b: any) => a[1] > b[1] ? 1 : -1).map(([key, value]) => {
-      if (now.isBetween(moment(`${value}`, "HH:mm"), moment(times.timings[key === "isha" ? "fajr" : Object.keys(times.timings)[Object.keys(times.timings).indexOf(key) + 1]], "HH:mm"))) {
-        setCurrentPrayer({
-          value: value as any,
-          name: key as any
-        })
-      }
-    })
-  }
+  const timeCalculator = useCallback(
+    (times: any) => {
+      console.log("calculated")
+      Object.entries({ ...prayerTimes.timings }).sort((a: any, b: any) => a[1] > b[1] ? 1 : -1).map(([key, value]) => {
+        if (now.isBetween(moment(`${value}`, "HH:mm"), moment(times.timings[key === "isha" ? "fajr" : Object.keys(times.timings)[Object.keys(times.timings).indexOf(key) + 1]], "HH:mm"))) {
+          setCurrentPrayer({
+            value: value as any,
+            name: key as any
+          })
+        }
+      })
+
+    }, [prayerTimes, now])
   useEffect(() => {
     console.log(`%c currentTime ${currentTime}`, 'color: red')
   }, [currentTime])
@@ -64,10 +66,10 @@ const NavPrayTimes = () => {
 
   useEffect(() => {
     timeCalculator(prayerTimes)
-  }, [prayerTimes, currentTime,timeCalculator])
+  }, [prayerTimes, currentTime, timeCalculator])
 
 
- 
+
 
 
 
