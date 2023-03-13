@@ -15,7 +15,6 @@ const NavPrayTimes = () => {
 
   const [now, setNow] = useState<any>(moment(moment(), "HH:mm"));
   const [currentTime, setCurrentTime] = useState<string>(now.format("HH:mm"));
-
   const [prayerTimes, setPrayerTimes] = useState<any>({});
   const [currentPrayer, setCurrentPrayer] = useState<prayTime>({
     value: "",
@@ -28,44 +27,33 @@ const NavPrayTimes = () => {
       fetch(`https://api.aladhan.com/v1/timings?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}&method=13&school=1`)
         .then(response => response.json())
         .then(data => setPrayerTimes({
-          timings: {
-            fajr: moment(data.data.timings.Fajr, "HH:mm").format("HH:mm"),
-            sunrise: moment(data.data.timings.Sunrise, "HH:mm").format("HH:mm"),
-            dhuhr: moment(data.data.timings.Dhuhr, "HH:mm").format("HH:mm"),
-            asr: moment(data.data.timings.Asr, "HH:mm").format("HH:mm"),
-            maghrib: moment(data.data.timings.Maghrib, "HH:mm").format("HH:mm"),
-            isha: moment(data.data.timings.Isha, "HH:mm").format("HH:mm"),
-          },
-          hijri: { ...data.data.date.hijri }
+          fajr: moment(data.data.timings.Fajr, "HH:mm").format("HH:mm"),
+          sunrise: moment(data.data.timings.Sunrise, "HH:mm").format("HH:mm"),
+          dhuhr: moment(data.data.timings.Dhuhr, "HH:mm").format("HH:mm"),
+          asr: moment(data.data.timings.Asr, "HH:mm").format("HH:mm"),
+          maghrib: moment(data.data.timings.Maghrib, "HH:mm").format("HH:mm"),
+          isha: moment(data.data.timings.Isha, "HH:mm").format("HH:mm"),
         }))
         .then(() => console.log(prayerTimes))
         .catch(error => console.error(error));
     });
-  }, [prayerTimes])
+  }, [])
 
-  const timeCalculator = useCallback(
-    (times: any) => {
-      console.log("calculated")
-      Object.entries({ ...prayerTimes.timings }).sort((a: any, b: any) => a[1] > b[1] ? 1 : -1).map(([key, value]) => {
-        if (now.isBetween(moment(`${value}`, "HH:mm"), moment(times.timings[key === "isha" ? "fajr" : Object.keys(times.timings)[Object.keys(times.timings).indexOf(key) + 1]], "HH:mm"))) {
-          setCurrentPrayer({
-            value: value as any,
-            name: key as any
-          })
-        }
-      })
+  const timeCalculator = useCallback(() => {
+    const times = Object.entries(prayerTimes).map(([key, value]) => ({ name: key, value: value }))
+    const current = times.find((i: any) => moment(i?.value, "HH:mm").isBefore(moment(currentTime, "HH:mm")))
+    if (current) {
+      setCurrentPrayer(current as prayTime)
+    }
+  }, [prayerTimes, now])
 
-    }, [prayerTimes, now])
-  useEffect(() => {
-    console.log(`%c currentTime ${currentTime}`, 'color: red')
-  }, [currentTime])
 
   useEffect(() => {
     fetchFunction()
   }, [fetchFunction])
 
   useEffect(() => {
-    timeCalculator(prayerTimes)
+    timeCalculator()
   }, [prayerTimes, currentTime, timeCalculator])
 
 
@@ -75,11 +63,11 @@ const NavPrayTimes = () => {
 
 
   const menuItems = [
-    { name: "Sübh", current: currentPrayer.name === "fajr", value: prayerTimes.timings?.fajr },
-    { name: "Zöhr", current: currentPrayer.name === "dhuhr", value: prayerTimes.timings?.dhuhr },
-    { name: "Əsr", current: currentPrayer.name === "asr", value: prayerTimes.timings?.asr },
-    { name: "Məğrib", current: currentPrayer.name === "maghrib", value: prayerTimes.timings?.maghrib },
-    { name: "İşa", current: currentPrayer.name === "isha", value: prayerTimes.timings?.isha },
+    { name: "Sübh", current: currentPrayer.name === "fajr", value: prayerTimes?.fajr },
+    { name: "Zöhr", current: currentPrayer.name === "dhuhr", value: prayerTimes?.dhuhr },
+    { name: "Əsr", current: currentPrayer.name === "asr", value: prayerTimes?.asr },
+    { name: "Məğrib", current: currentPrayer.name === "maghrib", value: prayerTimes?.maghrib },
+    { name: "İşa", current: currentPrayer.name === "isha", value: prayerTimes?.isha },
   ]
 
 
