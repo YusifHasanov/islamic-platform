@@ -19,6 +19,6 @@
       "@types/*": ["./src/types.d.ts"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/article/index.tsx", "pages/videos/[videoId].tsx", "middleware.txs"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/article/index.tsx", "pages/videos/[videoId].tsx", "middleware.txs", "server/routers/article.router.tsxt"],
   "exclude": ["node_modules"]
 }
