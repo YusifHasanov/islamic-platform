@@ -3,7 +3,7 @@ import VideoPlaylists from '@/src/components/videos/singleVideo/VideoPlaylists';
 import VideoItem from '@/src/components/videos/singleVideo/VideoItem';
 import Head from 'next/head';
 import { Video } from '@prisma/client';
-import { useSSG } from '@/server/utils/ssg';
+import { getSSG } from '@/server/utils/ssg';
 import axios from 'axios';
 
 interface Props {
@@ -33,7 +33,7 @@ export default Index
 export const getServerSideProps = async (context: any) => {
   const { videoId } = context.params
 
-  const ssg = await useSSG();
+  const ssg = await getSSG();
   const video = await ssg.video.oneByVideoId.fetch(videoId as string).then((res) => JSON.parse(JSON.stringify(res)))
   // const { data: video } = await axios.get(`${process.env.URL}/api/videos/${videoId}`)
   if (!video) {

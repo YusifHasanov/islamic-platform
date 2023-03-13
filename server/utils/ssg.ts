@@ -5,7 +5,7 @@ import { createContext } from '../context';
 import superjson from 'superjson';
 
 
-export const useSSG = async () => {
+export const getSSG = async () => {
     const ssg = createProxySSGHelpers({
         router: appRouter,
         ctx: await createContext(),

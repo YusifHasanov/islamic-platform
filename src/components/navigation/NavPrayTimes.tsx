@@ -21,9 +21,7 @@ const NavPrayTimes = () => {
     value: "",
     name: ""
   } as prayTime);
-  useEffect(() => {
-    console.log(`%c currentTime ${currentTime}`, 'color: red')
-  }, [currentTime])
+
 
   const fetchFunction = useMemo(() => () => {
     navigator.geolocation.getCurrentPosition(function (position) {
@@ -43,16 +41,7 @@ const NavPrayTimes = () => {
         .then(() => console.log(prayerTimes))
         .catch(error => console.error(error));
     });
-  }, [])
-
-  useEffect(() => {
-    fetchFunction()
-  }, [])
-
-  useEffect(() => {
-    timeCalculator(prayerTimes)
-  }, [prayerTimes, currentTime])
-
+  }, [prayerTimes])
 
   const timeCalculator = (times: any) => {
     console.log("calculated")
@@ -65,7 +54,20 @@ const NavPrayTimes = () => {
       }
     })
   }
+  useEffect(() => {
+    console.log(`%c currentTime ${currentTime}`, 'color: red')
+  }, [currentTime])
 
+  useEffect(() => {
+    fetchFunction()
+  }, [fetchFunction])
+
+  useEffect(() => {
+    timeCalculator(prayerTimes)
+  }, [prayerTimes, currentTime,timeCalculator])
+
+
+ 
 
 
 
