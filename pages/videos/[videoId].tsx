@@ -1,11 +1,11 @@
-import React, { FC, useEffect } from 'react'
-import { NextRouter, useRouter } from 'next/router';
+import React, { FC } from 'react'
 import VideoPlaylists from '@/src/components/videos/singleVideo/VideoPlaylists';
 import VideoItem from '@/src/components/videos/singleVideo/VideoItem';
 import Head from 'next/head';
-import { Playlist, Video } from '@prisma/client';
+import { Video } from '@prisma/client';
+import { useSSG } from '@/server/utils/ssg';
 import axios from 'axios';
- 
+
 interface Props {
   video: Video
 }
@@ -14,7 +14,7 @@ const style = {
 } as any
 
 const Index: FC<Props> = ({ video }) => {
- 
+
   return (
     <>
       <Head>
@@ -32,7 +32,10 @@ export default Index
 
 export const getServerSideProps = async (context: any) => {
   const { videoId } = context.params
-  const { data: video } = await axios.get(`${process.env.URL}/api/videos/${videoId}`)
+
+  const ssg = await useSSG();
+  const video = await ssg.video.oneByVideoId.fetch(videoId as string).then((res) => JSON.parse(JSON.stringify(res)))
+  // const { data: video } = await axios.get(`${process.env.URL}/api/videos/${videoId}`)
   if (!video) {
     return {
       redirect: {
@@ -45,8 +48,8 @@ export const getServerSideProps = async (context: any) => {
   return {
 
     props: {
+      trpcState: ssg.dehydrate(),
       video
-
     }
   }
 }

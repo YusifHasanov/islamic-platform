@@ -2,7 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { videoRepo } from '@/src/Services/Repositories';
 import { Video } from '@prisma/client';
-import prisma from '@/prisma/prisma';
+ 
 
 export default async function handler(
     req: NextApiRequest,
@@ -16,22 +16,17 @@ export default async function handler(
     try {
         switch (method) {
             case 'GET':
-                switch (true) {
-                    case (limit >= 0 || playlistId.length > 0):
-                        const data = await videoRepo.getWhere(limit, order as any, cursor, playlistId as string);
-                        res.setHeader('Content-Type', 'application/json');
-                        if (limit >= 0) {
-                            res.status(200).json({ data, nextId: data.length === limit ? data[limit - 1].id : undefined });
-                        } else {
-                            res.status(200).json(data);
-                        }
-                        break;
-                    default:
-                        const response = await videoRepo.getAll();
-                        res.setHeader('Content-Type', 'application/json');
-                        res.status(200).json(response);
-                        break;
+
+                const data = await videoRepo.getWhere(limit, order as any, cursor, playlistId as string);
+                res.setHeader('Content-Type', 'application/json');
+                if (limit >= 0) {
+                    res.status(200).json({ data, nextId: data.length === limit ? data[limit - 1].id : undefined });
+                } else {
+                    res.status(200).json(data);
                 }
+
+
+
                 // if (limit > 0 && order) {
                 //     const data =
                 //         await videoRepo.getWhere(limit, (order as string), (cursor as any), playlistId as string);

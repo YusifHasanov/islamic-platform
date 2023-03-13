@@ -1,19 +1,32 @@
 import prisma from '@/prisma/prisma';
-import { initTRPC, type inferAsyncReturnType } from '@trpc/server';
+import { type inferAsyncReturnType } from '@trpc/server';
 import type { CreateNextContextOptions } from '@trpc/server/adapters/next';
 import * as trpcNext from '@trpc/server/adapters/next';
 
 
-export const createContext = async ({
-    req,
-    res,
-}: trpcNext.CreateNextContextOptions) => {
+interface CreateContextOptions {
+    req?: CreateNextContextOptions['req'];
+    res?: CreateNextContextOptions['res'];
+    // session: Session | null
+}
+export async function createContextInner(_opts: CreateContextOptions) {
     return {
-        req,
-        res,
         prisma,
+        req: _opts?.req,
+        res: _opts?.res,
+
     };
-};
-export type Context = inferAsyncReturnType<typeof createContext>;
+}
 
 
+
+export type Context = inferAsyncReturnType<typeof createContextInner>;
+
+
+
+
+export async function createContext(
+    opts?: trpcNext.CreateNextContextOptions
+): Promise<Context> {
+    return await createContextInner({});
+}

@@ -3,7 +3,7 @@ import React, { FC } from 'react'
 import Image from 'next/image'
 import PlaylistItemSkeleton from './PlaylistItemSkeleton'
 import HeaderSkeleton from '../../globals/HeaderSkeleton'
-import { trpc } from '@/src/utils/trpc'
+import { trpc } from '@/server/utils/trpc'
 import Link from 'next/link'
 
 interface Props {
@@ -33,7 +33,7 @@ const VideoPlaylists: FC<Props> = ({ video }) => {
             <div className='video_playlists pt-2 px-5'>
                 {videos?.map((video) => (
                     <Link href={`/videos/${video.videoId}`} key={video.id}>
-                        <div key={video.id} className='flex   dark:border-slate-900 pl-4 rounded-lg mb-4 justify-between items-center bg-gray-300 dark:bg-slate-700 cursor-pointer  '>
+                        <div key={video.id} className='flex  dark:border-slate-900 pl-4 rounded-lg mb-4 justify-between items-center bg-gray-300 dark:bg-slate-700 cursor-pointer  '>
                             <p className='text-gray-600 dark:text-gray-400 text-xl' >{video.title}</p>
                             <Image loading='lazy' className='rounded-tr-md rounded-br-md' src={video.thumbnail} alt={video.title} width={100} height={40} />
                         </div>

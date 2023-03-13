@@ -7,7 +7,7 @@ import { GetServerSideProps } from 'next'
 import axios from 'axios'
 import { useAtomValue } from 'jotai'
 import { playlistState } from '@/src/jotai/atoms'
-import { trpc } from '@/src/utils/trpc';
+import { trpc } from '@/server/utils/trpc';
 interface Props {
  
 }

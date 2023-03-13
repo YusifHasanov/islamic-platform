@@ -10,7 +10,7 @@ import {
 } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
  import {SessionProvider } from 'next-auth/react'
-import { trpc } from '@/src/utils/trpc'
+import { trpc } from '@/server/utils/trpc'
 export const queryClient = new QueryClient()
 export function reportWebVitals(metric :  any) {
  

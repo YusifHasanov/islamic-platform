@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { atom, useAtom } from 'jotai'
 import { playlistState } from '@/src/jotai/atoms'
 import ListItemSkeleton from './ListItemSkeleton'
-import { trpc } from '@/src/utils/trpc'
+import { trpc } from '@/server/utils/trpc'
 
  
 interface Props {

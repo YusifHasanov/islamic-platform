@@ -1,11 +1,27 @@
-import { videoType, videoPostType } from "@/src/utils/types/playlistType";
+
 import { procedure } from "../trpc";
 import { z } from "zod";
 import prisma from "@/prisma/prisma";
-import { router } from "../trpc";
-import { Video } from "@prisma/client";
+import { router } from "../trpc"; 
 
 
+
+export const videoType = z.object({
+    videoId: z.string(),
+    title: z.string(),
+    publishedAt: z.date(),
+    thumbnail: z.string(),
+    playlistId: z.string(),
+    id: z.string().cuid()
+  })
+  export const videoPostType = z.object({
+    videoId: z.string(),
+    title: z.string(),
+    publishedAt: z.date(),
+    thumbnail: z.string(),
+    playlistId: z.string(),
+  })
+  export const videoTypeArray = z.array(videoType)
 
 export const videoRouter = router({
     getAll: procedure
