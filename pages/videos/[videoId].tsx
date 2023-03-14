@@ -10,7 +10,7 @@ interface Props {
   video: Video
 }
 const style = {
-  height: "calc((100vh - 64px) - 64px)",
+  height: "calc((100vh - 20px) - 64px)",
 } as any
 
 const Index: FC<Props> = ({ video }) => {
