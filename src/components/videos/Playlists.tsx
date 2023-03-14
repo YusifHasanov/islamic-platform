@@ -27,8 +27,8 @@ const Playlists: FC<Props> = () => {
         <div className='list_skeletons  hidden  flex-col lg:flex   pl-12  pt-10' >
             <ListItemSkeleton number={14} />
         </div>
-            
-
+              
+ 
     )
     const handleFilter = (event: any) => {
         const searchWord = event.target.value;
