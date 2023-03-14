@@ -132,10 +132,19 @@
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 
 }
-
 .custom-grid {
-  display: grid;
-  grid-template-columns: 8fr 4fr;
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+@media screen and (min-width: 1024px) {
+  .custom-grid {
+    display: grid;
+    grid-template-columns: 8fr 4fr;
+  }
+  
 }
 
 /* .single_video_box {} */
@@ -166,8 +175,24 @@
 }
 
 .responsive_iframe {
-  height: 80%;
+  height: 220px;
   width: 100%;
+}
+@media screen and (min-width: 700px) {
+  .responsive_iframe {
+    height: 400px;
+   
+  }
+
+  
+}
+@media screen and (min-width: 1024px) {
+  .responsive_iframe {
+    height: 100%;
+    width: 100%;
+  }
+
+  
 }
 
 .playlist_title {
