@@ -30,7 +30,7 @@ const VideoPlaylists: FC<Props> = ({ video }) => {
 
         <div className='flex flex-col py-8 items-center w-full'>
             <h3 className='text-green-500 mb-6 playlist_title px-3 text-2xl uppercase' >{playlist?.title}</h3>
-            <div className='video_playlists pt-2 px-5'>
+            <div className='video_playlists pt-2 lg:px-5'>
                 {videos?.map((video) => (
                     <Link href={`/videos/${video.videoId}`} key={video.id}>
                         <div key={video.id} className='flex  dark:border-slate-900 pl-4 rounded-lg mb-4 justify-between items-center bg-gray-300 dark:bg-slate-700 cursor-pointer  '>

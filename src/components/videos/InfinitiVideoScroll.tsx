@@ -3,7 +3,7 @@ import { UseInfiniteQueryResult, useInfiniteQuery } from 'react-query'
 import axios from 'axios'
 import { useInView } from 'react-intersection-observer'
 import Head from 'next/head'
-import Spinner from '../globals/Spinner' 
+import Spinner from '../globals/Spinner'
 
 import HeaderSkeleton from '../globals/HeaderSkeleton'
 import { Playlist, Video } from '@prisma/client'
@@ -41,10 +41,12 @@ const InfinitiVideoScroll: FC<Props> = ({ playlist }) => {
     if (query.isLoading || query.isError) return (
         <div className='flex flex-col h-full w-full pr-4' >
             <HeaderSkeleton />
-            <div className='grid h-full w-full rounded-lg grid-cols-4 gap-4 px-3 w-100 pl-7 p-4 mb-4' >
-
+            <div className='hidden h-full w-full lg:grid  rounded-lg grid-cols-4 gap-4 px-3 w-100 pl-7 p-4 mb-4' >
                 <VideoSkeleton number={16} />
             </div>
+                <div className='grid h-full w-full lg:none  rounded-lg grid-cols-1 gap-4 px-3 w-100 pl-7 p-4 mb-4' >
+                    <VideoSkeleton number={4} />
+                </div>
         </div>
     )
 
@@ -65,8 +67,11 @@ const InfinitiVideoScroll: FC<Props> = ({ playlist }) => {
                     ))}
                     <span ref={ref} style={{ visibility: "hidden" }}>intersaction observer</span>
                 </div>
-                <div className=' grid  w-full rounded-lg grid-cols-4 gap-4 px-3 w-100 pl-7 p-4 mb-4' >
-                    {query.isFetchingNextPage && <VideoSkeleton number={4} />}
+                <div className='hidden lg:grid  w-full rounded-lg grid-cols-4 gap-4 px-3 w-100 pl-7 p-4 mb-4' >
+                    {query.isFetchingNextPage && (<VideoSkeleton number={4} />)}
+                </div>
+                <div className='grid h-full w-full lg:none  rounded-lg grid-cols-1 gap-4 px-3 w-100 pl-7 p-4 mb-4' >
+                    {query.isFetchingNextPage && (<VideoSkeleton number={2} />)}
                 </div>
 
                 <div>

@@ -33,7 +33,7 @@ const VideoItem = ({video}:{video:Video} ) => {
             <Head>
                 <title>{video?.title}</title>
             </Head>
-            <div className='flex single_video_box flex-col  items-center  px-4 lg:px-6 pt-3 lg:pt-8 rounded-xl '>
+            <div className='flex single_video_box flex-col  items-center  px-0 lg:px-6 pt-3 lg:pt-8 rounded-xl '>
                 <h3 className='bg-green-900 single  text-center border border-green-700 text-gray-100 text-2xl rounded-lg mb-4 font-medium mr-2 px-3 py-2 mt-0  dark:bg-green-300 dark:text-green-900'>{video?.title}</h3>
                 <iframe className='responsive_iframe border-gray-300  rounded-2xl singleVideo ' allowFullScreen src={`https://www.youtube.com/embed/${video?.videoId}`} allow="accelerometer;fullScreen; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" ></iframe>
             </div>

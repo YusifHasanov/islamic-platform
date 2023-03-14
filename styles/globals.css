@@ -23,10 +23,10 @@
 
 
 }
-
+ 
 .videos_container {
   display: flex;
-  position: relative;
+  position: relative; 
 }
 
 .navigation_container {

@@ -17,7 +17,7 @@ const Videos :FC<Props> = ( ) => {
   const playlist = useAtomValue(playlistState)
      
   return (
-    <div className='videos_container'  >
+    <div className='videos_contwainer flex relative lg:flex-row flex-column'  >
       <Head>
         <title>Videolar</title>
       </Head>

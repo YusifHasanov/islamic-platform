@@ -24,9 +24,10 @@ const Playlists: FC<Props> = () => {
         setPlaylist(playlistState.playlistId === playlist?.playlistId ? null : playlistState)
 
     if (query.isLoading) return (
-        <div className='list_skeletons flex flex-col   pl-12  pt-10' >
+        <div className='list_skeletons  hidden  flex-col lg:flex   pl-12  pt-10' >
             <ListItemSkeleton number={14} />
         </div>
+            
 
     )
     const handleFilter = (event: any) => {

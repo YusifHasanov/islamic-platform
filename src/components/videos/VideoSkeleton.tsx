@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 
 
 interface Props {
-  number: number
+  number: number, 
 }
 const Skeleton: FC<Props> = ({ number }) => (
   <>
@@ -18,7 +18,7 @@ const Skeleton: FC<Props> = ({ number }) => (
 const Item = () => (
   <div
     className="
-    
+    lg:mb-0 mb-4
     space-y-5 rounded-2xl bg-slate-400 dark:bg-white/5 p-4
     isolate
     overflow-hidden
