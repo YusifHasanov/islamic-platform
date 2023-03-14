@@ -1,13 +1,13 @@
 import { router } from '../trpc';
 import { playlistRouter } from './playlist.router';
 import { videoRouter } from './video.router';
-import { authorRouter } from './author.router';
+// import { authorRouter } from './author.router';
 import type { inferRouterInputs, inferRouterOutputs } from '@trpc/server';
  
 export const appRouter = router({
     playlist: playlistRouter,
     video:videoRouter,
-    author:authorRouter
+    // author:authorRouter
 });
 
 // export type definition of API
