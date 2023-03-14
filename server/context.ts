@@ -1,11 +1,9 @@
 
-// import prisma from '@/prisma/prisma';
-import { PrismaClient } from '@prisma/client';
+import prisma from '@/prisma/prisma'; 
 import { type inferAsyncReturnType } from '@trpc/server';
 import type { CreateNextContextOptions } from '@trpc/server/adapters/next';
 import * as trpcNext from '@trpc/server/adapters/next';
-
-const prisma  =new PrismaClient()
+ 
 
 interface CreateContextOptions {
     req?: CreateNextContextOptions['req'];
