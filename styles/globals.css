@@ -36,8 +36,8 @@
 }
 
 .playlists_container {
-  height: calc(100vh - 100px);
-  top: 64px;
+  height: calc(100vh - 120px);
+  top: calc(64px + 36px);
   margin-top: 20px;
 }
 
@@ -244,4 +244,11 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 
+}
+
+.logo_container{
+  background-image: url("./../public/assets/logo.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
 }

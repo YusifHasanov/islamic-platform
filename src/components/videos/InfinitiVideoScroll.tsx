@@ -70,7 +70,7 @@ const InfinitiVideoScroll: FC<Props> = ({ playlist }) => {
                 <div className='hidden lg:grid  w-full rounded-lg grid-cols-4 gap-4 px-3 w-100 pl-7 p-4 mb-4' >
                     {query.isFetchingNextPage && (<VideoSkeleton number={4} />)}
                 </div>
-                <div className='grid h-full w-full lg:none  rounded-lg grid-cols-1 gap-4 px-3 w-100 pl-7 p-4 mb-4' >
+                <div className='grid h-full w-full lg:hidden  rounded-lg grid-cols-1 gap-4 px-3 w-100 pl-7 p-4 mb-4' >
                     {query.isFetchingNextPage && (<VideoSkeleton number={2} />)}
                 </div>
 
