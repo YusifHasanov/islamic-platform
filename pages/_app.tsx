@@ -11,6 +11,7 @@ import {
 import { ReactQueryDevtools } from 'react-query/devtools'
  import {SessionProvider } from 'next-auth/react'
 import { trpc } from '@/server/utils/trpc'
+import Footer from '@/src/components/footer/Footer'
 export const queryClient = new QueryClient()
 export function reportWebVitals(metric :  any) {
  

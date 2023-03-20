@@ -1,6 +1,7 @@
 import React from 'react'
 import Head from 'next/head'
 import ArticleItem from '@/src/components/articles/ArticleItem' 
+import Footer from '@/src/components/footer/Footer'
 const Articles = () => {
   
   return (
@@ -23,6 +24,7 @@ const Articles = () => {
           </div>
         </div>
       </section>
+      <Footer/>
     </>
   )
 }
