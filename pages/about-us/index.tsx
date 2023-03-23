@@ -35,7 +35,7 @@ const AboutUs = () => {
               <div className="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 lg:gap-4 shadow-lg rounded-md">
                 <div className="p-4 pb-6 flex justify-center flex-col items-center">
                   <img className="md:block hidden" src="https://pbs.twimg.com/profile_images/1587100276779106304/pcjfzYNO_400x400.jpg" alt="Alexa featured Img" />
-                  <img className="md: hidden block" src="https://pbs.twimg.com/profile_images/1587100276779106304/pcjfzYNO_400x400.jpg" alt="Alexa featured Img" />
+                  <img className="md:hidden block" src="https://pbs.twimg.com/profile_images/1587100276779106304/pcjfzYNO_400x400.jpg" alt="Alexa featured Img" />
                   <p className="font-medium text-xl leading-5 dark:text-gray-300  text-gray-800 mt-4">Firudin Babaoğlu</p>
                 </div>
                 <div className="p-4 pb-6 flex justify-center flex-col items-center">
