@@ -1,20 +1,19 @@
 import { z } from "zod";
-import { procedure, router } from "../trpc";
-
+import { procedure, router } from "../trpc"; 
 
 export const bookType = z.object({
     id: z.string().cuid(),
     title: z.string(),
     authorId: z.string(),
     description: z.string(),
-    publishedAt: z.date()
+    publishedAt:  z.string().datetime()
 })
 
 export const bookPostType = z.object({
     title: z.string(),
     authorId: z.string(),
     description: z.string(),
-    publishedAt: z.date()
+    publishedAt: z.string().datetime()
 })
 
 export const bookTypeArray = z.array(bookType)
@@ -40,7 +39,7 @@ export const bookRouter = router({
         .input(bookPostType)
         .mutation(async ({ ctx, input }) => {
             return await ctx.prisma.book.create({
-                data: input
+                data: input 
             })
         }
         ),

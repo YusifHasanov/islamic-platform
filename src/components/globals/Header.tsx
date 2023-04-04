@@ -13,7 +13,7 @@ const Header = ({ title, description }: HeaderProps) => {
             <meta name="description" content={`${description ?? "Əhli sünnə mədrəsəsi"}`} />
             <meta property="og:description" content={`${description ?? "Əhli sünnə mədrəsəsi"}`} />
             <meta name="twitter:title" content={`${title}`} />
-            <meta name="author" content="Əhli sünnə mədrəsəsi" />
+            <meta name="author" content="YusifHasanov" />
             <meta name="robots" content="index, follow" />
             <meta name="googlebot" content="index, follow" />
             <meta name="google" content="nositelinkssearchbox" />
