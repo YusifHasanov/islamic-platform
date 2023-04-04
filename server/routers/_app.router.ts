@@ -1,4 +1,5 @@
 import { router } from '../trpc';
+import { bookRouter } from './book.router';
 import { playlistRouter } from './playlist.router';
 import { videoRouter } from './video.router'; 
 import type { inferRouterInputs, inferRouterOutputs } from '@trpc/server'; 
@@ -7,7 +8,7 @@ export const appRouter = router({
     playlist: playlistRouter,
     video:videoRouter,
     // author:authorRouter,
-    // book:bookRouter,
+    book:bookRouter,
     // article:articleRouter,
     // youtubeStat:youtubeStatRouter
 });
