@@ -9,7 +9,7 @@ import HeaderSkeleton from '../globals/HeaderSkeleton'
 import { Playlist, Video } from '@prisma/client'
 import VideoSkeleton from './VideoSkeleton'
 import VideoComponent from './VideoComponent'
-
+import { trpc } from '@/server/utils/trpc'
 
 
 const queryFn =
@@ -27,14 +27,25 @@ const InfinitiVideoScroll: FC<Props> = ({ playlist }) => {
     const [ref, inView] = useInView()
 
 
-    const query: UseInfiniteQueryResult<any, unknown> = useInfiniteQuery(["videos", playlist?.playlistId],
-        async ({ pageParam }) => queryFn({ pageParam }, playlist?.playlistId ?? ""),
+    // const query: UseInfiniteQueryResult<any, unknown> = useInfiniteQuery(["videos", playlist?.playlistId],
+    //     async ({ pageParam }) => queryFn({ pageParam }, playlist?.playlistId ?? ""),
+    //     {
+    //         getNextPageParam: (lastPage) => lastPage.nextId ?? false,
+    //         staleTime: 600000,
+    //     })
+
+
+    const query = trpc.video.manyByPlayPaginated.useInfiniteQuery(
         {
-            getNextPageParam: (lastPage) => lastPage.nextId ?? false,
-            staleTime: 600000,
-        })
+            playlistId: playlist?.playlistId,
+            limit: 16,
+        }, {
+        getNextPageParam: (lastPage) => lastPage.nextId ?? false,
+        staleTime: 600000,
+    })
 
     useEffect(() => {
+        console.log(query.data)
         if (inView && query.hasNextPage) query.fetchNextPage()
     }, [inView, query])
 
@@ -59,7 +70,7 @@ const InfinitiVideoScroll: FC<Props> = ({ playlist }) => {
                     {query.data && query.data.pages.map((page) => (
                         <Fragment key={page.nextId ?? "lastpage"}>
                             {
-                                page.data?.map((video: Video, id: number) => (
+                                page.data?.map((video: any, id: number) => (
                                     <VideoComponent {...video} key={id} />
                                 ))
                             }

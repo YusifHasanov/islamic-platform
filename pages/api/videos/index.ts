@@ -15,8 +15,7 @@ export default async function handler(
     const playlistId = req.query.playlistId ?? "";
     try {
         switch (method) {
-            case 'GET':
-
+            case 'GET': 
                 const data = await videoRepo.getWhere(limit, order as any, cursor, playlistId as string);
                 res.setHeader('Content-Type', 'application/json');
                 if (limit >= 0) {

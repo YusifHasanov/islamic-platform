@@ -19,7 +19,7 @@ const Index: FC<Props> = ({ video }) => {
       <Head>
         <title>Əhli Sünnə Mədrəsəsi</title>
       </Head>
-      <div style={style} className=' overflow-y-hidden grid custom-grid p-6'>
+      <div style={style} className=' overflow-y-hidden grid custom-grid px-6 pb-6'>
         <VideoItem video={video} />
         <VideoPlaylists video={video} />
       </div>

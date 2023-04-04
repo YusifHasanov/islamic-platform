@@ -1,8 +1,7 @@
 
 import { procedure } from "../trpc";
 import { z } from "zod";
-import prisma from "@/prisma/prisma";
-import { router } from "../trpc"; 
+import { router } from "../trpc";
 
 
 
@@ -13,55 +12,72 @@ export const videoType = z.object({
     thumbnail: z.string(),
     playlistId: z.string(),
     id: z.string().cuid()
-  })
-  export const videoPostType = z.object({
+})
+export const videoPostType = z.object({
     videoId: z.string(),
     title: z.string(),
     publishedAt: z.date(),
     thumbnail: z.string(),
     playlistId: z.string(),
-  })
-  export const videoTypeArray = z.array(videoType)
+})
+export const videoTypeArray = z.array(videoType)
 
 export const videoRouter = router({
     getAll: procedure
-        .query(() => prisma.video.findMany()),
+        .query(async ({ ctx }) => await ctx.prisma.video.findMany()),
+
     oneByVideoId: procedure
         .input(z.string())
-        .query(async ({ input }) => prisma.video.findUnique({
+        .query(async ({ input, ctx }) => await ctx.prisma.video.findUnique({
             where: {
                 videoId: input
             }
         })),
+
     manyByPlaylistId: procedure
         .input(z.string())
-        .query(async ({ input }) => {
+        .query(async ({ input, ctx }) => await ctx.prisma.video.findMany({
+            where: {
+                playlistId: input
+            }
+        })),
 
-            const videos = await prisma.video.findMany({
+    manyByPlayPaginated: procedure
+        .input(z.object({
+            playlistId: z.string().default(""),
+            cursor: z.string().default(""),
+            limit: z.number().default(8),
+        }))
+        .query(async ({ input, ctx }) => {
+            const { limit, cursor, playlistId } = input;
+            const data = await ctx.prisma.video.findMany({
+                take: limit < 0 ? undefined : limit,
+                skip: cursor === "" ? 0 : 1,
+                cursor: cursor === "" ? undefined : { id: cursor },
                 where: {
-                    playlistId: input
-                }
+                    playlistId: playlistId.length > 0 ? playlistId : undefined
+                },
+                orderBy: {
+                    publishedAt: "desc",
+                } as any,
             });
-            return videos;
+            return { data, nextId: data.length === limit ? data[limit - 1].id : undefined };
         }),
 
     create: procedure
         .input(videoPostType)
-        .mutation(async ({ input }) => {
-            const video = await prisma.video.create({
-                data: input
-            });
-            return video;
-        }),
+        .mutation(async ({ input, ctx }) => await ctx.prisma.video.create({
+            data: input
+        })
+
+        ),
     update: procedure
         .input(videoType)
-        .mutation(async ({ input }) => {
-            const video = await prisma.video.update({
-                where: {
-                    videoId: input.videoId
-                },
-                data: input
-            });
-            return video;
+        .mutation(async ({ input, ctx }) => await ctx.prisma.video.update({
+            where: {
+                videoId: input.videoId
+            },
+            data: input
         })
+        )
 })

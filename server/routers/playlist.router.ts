@@ -30,7 +30,6 @@ export const playlistRouter = router({
     getByPlaylistId: procedure
         .input(z.string())
         .query(async ({ ctx, input }) => {
-
             const playlist = await ctx.prisma.playlist.findUnique({
                 where: {
                     playlistId: input

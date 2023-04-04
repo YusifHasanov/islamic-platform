@@ -28,7 +28,7 @@ const VideoPlaylists: FC<Props> = ({ video }) => {
 
     return (
 
-        <div className='flex flex-col py-8 items-center w-full'>
+        <div className='flex flex-col pt-8 pb-1 items-center w-full'>
             <h3 className='text-green-500 mb-6 playlist_title px-3 text-2xl uppercase' >{playlist?.title}</h3>
             <div className='video_playlists pt-2 lg:px-5'>
                 {videos?.map((video) => (

@@ -147,10 +147,9 @@
   
 }
 
-/* .single_video_box {} */
-
+ 
 .video_playlists {
-  height: calc(100vh - 250px);
+  height: calc(100vh - 225px);
   top: 64px;
   overflow-y: auto;
 

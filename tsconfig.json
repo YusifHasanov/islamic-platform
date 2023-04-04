@@ -19,6 +19,6 @@
       "@types/*": ["./src/types.d.ts"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/article/index.tsx", "pages/videos/[videoId].tsx", "middleware.txs", "server/routers/article.router.tsxt", "server/routers/author.router.txt"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/article/index.tsx", "pages/videos/[videoId].tsx", "middleware.txs", "server/routers/article.router.tsxt", "server/routers/author.router.ts"],
   "exclude": ["node_modules"]
 }
