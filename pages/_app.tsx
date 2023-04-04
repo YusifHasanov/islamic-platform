@@ -27,6 +27,7 @@ const MyApp: AppType = ({ Component, pageProps }: AppProps) => {
 
     <>
       <Head>
+      <meta name="google-site-verification" content="QR1VwILz70nqB5-xyi6WxnKAWwp155khw37XhUBA-6Q" />
         <script type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: `
