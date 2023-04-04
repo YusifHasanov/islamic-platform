@@ -4,7 +4,7 @@ module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./src/**/*.{js,ts,jsx,tsx}",
- 
+    'node_modules/preline/dist/*.js',
 
   ],
   theme: {
@@ -27,7 +27,10 @@ module.exports = {
     require('@tailwindcss/typography'),
     require('tailwind-scrollbar'),
     require('@tailwindcss/aspect-ratio'),
-     
+    require('preline/plugin'),
   ],
 
 }
+
+
+ 

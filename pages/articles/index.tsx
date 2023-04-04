@@ -1,14 +1,13 @@
 import React from 'react'
 import Head from 'next/head'
-import ArticleItem from '@/src/components/articles/ArticleItem' 
+import ArticleItem from '@/src/components/articles/ArticleItem'
 import Footer from '@/src/components/footer/Footer'
+import Header from '@/src/components/globals/Header'
 const Articles = () => {
-  
+
   return (
     <>
-      <Head>
-        <title>Məqalələr</title>
-      </Head>
+      <Header title='Məqalələr' description='məqalələrimiz səhifəsində məqalələrimizi oxuya bilərsiniz'/>
       <section className="bg-gray-200 dark:bg-gray-800">
         <div className="pt-6 tb-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
           <div className="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
@@ -24,7 +23,7 @@ const Articles = () => {
           </div>
         </div>
       </section>
-      <Footer/>
+      <Footer />
     </>
   )
 }

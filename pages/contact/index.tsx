@@ -1,10 +1,11 @@
 import React from 'react'
 import Head from 'next/head'
 import Footer from '@/src/components/footer/Footer'
+import Header from '@/src/components/globals/Header'
 const Contact = () => {
   return (
     <>
-      <Head><title>Əlaqə</title></Head>
+      <Header title='Əlaqə' description='əlaqə bölməsi ilə bizimlə əlaqəyə keçə bilərsiniz' />
       <div>
 
         <div className="relative px-5 z-10 overflow-hidden py-20 lg:py-[120px]">

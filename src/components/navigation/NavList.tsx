@@ -1,28 +1,25 @@
-import { useTheme } from 'next-themes';
+import {useTheme} from 'next-themes';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import React, { memo } from 'react'
+import {useRouter} from 'next/router';
+import React, {memo} from 'react'
 
 
-
-function classNames(...classes: any) {
-    return classes.filter(Boolean).join(' ')
-}
+const classNames = (...classes: any) => classes.filter(Boolean).join(' ')
 
 
 const NavList = () => {
 
     const router = useRouter()
-    const { pathname } = router;
-    const { theme, setTheme } = useTheme()
+    const {pathname} = router;
+    const {theme, setTheme} = useTheme()
     const navigation = [
-        { name: 'Ana Səhifə', href: '/', current: pathname === '/' },
-        { name: 'Sual Cavab', href: '/questions', current: pathname === '/questions' },
-        { name: 'Haqqımızda', href: "/about-us", current: pathname === '/about-us' },
-        { name: 'Kitablar', href: '/books', current: pathname.includes('/books') },
-        { name: 'Videolar', href: '/videos', current: pathname.includes('/videos') },
-        { name: 'Məqalələr', href: '/articles', current: pathname === '/articles' },
-        { name: 'Əlaqə', href: '/contact', current: pathname === '/contact' },
+        {name: 'Ana Səhifə', href: '/', current: pathname === '/'},
+        {name: 'Sual Cavab', href: '/questions', current: pathname === '/questions'},
+        {name: 'Haqqımızda', href: "/about-us", current: pathname === '/about-us'},
+        {name: 'Kitablar', href: '/books', current: pathname.includes('/books')},
+        {name: 'Videolar', href: '/videos', current: pathname.includes('/videos')},
+        {name: 'Məqalələr', href: '/articles', current: pathname === '/articles'},
+        {name: 'Əlaqə', href: '/contact', current: pathname === '/contact'},
     ]
     return (
         <div className="hidden sm:ml-6 lg:block">

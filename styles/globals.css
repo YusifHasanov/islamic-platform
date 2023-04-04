@@ -252,3 +252,15 @@
   background-position: center;
   background-repeat: no-repeat;
 }
+.books_container{
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+}
+
+
+ .questions_container{
+  display: grid;
+  grid-template-columns: 3fr 7fr;
+   height:  calc((100vh - 64px) - 50px);
+ }
+  

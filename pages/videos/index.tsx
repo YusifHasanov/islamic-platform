@@ -6,6 +6,7 @@ import Head from 'next/head'
 import { useAtomValue } from 'jotai'
 import { playlistState } from '@/src/jotai/atoms'
 import { trpc } from '@/server/utils/trpc';
+import Header from '@/src/components/globals/Header'
 
 interface Props {
  
@@ -18,9 +19,7 @@ const Videos :FC<Props> = ( ) => {
      
   return (
     <div className='videos_contwainer flex relative lg:flex-row flex-column'  >
-      <Head>
-        <title>Videolar</title>
-      </Head>
+      <Header title='Videolar' description='videolarımız səhifəsində videolarımızı izləyə bilərsiniz'/>
       <Playlists  />
       <InfinitiVideoScroll playlist={playlist} />
     </div>

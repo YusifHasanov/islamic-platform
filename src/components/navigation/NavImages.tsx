@@ -8,7 +8,7 @@ const NavImages = () => {
         <div className="flex flex-shrink-1 items-center">
             <Image
                 loading='lazy'
-                className="block h-9 w-auto lg:hidden cursor-pointer" src={"/assets/logo.png"}
+                className="block h-9 w-auto lg:hidden cursor-pointer" src={"/assets/logo.webp"}
                 alt="Your Company"
                 width={100} height={100}
                 onClick={() => { router.push('/') }}
@@ -16,7 +16,7 @@ const NavImages = () => {
             <Image
                 loading='lazy'
                 className="hidden h-9 w-auto cursor-pointer lg:block"
-                src={"/assets/logo.png"}
+                src={"/assets/logo.webp"}
                 alt="Your Company"
                 width={100} height={100}
                 onClick={() => { router.push('/') }}

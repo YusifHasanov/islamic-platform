@@ -10,10 +10,8 @@ import Link from 'next/link';
 const VideoComponent: FC<Video> = ({ id, title, videoId, thumbnail, publishedAt, playlistId }) => {
     const router = useRouter();
 
-    const clickHandler = () => {
-
+    const clickHandler = () =>
         router.push(`/videos/${videoId}`)
-    }
 
     return (
         <Link href={`/videos/${videoId}`} >
@@ -21,13 +19,13 @@ const VideoComponent: FC<Video> = ({ id, title, videoId, thumbnail, publishedAt,
                 <div className=" rounded-3xl md:flex-col items-center justify-between flex flex-row shadow-lgmax-w-sm">
                     <div className='p-3 w-full relative flex items-center justify-center'>
                         <Image loading="lazy" className=' cursor-pointer rounded-xl ' src={thumbnail} alt={title} height={45} width={220} />
-
                     </div>
                     <div className="p-4">
                         <h5 className="video_title text-gray-900 dark:text-slate-300 text-lg font-medium mb-2"> {title}</h5>
                     </div>
                 </div>
-            </div></Link>
+            </div>
+        </Link>
     )
 }
 

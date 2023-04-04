@@ -65,7 +65,7 @@ model Article {
   categories  CategoryArticle[]
 }
 
-model Category {
+model Category  {
   id        String             @id @default(cuid()) @map("_id")
   name      String
   isSub     Boolean            @default(false)
