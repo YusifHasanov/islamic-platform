@@ -13,8 +13,7 @@ interface Props {
 }
 
 const Videos :FC<Props> = ( ) => {
-  const v1 = trpc.video.oneByVideoId.useQuery("jj81sPdd8fk",{staleTime: 1000 * 60 * 5 }  );//5min
-  console.log(v1.isSuccess);
+  const v1 = trpc.video.oneByVideoId.useQuery("jj81sPdd8fk",{staleTime:0}  );//5min
   const playlist = useAtomValue(playlistState)
      
   return (

@@ -6,8 +6,8 @@ import { trpc } from '@/server/utils/trpc';
 const montserrat = Poppins({ weight: ["400", "500", "600", "700"], subsets: ["latin-ext"] })
 
 export default function Home(props: any) {
-  const { data: videos } = trpc.video.getAll.useQuery(undefined, { staleTime: 1000 * 60 * 60 * 24 })
-  const { data: playlists } = trpc.playlist.getAll.useQuery(undefined, { staleTime: 1000 * 60 * 60 * 24 })
+  const { data: videos } = trpc.video.getAll.useQuery(undefined, { staleTime:0 })
+  const { data: playlists } = trpc.playlist.getAll.useQuery(undefined, { staleTime:0 })
 
   return (
     <>
