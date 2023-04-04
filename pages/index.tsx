@@ -3,9 +3,7 @@ import Head from 'next/head'
 import { Poppins } from 'next/font/google'
 import { trpc } from '@/server/utils/trpc';
 import Footer from '@/src/components/footer/Footer';
-import Header from '@/src/components/globals/Header';
-import { Book } from '@prisma/client';
-import { bookPostType } from '@/server/routers/book.router'
+import Header from '@/src/components/globals/Header';  
 const montserrat = Poppins({ weight: ["400", "500", "600", "700"], subsets: ["latin-ext"] })
 
 export default function Home(props: any) {
