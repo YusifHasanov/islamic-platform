@@ -3,25 +3,26 @@ import Head from 'next/head'
 import Script from 'next/script'
 const MainHeader = () =>
 (
-
-    <Head>
-        <meta name="google-site-verification" content="QR1VwILz70nqB5-xyi6WxnKAWwp155khw37XhUBA-6Q" />
+    <>
         <Script
             src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"
             strategy="afterInteractive"
         />
         <Script id="google-analytics" strategy="afterInteractive">
             {`
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){window.dataLayer.push(arguments);}
-      gtag('js', new Date());
+window.dataLayer = window.dataLayer || [];
+function gtag(){window.dataLayer.push(arguments);}
+gtag('js', new Date());
 
-      gtag('config', 'GA_MEASUREMENT_ID');
-    `}
+gtag('config', 'GA_MEASUREMENT_ID');
+`}
         </Script>
-        <script type="application/ld+json"
-            dangerouslySetInnerHTML={{
-                __html: `
+        <Head>
+            <meta name="google-site-verification" content="QR1VwILz70nqB5-xyi6WxnKAWwp155khw37XhUBA-6Q" />
+
+            <script type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: `
         
         {
           "@context": "https://ehlisunne.vercel.app/",
@@ -49,11 +50,12 @@ const MainHeader = () =>
           "dateModified": "Your last modified date here"
         }
       `,
-            }}
-        />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta charSet="utf-8" />
-    </Head>
+                }}
+            />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <meta charSet="utf-8" />
+        </Head>
+    </>
 )
 
 
