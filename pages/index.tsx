@@ -12,30 +12,14 @@ export default function Home(props: any) {
 
   const p = trpc.playlist.getAll.useQuery(undefined, { staleTime: 86400000, });
   const v = trpc.video.oneByVideoId.useQuery("uhvn9GtfhLY", { staleTime: 1000 * 60 * 5 });//5min
-  const { data: allAuthors } = trpc.author.getAll.useQuery(undefined, { staleTime: 86400000, });
-  const { mutate: mutateBook, error, isError } = trpc.book.create.useMutation();
-  const { mutate: mutateAuthor } = trpc.author.create.useMutation();
-  const {data:allBooks} = trpc.book.getAll.useQuery(undefined, { staleTime: 86400000, });
+ 
   return (
     <>
       <Header title='Əhli Sünnə Mədrəsəsi' />
       <main className={montserrat.className} >
         <div style={{ height: "80vh" }} className={"text-5xl flex items-center justify-center"} >
           Əhli Sünnə Mədrəsəsi``
-        </div>
-        <button
-          onClick={() => {
-            let a = allAuthors?.find(x => x.name === "muellif 1");
-
-              // mutateBook({
-              //   title: "kitab title 3",
-              //   description: "kitab description",
-              //   authorId: a?.id ?? "",
-              //   publishedAt: new Date().toISOString(),
-              // });
-           
-          }}
-        >dsda</button>
+        </div> 
       </main>
       <Footer />
     </>
