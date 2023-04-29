@@ -63,21 +63,37 @@ export const videoRouter = router({
             });
             return { data, nextId: data.length === limit ? data[limit - 1].id : undefined };
         }),
+    manyByLimit: procedure
+        .input(z.number())
+        .query(async ({ input, ctx }) => await ctx.prisma.video.findMany({
+            take: input,
+            where: {
+                thumbnail: {
+                    not:{ 
+                        equals:""
+                    }
+                }
+            },
+            orderBy: {
+                publishedAt: "desc",
+            } as any,
+           
+        })),
 
     create: procedure
         .input(videoPostType)
-        .mutation(async ({ input, ctx }) => await ctx.prisma.video.create({
-            data: input
-        })
+            .mutation(async ({ input, ctx }) => await ctx.prisma.video.create({
+                data: input
+            })
 
-        ),
-    update: procedure
-        .input(videoType)
-        .mutation(async ({ input, ctx }) => await ctx.prisma.video.update({
-            where: {
-                videoId: input.videoId
-            },
-            data: input
-        })
-        )
+            ),
+            update: procedure
+                .input(videoType)
+                .mutation(async ({ input, ctx }) => await ctx.prisma.video.update({
+                    where: {
+                        videoId: input.videoId
+                    },
+                    data: input
+                })
+                )
 })

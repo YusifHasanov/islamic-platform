@@ -8,47 +8,58 @@ import "swiper/css/effect-coverflow";
 import moment from 'moment'
 import Head from 'next/head'
 import Header from "@/src/components/globals/Header";
+import { FC } from "react";
 const Index = () => {
   return (
-   <>
-  <Header title='Kitablar' description="kitablarımız səhifəsində kitablarımızla tanış ola bilərsiniz" />
-    <section className="py-16" >
-      <div className="container mx-auto md:px-20">
-        <h3 className="font-bold text-4xl pb-12 text-center">Kitablar</h3>
-        <Swiper
-          effect={"coverflow"}
-          grabCursor={true}
-          centeredSlides={true}
-          coverflowEffect={{
-            rotate: 50,
-            stretch: 0,
-            depth: 100,
-            modifier: 1,
-            slideShadows: true,
-          }}
-          slidesPerView={"auto"}
-          modules={[Autoplay, Pagination,EffectCoverflow]}
-          pagination={{
-            dynamicBullets: true,
-          }}
-          loop={false}
-          autoplay={{
-            delay: 2000
-          }}
-        >
-          {
-            books.map((book) => (
-              <SwiperSlide key={book.id}>
-                <Slide {...book} />
-              </SwiperSlide>
-            ))
-          }
-        </Swiper>
+    <>
+      <Header title='Kitablar' description="kitablarımız səhifəsində kitablarımızla tanış ola bilərsiniz" />
+      <section className="py-16" >
+        <div className="container mx-auto md:px-20">
+          <h3 className="font-bold text-4xl pb-12 text-center">Kitablar</h3>
+          <Swiper
+            effect={"coverflow"}
+            grabCursor={true}
+            centeredSlides={true}
+            coverflowEffect={{
+              rotate: 50,
+              stretch: 0,
+              depth: 100,
+              modifier: 1,
+              slideShadows: true,
+            }}
+            slidesPerView={"auto"}
+            modules={[Autoplay, Pagination, EffectCoverflow]}
+            pagination={{
+              dynamicBullets: true,
+            }}
 
-
-      </div>
-    </section>
-   </>
+            loop={true}
+            autoplay={{
+              delay: 2500
+            }}
+            breakpoints={{
+              640: {
+                slidesPerView: 1,
+              },
+              768: {
+                slidesPerView: 2,
+              },
+              1024: {
+                slidesPerView: 3,
+              },
+            }}
+          >
+            {
+              books.map((book) => (
+                <SwiperSlide key={book.id}>
+                  <Slide {...book} />
+                </SwiperSlide>
+              ))
+            }
+          </Swiper>
+        </div>
+      </section>
+    </>
   )
 }
 interface SlideProps {
@@ -60,20 +71,20 @@ interface SlideProps {
   cover: string;
 }
 
-const Slide = ({
+const Slide: FC<SlideProps> = ({
   id,
   title,
   description,
   publishedAt,
   author,
   cover,
-}: SlideProps) => {
+}) => {
 
   return (
-    <div className="grid md:grid-cols-2">
+    <div className="grid ">
       <div className="image">
         <div className="relative  w-full h-64 md:h-96 overflow-hidden rounded-lg  flex justify-center">
-          <Image  loading="lazy" className="rounded-md  " src={cover} width={300} height={400} alt={""} />
+          <Image loading="lazy" className="rounded-md  " src={cover} width={300} height={400} alt={""} />
         </div>
       </div>
       <div className="info flex justify-start flex-col">

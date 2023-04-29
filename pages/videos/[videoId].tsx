@@ -3,7 +3,7 @@ import VideoPlaylists from '@/src/components/videos/singleVideo/VideoPlaylists';
 import VideoItem from '@/src/components/videos/singleVideo/VideoItem';
 import Head from 'next/head';
 import { Video } from '@prisma/client';
-import { getSSG } from '@/server/utils/ssg'; 
+import { getSSG } from '@/server/utils/ssg';
 
 interface Props {
   video: Video

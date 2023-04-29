@@ -1,12 +1,9 @@
 import React, { Fragment, useEffect, FC } from 'react'
-import { UseInfiniteQueryResult, useInfiniteQuery } from 'react-query'
 import axios from 'axios'
 import { useInView } from 'react-intersection-observer'
-import Head from 'next/head'
 import Spinner from '../globals/Spinner'
-
 import HeaderSkeleton from '../globals/HeaderSkeleton'
-import { Playlist, Video } from '@prisma/client'
+import { Playlist } from '@prisma/client'
 import VideoSkeleton from './VideoSkeleton'
 import VideoComponent from './VideoComponent'
 import { trpc } from '@/server/utils/trpc'
@@ -39,25 +36,20 @@ const InfinitiVideoScroll: FC<Props> = ({ playlist }) => {
         {
             playlistId: playlist?.playlistId,
             limit: 16,
-        }, {
-        getNextPageParam: (lastPage) => lastPage.nextId ?? false,
-        staleTime: 600000,
-    })
+        },
+        {
+            getNextPageParam: (lastPage) => lastPage.nextId ?? false,
+            staleTime: 600000,
+        })
 
     useEffect(() => {
-        console.log(query.data)
         if (inView && query.hasNextPage) query.fetchNextPage()
     }, [inView, query])
 
     if (query.isLoading || query.isError) return (
         <div className='flex flex-col h-full w-full pr-4' >
             <HeaderSkeleton />
-            <div className='hidden h-full w-full lg:grid  rounded-lg grid-cols-4 gap-4 px-3 w-100 pl-7 p-4 mb-4' >
-                <VideoSkeleton number={16} />
-            </div>
-            <div className='grid h-full w-full lg:hidden  rounded-lg grid-cols-1 gap-4 px-3 w-100 pl-7 p-4 mb-4' >
-                <VideoSkeleton number={4} />
-            </div>
+            <InfinityScrollScheleton num1={16} num2={4} />
         </div>
     )
 
@@ -70,7 +62,7 @@ const InfinitiVideoScroll: FC<Props> = ({ playlist }) => {
                     {query.data && query.data.pages.map((page) => (
                         <Fragment key={page.nextId ?? "lastpage"}>
                             {
-                                page.data?.map((video: any, id: number) => (
+                                page.data?.filter(item => item.thumbnail !== '').map((video: any, id: number) => (
                                     <VideoComponent {...video} key={id} />
                                 ))
                             }
@@ -78,13 +70,7 @@ const InfinitiVideoScroll: FC<Props> = ({ playlist }) => {
                     ))}
                     <span ref={ref} style={{ visibility: "hidden" }}>intersaction observer</span>
                 </div>
-                <div className='hidden lg:grid  w-full rounded-lg grid-cols-4 gap-4 px-3 w-100 pl-7 p-4 mb-4' >
-                    {query.isFetchingNextPage && (<VideoSkeleton number={4} />)}
-                </div>
-                <div className='grid h-full w-full lg:hidden  rounded-lg grid-cols-1 gap-4 px-3 w-100 pl-7 p-4 mb-4' >
-                    {query.isFetchingNextPage && (<VideoSkeleton number={2} />)}
-                </div>
-
+                {query.isFetchingNextPage && (<InfinityScrollScheleton num1={4} num2={2} />)}
                 <div>
                     {query.isFetchingNextPage && <Spinner />}
                 </div>
@@ -99,3 +85,13 @@ const InfinitiVideoScroll: FC<Props> = ({ playlist }) => {
 
 
 export default InfinitiVideoScroll
+const InfinityScrollScheleton = ({ num1, num2 }: { num1: number, num2: number }) => (
+    <>
+        <div className='hidden h-full w-full lg:grid  rounded-lg grid-cols-4 gap-4 px-3 w-100 pl-7 p-4 mb-4' >
+            <VideoSkeleton number={num1} />
+        </div>
+        <div className='grid h-full w-full lg:hidden  rounded-lg grid-cols-1 gap-4 px-3 w-100 pl-7 p-4 mb-4' >
+            <VideoSkeleton number={num2} />
+        </div>
+    </>
+)

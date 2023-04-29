@@ -10,12 +10,11 @@ const MainHeader = () =>
         />
         <Script id="google-analytics" strategy="afterInteractive">
             {`
-window.dataLayer = window.dataLayer || [];
-function gtag(){window.dataLayer.push(arguments);}
-gtag('js', new Date());
-
-gtag('config', 'GA_MEASUREMENT_ID');
-`}
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){window.dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'GA_MEASUREMENT_ID');
+            `}
         </Script>
         <Head>
             <meta name="google-site-verification" content="QR1VwILz70nqB5-xyi6WxnKAWwp155khw37XhUBA-6Q" />
@@ -23,7 +22,6 @@ gtag('config', 'GA_MEASUREMENT_ID');
             <script type="application/ld+json"
                 dangerouslySetInnerHTML={{
                     __html: `
-        
         {
           "@context": "https://ehlisunne.vercel.app/",
           "@type": "WebSite",

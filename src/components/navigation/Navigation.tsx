@@ -1,10 +1,8 @@
-import { Fragment } from 'react'
+import { useEffect } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
+
 import { FaBars } from 'react-icons/fa'
 import { AiOutlineClose } from 'react-icons/ai'
-import Image from 'next/image'
 import { BsMoonFill, BsSunFill } from 'react-icons/bs'
 import { useTheme } from 'next-themes'
 import NavList from './NavList'
@@ -22,7 +20,9 @@ const Navigation = () => {
   const { theme, setTheme } = useTheme()
 
 
-
+  useEffect(() => {
+    console.log("navigation")
+  }, [])
   return (
     <Disclosure as="nav" className="navigation_container z-40 sticky top-0 bg-gradient-to-l  ">
       {({ open }: { open: any }) => (
