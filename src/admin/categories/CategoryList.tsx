@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import AddCategory from '@/src/admin/categories/AddCategory';
 import Toast from '@/src/admin/Toast';
-import Layout from '@/src/components/globals/Layout'
+import Layout from '@/src/admin/Layout'
 import { Disclosure, Transition } from '@headlessui/react';
 
 import { IoIosArrowDown } from 'react-icons/io';

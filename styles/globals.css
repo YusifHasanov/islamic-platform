@@ -264,4 +264,33 @@
  }
  
 
- 
+ @media screen and (max-width: 640px) {
+  
+  .admin_sidebar{
+    transform: translateX(-100%);
+   }
+  
+
+  }
+
+  #hs-invalid-toggle-switch:before {
+    content: "";
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background-color: #fff;
+    transform: translateX(0);
+    box-shadow: 0 0 0 1px #000;
+    border-radius: 50%;
+    transition: ease-in-out 0.2s;
+  }
+  /* Sun icon for checked state */
+  #hs-invalid-toggle-switch:checked:before {
+    background-color: #f6e05e;
+    transform: translateX(100%);
+    box-shadow: 0 0 0 1px #000;
+    border-radius: 50%;
+    transition: ease-in-out 0.2s;
+  }
+
+  

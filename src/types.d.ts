@@ -5,8 +5,6 @@ type question ={
     question: string,
     answer: string,
     categoryId: number,
-
-    
 }
 
 

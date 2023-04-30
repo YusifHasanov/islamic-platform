@@ -1,9 +1,10 @@
 import Title from '@/src/admin/Title';
 import AddCategory from '@/src/admin/categories/AddCategory';
 import CategoryList from '@/src/admin/categories/CategoryList';
-import Layout from '@/src/components/globals/Layout'
+import Layout from '@/src/admin/Layout'
 import React from 'react'
 import { ToastContainer } from 'react-toastify';
+import Header from '@/src/components/globals/Header';
 const categories = [
     {
         id: 1,
@@ -60,6 +61,8 @@ const Categories = () => {
 
 
     return (
+       <>
+        <Header title="Admin Categories" description="Admin Categories" />
         <Layout>
             <ToastContainer />
             <Title name='Kategoriyalar'/>
@@ -90,6 +93,7 @@ const Categories = () => {
                 </div>
             </div>
         </Layout>
+       </>
     )
 }
 

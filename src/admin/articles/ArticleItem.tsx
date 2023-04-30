@@ -1,20 +1,38 @@
 import React, { FC, useEffect } from 'react'
-import Image from 'next/image';
+import dynamic from 'next/dynamic'
+import sanitizeHtml from 'sanitize-html';
 import moment from 'moment'
 import Toast from '../Toast';
+import 'react-quill/dist/quill.snow.css'
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
-import { AiFillEdit, AiFillFileAdd, AiFillPhone, AiOutlineUser } from 'react-icons/ai';
-
-interface SlideProps {
+import { useTheme } from 'next-themes';
+import { AiFillEdit, AiFillFileAdd } from 'react-icons/ai';
+import { useRouter } from 'next/router';
+import Editor from '../Editor';
+import { Value } from 'react-quill';
+import { BsMoonFill, BsSunFill } from 'react-icons/bs';
+import { FaMoon, FaSun } from 'react-icons/fa';
+import ToggleTheme from '@/src/components/globals/ToggleTheme';
+const QuillNoSSRWrapper = dynamic(import('react-quill'), {
+    ssr: false,
+    loading: () => <p>Loading ...</p>,
+})
+interface Article {
     id: number;
-    title: string;
-    description: string;
     publishedAt: string;
-    author: string;
-    cover: string;
+    title: string;
+    content: string;
+    author: {
+        id: number;
+        name: string;
+        image: string;
+    };
+    categories: {
+        id: number;
+        name: string;
+    }[];
 }
-
 const authors = [
     {
         id: 1,
@@ -63,34 +81,71 @@ const authors = [
     },
 ]
 
-const BookItem: FC<SlideProps> = ({ id, title, description, publishedAt, author, cover }) => {
+const ArticleItem: FC<Article> = (props) => {
+
+    const router = useRouter()
     const toast = Toast.getInstance();
+    const { theme, setTheme } = useTheme()
     let [isOpen, setIsOpen] = useState(false)
-    const [bookState, setBookState] = useState({
-        id,
-        title,
-        description,
-        publishedAt,
-        author,
-        cover: ""
+    const [articleState, setArticleState] = useState({
+        title: props.title,
+        content: props.content,
+        publishedAt: props.publishedAt,
+        author: props.author.id,
+    });
+    const [modules, setModules] = useState<any>({
+
+        toolbar: [
+            ["bold", "italic", "underline", "strike"], // toggled buttons
+            ["blockquote", "code-block"],
+
+            [{ header: 1 }, { header: 2 }], // custom button values
+            [{ list: "ordered" }, { list: "bullet" }],
+            [{ script: "sub" }, { script: "super" }], // superscript/subscript
+            [{ indent: "-1" }, { indent: "+1" }], // outdent/indent
+            [{ direction: "rtl" }], // text direction
+
+            [{ size: ["small", false, "large", "huge"] }], // custom dropdown
+            [{ header: [1, 2, 3, 4, 5, 6, false] }],
+
+            [{ color: [] }, { background: [] }], // dropdown with defaults from theme
+            [{ font: [] }],
+            [{ align: [] }],
+
+            ["clean"], // remove formatting button
+
+            ["link", "image", "video"],
+        ],
     });
 
-    const isDisable = bookState.title.length < 3 || bookState.description.length < 5 || author === "" || cover === ""
+    useEffect(() => {
+        console.log(articleState.content)
+    }, [articleState.content])
+
+
+
+
     const handleChange = (key: string, value: string) =>
-        setBookState({
-            ...bookState,
+        setArticleState({
+            ...articleState,
             [key]: value
         })
 
 
     const handleRemove = () => {
-        if (window.confirm("Əməliyyatı geri qaytarmaq mümkün olmayacaq, bunu etmək istədiyinzdən əminsinizmi,")) {
-            toast.warning("Kitab silindi")
+        if (window.confirm('Bu məqaləni silmək istədiynizə əminsiniz?')) {
+            toast.success('Məqalə uğurla silindi')
             return;
         }
-        toast.info("Əməliyyat ləğv edildi.")
+        toast.info('Məqalə silinmədi')
     }
 
+    const showArticle = () => {
+        if (window.confirm('Məqalə səhifəsini açmaq istədiyinizə əminsiniz?')) {
+            router.push(`/articles/${props.id}`)
+            return;
+        }
+    }
     const closeModal = () => {
         if (!window.confirm("Edilən dəyişikliklər yadda saxlanmayacaq , əminsinizmi?")) {
             return
@@ -106,28 +161,38 @@ const BookItem: FC<SlideProps> = ({ id, title, description, publishedAt, author,
     const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (window.confirm("Dəyişiklikləri yadda saxlamaq istəyirsinizmi?")) {
-            toast.success("Kitab yeniləndi")
+            toast.success("Məqalə yeniləndi")
             setIsOpen(false)
             return;
         }
     }
 
-
     return (
-        <div className="grid border-1 p-3 dark:bg-gray-900 bg-gray-300   rounded-md  shadow-md" style={{ gridTemplateRows: "50px 1fr" }} >
-            <div className="info flex justify-start flex-col">
-                <span className="dark:text-gray-100 text-center  text-gray-700  ">{title}</span>
-            </div>
-            <div className="image">
-                <div className="relative  w-full h-60 md:h-52 overflow-hidden rounded-lg  flex justify-center">
-                    <Image loading="lazy" className="rounded-md  " src={cover} fill alt={""} />
-                </div>
-            </div>
-            <div className='flex justify-between w-full'>
-                <button onClick={openModal} className="mr-1  w-full bg-green-500 hover:bg-green-600 mt-2 focus:ring-green-500 focus:ring-offset-blue-200 text-white font-medium rounded-lg shadow-md p-2 transition ease-in-out duration-150   text-base  tracking-wide   text-center  focus:outline-none focus:ring-2 focus:ring-offset-2 "> Edit </button>
-                <button onClick={handleRemove} className="mr-1  w-full bg-red-500 hover:bg-red-600 mt-2 focus:ring-red-500 focus:ring-offset-blue-200 text-white font-medium rounded-lg shadow-md p-2 transition ease-in-out duration-150   text-base  tracking-wide   text-center  focus:outline-none focus:ring-2 focus:ring-offset-2 "> Remove </button>
-            </div>
 
+        <article className="p-4 article_item bg-gray-100 rounded-lg border border-gray-200 shadow-md dark:bg-gray-700 dark:border-gray-700">
+            <div className="flex justify-between items-center mb-3 text-gray-500">
+                <div className="flex items-center space-x-4">
+                    <img className="w-7 h-7 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png" alt="Jese Leos avatar" />
+                    <span className="font-medium dark:text-gray-200">
+                        {props.author.name}
+                    </span>
+                </div>
+                <span className="text-sm">{moment(props.publishedAt).fromNow()}</span>
+            </div>
+            <h2 className="mb-2 text-2xl font-bold tracking-tight text-gray-800 dark:text-gray-200"><a href="#">{props.title}</a></h2>
+            <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(articleState.content) }} className="article_text mb-5 font-light text-gray-500 dark:text-gray-400" />
+            <div className="flex justify-between items-center">
+
+                <button onClick={handleRemove} type="button" className="p-2 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-red-500 text-white hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800">
+                    Remove
+                </button>
+                <button onClick={showArticle} type="button" className="p-2 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800">
+                    Show
+                </button>
+                <button onClick={openModal} type="button" className="p-2 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-green-500 text-white hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800">
+                    Edit
+                </button>
+            </div>
             <Transition appear show={isOpen} as={Fragment}>
                 <Dialog as="div" className="relative z-10" onClose={closeModal}>
                     <Transition.Child
@@ -142,7 +207,7 @@ const BookItem: FC<SlideProps> = ({ id, title, description, publishedAt, author,
                         <div className="fixed inset-0 bg-black bg-opacity-25" />
                     </Transition.Child>
 
-                    <div className="fixed inset-0 overflow-y-auto">
+                    <div className="fixed  inset-0 overflow-y-auto">
                         <div className="flex min-h-full items-center justify-center p-4 text-center">
                             <Transition.Child
                                 as={Fragment}
@@ -153,10 +218,25 @@ const BookItem: FC<SlideProps> = ({ id, title, description, publishedAt, author,
                                 leaveFrom="opacity-100 scale-100"
                                 leaveTo="opacity-0 scale-95"
                             >
-                                <Dialog.Panel className="w-full max-w-3xl transform overflow-hidden rounded-2xl bg-gra-200 dark:bg-gray-900 bg-gray-300 p-6 text-left align-middle shadow-xl transition-all">
+                                <Dialog.Panel className="w-full  max-w-3xl  transform overflow-hidden rounded-2xl bg-gra-200 dark:bg-gray-900 bg-gray-300 p-6 text-left align-middle shadow-xl transition-all">
                                     <Dialog.Title as="h4"
-                                        className="text-lg mb-3 font-medium leading-6 dark:text-gray-200 text-gray-900">
-                                        Kitab Məlumatlarını Dəyiş
+                                        className="text-lg flex  justify-between mb-3 font-medium leading-6 dark:text-gray-200 text-gray-900">
+                                        <p> Məqalə Məlumatlarını Dəyiş</p>
+                                        <ToggleTheme />
+
+
+                                        {/* <button
+                                            onClick={() => { setTheme(theme === 'dark' ? 'light' : 'dark') }}
+                                            type="button"
+                                            className="rounded-full bg-gray-300 dark:bg-gray-700 p-1 text-gray-800 dark:text-gray-300 hover:text-white focus:outline-none focus:ring-1 focus:ring-white focus:ring-offset-1 focus:ring-offset-gray-800"
+                                        >
+
+                                            <span className='flex items-center justify-center p-1   '>
+                                                {
+                                                    theme !== "dark" ? <BsSunFill /> : <BsMoonFill />
+                                                }
+                                            </span>
+                                        </button> */}
                                     </Dialog.Title>
 
                                     <form action="" onSubmit={submitHandler} >
@@ -168,14 +248,13 @@ const BookItem: FC<SlideProps> = ({ id, title, description, publishedAt, author,
                                                         <label htmlFor="book_title" className="block text-sm font-medium leading-6 dark:text-gray-200 text-gray-900">
                                                             Title
                                                         </label>
-                                                        <input value={bookState.title} onChange={(e) => { handleChange("title", e.target.value) }} id='book_title' type="text" className=" focus:border-blue-500 focus:ring-blue-500 py-3 px-4 block w-full dark:bg-gray-300  rounded-md text-sm  bg-white dark:bg-gray-200 text:gray-900 dark:border-gray-700 dark:text-gray-900" placeholder="Title" />
+                                                        <input value={articleState.title} onChange={(e) => { handleChange("title", e.target.value) }} id='book_title' type="text" className=" focus:border-blue-500 focus:ring-blue-500 py-3 px-4 block w-full dark:bg-gray-300  rounded-md text-sm  bg-white dark:bg-gray-200 text:gray-900 dark:border-gray-700 dark:text-gray-900" placeholder="Title" />
                                                     </div>
                                                     <div className="col-span-full">
                                                         <label htmlFor="book_author" className="block text-sm font-medium leading-6 dark:text-gray-200 text-gray-900">
                                                             Müəllif
                                                         </label>
-                                                        <select value={bookState.author} onChange={(e) => { handleChange("author", e.target.value.toString()) }} id="book_author" className="py-3 px-4 pr-9 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 bg-white dark:bg-gray-300 text:gray-900 dark:border-gray-700 dark:text-gray-900">
-
+                                                        <select value={articleState.author} onChange={(e) => { handleChange("author", e.target.value.toString()) }} id="book_author" className="py-3 px-4 pr-9 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 bg-white dark:bg-gray-300 text:gray-900 dark:border-gray-700 dark:text-gray-900">
                                                             {
                                                                 authors.map((author) => (
                                                                     <option key={author.name} value={author.id}>{author.name}</option>
@@ -187,19 +266,17 @@ const BookItem: FC<SlideProps> = ({ id, title, description, publishedAt, author,
                                                         <label htmlFor="book_publish_date" className="block text-sm font-medium leading-6 dark:text-gray-200 text-gray-900">
                                                             PublishedAt
                                                         </label>
-                                                        <input value={bookState.publishedAt} onChange={(e) => { handleChange("publishedAt", e.target.value) }} id='book_publish_date' type="date" className=" focus:border-blue-500 focus:ring-blue-500 py-3 px-4 block w-full border-gray-200 rounded-md text-sm  bg-white dark:bg-gray-300  text:gray-900 dark:border-gray-700 dark:text-gray-900" placeholder="Title" />
+                                                        <input value={articleState.publishedAt} onChange={(e) => { handleChange("publishedAt", e.target.value) }} id='book_publish_date' type="date" className=" focus:border-blue-500 focus:ring-blue-500 py-3 px-4 block w-full border-gray-200 rounded-md text-sm  bg-white dark:bg-gray-300  text:gray-900 dark:border-gray-700 dark:text-gray-900" placeholder="Title" />
                                                     </div>
                                                     <div className="col-span-full">
                                                         <label htmlFor="book_about" className="block text-sm font-medium leading-6 dark:text-gray-200 text-gray-900">
-                                                            About
+                                                            Content
                                                         </label>
-
-                                                        <textarea id="book_about" value={bookState.description} onChange={(e) => { handleChange("description", e.target.value) }} className="py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 bg-white dark:bg-gray-300  text:gray-900 dark:border-gray-700 dark:text-gray-900" rows={3}></textarea>
-
+                                                        <QuillNoSSRWrapper value={articleState.content as Value} modules={modules} onChange={(e) => { handleChange("content", e) }} />
                                                     </div>
 
 
-                                                    <div className="col-span-full">
+                                                    <div className="hidden col-span-full">
                                                         <label htmlFor="cover-photo" className="block text-sm font-medium leading-6 text-gray-900">
                                                             Cover photo
                                                         </label>
@@ -243,8 +320,8 @@ const BookItem: FC<SlideProps> = ({ id, title, description, publishedAt, author,
                     </div>
                 </Dialog>
             </Transition>
-        </div>
+        </article>
     )
 }
 
-export default BookItem
+export default ArticleItem

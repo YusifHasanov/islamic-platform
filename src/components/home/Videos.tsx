@@ -22,7 +22,9 @@ const Videos = () => {
 
 
       <Swiper modules={[Autoplay]} className="mySwiper"
-        autoplay={{ delay: 1500 }}
+        autoplay={{ delay: 1000 , disableOnInteraction: false}}
+        
+        loop={true}
         breakpoints={{
           640: {
             slidesPerView: 1,

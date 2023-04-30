@@ -1,9 +1,10 @@
 import React from 'react'
-import DashBoardNav from '../../admin/DashBoardNav'
-
+import DashBoardNav from './DashBoardNav'
+import { ToastContainer } from 'react-toastify'
 const Layout = ({ children }: { children: React.ReactNode }) => {
     return (
         <div className=''>
+            <ToastContainer />
             <DashBoardNav />
             <div className="p-4 sm:ml-64">
                 {children}

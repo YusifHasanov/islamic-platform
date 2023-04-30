@@ -1,16 +1,19 @@
-import React from 'react' 
-import { useSession, getSession,signIn, signOut } from "next-auth/react"
+import React from 'react'
+import { useSession, getSession, signIn, signOut } from "next-auth/react"
 import Header from '@/src/components/globals/Header'
 import DashBoardNav from '@/src/admin/DashBoardNav'
-import Layout from '@/src/components/globals/Layout'
+import Layout from '@/src/admin/Layout'
+import Title from '@/src/admin/Title'
 
 const Dashboard = () => {
   return (
     <>
-    <Header title="Dashboard" description="Dashboard" />
-    <Layout>
-      ds
-    </Layout>
+      <Header title="Dashboard" description="Dashboard" />
+      <Layout>
+        <Title name='Dashboard' />
+
+
+      </Layout>
     </>
   )
 }
@@ -19,8 +22,8 @@ export default Dashboard
 
 
 
-export const getServerSideProps= async (context : any) => {
-  const session = await getSession(context); 
+export const getServerSideProps = async (context: any) => {
+  const session = await getSession(context);
   if (session) {
     return {
       redirect: {
@@ -31,10 +34,10 @@ export const getServerSideProps= async (context : any) => {
   }
 
 
-    return {
-        props:{
+  return {
+    props: {
 
-        }
     }
+  }
 }
 

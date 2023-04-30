@@ -1,23 +1,26 @@
 import Title from '@/src/admin/Title'
 import BookItem from '@/src/admin/books/BookItem'
-import Layout from '@/src/components/globals/Layout'
+import Layout from '@/src/admin/Layout'
 import React from 'react'
 import { ToastContainer } from 'react-toastify';
+import Header from '@/src/components/globals/Header';
 const index = () => {
   return (
-    <Layout>
-      <ToastContainer/>
-      <Title name='Kitablar'/>
-      <div className='grid grid-cols-1 md:grid-cols-2 sm:pr-5 pr-2 lg:grid-cols-4 gap-6 '>
-        {
-          books.map((book) => (
-            <div key={book.id} >
-              <BookItem {...book} />
-            </div>
-          ))
-        }
-      </div>
-    </Layout>
+    <>
+      <Header title="Admin Books" description="Admin Books" />
+      <Layout>
+        <Title name='Kitablar' />
+        <div className='grid grid-cols-1 md:grid-cols-2 sm:pr-5 pr-2 lg:grid-cols-4 gap-6 '>
+          {
+            books.map((book) => (
+              <div key={book.id} >
+                <BookItem {...book} />
+              </div>
+            ))
+          }
+        </div>
+      </Layout>
+    </>
   )
 }
 

@@ -10,6 +10,7 @@ import NavListMobile from './NavListMobile'
 import NavPrayTimes from './NavPrayTimes'
 import NavImages from './NavImages'
 import { memo } from 'react'
+import ToggleTheme from '../globals/ToggleTheme'
 
 
 function classNames(...classes: any) {
@@ -47,7 +48,7 @@ const Navigation = () => {
                 <NavList />
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <button
+                {/* <button
                   onClick={() => { setTheme(theme === 'dark' ? 'light' : 'dark') }}
                   type="button"
                   className="rounded-full bg-gray-300 dark:bg-gray-800 p-1 text-gray-800 dark:text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
@@ -58,7 +59,8 @@ const Navigation = () => {
                       theme !== "dark" ? <BsSunFill /> : <BsMoonFill />
                     }
                   </span>
-                </button>
+                </button> */}
+                <ToggleTheme />
                 {/* //! Pray Times */}
                 <NavPrayTimes />
               </div>

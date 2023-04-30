@@ -7,7 +7,7 @@ class Toast {
     
     private static toast: Toast | null = null;
     private position: positionType = "top-right";
-    private autoClose: number = 3000;
+    private autoClose: number = 1500;
     private hideProgressBar: boolean = false;
     private closeOnClick: boolean = true;
     private pauseOnHover: boolean = false;
