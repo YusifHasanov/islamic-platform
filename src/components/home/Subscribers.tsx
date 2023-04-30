@@ -37,7 +37,7 @@ const Subscribers = () => {
                     {stats.map((stat) =>
                         <div key={stat.id} className="mx-auto flex max-w-xs items-center flex-col gap-y-4">
                             {stat.icon}
-                            <CountUp start={0} end={parseFloat(stat.value)} duration={2.75} decimals={3}>
+                            <CountUp start={0} end={parseFloat(stat.value)} duration={2.75} decimals={3} enableScrollSpy={true}>
                                 {({ countUpRef }) => (
                                     <div className="text-3xl font-bold text-gray-900 dark:text-gray-100">
                                         <span ref={countUpRef} />
