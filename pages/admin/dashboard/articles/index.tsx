@@ -1,7 +1,7 @@
 import Title from '@/src/admin/Title'
 import ArticleItem from '@/src/admin/articles/ArticleItem'
 import Layout from '@/src/admin/Layout'
-import React, { useState } from 'react' 
+import React, { FC, useState } from 'react'
 import Header from '@/src/components/globals/Header'
 const articles: Article[] = [
   {
@@ -200,24 +200,24 @@ interface Article {
   }[];
 }
 
-const index = () => {
+const Articles: FC = () => {
 
   const [description, setDescription] = useState("");
   return (
     <>
-    <Header title="Admin Articles" description="Admin Articles" />
-    <Layout>
-      <Title name='Məqalələr' /> 
-      <div className='grid grid-cols-1 md:grid-cols-2 sm:pr-5 pr-2 lg:grid-cols-3  gap-6 '>
-        {
-          articles.map((article: Article) => (
-            <ArticleItem key={article.id} {...article} />
-          ))
-        }
-      </div>
-    </Layout>
+      <Header title="Admin Articles" description="Admin Articles" />
+      <Layout>
+        <Title name='Məqalələr' />
+        <div className='grid grid-cols-1 md:grid-cols-2 sm:pr-5 pr-2 lg:grid-cols-3  gap-6 '>
+          {
+            articles.map((article: Article) => (
+              <ArticleItem key={article.id} {...article} />
+            ))
+          }
+        </div>
+      </Layout>
     </>
   )
 }
 
-export default index
+export default Articles
