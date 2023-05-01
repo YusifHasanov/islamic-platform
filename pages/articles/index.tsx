@@ -206,7 +206,7 @@ const Articles = () => {
   return (
     <>
       <Header title='Məqalələr' description='məqalələrimiz səhifəsində məqalələrimizi oxuya bilərsiniz' />
-      <section className="bg-gray-200 dark:bg-gray-800">
+      <section className="bg-gray-200 dark:bg-gray-800 lg:mb-0 mb-10">
         <div className="pt-6 tb-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
           <div className="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
             <h2 className="mb-4 text-3xl lg:text-5xl tracking-tight font-bold text-gray-800 dark:text-gray-200">Məqalələr</h2>

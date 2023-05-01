@@ -1,3 +1,5 @@
+import { useRouter } from "next/router";
+
 const posts = [
   {
     id: 1,
@@ -53,9 +55,12 @@ const posts = [
   // More posts...
 ]
 
-export default function Articles() {
+
+const Articles=()=> {
+
+  const router = useRouter();
   return (
-    <div className="bg-gray-100 dark:bg-gray-900 py-24 sm:py-32">
+    <div className="bg-gray-200 dark:bg-gray-900 py-12 sm:py-24">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto   lg:mx-0">
           <h2 className="text-3xl text-center font-bold tracking-tight dark:text-gray-200  text-gray-900 sm:text-4xl">Məqalələrimiz</h2>
@@ -63,9 +68,9 @@ export default function Articles() {
             Learn how to grow your business with our expert advice.
           </p>
         </div>
-        <div className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+        <div className="mx-auto mt-5 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
           {posts.map((post) => (
-            <article key={post.id} className="flex max-w-xl flex-col items-start p-6 rounded-md dark:bg-gray-900 justify-between">
+            <article key={post.id} className="article_item border-1 flex max-w-xl flex-col items-start p-6 rounded-md bg-white  dark:bg-gray-900 justify-between">
               <div className="flex items-center gap-x-4 text-xs">
                 <time dateTime={post.datetime} className="text-gray-500">
                   {post.date}
@@ -101,7 +106,14 @@ export default function Articles() {
             </article>
           ))}
         </div>
+        <div className="w-full flex items-center justify-center pt-12">
+          <button onClick={()=>router.push("/articles")} type="button" className="py-2 px-4 my-auto  rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800">
+            Bütün Məqalələrimiz
+          </button>
+        </div>
       </div>
     </div>
   )
 }
+
+export default Articles
