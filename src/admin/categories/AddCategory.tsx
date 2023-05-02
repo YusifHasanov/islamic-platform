@@ -1,4 +1,6 @@
 import Toast from '@/src/admin/Toast';
+import FetchAPI from '@/src/components/globals/FetchAPI';
+import axios from 'axios';
 import React, { useState } from 'react'
 const categories = [
     {
@@ -55,6 +57,7 @@ const categories = [
 
 const AddCategory = () => {
     const toast = Toast.getInstance();
+    const fetchAPI = FetchAPI.getInstance();
     const [category, setCategory] = useState({
         name: "",
         parentId: 0
@@ -66,10 +69,16 @@ const AddCategory = () => {
             [key]: value
         })
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         if (window.confirm("Əminsiniz?")) {
-            toast.success("Əməliyyat uğurla yerinə yetirildi");
+            const postData: CreateCategory = {
+                name: category.name,
+                parentId: category.parentId,
+                subCategories: [] as number[]
+            }
+            await fetchAPI.post("categories", postData).then(res => toast.success("Əməliyyat uğurla yerinə yetirildi")).catch(err => console.log(err))
+
         } else {
             toast.info("Əməliyyat ləğv edildi");
         }

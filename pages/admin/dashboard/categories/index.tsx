@@ -2,9 +2,10 @@ import Title from '@/src/admin/Title';
 import AddCategory from '@/src/admin/categories/AddCategory';
 import CategoryList from '@/src/admin/categories/CategoryList';
 import Layout from '@/src/admin/Layout'
-import React from 'react'
+import React, { FC } from 'react'
 import { ToastContainer } from 'react-toastify';
 import Header from '@/src/components/globals/Header';
+import FetchAPI from '@/src/components/globals/FetchAPI';
 const categories = [
     {
         id: 1,
@@ -57,45 +58,58 @@ const categories = [
         parentId: 3,
     }
 ]
-const Categories = () => {
+interface Props {
+    categories: Category[]
+}
 
-
+const Categories: FC<Props> = ({ categories }) => {
     return (
-       <>
-        <Header title="Admin Categories" description="Admin Categories" />
-        <Layout>
-            <ToastContainer />
-            <Title name='Kategoriyalar'/>
-                        <div className='pr-4'>
-            </div>
-            <div className="border-b border-gray-400 px-4 dark:border-gray-700">
-                <nav className="flex space-x-2" aria-label="Tabs" role="tablist">
-                    <button type="button" className="hs-tab-active:font-semibold hs-tab-active:border-blue-600 hs-tab-active:text-blue-600 py-4 px-1 inline-flex items-center gap-2 border-b-[3px] border-transparent text-sm whitespace-nowrap text-gray-500 hover:text-white active" id="basic-tabs-item-1" data-hs-tab="#basic-tabs-1" aria-controls="basic-tabs-1" role="tab">
-                        Categoriyalar
-                    </button>
-                    <button type="button" className="hs-tab-active:font-semibold hs-tab-active:border-blue-600 hs-tab-active:text-blue-600 py-4 px-1 inline-flex items-center gap-2 border-b-[3px] border-transparent text-sm whitespace-nowrap text-gray-500 hover:text-white" id="basic-tabs-item-2" data-hs-tab="#basic-tabs-2" aria-controls="basic-tabs-2" role="tab"  >
+        <>
+            <Header title="Admin Categories" description="Admin Categories" />
+            <Layout>
+                <ToastContainer />
+                <Title name='Kategoriyalar' />
+                <div className='pr-4'>
+                </div>
+                <div className="border-b border-gray-400 px-4 dark:border-gray-700">
+                    <nav className="flex space-x-2" aria-label="Tabs" role="tablist">
+                        <button type="button" className="hs-tab-active:font-semibold hs-tab-active:border-blue-600 hs-tab-active:text-blue-600 py-4 px-1 inline-flex items-center gap-2 border-b-[3px] border-transparent text-sm whitespace-nowrap text-gray-500 hover:text-white active" id="basic-tabs-item-1" data-hs-tab="#basic-tabs-1" aria-controls="basic-tabs-1" role="tab">
+                            Categoriyalar
+                        </button>
+                        <button type="button" className="hs-tab-active:font-semibold hs-tab-active:border-blue-600 hs-tab-active:text-blue-600 py-4 px-1 inline-flex items-center gap-2 border-b-[3px] border-transparent text-sm whitespace-nowrap text-gray-500 hover:text-white" id="basic-tabs-item-2" data-hs-tab="#basic-tabs-2" aria-controls="basic-tabs-2" role="tab"  >
 
-                        Yeni Categoriya
-                    </button>
-                    <button type="button" className="hs-tab-active:font-semibold hs-tab-active:border-blue-600 hs-tab-active:text-blue-600 py-4 px-1 inline-flex items-center gap-2 border-b-[3px] border-transparent text-sm whitespace-nowrap text-gray-500 hover:text-white" id="basic-tabs-item-3" data-hs-tab="#basic-tabs-3" aria-controls="basic-tabs-3" role="tab" >
-                        Tab 3
-                    </button>
-                </nav>
-            </div>
-            <div className="mt-3 p-4">
-                <div id="basic-tabs-1" role="tabpanel" aria-labelledby="basic-tabs-item-1">
-                    <CategoryList />
+                            Yeni Categoriya
+                        </button>
+                        <button type="button" className="hs-tab-active:font-semibold hs-tab-active:border-blue-600 hs-tab-active:text-blue-600 py-4 px-1 inline-flex items-center gap-2 border-b-[3px] border-transparent text-sm whitespace-nowrap text-gray-500 hover:text-white" id="basic-tabs-item-3" data-hs-tab="#basic-tabs-3" aria-controls="basic-tabs-3" role="tab" >
+                            Tab 3
+                        </button>
+                    </nav>
                 </div>
-                <div id="basic-tabs-2" className="hidden" role="tabpanel" aria-labelledby="basic-tabs-item-2">
-                    <AddCategory />
+                <div className="mt-3 p-4">
+                    <div id="basic-tabs-1" role="tabpanel" aria-labelledby="basic-tabs-item-1">
+                        <CategoryList categories={categories} />
+                    </div>
+                    <div id="basic-tabs-2" className="hidden" role="tabpanel" aria-labelledby="basic-tabs-item-2">
+                        <AddCategory />
+                    </div>
+                    <div id="basic-tabs-3" className="hidden" role="tabpanel" aria-labelledby="basic-tabs-item-3" >
+                    </div>
                 </div>
-                <div id="basic-tabs-3" className="hidden" role="tabpanel" aria-labelledby="basic-tabs-item-3" >
-                </div>
-            </div>
-        </Layout>
-       </>
+            </Layout>
+        </>
     )
 }
 
 export default Categories
 
+
+export async function getServerSideProps(context: any) {
+    const fetchAPI = FetchAPI.getInstance();
+    const categories = await fetchAPI.get<Category[]>('categories').catch(err => []);
+
+    return {
+        props: {
+            categories
+        }
+    }
+}
