@@ -51,13 +51,13 @@ const Playlists: FC<Props> = () => {
     const togglePlaylist = (playlistState: any) =>
         setPlaylist(playlistState.playlistId === playlist?.playlistId ? null : playlistState)
 
-    if (isLoading) return (
-        <div className='list_skeletons  hidden  flex-col lg:flex   pl-12  pt-10' >
-            <ListItemSkeleton number={14} />
-        </div>
+    // if (isLoading) return (
+    //     <div className='list_skeletons  hidden  flex-col lg:flex   pl-12  pt-10' >
+    //         <ListItemSkeleton number={14} />
+    //     </div>
 
 
-    )
+    // )
     console.log(data)
     const handleFilter = (event: any) => {
         const searchWord = event.target.value;
