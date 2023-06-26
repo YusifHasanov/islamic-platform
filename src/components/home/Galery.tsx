@@ -7,7 +7,7 @@ const Galery = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6  ">
                 {new Array(4).fill(0).map((_, i) => (
                     images.map((item, index) => (
-                        <div className="flex justify-center text-6xl    home_image_box rounded-xl    ">
+                        <div key={index} className="flex justify-center text-6xl    home_image_box rounded-xl    ">
                             <img className='rounded-xl ' src={item} alt="" />
                         </div>
                     ))
