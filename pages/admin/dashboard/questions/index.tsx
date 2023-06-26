@@ -56,7 +56,7 @@ const Questions = () => {
 }
 
 export default Questions
-const faqs: question[] = [
+const faqs: any[] = [
   {
     question: "Henefi sual 1 Henefi sual 1 Henefi sual 1 Henefi sual 1 Henefi sual 1 Henefi sual 1 Henefi sual 1 Henefi sual 1 Henefi sual 1 Henefi sual 1 Henefi sual 1 Henefi sual 1 Henefi sual 1 Henefi sual 1  ",
     categoryId: 4,
