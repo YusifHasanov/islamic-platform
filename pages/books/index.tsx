@@ -20,7 +20,7 @@ const Index = () => {
           <div className="w-full books_container">
             {
               books.map((book) => (
-              <BookItem book={book}/>
+              <BookItem key={book.id} book={book}/>
                 
               ))
             }
