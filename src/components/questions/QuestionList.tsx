@@ -5,7 +5,7 @@ import { useAtom } from 'jotai';
 
 const QuestionList = () => {
     const [selectedCategory] = useAtom(selectedCategoryAtom);
-    const [filteredFaqs, setFilteredFaqs] = React.useState<question[]>(faqs);
+    const [filteredFaqs, setFilteredFaqs] = React.useState<any[]>(faqs);
     const filterQuestions = () =>
         selectedCategory === -1 ? setFilteredFaqs(faqs) : setFilteredFaqs(faqs.filter(faq => faq.categoryId === selectedCategory));
 
@@ -30,7 +30,7 @@ const QuestionList = () => {
 }
 
 export default QuestionList
-const faqs: question[] = [
+const faqs: any[] = [
     {
         question: "Henefi sual 1",
         categoryId: 4,
