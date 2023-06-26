@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { IoIosArrowDown } from 'react-icons/io'
 
 interface Props {
-  question: question,
+  question: any,
   index: number
 }
 
