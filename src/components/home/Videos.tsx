@@ -7,49 +7,8 @@ import { useRouter } from "next/router";
 import { useGetVideosQuery } from "@/src/redux/slices/videoSlice";
 
 import 'swiper/css/virtual';
-import { Truculenta } from "next/font/google";
-const videos:Video[]=[
-  {
-    id: 1,
-    videoId: "KYVw2w8MAIM",
-    publishedAt: "2023-02-27T13:45:52.000Z",
-    thumbnail: "https://i.ytimg.com/vi/KYVw2w8MAIM/hqdefault.jpg",
-    title: "Qardaşlıq Çempionatı | Final",
-    playlistId: "PLU43-RoCoSfMihq_-X8zYGxergJCMgayn"
-  },
-  {
-    id:2,
-    videoId: "cuhKwEl6DuQ",
-    publishedAt: "2023-03-06T16:00:07.000Z",
-    thumbnail: "https://i.ytimg.com/vi/cuhKwEl6DuQ/hqdefault.jpg",
-    title: "Qardaşlıq Çempionatı - Super Kubok Oyunu | 313 - DABIQ",
-    playlistId: "PLU43-RoCoSfMihq_-X8zYGxergJCMgayn"
-  },
-  {
-    id:3,
-    videoId: "Czdxy8ljPPE",
-    publishedAt: "2023-02-06T14:25:57.000Z",
-    thumbnail: "https://i.ytimg.com/vi/Czdxy8ljPPE/hqdefault.jpg",
-    title: "Müsəlman Ölkələrindəki Zəlzələ Haqqında | Gündəm Və İslam",
-    playlistId: "PLU43-RoCoSfPLj9z7d_jwLzi4ue9Yvv7e"
-  },
-  {
-    id: 4,
-    videoId: "o2ENJHBKFtM",
-    publishedAt: "2023-02-09T14:02:47.000Z",
-    thumbnail: "https://i.ytimg.com/vi/o2ENJHBKFtM/hqdefault.jpg",
-    title: "Dini Lağa Qoyanlar | Gündəm Və İslam",
-    playlistId: "PLU43-RoCoSfPLj9z7d_jwLzi4ue9Yvv7e"
-  },
-  {
-    id: 5,
-    videoId: "ZUW2Ffyn_do",
-    publishedAt: "2023-02-13T11:54:18.000Z",
-    thumbnail: "https://i.ytimg.com/vi/ZUW2Ffyn_do/hqdefault.jpg",
-    title: "14 Fevral Sevgililər Günü Haqqında | Gündəm Və İslam",
-    playlistId: "PLU43-RoCoSfPLj9z7d_jwLzi4ue9Yvv7e"
-  }
-]
+ 
+
 let isSuccess =true;
 let isLoading =false;
 const Videos = () => {
@@ -143,3 +102,46 @@ const Slide: FC<Video> = ({
 }
 
 export default Videos;
+
+const videos:Video[]=[
+  {
+    id: 1,
+    videoId: "KYVw2w8MAIM",
+    publishedAt: "2023-02-27T13:45:52.000Z",
+    thumbnail: "https://i.ytimg.com/vi/KYVw2w8MAIM/hqdefault.jpg",
+    title: "Qardaşlıq Çempionatı | Final",
+    playlistId: "PLU43-RoCoSfMihq_-X8zYGxergJCMgayn"
+  },
+  {
+    id:2,
+    videoId: "cuhKwEl6DuQ",
+    publishedAt: "2023-03-06T16:00:07.000Z",
+    thumbnail: "https://i.ytimg.com/vi/cuhKwEl6DuQ/hqdefault.jpg",
+    title: "Qardaşlıq Çempionatı - Super Kubok Oyunu | 313 - DABIQ",
+    playlistId: "PLU43-RoCoSfMihq_-X8zYGxergJCMgayn"
+  },
+  {
+    id:3,
+    videoId: "Czdxy8ljPPE",
+    publishedAt: "2023-02-06T14:25:57.000Z",
+    thumbnail: "https://i.ytimg.com/vi/Czdxy8ljPPE/hqdefault.jpg",
+    title: "Müsəlman Ölkələrindəki Zəlzələ Haqqında | Gündəm Və İslam",
+    playlistId: "PLU43-RoCoSfPLj9z7d_jwLzi4ue9Yvv7e"
+  },
+  {
+    id: 4,
+    videoId: "o2ENJHBKFtM",
+    publishedAt: "2023-02-09T14:02:47.000Z",
+    thumbnail: "https://i.ytimg.com/vi/o2ENJHBKFtM/hqdefault.jpg",
+    title: "Dini Lağa Qoyanlar | Gündəm Və İslam",
+    playlistId: "PLU43-RoCoSfPLj9z7d_jwLzi4ue9Yvv7e"
+  },
+  {
+    id: 5,
+    videoId: "ZUW2Ffyn_do",
+    publishedAt: "2023-02-13T11:54:18.000Z",
+    thumbnail: "https://i.ytimg.com/vi/ZUW2Ffyn_do/hqdefault.jpg",
+    title: "14 Fevral Sevgililər Günü Haqqında | Gündəm Və İslam",
+    playlistId: "PLU43-RoCoSfPLj9z7d_jwLzi4ue9Yvv7e"
+  }
+]

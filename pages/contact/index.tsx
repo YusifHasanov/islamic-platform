@@ -16,7 +16,7 @@ const Contact = () => {
                 <div className="mb-12 text-gray-700 dark:text-gray-300 max-w-[570px] lg:mb-0">
 
                   <h2
-                    className=" italic  text-center mb-6 text-[32px]  uppercase sm:text-[40px] lg:text-[36px] xl:text-[50px]  text-green-500"
+                    className="   text-center mb-6 text-[32px]  uppercase sm:text-[40px] lg:text-[36px] xl:text-[50px]  text-green-500"
                   >
                     Əlaqə
                   </h2>

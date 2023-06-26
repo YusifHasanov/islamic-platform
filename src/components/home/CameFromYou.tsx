@@ -1,8 +1,9 @@
 import React from 'react'
 import { Swiper, SwiperSlide, useSwiper, useSwiperSlide } from "swiper/react";
-import { Autoplay } from "swiper";
+
 import "swiper/css";
 import "swiper/css/autoplay";
+import { Autoplay } from "swiper";
 import { useRouter } from "next/router";
 import { useGetVideosQuery } from "@/src/redux/slices/videoSlice";
 const CameFromYou = () => {
@@ -10,10 +11,15 @@ const CameFromYou = () => {
     <div className='dark:bg-gray-900     bg-gray-200 p-12'>
 
 
-      <h4 className='text-4xl text-center font-bold text-gray-800 dark:text-white' >Sizdən gələnlər</h4>
 
-      <div className=' flex items-center '>
-        <Swiper slidesPerView={1} spaceBetween={10} className=' max-w-lg'>
+      <div className=' flex text-center flex-col items-center   w-full '>
+      <h4 className='text-4xl  font-bold text-gray-800 dark:text-white' >Sizdən gələnlər</h4>
+
+        <Swiper style={{margin:0}} modules={[Autoplay]}
+
+          autoplay={{ delay: 1000, disableOnInteraction: false, }}
+          loop={true}
+          slidesPerView={1} spaceBetween={10} className=' max-w-lg'>
           {data.map((item) => (
             <SwiperSlide key={item.id}>
               <div key={item.id} className='p-8'>
@@ -38,25 +44,25 @@ export default CameFromYou
 const data = [
   {
     id: 1,
-    title: 'The 7 Habits of Highly Effective People',
-    content: 'The 7 Habits of Highly Effective People, first published in 1989, is a business and self-help book written by Stephen Covey. Covey presents an approach to being effective in attaining goals by aligning oneself to what he calls "true north" principles based on a character ethic that he presents as universal and timeless.',
+    title: 'The 27 Habits of Highly Effective People',
+    content: 'The 27 Habits of Highly Effective People, first published in 1989, is a business and self-help book written by Stephen Covey. Covey presents an approach to being effective in attaining goals by aligning oneself to what he calls "true north" principles based on a character ethic that he presents as universal and timeless.',
   },
   {
     id: 2,
-    title: 'The 7 Habits of Highly Effective People',
-    content: 'The 7 Habits of Highly Effective People, first published in 1989, is a business and self-help book written by Stephen Covey. Covey presents an approach to being effective in attaining goals by aligning oneself to what he calls "true north" principles based on a character ethic that he presents as universal and timeless.',
+    title: 'The3 7 Habits of Highly Effective People',
+    content: 'The 37 Habits of Highly Effective People, first published in 1989, is a business and self-help book written by Stephen Covey. Covey presents an approach to being effective in attaining goals by aligning oneself to what he calls "true north" principles based on a character ethic that he presents as universal and timeless.',
 
   },
   {
     id: 3,
-    title: 'The 7 Habits of Highly Effective People',
+    title: 'The fdsfsdctive People',
     content: 'The 7 Habits of Highly Effective People, first published in 1989, is a business and self-help book written by Stephen Covey. Covey presents an approach to being effective in attaining goals by aligning oneself to what he calls "true north" principles based on a character ethic that he presents as universal and timeless.',
 
   },
   {
     id: 4,
-    title: 'The 7 Habits of Highly Effective People',
-    content: 'The 7 Habits of Highly Effective People, first published in 1989, is a business and self-help book written by Stephen Covey. Covey presents an approach to being effective in attaining goals by aligning oneself to what he calls "true north" principles based on a character ethic that he presents as universal and timeless.',
+    title: 'The gergergw  ly Effective People',
+    content: 'The  wwe erwe rwe People, first published in 1989, is a business and self-help book written by Stephen Covey. Covey presents an approach to being effective in attaining goals by aligning oneself to what he calls "true north" principles based on a character ethic that he presents as universal and timeless.',
 
   },
   {
