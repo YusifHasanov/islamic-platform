@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import Toast from '../Toast';
 
-const QuestionItem: FC<question> = ({
+const QuestionItem: FC<any> = ({
     question,
     categoryId,
     answer
