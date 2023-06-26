@@ -7,9 +7,54 @@ import { useRouter } from "next/router";
 import { useGetVideosQuery } from "@/src/redux/slices/videoSlice";
 
 import 'swiper/css/virtual';
+import { Truculenta } from "next/font/google";
+const videos:Video[]=[
+  {
+    id: 1,
+    videoId: "KYVw2w8MAIM",
+    publishedAt: "2023-02-27T13:45:52.000Z",
+    thumbnail: "https://i.ytimg.com/vi/KYVw2w8MAIM/hqdefault.jpg",
+    title: "Qardaşlıq Çempionatı | Final",
+    playlistId: "PLU43-RoCoSfMihq_-X8zYGxergJCMgayn"
+  },
+  {
+    id:2,
+    videoId: "cuhKwEl6DuQ",
+    publishedAt: "2023-03-06T16:00:07.000Z",
+    thumbnail: "https://i.ytimg.com/vi/cuhKwEl6DuQ/hqdefault.jpg",
+    title: "Qardaşlıq Çempionatı - Super Kubok Oyunu | 313 - DABIQ",
+    playlistId: "PLU43-RoCoSfMihq_-X8zYGxergJCMgayn"
+  },
+  {
+    id:3,
+    videoId: "Czdxy8ljPPE",
+    publishedAt: "2023-02-06T14:25:57.000Z",
+    thumbnail: "https://i.ytimg.com/vi/Czdxy8ljPPE/hqdefault.jpg",
+    title: "Müsəlman Ölkələrindəki Zəlzələ Haqqında | Gündəm Və İslam",
+    playlistId: "PLU43-RoCoSfPLj9z7d_jwLzi4ue9Yvv7e"
+  },
+  {
+    id: 4,
+    videoId: "o2ENJHBKFtM",
+    publishedAt: "2023-02-09T14:02:47.000Z",
+    thumbnail: "https://i.ytimg.com/vi/o2ENJHBKFtM/hqdefault.jpg",
+    title: "Dini Lağa Qoyanlar | Gündəm Və İslam",
+    playlistId: "PLU43-RoCoSfPLj9z7d_jwLzi4ue9Yvv7e"
+  },
+  {
+    id: 5,
+    videoId: "ZUW2Ffyn_do",
+    publishedAt: "2023-02-13T11:54:18.000Z",
+    thumbnail: "https://i.ytimg.com/vi/ZUW2Ffyn_do/hqdefault.jpg",
+    title: "14 Fevral Sevgililər Günü Haqqında | Gündəm Və İslam",
+    playlistId: "PLU43-RoCoSfPLj9z7d_jwLzi4ue9Yvv7e"
+  }
+]
+let isSuccess =true;
+let isLoading =false;
 const Videos = () => {
   const router = useRouter();
-  const { data: videos, isSuccess, isLoading } = useGetVideosQuery({ refetchOnMountOrArgChange: false });
+  // const { data: videos, isSuccess, isLoading } = useGetVideosQuery({ refetchOnMountOrArgChange: false });
  
   return (
     <div className="px-5 py-12 text-center bg-gray-100 dark:bg-gray-600 ">
@@ -73,14 +118,14 @@ const Slide: FC<Video> = ({
   title,
   playlistId
 }) => {
-
+//`url(${thumbnail.split("+")[2]})`
   return (
     <div className={" p-8  "}>
       <div
         style={{
           backgroundPosition: "center",
           backgroundSize: "cover",
-          backgroundImage: `url(${thumbnail.split("+")[2]})`,
+          backgroundImage: `url(${thumbnail})`,
           border: "1px    solid #383d47", boxShadow: "1px 12px 15px -3px #000"
         }}
         className="flex h-72 w-96 items-center justify-center relative rounded-md text-6xl   ">
