@@ -1,11 +1,9 @@
 import InfinitiVideoScroll from '@/src/components/videos/InfinitiVideoScroll'
 import React, { FC } from 'react'
-import Playlists from '@/src/components/videos/Playlists'
-import { Playlist } from '@prisma/client'
+import Playlists from '@/src/components/videos/Playlists' 
 import Head from 'next/head'  
 import { useAtomValue } from 'jotai'
 import { playlistState } from '@/src/jotai/atoms'
-import { trpc } from '@/server/utils/trpc';
 import Header from '@/src/components/globals/Header'
 
 interface Props {
@@ -13,7 +11,7 @@ interface Props {
 }
 
 const Videos :FC<Props> = ( ) => {
-  const v1 = trpc.video.oneByVideoId.useQuery("jj81sPdd8fk",{staleTime:0}  );//5min
+ 
   const playlist = useAtomValue(playlistState)
      
   return (

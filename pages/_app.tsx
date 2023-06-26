@@ -1,24 +1,18 @@
-import Navigation from '@/src/components/navigation/Navigation'
+import Navigation from '@/src/components/navigation/Navigation';
+import '@/styles/globals.css';
+import { ThemeProvider } from 'next-themes';
+import type { AppProps, AppType } from 'next/app';
 import 'react-toastify/dist/ReactToastify.css';
-import '@/styles/globals.css'
-import { ThemeProvider } from 'next-themes'
-import type { AppProps, AppType } from 'next/app'
 
-import {
-  Hydrate,
-  QueryClient,
-  QueryClientProvider,
-} from 'react-query'
-import { ReactQueryDevtools } from 'react-query/devtools'
-import { SessionProvider } from 'next-auth/react'
-import { trpc } from '@/server/utils/trpc'
-import { useEffect } from 'react'
-import MainHeader from '@/src/components/globals/MainHeader'
-import { useRouter } from 'next/router'
-export const queryClient = new QueryClient()
+
+import MainHeader from '@/src/components/globals/MainHeader';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import { store } from '@/src/redux/store/store';
+import { Provider } from 'react-redux';
 
 export function reportWebVitals(metric: any) {
-  
+
 }
 
 const MyApp: AppType = ({ Component, pageProps }: AppProps) => {
@@ -27,22 +21,15 @@ const MyApp: AppType = ({ Component, pageProps }: AppProps) => {
   const excludeNav = useRouter().pathname.startsWith("/admin")
 
   return (
-    // <SessionProvider session={pageProps.session}>
 
-    <>
+    <Provider store={store}>
       <MainHeader />
       <ThemeProvider attribute='class' >
-        <QueryClientProvider client={queryClient}>
-          <Hydrate state={pageProps.dehydratedState}>
-          {!excludeNav && <Navigation />}
-            <Component {...pageProps} />
-          </Hydrate>
-          <ReactQueryDevtools initialIsOpen={false} />
-        </QueryClientProvider>
+        {!excludeNav && <Navigation />}
+        <Component {...pageProps} />
       </ThemeProvider>
-    </>
-  // </SessionProvider>  
+    </Provider>
   )
 }
 
-export default trpc.withTRPC(MyApp);
+export default MyApp;

@@ -18,7 +18,7 @@ const Footer = () => {
     
     return (
 
-        <footer className="bg-gray-300  shadow dark:bg-gray-900">
+        <footer className="bg-gray-300  shadow dark:bg-gray-950">
             <div className="w-full   container mx-auto p-4 md:px-6 md:py-8">
                 <div className="sm:flex   sm:items-center sm:justify-between">
                     <Link href="/" className="flex items-center  mb-4 sm:mb-0">

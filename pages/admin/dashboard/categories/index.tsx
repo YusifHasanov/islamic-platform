@@ -2,10 +2,11 @@ import Title from '@/src/admin/Title';
 import AddCategory from '@/src/admin/categories/AddCategory';
 import CategoryList from '@/src/admin/categories/CategoryList';
 import Layout from '@/src/admin/Layout'
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import { ToastContainer } from 'react-toastify';
 import Header from '@/src/components/globals/Header';
-import FetchAPI from '@/src/components/globals/FetchAPI';
+import FetchAPI from '@/src/components/globals/FetchAPI'; 
+
 const categories = [
     {
         id: 1,
@@ -62,12 +63,12 @@ interface Props {
     categories: Category[]
 }
 
-const Categories: FC<Props> = ({ categories }) => {
+const Categories: FC<Props> = () => {
+  
     return (
         <>
             <Header title="Admin Categories" description="Admin Categories" />
-            <Layout>
-                <ToastContainer />
+            <Layout> 
                 <Title name='Kategoriyalar' />
                 <div className='pr-4'>
                 </div>
@@ -87,7 +88,7 @@ const Categories: FC<Props> = ({ categories }) => {
                 </div>
                 <div className="mt-3 p-4">
                     <div id="basic-tabs-1" role="tabpanel" aria-labelledby="basic-tabs-item-1">
-                        <CategoryList categories={categories} />
+                        <CategoryList  />
                     </div>
                     <div id="basic-tabs-2" className="hidden" role="tabpanel" aria-labelledby="basic-tabs-item-2">
                         <AddCategory />
@@ -103,13 +104,3 @@ const Categories: FC<Props> = ({ categories }) => {
 export default Categories
 
 
-export async function getServerSideProps(context: any) {
-    const fetchAPI = FetchAPI.getInstance();
-    const categories = await fetchAPI.get<Category[]>('categories').catch(err => []);
-
-    return {
-        props: {
-            categories
-        }
-    }
-}

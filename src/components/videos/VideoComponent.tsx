@@ -1,13 +1,12 @@
 import React, { FC } from 'react'
 import Image from 'next/image'
-import { useRouter } from 'next/router';
-import { Video } from '@prisma/client';
+import { useRouter } from 'next/router'; 
 import Link from 'next/link';
 
 
 
 
-const VideoComponent: FC<Video> = ({ id, title, videoId, thumbnail, publishedAt, playlistId }) => {
+const VideoComponent: FC<any> = ({ id, title, videoId, thumbnail, publishedAt, playlistId }) => {
     const router = useRouter();
 
     const clickHandler = () =>

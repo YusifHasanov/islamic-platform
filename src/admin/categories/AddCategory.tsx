@@ -1,67 +1,25 @@
-import Toast from '@/src/admin/Toast';
-import FetchAPI from '@/src/components/globals/FetchAPI';
-import axios from 'axios';
-import React, { useState } from 'react'
-const categories = [
-    {
-        id: 1,
-        name: "Fiqh",
-        parentId: 0,
-    },
-    {
-        id: 2,
-        name: "Hadis",
-        parentId: 0,
-    },
-    {
-        id: 3,
-        name: "Eqide",
-        parentId: 0,
-    },
-    {
-        id: 4,
-        name: "Henefi",
-        parentId: 1,
-    },
-    {
-        id: 5,
-        name: "Safei",
-        parentId: 1,
-    },
-    {
-        id: 6,
-        name: "Henbeli",
-        parentId: 1,
-    },
-    {
-        id: 7,
-        name: "Maliki",
-        parentId: 1,
-    },
-    {
-        id: 8,
-        name: "Eseri",
-        parentId: 3,
-    },
-    {
-        id: 9,
-        name: "Eşeri",
-        parentId: 3,
-    },
-    {
-        id: 10,
-        name: "Matrudi",
-        parentId: 3,
-    }
-]
 
-const AddCategory = () => {
-    const toast = Toast.getInstance();
-    const fetchAPI = FetchAPI.getInstance();
+import CrudService from '@/src/Services/CrudService';
+import FetchAPI from '@/src/components/globals/FetchAPI';
+import { useCreateCategoryMutation, useGetCategoriesQuery } from '@/src/redux/slices/categoriesSlice';
+
+import React, { FC, useEffect, useState } from 'react';
+
+
+ 
+const AddCategory: FC<any> = ({}) => {
+ 
+    const {data:categories,isLoading} = useGetCategoriesQuery(undefined, {refetchOnMountOrArgChange: true})
+    const [createCategory, result] = useCreateCategoryMutation();
+    const crudService = CrudService.getInstance();
     const [category, setCategory] = useState({
         name: "",
         parentId: 0
     });
+    useEffect(()=>{
+        console.log(category);
+    },[category])
+ 
     const isDisabled = category.name.length < 3;
     const handleChange = (key: string, value: string) =>
         setCategory({
@@ -71,17 +29,17 @@ const AddCategory = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        if (window.confirm("Əminsiniz?")) {
-            const postData: CreateCategory = {
-                name: category.name,
-                parentId: category.parentId,
-                subCategories: [] as number[]
-            }
-            await fetchAPI.post("categories", postData).then(res => toast.success("Əməliyyat uğurla yerinə yetirildi")).catch(err => console.log(err))
+        crudService.add(() => createCategory({
+            name: category.name,
+            parentId: category.parentId,
+            subCategories: [],
+        }));
+        console.log(category);  
+       
 
-        } else {
-            toast.info("Əməliyyat ləğv edildi");
-        }
+    }
+    if (isLoading) {
+        return <div>Loading...</div>
     }
     return (
         <form onSubmit={handleSubmit}>
@@ -94,10 +52,10 @@ const AddCategory = () => {
                 <select
                     id="categoryParent"
                     className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-                    onChange={(e) => { handleChange("parentId", e.target.value.toString()) }} name=""   >
+                    onChange={(e) => { handleChange("parentId", e.target.value) }} name=""   >
                     <option value="0">Yoxdu</option>
                     {
-                        categories.filter(item => item.parentId === 0).map((category) => (
+                        categories?.filter(item => item.parentId === 0).map((category) => (
                             <option key={category.name} value={category.id}>{category.name}</option>
                         ))
                     }
@@ -107,7 +65,10 @@ const AddCategory = () => {
                 Elave Et
             </button>
         </form>
+
     )
 }
 
 export default AddCategory
+
+

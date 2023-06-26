@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { FC } from 'react'
 import Head from 'next/head'
 import ArticleItem from '@/src/components/articles/ArticleItem'
 import Footer from '@/src/components/footer/Footer'
 import Header from '@/src/components/globals/Header'
-const articles: Article[] = [
+import FetchAPI from '@/src/components/globals/FetchAPI'
+import { GetStaticProps } from 'next'
+const articless: any[] = [
   {
     id: 1,
     publishedAt: "2021-01-01",
@@ -22,7 +24,8 @@ const articles: Article[] = [
       {
         id: 2,
         name: 'JavaScript',
-      }]
+      }
+    ]
   },
   {
     id: 2,
@@ -184,29 +187,17 @@ const articles: Article[] = [
       }]
   },
 ]
-interface Article {
-  id: number;
-  publishedAt: string;
-  title: string;
-  content: string;
-  author: {
-    id: number;
-    name: string;
-    image: string;
-  };
-  categories: {
-    id: number;
-    name: string;
-  }[];
+ 
+interface Props{
+  articles:Article[]
 }
 
-
-const Articles = () => {
+const Articles:FC<Props> = ({}) => {
 
   return (
     <>
       <Header title='Məqalələr' description='məqalələrimiz səhifəsində məqalələrimizi oxuya bilərsiniz' />
-      <section className="bg-gray-200 dark:bg-gray-800 lg:mb-0 mb-10">
+      <section className="bg-gray-200 dark:bg-gray-900 lg:mb-0 mb-10">
         <div className="pt-6 tb-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
           <div className="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
             <h2 className="mb-4 text-3xl lg:text-5xl tracking-tight font-bold text-gray-800 dark:text-gray-200">Məqalələr</h2>
@@ -214,7 +205,7 @@ const Articles = () => {
           </div>
           <div className="grid gap-8 lg:grid-cols-3">
             {
-              articles.map((article, index) => (
+              articless.map((article, index) => (
                 <ArticleItem key={index} {...article} />
               ))
             }
@@ -227,3 +218,14 @@ const Articles = () => {
 }
 
 export default Articles
+
+
+// export const getStaticProps: GetStaticProps = async () => {
+//   const fetchAPI = FetchAPI.getInstance();
+//   const res = await fetchAPI.get("articles"); 
+//   return {
+//     props: {
+//       articles :res || []
+//     }
+//   }
+// }

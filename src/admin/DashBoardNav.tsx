@@ -42,6 +42,12 @@ const DashBoardNav = () => {
             icon: <FaHome />,
             current: pathname.includes('/categories')
         },
+        {
+            path:"/authors",
+            name:"Authors",
+            icon:<FaHome />,
+            current:pathname.includes('/authors')
+        }
     ]
     const toggleSidebar = () => {
         setIsSidebarOpen(prev => !prev)

@@ -2,22 +2,14 @@ import React, { Fragment, useEffect, FC } from 'react'
 import axios from 'axios'
 import { useInView } from 'react-intersection-observer'
 import Spinner from '../globals/Spinner'
-import HeaderSkeleton from '../globals/HeaderSkeleton'
-import { Playlist } from '@prisma/client'
+import HeaderSkeleton from '../globals/HeaderSkeleton' 
 import VideoSkeleton from './VideoSkeleton'
-import VideoComponent from './VideoComponent'
-import { trpc } from '@/server/utils/trpc'
+import VideoComponent from './VideoComponent' 
 
 
-const queryFn =
-    async ({ pageParam = "" }, playlistId: string) => {
-        let url = `/api/videos?limit=${16}&order=desc&cursor=${pageParam}&playlistId=${playlistId}`;
-        const { data } = await axios.get(url)
-        return data
-    }
-
+ 
 interface Props {
-    playlist: Playlist | null
+    playlist:any
 }
 
 const InfinitiVideoScroll: FC<Props> = ({ playlist }) => {
@@ -32,31 +24,22 @@ const InfinitiVideoScroll: FC<Props> = ({ playlist }) => {
     //     })
 
 
-    const query = trpc.video.manyByPlayPaginated.useInfiniteQuery(
-        {
-            playlistId: playlist?.playlistId,
-            limit: 16,
-        },
-        {
-            getNextPageParam: (lastPage) => lastPage.nextId ?? false,
-            staleTime: 600000,
-        })
+   
+    // useEffect(() => {
+    //     if (inView && query.hasNextPage) query.fetchNextPage()
+    // }, [inView, query])
 
-    useEffect(() => {
-        if (inView && query.hasNextPage) query.fetchNextPage()
-    }, [inView, query])
-
-    if (query.isLoading || query.isError) return (
-        <div className='flex flex-col h-full w-full pr-4' >
-            <HeaderSkeleton />
-            <InfinityScrollScheleton num1={16} num2={4} />
-        </div>
-    )
+    // if (query.isLoading || query.isError) return (
+    //     <div className='flex flex-col h-full w-full pr-4' >
+    //         <HeaderSkeleton />
+    //         <InfinityScrollScheleton num1={16} num2={4} />
+    //     </div>
+    // )
 
     return (
         <div className='w-full'>
 
-            <div className='' >
+            {/* <div className='' >
                 <h3 className="my-5 text-5xl font-bold text-green-700 dark:text-slate-300 text-center w-full">{playlist?.title ?? "Videolar"}</h3>
                 <div className='grid  w-full  xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 lg:px-5   gap-4 px-10' >
                     {query.data && query.data.pages.map((page) => (
@@ -74,7 +57,7 @@ const InfinitiVideoScroll: FC<Props> = ({ playlist }) => {
                 <div>
                     {query.isFetchingNextPage && <Spinner />}
                 </div>
-            </div>
+            </div> */}
 
         </div>
     )

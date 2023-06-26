@@ -1,50 +1,36 @@
-import React, { FC } from 'react'
-import AddCategory from '@/src/admin/categories/AddCategory';
-import Toast from '@/src/admin/Toast';
-import Layout from '@/src/admin/Layout'
-import { Disclosure, Transition } from '@headlessui/react';
-
-import { IoIosArrowDown } from 'react-icons/io';
-import { ToastContainer, toast } from 'react-toastify';
+import { FC } from 'react';
 import ChildItem from './ChildItem';
-import FetchAPI from '@/src/components/globals/FetchAPI';
+import { useGetCategoriesQuery } from '@/src/redux/slices/categoriesSlice';
 import ParentItem from './ParentItem';
 
+
+
 interface Props {
-    categories: Category[]
 }
-const CategoryList: FC<Props> = ({ categories }) => {
+const CategoryList: FC<Props> = ({ }) => {
+
+    const { data: categories, isLoading, isError, error } = useGetCategoriesQuery(undefined, { refetchOnMountOrArgChange: true })
+
+    if (isLoading) return <div>Loading...</div>
 
     return (
         <>
-            {
-                categories?.filter(category => category.parentId === 0).map((parent) => (
-                    <Disclosure key={parent.id}>
-                        {({ open }) => (
-                            <>
-                                <ParentItem parent={parent} open={open} />
-                                <Transition
-                                    show={open}
-                                    enter="transition ease-out duration-300 transform origin-top"
-                                    enterFrom="opacity-0 scale-y-0"
-                                    enterTo="opacity-100 scale-y-100"
-                                    leave="transition ease-in duration-300 transform origin-top"
-                                    leaveFrom="opacity-100 scale-y-100"
-                                    leaveTo="opacity-0 scale-y-0" >
-                                    <div className='flex flex-col px-5'>
-                                        {
-                                            categories?.filter(category => category.parentId === parent.id).map((child) => (
-                                                <ChildItem key={child.id} {...child} />
-                                            ))
-
-                                        }
-                                    </div>
-                                </Transition>
-                            </>
-                        )}
-                    </Disclosure>
-                ))
-            }
+            <ul className=" flex flex-col">
+                {
+                    categories?.filter(c => c.parentId === 0).map((category, index) => (
+                        <li className="flex flex-col  items-start gap-x-3.5 py-3 px-4 text-sm font-medium bg-white border text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:bg-gray-700 dark:border-gray-900 dark:text-white">
+                            <ParentItem key={category.id} {...category} />
+                            <ul className=" w-full mt-2 ml-2 flex flex-col">
+                                {
+                                    categories?.filter(c => c.parentId === category.id).sort((a, b) => a.id - b.id).map((category, index) => (
+                                        <ChildItem key={category.id}  {...category} />
+                                    ))
+                                }
+                            </ul>
+                        </li>
+                    ))
+                }
+            </ul>
         </>
     )
 }

@@ -1,42 +1,27 @@
+import { Disclosure } from '@headlessui/react'
 import React, { FC, useState } from 'react'
-import CrudService from '@/src/Services/CrudService'
-import { useDeleteCategoryMutation, useUpdateCategoryMutation } from '@/src/redux/slices/categoriesSlice';
-interface ParentItemProps {
-    id: number,
-    name: string,
-    parentId: number
+import { IoIosArrowDown } from 'react-icons/io'
+
+interface Props {
+    parent: Category
+    open: boolean
 }
-
-
-const ParentItem: FC<Category> = ({ id, name, parentId, subCategories, articles }) => {
+const ParentItem: FC<Props> = ({ parent, open }) => {
     const [isUpdate, setIsUpdate] = useState(false);
-    const [updateName, setUpdateName] = useState<string>(name);
-    const crudService = CrudService.getInstance();
-    const [updateCategory, result] = useUpdateCategoryMutation();
-    const [remove, removeResult] = useDeleteCategoryMutation();
+    const [updateName, setUpdateName] = useState<string>(parent.name);
     const handleUpdate = () => {
-        crudService.update(() => updateCategory({
-            data: {
-                name: updateName,
-                parentId,
-                subCategories,
-            },
-            id,
-        }));
         setIsUpdate(false)
     }
     const handleExit = () => {
-        if (window.confirm("Qeyd edilən dəyişikliklər saxlanılmayacaq. Çıxmaq istədiyinizə əminsiniz?")) {
-            setIsUpdate(false)
-        }
+
     }
     const handleRemove = () => {
-        crudService.delete(() => remove(id));
-        remove(id);
+
     }
     return (
         <>
-
+           <Disclosure.Button className="flex justify-between w-full px-4 py-2 text-sm font-medium dark:bg-gray-900 bg-gray-400 rounded-md mb-4  ">
+                                     
             {
                 isUpdate ? (
                     <div className="flex w-full justify-between">
@@ -47,16 +32,19 @@ const ParentItem: FC<Category> = ({ id, name, parentId, subCategories, articles 
 
                 ) : (
                     <div className="flex w-full justify-between items-center">
-                        <span className='ml-4 p-2 rounded-md text-lg  dark:bg-gray-800'>{name}</span>
-                        
+                        <span>{parent.name}</span>
                         <div className="flex">
                             <button onClick={() => setIsUpdate(true)} className="bg-blue-500 mr-2 px-4 text-white py-1 rounded-md">Edit</button>
                             <button onClick={handleRemove} className="bg-red-500 text-white px-4  py-1 rounded-md">Remove</button>
-                        </div>
+                            <IoIosArrowDown className={`${open ? 'transform rotate-180' : ''} w-5 h-5 text-purple-500 transition-all ease-out `} />
 
+                        </div>
+                    
                     </div>
                 )
             }
+                                </Disclosure.Button>
+         
         </>
     )
 }

@@ -18,7 +18,7 @@ interface ToastProps {
 
 class Toast {
     
-    private static toast: Toast | null = null;
+    private static toast =new Toast();
     private position: positionType = "top-right";
     private autoClose: number = 1500;
     private hideProgressBar: boolean = false;
@@ -32,8 +32,6 @@ class Toast {
     }
 
     public static getInstance() {
-        if (this.toast === null)
-            this.toast = new Toast();
         return this.toast;
     }
 

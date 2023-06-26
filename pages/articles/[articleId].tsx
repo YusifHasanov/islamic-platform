@@ -6,7 +6,7 @@ const Index = () => {
     const router = useRouter();
 
     return (
-        <main className="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white dark:bg-gray-800">
+        <main className="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white dark:bg-gray-900">
             <button
                 onClick={() => router.back()}
                 type="button"

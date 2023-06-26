@@ -1,40 +1,55 @@
-import React, { FC, useState } from 'react'
-import { Disclosure } from '@headlessui/react';
+import CrudService from '@/src/Services/CrudService';
+import { FC, useState } from 'react';
 
-interface ChildItemProps {
-    id: number,
-    name: string,
-    parentId: number
-}
+import FetchAPI from '@/src/components/globals/FetchAPI';
+import { useDeleteCategoryMutation, useUpdateCategoryMutation } from '@/src/redux/slices/categoriesSlice';
 
 
+ 
 
-const ChildItem: FC<ChildItemProps> = ({ id, name, parentId }) => {
+const ChildItem: FC<Category> = ({ id, name, parentId, subCategories, articles }) => {
     const [isUpdate, setIsUpdate] = useState(false);
     const [updateName, setUpdateName] = useState<string>(name);
+    const [updateCategory, result] = useUpdateCategoryMutation();
+    const [remove, removeResult] = useDeleteCategoryMutation();
+    const crudService = CrudService.getInstance();
+ 
+
 
     const handleUpdate = () => {
-         setIsUpdate(false)
+        crudService.update(() => updateCategory({
+            data: {
+                name: updateName,
+                parentId,
+                subCategories,
+            },
+            id,
+        }));
+        setIsUpdate(false)
     }
-    const handleExit = ()=>{
-
+    const handleExit = () => {
+        if (window.confirm("Qeyd edilən dəyişikliklər saxlanılmayacaq. Çıxmaq istədiyinizə əminsiniz?")) {
+            setIsUpdate(false)
+        }
     }
-    const handleRemove = ()=>{
-
+    const handleRemove = () => {
+        crudService.delete(() => remove(id));
+        remove(id);
     }
     return (
-        <Disclosure.Panel className={`rounded-md   mb-1 dark:bg-gray-500 dark:text-gray-900 cursor-pointer bg-gray-400  p-2 text-md text-gray-200  `}>
+
+        <li className="  w-full items-center gap-x-3.5 py-3 px-4 text-sm font-medium bg-white border text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg dark:bg-gray-800 dark:border-gray-700 dark:text-white">
             {
                 isUpdate ? (
                     <div className="flex justify-between">
-                        <input value={updateName} onChange={(e)=>{setUpdateName(e.target.value.trim())}} type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                        <input value={updateName} onChange={(e) => { setUpdateName(e.target.value.trim()) }} type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                         <button onClick={handleUpdate} className="bg-green-500 text-white mx-2 px-4 py-1  rounded-md">Save</button>
                         <button onClick={handleExit} className="bg-red-500 text-white px-4  py-1 rounded-md">Exit</button>
                     </div>
 
                 ) : (
                     <div className="flex justify-between items-center">
-                        <span>{name}</span>
+                        <span className=''>{name}</span>
                         <div className="flex">
                             <button onClick={() => setIsUpdate(true)} className="bg-blue-500 mr-2 px-4 text-white py-1 rounded-md">Edit</button>
                             <button onClick={handleRemove} className="bg-red-500 text-white px-4  py-1 rounded-md">Remove</button>
@@ -42,10 +57,11 @@ const ChildItem: FC<ChildItemProps> = ({ id, name, parentId }) => {
                     </div>
                 )
             }
-        </Disclosure.Panel>
+
+        </li>
+
+
     )
 }
-
-
 
 export default ChildItem

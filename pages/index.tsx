@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react'
+import React  from 'react'
 import { Poppins } from 'next/font/google'
 import Footer from '@/src/components/footer/Footer';
-import Header from '@/src/components/globals/Header';
-import { trpc } from '@/server/utils/trpc';
+import Header from '@/src/components/globals/Header'; 
 import Subscribers from '@/src/components/home/Subscribers';
 import Hero from '@/src/components/home/Hero';
 import Videos from '@/src/components/home/Videos';
@@ -12,8 +11,7 @@ import CameFromYou from '@/src/components/home/CameFromYou';
 const montserrat = Poppins({ weight: ["400", "500", "600", "700"], subsets: ["latin-ext"] })
 
 export default function Home(props: any) {
-  const { data: videos } = trpc.video.getAll.useQuery(undefined, { staleTime: 0 })
-  const { data: playlists } = trpc.playlist.getAll.useQuery(undefined, { staleTime: 0 })
+ 
 
   return (
     <>

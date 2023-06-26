@@ -3,7 +3,7 @@ import axios from 'axios';
 import Head from 'next/head';
 import VideoItemSkeleton from './VideoItemSkeleton';
 import HeaderSkeleton from '../../globals/HeaderSkeleton';
-import { Video } from '@prisma/client';
+ 
 
 
 // async function queryFn(videoId: videoIdType) {
@@ -12,7 +12,7 @@ import { Video } from '@prisma/client';
 // }
 
 
-const VideoItem = ({video}:{video:Video} ) => {
+const VideoItem = ({video}:{video:any} ) => {
 
     // const videoQuery = useQuery<any, unknown>(["video", videoId],
     //     async () => await queryFn(videoId), {

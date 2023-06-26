@@ -2,17 +2,17 @@ import React, { FC } from 'react'
 import VideoPlaylists from '@/src/components/videos/singleVideo/VideoPlaylists';
 import VideoItem from '@/src/components/videos/singleVideo/VideoItem';
 import Head from 'next/head';
-import { Video } from '@prisma/client';
-import { getSSG } from '@/server/utils/ssg';
+import FetchAPI from '@/src/components/globals/FetchAPI';
+ 
 
 interface Props {
-  video: Video
+ video :any
 }
 const style = {
   height: "calc((100vh - 20px) - 64px)",
 } as any
 
-const Index: FC<Props> = ({ video }) => {
+const Index: FC<Props> = ({ video  }) => {
 
   return (
     <>
@@ -31,10 +31,9 @@ export default Index
 
 export const getServerSideProps = async (context: any) => {
   const { videoId } = context.params
+  const fetchAPI = FetchAPI.getInstance();
 
-  const ssg = await getSSG();
-  const video = await ssg.video.oneByVideoId.fetch(videoId as string).then((res) => JSON.parse(JSON.stringify(res)))
-  // const { data: video } = await axios.get(`${process.env.URL}/api/videos/${videoId}`)
+  const video = await fetchAPI.get( `videos/${videoId}`) 
   if (!video) {
     return {
       redirect: {
@@ -47,7 +46,7 @@ export const getServerSideProps = async (context: any) => {
   return {
 
     props: {
-      trpcState: ssg.dehydrate(),
+      
       video
     }
   }

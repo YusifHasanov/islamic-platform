@@ -1,8 +1,8 @@
 class FetchAPI {
 
-  private baseUrl: string;
+  public baseUrl: string;
   private static readonly INSTANCE = new FetchAPI(`${process.env.API_URL}/`);
-  
+
   constructor(baseUrl: string) {
     this.baseUrl = baseUrl;
   }
@@ -12,12 +12,15 @@ class FetchAPI {
   }
 
   private async handleResponse(response: Response) {
+ 
     if (!response.ok) {
       const error = await response.json();
-      throw new Error(error.message);
-    }
+      console.log(error)
+      return null
+    } 
 
-    return response.json();
+    return await response.json() ;
+      
   }
 
   async get<T>(path: string): Promise<T> {
