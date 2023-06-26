@@ -107,7 +107,7 @@ const InfinitiVideoScroll: FC<Props> = ({ playlist }) => {
 
              <div className='' >
                 <h3 className="my-5 text-5xl font-bold text-green-700 dark:text-slate-300 text-center w-full">{playlist?.title ?? "Videolar"}</h3>
-                <div className='grid  w-full  xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 lg:px-5   gap-4 px-10' >
+                <div className='grid  w-full  xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols:2 lg:px-5   gap-4 px-10' >
                     {/* {query.data && query.data.pages.map((page) => (
                         <Fragment key={page.nextId ?? "lastpage"}>
                             {

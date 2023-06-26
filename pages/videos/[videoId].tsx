@@ -19,7 +19,7 @@ const Index: FC<Props> = ({ video  }) => {
       <Head>
         <title>Əhli Sünnə Mədrəsəsi</title>
       </Head>
-      <div style={style} className=' overflow-y-hidden grid custom-grid px-6 pb-6'>
+      <div style={style} className='      px-6 pb-6'>
         <VideoItem video={video} />
         <VideoPlaylists video={video} />
       </div>
@@ -29,26 +29,26 @@ const Index: FC<Props> = ({ video  }) => {
 
 export default Index
 
-export const getServerSideProps = async (context: any) => {
-  const { videoId } = context.params
-  const fetchAPI = FetchAPI.getInstance();
+// export const getServerSideProps = async (context: any) => {
+//   const { videoId } = context.params
+//   const fetchAPI = FetchAPI.getInstance();
 
-  const video = await fetchAPI.get( `videos/${videoId}`) 
-  if (!video) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: "/404",
-      },
-      props: {},
-    };
-  }
-  return {
+//   const video = await fetchAPI.get( `videos/${videoId}`) 
+//   if (!video) {
+//     return {
+//       redirect: {
+//         permanent: false,
+//         destination: "/404",
+//       },
+//       props: {},
+//     };
+//   }
+//   return {
 
-    props: {
+//     props: {
       
-      video
-    }
-  }
-}
+//       video
+//     }
+//   }
+// }
 

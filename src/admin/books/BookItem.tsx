@@ -82,37 +82,7 @@ const BookItem: FC<SlideProps> = ({ id, title, description, publishedAt, author,
             [key]: value
         })
 
-
-    const handleRemove = () => {
-        if (window.confirm("Əməliyyatı geri qaytarmaq mümkün olmayacaq, bunu etmək istədiyinzdən əminsinizmi,")) {
-            toast.warning("Kitab silindi")
-            return;
-        }
-        toast.info("Əməliyyat ləğv edildi.")
-    }
-
-    const closeModal = () => {
-        if (!window.confirm("Edilən dəyişikliklər yadda saxlanmayacaq , əminsinizmi?")) {
-            return
-        }
-        setIsOpen(false)
-
-    }
-
-    const openModal = () => {
-        setIsOpen(true)
-    }
-
-    const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        if (window.confirm("Dəyişiklikləri yadda saxlamaq istəyirsinizmi?")) {
-            toast.success("Kitab yeniləndi")
-            setIsOpen(false)
-            return;
-        }
-    }
-
-
+ 
     return (
         <div className="grid border-1 p-3 dark:bg-gray-900 bg-gray-300   rounded-md  shadow-md" style={{ gridTemplateRows: "50px 1fr" }} >
             <div className="info flex justify-start flex-col">

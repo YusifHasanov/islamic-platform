@@ -53,8 +53,7 @@ const Videos = () => {
         }
       </Swiper>
       <button onClick={() => router.push("/videos")} type="button" className=" py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border-2 border-green-200 font-semibold text-green-500 hover:text-white hover:bg-green-500 hover:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-200 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800">
-        Bütün videolar
-
+        Bütün videolar 
       </button>
     </div>
   );
