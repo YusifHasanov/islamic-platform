@@ -18,7 +18,7 @@ interface Props {
 const BookItem: FC<Props> = ({ book }) => {
     return (
         <div className="book_item h-full  overflow-hidden dark:bg-gray-900  bg-white ">
-            <div data-hs-overlay={`#book_id_${book.id}`} className=" cursor-pointer flex justify-center  overflow-hidden  h-56">
+            <div style={{height:"200px"}} data-hs-overlay={`#book_id_${book.id}`} className=" cursor-pointer flex justify-center  overflow-hidden  h-56">
                 <img className="w-full   book_image" src={book.cover} alt="" />
             </div>
             <div className="p-3 dark:text-gray-100">
@@ -26,7 +26,7 @@ const BookItem: FC<Props> = ({ book }) => {
                     <p className="text-lg text-center dark:text-gray-200 text-gray-800 font-semibold">{book.title}</p>
                 </div>
                 <hr />
-                <div className="h-14 p-2 flex items-center justify-between mt-3">
+                <div className="h-14 p-2 flex items-center justify-between mt-1 ">
                     <p className="text-sm ">{book.author}</p>
                     <p className="text-sm opacity-70">{moment(book.publishedAt).fromNow()}</p>
                 </div>
@@ -36,8 +36,8 @@ const BookItem: FC<Props> = ({ book }) => {
                 id={`book_id_${book.id}`}
                 className="hs-overlay hidden w-full h-full fixed top-0 left-0 z-[60] overflow-x-hidden overflow-y-auto"
             >
-                <div className="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto min-h-[calc(100%-3.5rem)] flex items-center">
-                    <div className="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-gray-800 dark:border-gray-700 dark:shadow-slate-700/[.7]">
+                <div className="hs-overlay-open:mt-0 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-10 opacity-0 transition-all max-w-full w-full sm:hs-overlay-open:mt-20 sm:mt-0 sm:max-w-lg sm:mx-auto">
+                    <div className="flex flex-col  bg-white border shadow-sm rounded-xl dark:bg-gray-800 dark:border-gray-700 dark:shadow-slate-700/[.7]">
                         <div className="flex justify-between items-center py-3 px-4 border-b dark:border-gray-700">
                             <h3 className="font-bold text-gray-800 dark:text-white">{book.title}</h3>
                             <button
@@ -48,7 +48,7 @@ const BookItem: FC<Props> = ({ book }) => {
                                 <AiOutlineClose className="text-white  first-letter: text-lg" />
                             </button>
                         </div>
-                        <div className="p-4 overflow-y-auto ">
+                        <div className="p-4 overflow-y-auto   ">
                             {/* <p className='mb-3'>Kitab Haqqında açıqlama</p>
                             <hr/> */}
                             <p className="text-gray-800 mt-3 dark:text-gray-400">

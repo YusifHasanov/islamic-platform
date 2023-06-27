@@ -8,20 +8,20 @@ import {AiOutlineClose} from 'react-icons/ai';
 import moment from 'moment'
 import Head from 'next/head'
 import Header from "@/src/components/globals/Header";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import BookItem from "@/src/components/books/BookItem";
 const Index = () => {
+ 
   return (
     <>
       <Header title='Kitablar' description="kitablarımız səhifəsində kitablarımızla tanış ola bilərsiniz" />
       <section className="py-16 " >
-        <div className="container mx-auto md:px-20">
+        <div className="sm:px-10 px-20 mx-auto md:px-20">
           <h3 className="font-bold text-4xl pb-12 text-center">Kitablar</h3>
           <div className="w-full books_container">
             {
               books.map((book) => (
-              <BookItem key={book.id} book={book}/>
-                
+              <BookItem key={book.id} book={book}/> 
               ))
             }
           </div>
@@ -46,7 +46,7 @@ const books: BookE[] = [
   {
     id: 1,
     title: "The Hunger Games",
-    description: "lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.",
+    description: "kitab 1 aciqlama",
     publishedAt: "2021-01-01",
     author: "Suzanne Collins",
     cover: "https://images.unsplash.com/photo-1626618012641-bfbca5a31239?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8aGFycnklMjBwb3R0ZXIlMjBib29rfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
@@ -55,8 +55,8 @@ const books: BookE[] = [
     id: 2,
     title: "Harry Potter and the Philosopher's Stone",
     author: "J.K. Rowling",
-    description: "lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.",
-    publishedAt: "2021-01-01",
+    description: "kitab 2 aciqlama",
+        publishedAt: "2021-01-01",
     cover: "https://images.unsplash.com/photo-1600189261867-30e5ffe7b8da?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aGFycnklMjBwb3R0ZXIlMjBib29rfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
   },
   {

@@ -1,7 +1,51 @@
-import React, { FC } from 'react'
-import { Disclosure, Transition } from '@headlessui/react';
-import { IoIosArrowDown } from 'react-icons/io';
-import { atom, useAtom } from 'jotai';
+import React from 'react'
+ 
+
+const CategoryList = () => {
+    return (
+        <div className='question_categories  dark:bg-gray-950  flex w-max bg-white items-center mx-4  rounded-3xl  py-3 px-6'>
+            <input type="text" className="bg-gray-50 border   outline-none  border-gray-400 text-gray-900 dark:text-gray-800 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 sticky top-0 block  p-2.5 dark:bg-gray-100 dark:border-gray-600 dark:placeholder-gray-400   dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Axtar" />
+            <div className='flex px-2 justify-center items-center overflow-auto categories_container'  >
+                {
+                    categories.filter(category => category.parentId === 0).map((parent) => (
+                        <div className="hs-dropdown  relative inline-flex">
+                            <div id="hs-dropdown-with-icons" key={parent.id} className="flex hs-dropdown-toggle items-center justify-between p-2.5 rounded-md hover:bg-blue-100 bg-blue-50 dark:bg-gray-200 mr-1 cursor-pointer">
+                                <div className="flex items-center">
+                                    <p className="text-sm text-gray-800      font-semibold ml-2">{parent.name}</p>
+                                </div> 
+                            </div>
+                            <div 
+                                className="hs-dropdown-menu border border-gray-100 transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-[15rem] bg-white shadow-md rounded-lg p-2 mt-2 divide-y divide-gray-200 dark:bg-gray-800 dark:border dark:border-gray-700 dark:divide-gray-700"
+                                aria-labelledby="hs-dropdown-with-icons"
+                            >
+
+                                <div className="py-2   first:pt-0 last:pb-0">
+                                    {categories.filter(category => category.parentId === parent.id)
+                                        .map((child) => (
+                                            <a
+                                                className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-blue-100 mb-1 bg-blue-50 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300"
+                                                href="#"
+                                            >
+                                                {child.name}
+                                            </a>
+                                        )
+                                        )}
+                                </div>
+                            </div>
+                        </div>
+
+
+                    )
+                    )
+                }
+
+            </div>
+        </div>
+    )
+}
+
+export default CategoryList
+
 
 const categories = [
     {
@@ -55,60 +99,3 @@ const categories = [
         parentId: 3,
     }
 ]
-export const selectedCategoryAtom = atom<number>(-1);
-
-const CategoryList: FC = () => {
-
-    return (
-        <div className='flex flex-col px-5 border-r-2 pt-6 ' >
-            {
-                categories.filter(category => category.parentId === 0).map((parent) => (
-                    <Disclosure key={parent.id}>
-                        {({ open }) => (
-                            <>
-                                <Disclosure.Button className="flex justify-between w-full px-4 py-2 text-sm font-medium dark:bg-gray-900 rounded-md mb-4  ">
-                                    <span>{parent.name}</span>
-                                    <IoIosArrowDown className={`${open ? 'transform rotate-180' : ''} w-5 h-5 text-purple-500 transition-all ease-out `} />
-                                </Disclosure.Button>
-                                <Transition
-                                    show={open}
-                                    enter="transition ease-out duration-300 transform origin-top"
-                                    enterFrom="opacity-0 scale-y-0"
-                                    enterTo="opacity-100 scale-y-100"
-                                    leave="transition ease-in duration-300 transform origin-top"
-                                    leaveFrom="opacity-100 scale-y-100"
-                                    leaveTo="opacity-0 scale-y-0" >
-                                    <div className='flex flex-col px-5'>
-                                        {categories.filter(category => category.parentId === parent.id)
-                                            .map((child) => <ChildItem key={child.id} {...child} />)}
-                                    </div>
-                                </Transition>
-                            </>
-                        )}
-                    </Disclosure>
-                ))
-            }
-        </div>
-    );
-};
-
-export default CategoryList;
-
-interface ChildItemProps {
-    id: number,
-    name: string,
-    parentId: number
-}
-
-const ChildItem: FC<ChildItemProps> = ({ id, name, parentId }) => {
-    const [selectedCategory, setSelectedCategory] = useAtom(selectedCategoryAtom);
-    const handleClick = () =>
-        setSelectedCategory(prev => prev === id ? -1 : id);
-    return (
-        <Disclosure.Panel
-            onClick={handleClick}
-            className={`rounded-md mb-1 cursor-pointer  p-2 text-sm text-gray-500 ${selectedCategory === id ? 'dark:bg-gray-300' : 'dark:bg-gray-700'}`}>
-            {name}
-        </Disclosure.Panel>
-    )
-}

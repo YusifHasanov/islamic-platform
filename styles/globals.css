@@ -20,13 +20,14 @@
   font-size: 64px;
   font-weight: 700;
 }
-.home_image_box{
+
+.home_image_box {
   box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
 }
- 
+
 .videos_container {
   display: flex;
-  position: relative; 
+  position: relative;
 }
 
 .navigation_container {
@@ -87,7 +88,7 @@
   /* Set color of thumb on hover */
 
 }
- 
+
 .playlists_container::-webkit-scrollbar-track {
   background-color: #c4c4c4;
   /* Set color of track */
@@ -132,6 +133,7 @@
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 
 }
+
 .custom-grid {
   display: flex;
   flex-direction: column;
@@ -144,10 +146,10 @@
     display: grid;
     grid-template-columns: 8fr 4fr;
   }
-  
+
 }
 
- 
+
 .video_playlists {
   height: calc(100vh - 225px);
   top: 64px;
@@ -177,21 +179,23 @@
   height: 350px;
   width: 100%;
 }
+
 @media screen and (min-width: 700px) {
   .responsive_iframe {
     height: 450px;
-   
+
   }
 
-  
+
 }
+
 @media screen and (min-width: 1024px) {
   .responsive_iframe {
     height: 520px;
     width: 100%;
   }
 
-  
+
 }
 
 .playlist_title {
@@ -245,78 +249,149 @@
 
 }
 
-.logo_container{
+.logo_container {
   background-image: url("./../public/assets/logo.png");
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
 }
-.books_container{
-  display: grid;
-  grid-template-columns: 1fr 5fr;
-}
 
 
- .questions_container{
+/* .questions_container{
   display: grid;
   grid-template-columns: 3fr 7fr;
    height:  calc((100vh - 64px) - 50px);
  }
- 
+  */
 
- @media screen and (max-width: 640px) {
-  
-  .admin_sidebar{
+@media screen and (max-width: 640px) {
+
+  .admin_sidebar {
     transform: translateX(-100%);
-   }
-  
-
-  }
-
-  #hs-invalid-toggle-switch:before {
-    content: "";
-    display: inline-block;
-    width: 6px;
-    height: 6px;
-    background-color: #fff;
-    transform: translateX(0);
-    box-shadow: 0 0 0 1px #000;
-    border-radius: 50%;
-    transition: ease-in-out 0.2s;
-  }
-  /* Sun icon for checked state */
-  #hs-invalid-toggle-switch:checked:before {
-    background-color: #f6e05e;
-    transform: translateX(100%);
-    box-shadow: 0 0 0 1px #000;
-    border-radius: 50%;
-    transition: ease-in-out 0.2s;
-  }
-
-  .article_item{
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   }
 
 
+}
+
+#hs-invalid-toggle-switch:before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background-color: #fff;
+  transform: translateX(0);
+  box-shadow: 0 0 0 1px #000;
+  border-radius: 50%;
+  transition: ease-in-out 0.2s;
+}
+
+/* Sun icon for checked state */
+#hs-invalid-toggle-switch:checked:before {
+  background-color: #f6e05e;
+  transform: translateX(100%);
+  box-shadow: 0 0 0 1px #000;
+  border-radius: 50%;
+  transition: ease-in-out 0.2s;
+}
+
+.article_item {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
 
 
-  /* Books */
-  .books_container{
-    display:grid;
+
+
+/* Books */
+.books_container {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 25px;
+  row-gap: 45px;
+}
+
+
+
+.book_item {
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  border-radius: 15px;
+}
+
+.book_image {
+  transition: all 1.5s cubic-bezier(0, 0, 0.2, 1);
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+
+}
+
+.book_image:hover {
+  transform: scale(1.1);
+
+}
+
+@media screen and (min-width:550px) {
+  .books_container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (min-width:849px) {
+  .books_container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (min-width:1100px) {
+  .books_container {
     grid-template-columns: repeat(4, 1fr);
-     gap:16px;
   }
+}
 
-  .book_item{
-    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
-    border-radius: 15px; 
-  }
-  .book_image{
-    transition: all 1.5s cubic-bezier(0, 0, 0.2, 1);
-    border-top-right-radius: 15px;
-    border-top-left-radius: 15px;
-  }
-  .book_image:hover{
-    transform: scale(1.1);
+/* Questions */
+.question_categories {
+  max-width: 100%;
+  margin: 30px auto 0;
+  box-shadow: 1px 0 20px 0 rgba(0, 0, 0, .12);
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  position: sticky;
+  top: 100px;
+}
 
-  }
+.question_categories .categories_container {
+  overflow: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+}
+
+
+
+.question_categories .categories_container::-webkit-scrollbar {
+  display: none;
+}
+
+.question_list_container {
+  width: 100%;
+    display: grid;
+  
+}
+.question_item{
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+ 
+}
+
+.image-3d-container {
+  perspective: 1000px; /* Adjust the perspective value to your liking */
+}
+
+.image-3d {
+  width: 340px; /* Adjust the width and height as per your image dimensions */
+  height: 340px;
+  transform: rotateY(-40deg); /* Adjust the rotation angle for the desired 3D effect */
+  transition: transform 0.5s ease;
+ 
+}
+
+.image-3d:hover {
+  transform: rotateY(0deg); /* Adjust the rotation angle for the hover state */
+}

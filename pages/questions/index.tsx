@@ -8,7 +8,7 @@ const Index = () => {
   return (
     <>
       <Header title='Sual Cavab' description='fiqhi sualları və cabalarını oxuya bilərsiniz'/>
-      <div className="questions_container">
+      <div className="questions_container ">
         <CategoryList />
         <QuestionList />
       </div>

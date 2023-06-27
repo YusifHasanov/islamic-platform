@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { apiSlice } from "./apiSlice"
+import { RootState } from "../store/store"
 
 const playlistSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
@@ -59,5 +60,6 @@ export const {
 } = playlistSlice
 
 export const { setPlaylist } = playlistState.actions
+export const playlistSelector = (state :any) => state.playlist
 
 export default playlistState.reducer

@@ -1,35 +1,21 @@
-import React, { useEffect } from 'react'
-import QuestionAccordion from '../globals/QuestionAccordion';
-import { selectedCategoryAtom } from './CategoryList';
-import { useAtom } from 'jotai';
+import React from 'react'
+import QuestionItem from './QuestionItem';
 
 const QuestionList = () => {
-    const [selectedCategory] = useAtom(selectedCategoryAtom);
-    const [filteredFaqs, setFilteredFaqs] = React.useState<any[]>(faqs);
-    const filterQuestions = () =>
-        selectedCategory === -1 ? setFilteredFaqs(faqs) : setFilteredFaqs(faqs.filter(faq => faq.categoryId === selectedCategory));
-
-    useEffect(() => filterQuestions(), [selectedCategory])
-
     return (
-        <div className='flex flex-col pl-5'>
-            <h1 className="text-3xl text-center my-5 font-extrabold text-gray-900">Frequently Asked Questions</h1>
-            <div className="hs-accordion-group" ata-hs-accordion-always-open>
-                <div className="hs-accordion-group">
-                    {filteredFaqs.length === 0 && selectedCategory !== -1
-                        ? <div>Seçdiyiniz kateqoriyaya aid sual yoxdur</div>
-                        :
-                        filteredFaqs
-                            .map((faq, index) => (
-                                <QuestionAccordion key={`question_key${index}`} question={faq} index={index} />))
-                    }
-                </div>
-            </div>
+        <div className='question_list_container hs-accordion-group   px-10 sm:px-36 pt-8  -center'>
+            {
+                faqs.map((faq, index) => (
+                    <QuestionItem key={index} question={faq.question} answer={faq.answer} categoryId={faq.categoryId} />
+                ))
+            }
+            
         </div>
     )
 }
 
 export default QuestionList
+
 const faqs: any[] = [
     {
         question: "Henefi sual 1",

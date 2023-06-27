@@ -2,18 +2,18 @@ import InfinitiVideoScroll from '@/src/components/videos/InfinitiVideoScroll'
 import React, { FC } from 'react'
 import Playlists from '@/src/components/videos/Playlists' 
 import Head from 'next/head'  
-import { useAtomValue } from 'jotai'
-import { playlistState } from '@/src/jotai/atoms'
+import { useAtomValue } from 'jotai' 
 import Header from '@/src/components/globals/Header'
-
+import { useDispatch,useSelector } from 'react-redux'
+import { playlistSelector } from '@/src/redux/slices/playlistSlice'
 interface Props {
  
 }
 
 const Videos :FC<Props> = ( ) => {
  
-  const playlist = useAtomValue(playlistState)
-     
+   
+     const playlist = useSelector(playlistSelector)
   return (
     <div className='videos_contwainer flex relative lg:flex-row flex-column'  >
       <Header title='Videolar' description='videolarımız səhifəsində videolarımızı izləyə bilərsiniz'/>

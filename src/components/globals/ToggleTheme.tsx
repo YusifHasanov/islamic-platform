@@ -1,5 +1,5 @@
 import { useTheme } from 'next-themes'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaMoon, FaSun } from 'react-icons/fa';
 
 const ToggleTheme = () => {
@@ -7,8 +7,11 @@ const ToggleTheme = () => {
     const [checked, setChecked] = useState(false);
     const toggleTheme = () => {
         setTheme(theme === 'dark' ? 'light' : 'dark')
-        setChecked(prev => !prev)
+        setChecked(theme === 'dark' ? true : false)
     }
+    useEffect(() => {
+        setChecked(theme === 'dark' ? true : false)
+    }, [theme])
     return (
         <div className="relative inline-block mr-2 align-middle select-none transition duration-200 ease-in">
             <input
@@ -24,10 +27,8 @@ const ToggleTheme = () => {
                 className="toggle-label block overflow-hidden h-1 rounded-full bg-transparent cursor-pointer align-text-top transition-colors duration-200 ease-in-out"
             >
                 <span className="sr-only">Toggle</span>
-                <span
-                    className={`${checked ? "translate-x-7" : "translate-x-2"} toggle-dot absolute top-2 block w-4 h-4 rounded-full bg-transparent shadow inset-y-0 left-0 transition-transform duration-200 ease-in-out`}
-                >
-                    {!checked ? (
+                <span className={`${checked ? "translate-x-7" : "translate-x-2"} toggle-dot absolute top-2 block w-4 h-4 rounded-full bg-transparent shadow inset-y-0 left-0 transition-transform duration-200 ease-in-out`}>
+                    {checked ? (
                         <FaMoon className="w-4 h-4 text-yellow-500" />
                     ) : (
                         <FaSun className="w-4 h-4 text-yellow-500" />
