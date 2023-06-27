@@ -16,7 +16,7 @@ export default function Example() {
   return (
     <div className="bg-gray-200 dark:bg-gray-900 overflow-hidden">
       <div className="relative isolate px-6  lg:px-8">
-        <div 
+        <div
           className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
           aria-hidden="true"
         >
@@ -31,7 +31,7 @@ export default function Example() {
         </div>
         <div className="w-full ">
 
-          <div style={{  width: '100%', justifyContent: "space-between" }}
+          <div style={{ width: '100%', justifyContent: "space-between" }}
             className="text-center sm:px-8 flex justify-between w-full items-center image-3d-container  ">
             <div>
               <h1 className="text-4xl  font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-6xl">
@@ -47,10 +47,13 @@ export default function Example() {
                 />
               </h1>
             </div>
-            <Atropos className="my-atropos">
-              <img className='image-3d ' src="/assets/logoN.png" alt="" />
-            </Atropos>
+     
+            <img className="image-3d" src={"/assets/logo400.png"} alt="" />
+   
+          
+          
 
+          
           </div>
         </div>
         <div
