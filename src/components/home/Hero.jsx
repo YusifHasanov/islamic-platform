@@ -47,9 +47,9 @@ export default function Example() {
                 />
               </h1>
             </div>
-            {/* <Atropos className="my-atropos"> */}
-              <img className='image-3d ' src="/assets/logo.png" alt="" />
-            {/* </Atropos> */}
+            <Atropos className="my-atropos">
+              <img className='image-3d ' src="/assets/logoN.png" alt="" />
+            </Atropos>
 
           </div>
         </div>
