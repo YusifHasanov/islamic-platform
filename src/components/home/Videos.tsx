@@ -34,17 +34,17 @@ const Videos = () => {
           },
         }} 
       >
-        {
+         {
           isSuccess &&
           videos.map((item: any, index: any) => (
-            <SwiperSlide key={index}  >
-              <Slide isSuccess={isSuccess} {...item as any} />
+            <SwiperSlide className="flex justify-center" key={index}  >
+              <Slide  isSuccess={isSuccess} {...item as any} />
             </SwiperSlide>
           ))
 
         }{
           isLoading &&
-          <SwiperSlide    >
+          <SwiperSlide  className="flex justify-center"  >
        <div className="flex justify-center items-center h-96">
             <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
           </div>
@@ -78,7 +78,7 @@ const Slide: FC<Video> = ({
 }) => {
 //`url(${thumbnail.split("+")[2]})`
   return (
-    <div className={" p-8  "}>
+    <div className={" p-8 flex justify-center "}>
       <div
         style={{
           backgroundPosition: "center",

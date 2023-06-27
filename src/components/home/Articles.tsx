@@ -70,7 +70,7 @@ const Articles=()=> {
         </div>
         <div className="mx-auto mt-5 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16   pt-10 sm:mt-16 sm:pt-10 lg:mx-0 lg:max-w-none lg:grid-cols-3">
           {posts.map((post) => (
-            <article key={post.id} className="article_item border-1 flex max-w-xl flex-col items-start p-6 rounded-md bg-white  dark:bg-gray-950 justify-between">
+            <article key={post.id} className="article_item mx-auto border-1 flex max-w-xl flex-col items-start p-6 rounded-md bg-white  dark:bg-gray-950 justify-between">
               <div className="flex items-center gap-x-4 text-xs">
                 <time dateTime={post.datetime} className="text-gray-500">
                   {post.date}

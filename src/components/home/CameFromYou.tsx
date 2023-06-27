@@ -12,21 +12,21 @@ const CameFromYou = () => {
 
 
 
-      <div className=' flex text-center flex-col items-center   w-full '>
-      <h4 className='text-4xl  font-bold text-gray-800 dark:text-white' >Sizdən gələnlər</h4>
+      <div className='  w-full text-center '>
+      <h4 className='text-4xl   font-bold text-gray-800 dark:text-white' >Sizdən gələnlər</h4>
 
-        <Swiper style={{margin:0}} modules={[Autoplay]}
-
-          autoplay={{ delay: 1000, disableOnInteraction: false, }}
-          loop={true}
+        <Swiper 
+        // style={{margin:0}} modules={[Autoplay]}
+        //   autoplay={{ delay: 1000, disableOnInteraction: false, }}
+        //   loop={true}
           slidesPerView={1} spaceBetween={10} className=' max-w-lg'>
           {data.map((item) => (
             <SwiperSlide key={item.id}>
               <div key={item.id} className='p-8'>
-                <h3 className='text-2xl font-bold my-6 text-gray-800 dark:text-white'>
+                <h3 className='text-2xl  font-bold my-6 text-gray-800 dark:text-white'>
                   {item.title}
                 </h3>
-                <p className='text-gray-600 text-center dark:text-gray-300'>
+                <p className='text-gray-600   dark:text-gray-300'>
                   {item.content}
                 </p>
               </div>

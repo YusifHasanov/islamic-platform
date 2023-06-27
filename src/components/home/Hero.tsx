@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { Dialog } from '@headlessui/react'
-
+import Typewriter from 'typewriter-effect';
+import Atropos from 'atropos/react';
+import 'atropos/css'
 
 const navigation = [
   { name: 'Product', href: '#' },
@@ -20,26 +21,36 @@ export default function Example() {
           aria-hidden="true"
         >
           <div
-             className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#57e94a] to-[#0a752a69] opacity-60 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
-             style={{
-               clipPath:
-                 'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
-               background: 'linear-gradient(to bottom right, rgba(87, 233, 74, 0.6), rgba(10, 117, 42, 0.4))',
-             }}
+            className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#57e94a] to-[#0a752a69] opacity-60 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+            style={{
+              clipPath:
+                'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
+              background: 'linear-gradient(to bottom right, rgba(87, 233, 74, 0.6), rgba(10, 117, 42, 0.4))',
+            }}
           />
         </div>
         <div className="w-full ">
 
-          <div style={{
-            height: 'calc(100vh - 80px)' ,
-            width: '100%',
-          }} className="text-center justify-around  items-center image-3d-container flex ">
+          <div style={{  width: '100%', justifyContent: "space-between" }}
+            className="text-center sm:px-8 flex justify-between w-full items-center image-3d-container  ">
             <div>
-              <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-6xl">
-                Əhli Sünnə Mədrəsəsi
+              <h1 className="text-4xl  font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-6xl">
+
+                <Typewriter
+                  options={{
+                    strings: ['Əhli Sünnə Mədrəsəsi', 'Hənəfi, Şafei, Malik, Hənbəli', "Maturidi, Əşari, Əsəri"],
+                    autoStart: true,
+                    loop: true,
+                    delay: 50,
+                  }}
+
+                />
               </h1>
             </div>
-            <img className='image-3d ' src="/assets/logo.webp" alt="" />
+            {/* <Atropos className="my-atropos"> */}
+              <img className='image-3d ' src="/assets/logo.png" alt="" />
+            {/* </Atropos> */}
+
           </div>
         </div>
         <div

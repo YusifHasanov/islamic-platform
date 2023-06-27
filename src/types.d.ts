@@ -4,41 +4,41 @@ type Playlist = {
     thumbnail: string,
     title: string,
     videoCount: number,
-    
+
 }
 type Category = {
- 
+
     id: number,
     name: string,
     parentId: number,
-    subCategories : number[],
-        articles: number[]
+    subCategories: number[],
+    articles: number[]
 
 }
 
-type CreateCategory= {
+type CreateCategory = {
     name: string,
     parentId: number,
-    subCategories : number[]
+    subCategories: number[]
 }
-type UpdateCategory= {
+type UpdateCategory = {
     name: string,
     parentId: number,
-    subCategories : number[]
+    subCategories: number[]
 }
- 
+
 
 type Article = {
-    id:number,
+    id: number,
     publishedAt: string,
     title: string,
     content: string,
-    autgor:Author,
+    autgor: Author,
     categories: number[]
 }
 
-type Author ={
-    id:number,
+type Author = {
+    id: number,
     name: string,
     image: string,
     articles: number[],
@@ -57,20 +57,20 @@ type UpdateArticle = {
     title: string,
     content: string,
     authorId: number,
-    categories: number[] 
+    categories: number[]
 }
 
 type Question = {
-    id:number,
+    id: number,
     question: string,
-    answer: string 
+    answer: string
 }
 type CreateQuestion = {
     question: string,
     answer: string
 }
 type UpdateQuestion = {
-    id:number,
+    id: number,
     question: string,
-    answer: string 
+    answer: string
 }
