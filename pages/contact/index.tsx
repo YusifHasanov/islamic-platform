@@ -2,21 +2,58 @@ import React from 'react'
 import Head from 'next/head'
 import Footer from '@/src/components/footer/Footer'
 import Header from '@/src/components/globals/Header'
+// import '@/styles/globals.css'
 import MedreseIcon from '@/src/components/globals/MedreseIcon'
+import { MdPlace } from "react-icons/md";
+import { AiFillPhone } from "react-icons/ai";
+import { HiMail } from "react-icons/hi";
 const Contact = () => {
   return (
     <>
       <Header title='Əlaqə' description='əlaqə bölməsi ilə bizimlə əlaqəyə keçə bilərsiniz' />
       <div>
-
         <div className="relative px-5 z-10 overflow-hidden py-20 lg:py-[120px]">
           <div className="container mx-auto">
             <div className="-mx-4 flex flex-wrap lg:justify-between">
-              <div className="w-full px-4 lg:w-1/2 xl:w-6/12">
-                <div className="mb-12 text-gray-700 dark:text-gray-300 max-w-[570px] lg:mb-0">
+              <div className='contactDiv w-full px-4 lg:w-1/2 xl:w-5/12 bg-gray-100 dark:bg-gray-900  p-8  shadow-lg sm:pt-10 sm:p-12'>
+                <div className='secDiv text-center'>
+                  <h3 id='lq' className='text-center  text-2xl font-bold text-gray-900 dark:text-gray-100 '>Əlaqə</h3>
+                  <p>Aşağıdakı ünvanlardan bizimlə əlaqə saxlaya bilərsiniz. Sual, təklif və iradlarınızı bizə bildirə bilərsiniz.</p>
+                </div>
+                <div className='about'>
+                  <div className='first'>
+                    <MdPlace color='green' size={50} />
+                    <div className='in'>
+                      <p>Mədrəsəmiz</p>
+                      <p>99 S.t Jomblo Park Pekanbaru 28292. Indonesia</p>
 
+                    </div>
+                  </div>
+
+                  <div className='first'>
+                    <AiFillPhone color='green' size={50} />
+                    <div className='in'>
+                      <p>Əlaqə nömrəsi</p>
+                      <p>+994554940252</p>
+
+                    </div>
+                  </div>
+
+                  <div className='first'>
+                    <HiMail color='green' size={50} />
+                    <div className='in'>
+                      <p>Mail Addresimiz</p>
+                      <p>mail@gmail.com</p>
+
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              {/* <div className="w-full px-4 lg:w-1/2 xl:w-6/12">
+                <div className="mb-12 text-gray-700 dark:text-gray-300 max-w-[570px] lg:mb-0">
                   <h2
-                    className="   text-center mb-6 text-[32px]  uppercase sm:text-[40px] lg:text-[36px] xl:text-[50px]  text-green-500"
+                    className=" italic  text-center mb-6 text-[32px]  uppercase sm:text-[40px] lg:text-[36px] xl:text-[50px]  text-green-500"
                   >
                     Əlaqə
                   </h2>
@@ -87,11 +124,10 @@ const Contact = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
               <div className="w-full px-4 lg:w-1/2 xl:w-5/12">
                 <div className="relative rounded-lg bg-gray-100 dark:bg-gray-900  p-8  shadow-lg sm:pt-10 sm:p-12">
-                  <p className='text-center pb-6 text-2xl font-bold text-gray-900 dark:text-gray-100    
-                  '>Mesajınızı yazın</p>
+                  <p className='text-center pb-6 text-2xl font-bold text-gray-900 dark:text-gray-100    '>Mesajınızı yazın</p>
 
                   <form>
                     <div className="mb-6">

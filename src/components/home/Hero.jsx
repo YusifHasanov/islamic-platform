@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import Typewriter from 'typewriter-effect';
- import dynamic from 'next/dynamic';
+import dynamic from 'next/dynamic';
 import 'atropos/css'
- 
+
 const navigation = [
   { name: 'Product', href: '#' },
   { name: 'Features', href: '#' },
@@ -30,7 +30,6 @@ export default function Example() {
           />
         </div>
         <div className="w-full ">
-
           <div style={{ width: '100%', justifyContent: "space-between" }}
             className="text-center sm:px-8 flex justify-between w-full items-center image-3d-container  ">
             <div>
@@ -47,10 +46,10 @@ export default function Example() {
                 />
               </h1>
             </div>
-     
-     <img className="image-3d" src={"/assets/logo400.png"} alt="" /> 
- 
-           
+
+            <img className="image-3d" src={"/assets/logo400.png"} alt="" />
+
+
           </div>
         </div>
         <div
