@@ -387,11 +387,29 @@
 .image-3d {
   width: 340px; /* Adjust the width and height as per your image dimensions */
   height: 340px;
-  transform: rotateY(-40deg); /* Adjust the rotation angle for the desired 3D effect */
+  /* Adjust the rotation angle for the desired 3D effect */
   transition: transform 0.5s ease;
  
 }
 
 .image-3d:hover {
   transform: rotateY(0deg); /* Adjust the rotation angle for the hover state */
+}
+
+.image-3d-container{
+  flex-direction: column-reverse;
+  justify-content: center;
+ 
+}
+.image-3d{
+  transform: rotateY(0deg);
+}
+@media screen and (min-width: 850px) {
+  .image-3d-container{
+    flex-direction: row;
+    justify-content: space-around;
+  }
+  .image-3d{
+    transform: rotateY(-40deg);
+  }
 }

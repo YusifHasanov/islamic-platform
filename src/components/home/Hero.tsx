@@ -13,7 +13,7 @@ export default function Example() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <div className="bg-gray-200 dark:bg-gray-900">
+    <div className="bg-gray-200 dark:bg-gray-900 overflow-hidden">
       <div className="relative isolate px-6  lg:px-8">
         <div
           className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
