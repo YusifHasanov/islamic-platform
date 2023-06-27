@@ -50,10 +50,7 @@ export default function Example() {
      
             <img className="image-3d" src={"/assets/logo400.png"} alt="" />
    
-          
-          
-
-          
+           
           </div>
         </div>
         <div
