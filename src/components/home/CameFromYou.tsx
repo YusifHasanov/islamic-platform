@@ -19,7 +19,7 @@ const CameFromYou = () => {
          
          modules={[Autoplay]}
           autoplay={{ delay: 1000, disableOnInteraction: false, }}
-          loop={true}
+          loop={true} 
           slidesPerView={1} spaceBetween={10} className='mx-auto max-w-lg'>
           {data.map((item) => (
             <SwiperSlide key={item.id}>
