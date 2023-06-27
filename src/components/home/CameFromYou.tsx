@@ -16,7 +16,7 @@ const CameFromYou = () => {
       <h4 className='text-4xl   font-bold text-gray-800 dark:text-white' >Sizdən gələnlər</h4>
 
         <Swiper 
-        style={{margin:0}} modules={[Autoplay]}
+          modules={[Autoplay]}
           autoplay={{ delay: 1000, disableOnInteraction: false, }}
           loop={true}
           slidesPerView={1} spaceBetween={10} className=' max-w-lg'>
