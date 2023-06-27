@@ -16,7 +16,7 @@ export default function Example() {
   return (
     <div className="bg-gray-200 dark:bg-gray-900 overflow-hidden">
       <div className="relative isolate px-6  lg:px-8">
-        <div
+        <div 
           className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
           aria-hidden="true"
         >
