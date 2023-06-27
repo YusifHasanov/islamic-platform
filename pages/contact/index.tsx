@@ -22,7 +22,7 @@ const Contact = () => {
                 </div>
                 <div className='about'>
                   <div className='first'>
-                    <MdPlace color='green' size={50} />
+                    <MdPlace className=' text-green-600' size={50} />
                     <div className='in'>
                       <p>Mədrəsəmiz</p>
                       <p>99 S.t Jomblo Park Pekanbaru 28292. Indonesia</p>
@@ -31,7 +31,7 @@ const Contact = () => {
                   </div>
 
                   <div className='first'>
-                    <AiFillPhone color='green' size={50} />
+                    <AiFillPhone className=' text-green-600' size={50} />
                     <div className='in'>
                       <p>Əlaqə nömrəsi</p>
                       <p>+994554940252</p>
@@ -40,7 +40,7 @@ const Contact = () => {
                   </div>
 
                   <div className='first'>
-                    <HiMail color='green' size={50} />
+                    <HiMail className=' text-green-600' size={50} />
                     <div className='in'>
                       <p>Mail Addresimiz</p>
                       <p>mail@gmail.com</p>
