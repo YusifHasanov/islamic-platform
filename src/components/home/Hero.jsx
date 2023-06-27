@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import Typewriter from 'typewriter-effect';
-import Atropos from 'atropos/react';
+ import dynamic from 'next/dynamic';
 import 'atropos/css'
-
+ 
 const navigation = [
   { name: 'Product', href: '#' },
   { name: 'Features', href: '#' },
@@ -48,8 +48,8 @@ export default function Example() {
               </h1>
             </div>
      
-            <img className="image-3d" src={"/assets/logo400.png"} alt="" />
-   
+     <img className="image-3d" src={"/assets/logo400.png"} alt="" /> 
+ 
            
           </div>
         </div>
