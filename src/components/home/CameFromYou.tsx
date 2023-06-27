@@ -16,10 +16,11 @@ const CameFromYou = () => {
       <h4 className='text-4xl   font-bold text-gray-800 dark:text-white' >Sizdən gələnlər</h4>
 
         <Swiper 
-          modules={[Autoplay]}
+         
+         modules={[Autoplay]}
           autoplay={{ delay: 1000, disableOnInteraction: false, }}
           loop={true}
-          slidesPerView={1} spaceBetween={10} className=' max-w-lg'>
+          slidesPerView={1} spaceBetween={10} className='mx-auto max-w-lg'>
           {data.map((item) => (
             <SwiperSlide key={item.id}>
               <div key={item.id} className='p-8'>
