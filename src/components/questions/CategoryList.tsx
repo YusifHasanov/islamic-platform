@@ -8,7 +8,7 @@ const CategoryList = () => {
             <div className='flex px-2 justify-center items-center overflow-auto categories_container'  >
                 {
                     categories.filter(category => category.parentId === 0).map((parent) => (
-                        <div className="hs-dropdown  relative inline-flex">
+                        <div key={parent.id} className="hs-dropdown  relative inline-flex">
                             <div id="hs-dropdown-with-icons" key={parent.id} className="flex hs-dropdown-toggle items-center justify-between p-2.5 rounded-md hover:bg-blue-100 bg-blue-50 dark:bg-gray-200 mr-1 cursor-pointer">
                                 <div className="flex items-center">
                                     <p className="text-sm text-gray-800      font-semibold ml-2">{parent.name}</p>
@@ -23,6 +23,7 @@ const CategoryList = () => {
                                     {categories.filter(category => category.parentId === parent.id)
                                         .map((child) => (
                                             <a
+                                            key={child.id}
                                                 className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-blue-100 mb-1 bg-blue-50 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300"
                                                 href="#"
                                             >

@@ -9,7 +9,7 @@ const QuestionList = () => {
                     <QuestionItem key={index} question={faq.question} answer={faq.answer} categoryId={faq.categoryId} />
                 ))
             }
-            
+
         </div>
     )
 }
