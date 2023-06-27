@@ -24,7 +24,7 @@ const MyApp: AppType = ({ Component, pageProps }: AppProps) => {
 
     <Provider store={store}>
       <MainHeader />
-      <ThemeProvider attribute='class' >
+      <ThemeProvider defaultTheme='light' attribute='class' >
         {!excludeNav && <Navigation />}
         <Component {...pageProps} />
       </ThemeProvider>

@@ -3,7 +3,7 @@ import QuestionItem from './QuestionItem';
 
 const QuestionList = () => {
     return (
-        <div className='question_list_container hs-accordion-group   px-10 sm:px-36 pt-8  -center'>
+        <div className='question_list_container hs-accordion-group   px-10 sm:px-36 pt-8  -center' data-hs-accordion-always-open>
             {
                 faqs.map((faq, index) => (
                     <QuestionItem key={index} question={faq.question} answer={faq.answer} categoryId={faq.categoryId} />
