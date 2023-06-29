@@ -41,8 +41,7 @@ export default function Example() {
                     autoStart: true,
                     loop: true,
                     delay: 50,
-                  }}
-
+                  }} 
                 />
               </h1>
             </div>

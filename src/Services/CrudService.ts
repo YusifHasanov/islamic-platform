@@ -5,6 +5,7 @@ export default class CrudService {
     private fetchAPI = FetchAPI.getInstance();
     private toast = Toast.getInstance();
     private static readonly INSTANCE = new CrudService();
+    
     private async handleResponse(callbck: () => void) {
         try {
             callbck();

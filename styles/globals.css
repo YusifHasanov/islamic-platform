@@ -372,84 +372,95 @@
 
 .question_list_container {
   width: 100%;
-    display: grid;
-  
+  display: grid;
+
 }
-.question_item{
+
+.question_item {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
- 
+
 }
 
 .image-3d-container {
-  perspective: 1000px; /* Adjust the perspective value to your liking */
+  perspective: 1000px;
+  /* Adjust the perspective value to your liking */
 }
 
 .image-3d {
-  width: 400px; /* Adjust the width and height as per your image dimensions */
-  height: 400px;
+  width: 350px;
+  /* Adjust the width and height as per your image dimensions */
+  height: 350px;
   /* Adjust the rotation angle for the desired 3D effect */
   transition: transform 0.5s ease;
- 
+
 }
 
 .image-3d:hover {
-  transform: rotateY(0deg); /* Adjust the rotation angle for the hover state */
+  transform: rotateY(0deg);
+  /* Adjust the rotation angle for the hover state */
 }
 
-.image-3d-container{
+.image-3d-container {
   flex-direction: column-reverse;
-  justify-content: center; 
-  height: calc(100vh - 80px)
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 80px);
+  padding-bottom: 120px;
 }
- 
-.image-3d{
+
+.image-3d {
   transform: rotateY(0deg);
 }
+
 @media screen and (min-width: 850px) {
-  .image-3d-container{
+  .image-3d-container {
     flex-direction: row;
     justify-content: space-around;
-
+    padding-bottom:0;
   }
-  .image-3d{
+
+  .image-3d {
     transform: rotateY(-40deg);
+    width: 400px;
+    height: 400px;
+
   }
 }
 
 
-.contactDiv{
+.contactDiv {
   border-radius: 10px;
   margin: 0 20px 20px 20px;
   padding: 30px 20px;
- 
+
 }
 
-.secDiv > h1{
+.secDiv>h1 {
   font-size: 35px;
   font-weight: bolder;
   color: rgb(44, 168, 44);
 }
 
-.secDiv > p{
+.secDiv>p {
   font-size: 18px;
   margin: 20px 0;
   color: #888888;
 }
 
-.about{
+.about {
   margin: 40px 0 0 0;
 }
 
-.first{
+.first {
   display: flex;
   margin: 40px 0;
 }
 
-.in{
+.in {
   margin: 0 10px;
 }
 
-.in > p:first-child{
+.in>p:first-child {
   font-size: 20px;
   font-weight: bold;
 }
