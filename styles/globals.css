@@ -377,6 +377,9 @@
   position: sticky;
   top: 100px;
 }
+ 
+  
+ 
 
 .question_categories .categories_container {
   overflow: auto;
@@ -385,7 +388,9 @@
 
 }
 
-
+.question_categories > input{
+  max-width: 140px;
+}
 
 .question_categories .categories_container::-webkit-scrollbar {
   display: none;

@@ -4,7 +4,7 @@ import React from 'react'
 const CategoryList = () => {
     return (
         <div className='question_categories  dark:bg-gray-950  flex w-max bg-white items-center mx-4  rounded-3xl  py-3 px-6'>
-            <input type="text" className="bg-gray-50 border dark:bg-gray-700 dark:border-gray-600   outline-none  border-gray-400 text-gray-900 dark:text-gray-100 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 sticky top-0 block  p-2.5  dark:placeholder-gray-400   dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Axtar" />
+            <input       type="text" className="bg-gray-50 border  dark:bg-gray-700 dark:border-gray-600   outline-none  border-gray-400 text-gray-900 dark:text-gray-100 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 sticky top-0 block  p-2.5  dark:placeholder-gray-400    dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Axtar" />
             <div className='flex px-2 justify-center items-center overflow-auto categories_container'  >
                 {
                     categories.filter(category => category.parentId === 0).map((parent) => (
