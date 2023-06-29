@@ -16,7 +16,7 @@ const Videos = () => {
   // const { data: videos, isSuccess, isLoading } = useGetVideosQuery({ refetchOnMountOrArgChange: false });
  
   return (
-    <div className="px-5 py-12 text-center bg-gray-100 dark:bg-gray-600 ">
+    <div className="px-5 py-12 text-center bg-gray-100 dark:bg-gray-700 ">
       <h3 className="text-4xl text-center mb-6 font-bold"    >Videolarımız</h3>
       <Swiper     modules={[Autoplay]}
           autoplay={{ delay: 1000, disableOnInteraction: false, }}

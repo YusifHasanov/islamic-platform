@@ -6,16 +6,15 @@ const Index = () => {
     const router = useRouter();
 
     return (
-        <main className="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white dark:bg-gray-900">
+        <main className="pt-8 pb-16 lg:pt-16 lg:pb-24 relative bg-white dark:bg-gray-900">
             <button
                 onClick={() => router.back()}
                 type="button"
-                className="border absolute left-14 flex items-center justify-center dark:border-gray-700 dark:bg-gray-700 hover:text-gray-200 dark:text-gray-100 rounded-md px-2 py-1 m-2 transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline"
+                className="border absolute single_article_back_btn   flex items-center justify-center dark:border-gray-700 dark:bg-gray-700 hover:text-gray-200 dark:text-gray-100 rounded-md px-2 py-1 m-2 transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline"
             >
                 <IoIosArrowBack className="text-md" />
                 Geri
-            </button>
-
+            </button> 
             <div className="flex justify-between px-4 mx-auto max-w-screen-xl ">
                 <article className="mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert">
                     <header className="mb-4 lg:mb-6 not-format">
