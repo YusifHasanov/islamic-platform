@@ -265,7 +265,7 @@
 }
 @media screen and (min-width:900px) {
   .single_article_back_btn{
-    left: 0;
+    left: 35px;
      top: 50px;
   }
 }
