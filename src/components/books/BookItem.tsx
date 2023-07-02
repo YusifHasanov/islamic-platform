@@ -20,9 +20,9 @@ const BookItem: FC<Props> = ({ book }) => {
     const pixels = decodeBlurHash("LGEy}Bj[00f7t7fQR*ay00ay_May", 32, 32);
     return (
         <div className="book_item h-full  overflow-hidden dark:bg-gray-900  bg-white ">
-            <div style={{height:"200px"}} data-hs-overlay={`#book_id_${book.id}`} className=" cursor-pointer flex justify-center  overflow-hidden  h-56">
-                <img className="w-full  book_image"  src={book.cover} alt="" />
-                
+            <div data-hs-overlay={`#book_id_${book.id}`} className=" h-72 lg:80  h- sm:h-64 cursor-pointer flex justify-center  overflow-hidden   ">
+                <img className="w-full  book_image" src={book.cover} alt="" />
+
             </div>
             <div className="p-3 dark:text-gray-100">
                 <div className=" h-12 mb-3">
@@ -58,13 +58,13 @@ const BookItem: FC<Props> = ({ book }) => {
                                 {book.description}
                             </p>
                         </div>
-                         <div className="flex justify-end items-center gap-x-2 py-3 px-4 border-t dark:border-gray-700">
+                        <div className="flex justify-end items-center gap-x-2 py-3 px-4 border-t dark:border-gray-700">
                             <button type="button"
                                 className="hs-dropdown-toggle px-3 py-2 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm dark:bg-slate-900 dark:hover:bg-slate-800 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white dark:focus:ring-offset-gray-800"
                                 data-hs-overlay={`#book_id_${book.id}`}>
-                            <AiOutlineDownload className="dark:text-white text-gray-800  first-letter: text-lg" />
+                                <AiOutlineDownload className="dark:text-white text-gray-800  first-letter: text-lg" />
                             </button>
-                        </div>  
+                        </div>
                     </div>
                 </div>
             </div>

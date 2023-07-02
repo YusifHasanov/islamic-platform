@@ -16,7 +16,7 @@ const Index = () => {
     <>
       <Header title='Kitablar' description="kitablarımız səhifəsində kitablarımızla tanış ola bilərsiniz" />
       <section className="py-16 " >
-        <div className="sm:px-10 px-20 mx-auto md:px-20">
+        <div className="sm:px-10 px-10 mx-auto md:px-20">
           <h3 className="font-bold text-4xl pb-12 text-center">Kitablar</h3>
           <div className="w-full books_container">
             {
