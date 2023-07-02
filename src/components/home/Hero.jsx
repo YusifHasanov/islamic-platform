@@ -43,6 +43,8 @@ export default function Example() {
                     autoStart: true,
                     loop: true,
                     delay: 50,
+                    deleteSpeed: 50,
+                    pauseFor: 1000, 
                   }}
                 />
               </h1>
