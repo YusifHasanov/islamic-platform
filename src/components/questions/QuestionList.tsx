@@ -1,13 +1,18 @@
 import React from 'react'
 import QuestionItem from './QuestionItem';
+import { useDispatch, useSelector } from 'react-redux'
+import { setSelectedCategoryId, setSearch, selectQuestionCategory } from "@/src/redux/slices/questionSlice";
 
 const QuestionList = () => {
+    const { search, selectedCategoryId } = useSelector(selectQuestionCategory);
     return (
         <div className='question_list_container hs-accordion-group   px-10 sm:px-36 pt-8  -center' data-hs-accordion-always-open>
             {
-                faqs.map((faq, index) => (
+                faqs.filter((faq: any) => (selectedCategoryId === null || faq.categoryId === selectedCategoryId) && faq.question.toLowerCase().includes(search.toLowerCase()))
+                .map((faq, index) => (
                     <QuestionItem key={index} question={faq.question} answer={faq.answer} categoryId={faq.categoryId} />
                 ))
+
             }
 
         </div>

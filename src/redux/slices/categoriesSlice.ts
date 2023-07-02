@@ -40,25 +40,8 @@ const categorySlice = apiSlice.injectEndpoints({
 })
 
 
-const categoryState = createSlice({
-    name: 'category',
-    initialState: {
-        search: '',
-        selectedCategory: null,
-    },
-    reducers: {
-        setSearch: (state, action) => {
-            state.search = action.payload
-        },
-        setSelectedCategory: (state, action) => {
-            state.selectedCategory = action.payload
-        }
-    }
-})
 
-export const { setSearch, setSelectedCategory } = categoryState.actions
-export const categorySelector = (state: any) => state.category
-export const categoryReducer = categoryState.reducer
+
 
 export const {
     useGetCategoriesQuery,

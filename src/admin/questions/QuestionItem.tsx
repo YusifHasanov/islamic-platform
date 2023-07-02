@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import Toast from '../Toast';
+import Toast from '../../Libs/Toast';
 
 const QuestionItem: FC<any> = ({
     question,

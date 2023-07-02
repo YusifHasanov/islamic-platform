@@ -1,13 +1,12 @@
 import { combineReducers } from "@reduxjs/toolkit";
 import playlistReducer from "../slices/playlistSlice";
-import { categoryReducer } from "../slices/categoriesSlice";
-
+import questionCategoryReducer from "../slices/questionSlice";
 
 
 
 export const rootReducer = combineReducers({
     playlist: playlistReducer,
-    category:categoryReducer
+    questionCategory:questionCategoryReducer
 })
 
 

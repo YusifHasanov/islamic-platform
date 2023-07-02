@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react'
-import CrudService from '@/src/Services/CrudService'
+import CrudService from '@/src/Libs/CrudService'
 import { useDeleteCategoryMutation, useUpdateCategoryMutation } from '@/src/redux/slices/categoriesSlice';
 interface ParentItemProps {
     id: number,

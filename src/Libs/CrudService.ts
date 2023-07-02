@@ -1,5 +1,5 @@
 import FetchAPI from "../components/globals/FetchAPI";
-import Toast from "../admin/Toast";
+import Toast from "./Toast";
 
 export default class CrudService {
     private fetchAPI = FetchAPI.getInstance();

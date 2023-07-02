@@ -2,6 +2,7 @@ import moment from 'moment';
 import React, { FC } from 'react'
 import { AiOutlineClose, AiOutlineDownload } from 'react-icons/ai';
 
+import { decodeBlurHash } from 'fast-blurhash';
 interface Props {
     book: {
         id: number;
@@ -16,10 +17,12 @@ interface Props {
 
 
 const BookItem: FC<Props> = ({ book }) => {
+    const pixels = decodeBlurHash("LGEy}Bj[00f7t7fQR*ay00ay_May", 32, 32);
     return (
         <div className="book_item h-full  overflow-hidden dark:bg-gray-900  bg-white ">
             <div style={{height:"200px"}} data-hs-overlay={`#book_id_${book.id}`} className=" cursor-pointer flex justify-center  overflow-hidden  h-56">
-                <img className="w-full   book_image" src={book.cover} alt="" />
+                <img className="w-full  book_image"  src={book.cover} alt="" />
+                
             </div>
             <div className="p-3 dark:text-gray-100">
                 <div className=" h-12 mb-3">

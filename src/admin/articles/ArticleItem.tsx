@@ -2,7 +2,7 @@ import React, { FC, useEffect } from 'react'
 import dynamic from 'next/dynamic'
 import sanitizeHtml from 'sanitize-html';
 import moment from 'moment'
-import Toast from '../Toast';
+import Toast from '../../Libs/Toast';
 import 'react-quill/dist/quill.snow.css'
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'

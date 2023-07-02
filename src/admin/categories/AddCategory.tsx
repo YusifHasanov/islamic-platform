@@ -1,5 +1,5 @@
 
-import CrudService from '@/src/Services/CrudService';
+import CrudService from '@/src/Libs/CrudService';
 import FetchAPI from '@/src/components/globals/FetchAPI';
 import { useCreateCategoryMutation, useGetCategoriesQuery } from '@/src/redux/slices/categoriesSlice';
 

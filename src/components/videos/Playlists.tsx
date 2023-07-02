@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 
 import Image from 'next/image'
- 
+
 import { useDispatch, useSelector } from 'react-redux'
 import { playlistSelector, setPlaylist } from '@/src/redux/slices/playlistSlice'
 import ListItemSkeleton from './ListItemSkeleton'
@@ -76,7 +76,6 @@ const Playlists: FC<Props> = () => {
                     }).map((item: any) => (
                         <li onClick={() => {
                             togglePlaylist(item)
-                            console.log(item.playlistId)
                         }} key={item.id} className={` px-2  ${playlist?.playlistId === item.playlistId ? " bg-gray-400  dark:text-gray-200 text-slate-900  dark:bg-slate-900 " : "dark:bg-slate-700 text-slate-700 bg-slate-300"}   py-1 cursor-pointer mb-2  transition-colors rounded-md dark:hover:bg-slate-700 hover:bg-gray-200`}>
                             <span className={`flex items-center rounded-md p-1 w-full text-sm font-medium  dark:text-gray-400`}>
                                 {/* <Image src={item.thumbnail.split("+")[2]} alt="" className=' rounded-full' width={45} height={50} /> */}

@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from 'react'
 import Image from 'next/image';
 import moment from 'moment'
-import Toast from '../Toast';
+import Toast from '../../Libs/Toast';
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import { AiFillEdit, AiFillFileAdd, AiFillPhone, AiOutlineUser } from 'react-icons/ai';

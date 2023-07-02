@@ -2,7 +2,8 @@ import { useState } from 'react'
 import Typewriter from 'typewriter-effect';
 import dynamic from 'next/dynamic';
 import 'atropos/css'
-
+import Atropos from 'atropos/react';
+ 
 const navigation = [
   { name: 'Product', href: '#' },
   { name: 'Features', href: '#' },
@@ -12,7 +13,8 @@ const navigation = [
 
 export default function Example() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-
+ 
+   
   return (
     <div className="bg-gray-200 dark:bg-gray-900 overflow-hidden">
       <div className="relative isolate px-6  lg:px-8">
@@ -41,14 +43,16 @@ export default function Example() {
                     autoStart: true,
                     loop: true,
                     delay: 50,
-                  }} 
+                  }}
                 />
               </h1>
             </div>
 
-            <img className="image-3d" src={"/assets/logo400.png"} alt="" />
+            <img className="image-3d" src={"/assets/logo400.png"}    alt="" />
 
-
+            {/* <Atropos  >
+              <img className="image-3d" src={"/assets/logof.png"} alt="" />
+            </Atropos> */}
           </div>
         </div>
         <div
