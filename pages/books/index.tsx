@@ -10,6 +10,7 @@ import Head from 'next/head'
 import Header from "@/src/components/globals/Header";
 import { FC, useEffect } from "react";
 import BookItem from "@/src/components/books/BookItem";
+import Footer from "@/src/components/footer/Footer";
 const Index = () => {
  
   return (
@@ -24,11 +25,10 @@ const Index = () => {
               <BookItem key={book.id} book={book}/> 
               ))
             }
-          </div>
-      
-
+          </div>  
         </div>
       </section>
+      
     </>
   )
 }

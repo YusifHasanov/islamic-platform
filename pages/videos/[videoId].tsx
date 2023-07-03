@@ -1,16 +1,17 @@
-import React, { FC } from 'react'
+import React, { CSSProperties, FC } from 'react'
 import VideoPlaylists from '@/src/components/videos/singleVideo/VideoPlaylists';
 import VideoItem from '@/src/components/videos/singleVideo/VideoItem';
 import Head from 'next/head';
 import FetchAPI from '@/src/components/globals/FetchAPI';
  
 
-interface Props {
- video :any
-}
-const style = {
-  height: "calc((100vh - 20px) - 64px)",
-} as any
+interface Props { 
+  video :any 
+};
+
+const style : CSSProperties = { 
+   height: "calc((100vh - 20px) - 64px)"
+  } ;
 
 const Index: FC<Props> = ({ video  }) => {
 
@@ -19,7 +20,7 @@ const Index: FC<Props> = ({ video  }) => {
       <Head>
         <title>Əhli Sünnə Mədrəsəsi</title>
       </Head>
-      <div style={style} className='      px-6 pb-6'>
+      <div style={style} className='px-6 pb-6'>
         <VideoItem video={video} />
         <VideoPlaylists video={video} />
       </div>

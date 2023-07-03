@@ -27,5 +27,5 @@ const NavImages = () => {
         </div>
     )
 }
-
-export default memo(NavImages)
+ 
+export default NavImages

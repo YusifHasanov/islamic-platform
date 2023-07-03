@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import React from 'react'
+import React, { memo } from 'react'
 const listItems = [
     {
         title: "Haqqımmızda",
@@ -14,8 +14,8 @@ const listItems = [
     }
 
 ]
-const Footer = () => {
-    
+const Footer = () => {   
+ 
     return (
 
         <footer className="bg-gray-300  shadow dark:bg-gray-950">
@@ -44,5 +44,5 @@ const Footer = () => {
 
     )
 }
-
+ 
 export default Footer

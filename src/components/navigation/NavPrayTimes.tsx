@@ -100,13 +100,12 @@ const NavPrayTimes = () => {
                   </a>
                 )}
 
-              </Menu.Item>))
-
+              </Menu.Item>)) 
           }
         </Menu.Items>
       </Transition>
     </Menu>
   )
 }
-
-export default memo(NavPrayTimes)
+ 
+export default  NavPrayTimes

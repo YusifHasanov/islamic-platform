@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 
 
 interface Props {
-  number: number, 
+  number: number,
 }
 const Skeleton: FC<Props> = ({ number }) => (
   <>
@@ -11,7 +11,6 @@ const Skeleton: FC<Props> = ({ number }) => (
         <Item key={i} />
       ))
     }
-
   </>
 )
 

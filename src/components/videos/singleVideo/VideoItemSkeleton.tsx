@@ -24,8 +24,7 @@ const VideoItemSkeleton = () => {
       before:-translate-x-full
       before:animate-[shimmer_2s_infinite]
       before:bg-gradient-to-r
-      before:from-transparent before:via-zinc-300 before:to-transparent dark:before:via-rose-100/10 dark:before:to-transparent"
-    >
+      before:from-transparent before:via-zinc-300 before:to-transparent dark:before:via-rose-100/10 dark:before:to-transparent">
       <div className=" h-36 rounded-lg bg-gray-300 dark:bg-rose-100/10 relative">
         <div className="absolute inset-0 flex items-center justify-center">
           <FaYoutube size={64} className='text-gray-500 ' />

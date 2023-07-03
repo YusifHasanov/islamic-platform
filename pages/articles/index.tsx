@@ -212,7 +212,7 @@ const Articles:FC<Props> = ({}) => {
           </div>
         </div>
       </section>
-      <Footer />
+ 
     </>
   )
 }

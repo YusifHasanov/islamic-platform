@@ -2,8 +2,7 @@ import { useEffect } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 
 import { FaBars } from 'react-icons/fa'
-import { AiOutlineClose } from 'react-icons/ai'
-import { BsMoonFill, BsSunFill } from 'react-icons/bs'
+import { AiOutlineClose } from 'react-icons/ai' 
 import { useTheme } from 'next-themes'
 import NavList from './NavList'
 import NavListMobile from './NavListMobile'
@@ -11,7 +10,7 @@ import NavPrayTimes from './NavPrayTimes'
 import NavImages from './NavImages'
 import { memo } from 'react'
 import ToggleTheme from '../globals/ToggleTheme'
-
+ 
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
@@ -19,11 +18,7 @@ function classNames(...classes: any) {
 
 const Navigation = () => {
   const { theme, setTheme } = useTheme()
-
-
-  useEffect(() => {
-    console.log("navigation")
-  }, [])
+ 
   return (
     <Disclosure as="nav" className="navigation_container z-40 sticky top-0 bg-gradient-to-l  ">
       {({ open }: { open: any }) => (
@@ -73,4 +68,5 @@ const Navigation = () => {
     </Disclosure>
   )
 }
-export default memo(Navigation)
+ 
+export default  Navigation

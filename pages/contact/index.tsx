@@ -7,6 +7,8 @@ import MedreseIcon from '@/src/components/globals/MedreseIcon'
 import { MdPlace } from "react-icons/md";
 import { AiFillPhone } from "react-icons/ai";
 import { HiMail } from "react-icons/hi";
+
+
 const Contact = () => {
   return (
     <>
@@ -26,28 +28,22 @@ const Contact = () => {
                     <div className='in'>
                       <p>Mədrəsəmiz</p>
                       <p>99 S.t Jomblo Park Pekanbaru 28292. Indonesia</p>
-
                     </div>
                   </div>
-
                   <div className='first'>
                     <AiFillPhone className=' text-green-600' size={50} />
                     <div className='in'>
                       <p>Əlaqə nömrəsi</p>
                       <p>+994554940252</p>
-
                     </div>
                   </div>
-
                   <div className='first'>
                     <HiMail className=' text-green-600' size={50} />
                     <div className='in'>
                       <p>Mail Addresimiz</p>
                       <p>mail@gmail.com</p>
-
                     </div>
                   </div>
-
                 </div>
               </div>
               {/* <div className="w-full px-4 lg:w-1/2 xl:w-6/12">
@@ -128,34 +124,28 @@ const Contact = () => {
               <div className="w-full px-4 lg:w-1/2 xl:w-5/12">
                 <div className="relative rounded-lg bg-gray-100 dark:bg-gray-900  p-8  shadow-lg sm:pt-10 sm:p-12">
                   <p className='text-center pb-6 text-2xl font-bold text-gray-900 dark:text-gray-100    '>Mesajınızı yazın</p>
-
                   <form>
                     <div className="mb-6">
                       {/* <input type="text" id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ad" required/> */}
                       <input type="text" className="bg-gray-50 border mb-2 outline-none  border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 sticky top-0 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ad" required />
-
                     </div>
                     <div className="mb-6">
                       <input type="email" id="email" className="bg-gray-50 border mb-2 outline-none  border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 sticky top-0 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Email" required />
-
                     </div>
                     <div className="mb-6">
                       <input type="text" id="phone" className="bg-gray-50 border mb-2 outline-none  border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 sticky top-0 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Telefon Nömrəsi" required />
-
                     </div>
                     <div className="mb-6">
                       <textarea
                         rows={6}
                         placeholder="Mesaj"
-                        className="bg-gray-50 border mb-2 outline-none  border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 sticky top-0 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      ></textarea>
+                        className="bg-gray-50 border mb-2 outline-none  border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 sticky top-0 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
                     </div>
                     <div>
                       <button
                         type="submit"
                         className="
-                           w-full bg-blue-500 hover:bg-blue-600 focus:ring-blue-500 focus:ring-offset-blue-200 text-white font-medium rounded-lg shadow-md py-2.5 px-5 transition ease-in-out duration-150   text-base  tracking-wide   text-center  focus:outline-none focus:ring-2 focus:ring-offset-2 "
-                      >
+                           w-full bg-blue-500 hover:bg-blue-600 focus:ring-blue-500 focus:ring-offset-blue-200 text-white font-medium rounded-lg shadow-md py-2.5 px-5 transition ease-in-out duration-150   text-base  tracking-wide   text-center  focus:outline-none focus:ring-2 focus:ring-offset-2 ">
                         Send Message
                       </button>
                     </div>
@@ -167,8 +157,7 @@ const Contact = () => {
                         height="100"
                         viewBox="0 0 100 100"
                         fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
+                        xmlns="http://www.w3.org/2000/svg"  >
                         <path
                           fill-rule="evenodd"
                           clip-rule="evenodd"
@@ -972,11 +961,8 @@ const Contact = () => {
               </div>
             </div>
           </div>
-
         </div>
-
       </div>
-      <Footer />
     </>
   )
 }

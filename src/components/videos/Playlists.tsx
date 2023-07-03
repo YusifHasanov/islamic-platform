@@ -84,8 +84,7 @@ const Playlists: FC<Props> = () => {
                             </span>
                         </li>
                     ))
-                }
-
+                } 
             </ul>
         </aside>
     )

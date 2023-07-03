@@ -41,5 +41,5 @@ const NavList = () => {
         </div>
     )
 }
-
-export default memo(NavList)
+ 
+export default NavList

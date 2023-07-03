@@ -29,8 +29,6 @@ const Item = () => {
                 <span className="absolute inset-0 flex items-center justify-center">
                 </span>
             </div>
-
         </div>
-
     )
 }

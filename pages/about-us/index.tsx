@@ -4,30 +4,7 @@ import React from 'react'
 import Image from 'next/image'
 import Header from '@/src/components/globals/Header'
 
-const xocalar = [
-  {
-    id: 1,
-    name: 'Firudin Babaoğlu',
-    img: 'https://pbs.twimg.com/profile_images/1587100276779106304/pcjfzYNO_400x400.jpg',
-  },
-  {
-    id: 2,
-    name: "Ramazan Heydərov",
-    img: 'https://i.ytimg.com/vi/1fN_4ED8IYk/maxresdefault.jpg',
-  },
-  {
-    id: 3,
-    name: "Nəriman Safi",
-    img: 'https://pbs.twimg.com/profile_images/1587100276779106304/pcjfzYNO_400x400.jpg',
 
-  },
-  {
-    id: 4,
-    name: "Nəriman Safi",
-    img: 'https://pbs.twimg.com/profile_images/1587100276779106304/pcjfzYNO_400x400.jpg',
-
-  },
-]
 
 
 const AboutUs = () => {
@@ -73,7 +50,6 @@ const AboutUs = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   )
 }
@@ -81,3 +57,27 @@ const AboutUs = () => {
 export default AboutUs
 
 
+const xocalar = [
+  {
+    id: 1,
+    name: 'Firudin Babaoğlu',
+    img: 'https://pbs.twimg.com/profile_images/1587100276779106304/pcjfzYNO_400x400.jpg',
+  },
+  {
+    id: 2,
+    name: "Ramazan Heydərov",
+    img: 'https://i.ytimg.com/vi/1fN_4ED8IYk/maxresdefault.jpg',
+  },
+  {
+    id: 3,
+    name: "Nəriman Safi",
+    img: 'https://pbs.twimg.com/profile_images/1587100276779106304/pcjfzYNO_400x400.jpg',
+
+  },
+  {
+    id: 4,
+    name: "Nəriman Safi",
+    img: 'https://pbs.twimg.com/profile_images/1587100276779106304/pcjfzYNO_400x400.jpg',
+
+  },
+]

@@ -30,7 +30,7 @@ const ArticleItem: FC<Article> = (props) => {
                 <span className="text-sm">{moment(props.publishedAt).fromNow()}</span>
             </div>
             <h2 className="mb-2 text-2xl font-bold tracking-tight text-gray-800 dark:text-gray-200"><a href="#">{props.title}</a></h2>
-            <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(props.content) }}  className="article_text mb-5 font-light text-gray-500 dark:text-gray-400"/>
+            <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(props.content) }} className="article_text mb-5 font-light text-gray-500 dark:text-gray-400" />
             <div className="flex justify-between items-center">
                 <div className="flex items-center space-x-4">
                     <img className="w-7 h-7 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png" alt="Jese Leos avatar" />
@@ -41,8 +41,7 @@ const ArticleItem: FC<Article> = (props) => {
                 <button
                     onClick={() => router.push(`/articles/dsagdiga`)}
                     type="button"
-                    className="border  dark:border-gray-700 dark:bg-gray-700 hover:text-gray-200 dark:text-gray-100 rounded-md px-2 py-1 m-2 transition duration-500 ease select-none hover:bg-gray-800 dark:hover:bg-gray-300 dark:hover:text-gray-900 focus:outline-none focus:shadow-outline"
-                >
+                    className="border  dark:border-gray-700 dark:bg-gray-700 hover:text-gray-200 dark:text-gray-100 rounded-md px-2 py-1 m-2 transition duration-500 ease select-none hover:bg-gray-800 dark:hover:bg-gray-300 dark:hover:text-gray-900 focus:outline-none focus:shadow-outline">
                     Davamı...
                 </button>
             </div>

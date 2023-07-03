@@ -42,5 +42,5 @@ const NavListMobile = () => {
         </Disclosure.Panel>
     )
 }
-
-export default NavListMobile
+ 
+export default  NavListMobile;
