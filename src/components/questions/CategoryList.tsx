@@ -1,15 +1,16 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setSelectedCategoryId, setSearch, selectQuestionCategory, setParentCategoryId } from "@/src/redux/slices/questionSlice";
+import { setCategory, setParentCategory, setSearch } from "@/src/redux/slices/categoriesSlice";
+import { categorySelector } from '@/src/redux/slices/categoriesSlice';
 
 const CategoryList = () => {
     const dispatch = useDispatch();
-    const { selectedCategoryId, parentCategoryId } = useSelector(selectQuestionCategory);
+    const { search, parentCategoryId, categoryId } = useSelector(categorySelector);
 
     return (
-        <div className='question_categories  dark:bg-gray-950  flex w-max bg-white items-center mx-4  rounded-3xl  py-3 px-6'>
-            <input onChange={(e) => dispatch(setSearch(e.target.value.trim()))} type="text" className="bg-gray-50 border  dark:bg-gray-700 dark:border-gray-600   outline-none  border-gray-400 text-gray-900 dark:text-gray-100 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 sticky top-0 block  p-2.5  dark:placeholder-gray-400    dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Axtar" />
-            <div className='flex px-2 justify-center items-center overflow-auto categories_container'  >
+        <div className='question_categories   dark:bg-gray-950  flex w-max bg-white items-center mx-4   rounded-3xl  py-3 px-1'>
+            <input onChange={(e) => dispatch(setSearch(e.target.value.trim()))} type="text" className="bg-gray-50 border mx-2  dark:bg-gray-700 dark:border-gray-600   outline-none  border-gray-400 text-gray-900 dark:text-gray-100 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 sticky top-0 block  p-2.5  dark:placeholder-gray-400    dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Axtar" />
+            <div className='flex    justify-center items-center overflow-auto categories_container'  >
                 {
                     categories.filter((category: any) => category.parentId === 0).map((parent: any) => (
                         <div key={parent.id} className="hs-dropdown  relative inline-flex">
@@ -22,15 +23,15 @@ const CategoryList = () => {
                                 <div className="py-2   first:pt-0 last:pb-0">
                                     {categories.filter((category: any) => category.parentId === parent.id)
                                         .map((child: any) => (
-                                            <span key={child.id} className={`flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-blue-100 mb-1 bg-blue-50 dark:bg-gray-500 dark:text-gray-200 focus:ring-2 focus:ring-blue-500   dark:hover:bg-gray-700 dark:hover:text-gray-300 ${selectedCategoryId === child.id ? "bg-blue-200 dark:bg-gray-600 dark:hover:bg-gray-700 dark:text-gray-300 hover:bg-blue-300 " : ""} `}
+                                            <span key={child.id} className={`flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-blue-100 mb-1 bg-blue-50 dark:bg-gray-500 dark:text-gray-200 focus:ring-2 focus:ring-blue-500   dark:hover:bg-gray-700 dark:hover:text-gray-300 ${categoryId === child.id ? "bg-blue-200 dark:bg-gray-600 dark:hover:bg-gray-700 dark:text-gray-300 hover:bg-blue-300 " : ""} `}
                                                 onClick={() => {
-                                                    if (selectedCategoryId === child.id || selectedCategoryId === parent.id) {
-                                                        dispatch(setSelectedCategoryId(null))
-                                                        dispatch(setParentCategoryId(null))
+                                                    if (categoryId === child.id || categoryId === parent.id) {
+                                                        dispatch(setCategory(null))
+                                                        dispatch(setParentCategory(null))
                                                     }
                                                     else {
-                                                        dispatch(setSelectedCategoryId(child.id))
-                                                        dispatch(setParentCategoryId(parent.id))
+                                                        dispatch(setCategory(child.id))
+                                                        dispatch(setParentCategory(parent.id))
                                                     }
                                                 }}>
                                                 {child.name}
