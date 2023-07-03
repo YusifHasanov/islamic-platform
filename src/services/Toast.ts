@@ -28,7 +28,7 @@ class Toast {
     private progress: string | number | undefined = undefined;
     private theme: "light" | "dark" = "light";
 
-    private constructor() {
+    private constructor() { 
     }
 
     public static getInstance() {

@@ -1,4 +1,4 @@
-import CrudService from '@/src/Libs/CrudService';
+import CrudService from '@/src/services/CrudService';
 import { FC, useState } from 'react';
 
 import FetchAPI from '@/src/components/globals/FetchAPI';
