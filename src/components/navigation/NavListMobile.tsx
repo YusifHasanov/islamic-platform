@@ -42,5 +42,5 @@ const NavListMobile = () => {
         </Disclosure.Panel>
     )
 }
- 
-export default  NavListMobile;
+const MemoNavListMobile = React.memo(NavListMobile)
+export default  MemoNavListMobile;

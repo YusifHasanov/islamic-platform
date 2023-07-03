@@ -18,5 +18,5 @@ const HomePage = () => {
         </>
     )
 }
-const MemoHomePage = React.memo(HomePage)
-export default  MemoHomePage
+ 
+export default  HomePage

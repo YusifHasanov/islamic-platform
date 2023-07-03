@@ -10,7 +10,7 @@ import NavPrayTimes from './NavPrayTimes'
 import NavImages from './NavImages'
 import { memo } from 'react'
 import ToggleTheme from '../globals/ToggleTheme'
- 
+
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
