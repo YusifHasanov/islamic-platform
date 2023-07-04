@@ -2,7 +2,7 @@ import React, { FormEvent, useState } from 'react'
 import Layout from '@/src/admin/Layout'
 import Title from '@/src/admin/Title'
 import QuestionItem from '@/src/admin/questions/QuestionItem'
-import Header from '@/src/components/globals/Header'
+import Header from '@/src/components/common/Header'
 import { useGetQuestionsQuery } from '@/src/redux/slices/questionSlice'
 
 

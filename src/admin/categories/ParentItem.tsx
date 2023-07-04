@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react'
-import CrudService from '@/src/services/CrudService'
+import crudService from '@/src/services/CrudService'
 import { useDeleteCategoryMutation, useUpdateCategoryMutation } from '@/src/redux/slices/categoriesSlice';
 interface ParentItemProps {
     id: number,
@@ -10,8 +10,7 @@ interface ParentItemProps {
 
 const ParentItem: FC<Category> = ({ id, name, parentId, subCategories, articles }) => {
     const [isUpdate, setIsUpdate] = useState(false);
-    const [updateName, setUpdateName] = useState<string>(name);
-    const crudService = CrudService.getInstance();
+    const [updateName, setUpdateName] = useState<string>(name); 
     const [updateCategory, result] = useUpdateCategoryMutation();
     const [remove, removeResult] = useDeleteCategoryMutation();
     const handleUpdate = () => {

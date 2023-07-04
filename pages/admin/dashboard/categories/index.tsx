@@ -4,8 +4,8 @@ import CategoryList from '@/src/admin/categories/CategoryList';
 import Layout from '@/src/admin/Layout'
 import React, { FC, useEffect } from 'react'
 import { ToastContainer } from 'react-toastify';
-import Header from '@/src/components/globals/Header';
-import FetchAPI from '@/src/components/globals/FetchAPI'; 
+import Header from '@/src/components/common/Header';
+import FetchAPI from '@/src/services/FetchAPI'; 
 
 const categories = [
     {

@@ -7,7 +7,7 @@ import "swiper/css/effect-coverflow";
 import {AiOutlineClose} from 'react-icons/ai';
 import moment from 'moment'
 import Head from 'next/head'
-import Header from "@/src/components/globals/Header";
+import Header from "@/src/components/common/Header";
 import { FC, useEffect } from "react";
 import BookItem from "@/src/components/books/BookItem";
 import Footer from "@/src/components/footer/Footer";

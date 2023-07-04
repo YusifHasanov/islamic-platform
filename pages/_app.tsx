@@ -11,8 +11,8 @@ import { useEffect } from 'react';
 import { store } from '@/src/redux/store/store';
 import { Provider } from 'react-redux';
 import Footer from '@/src/components/footer/Footer';
-import MainHeader from '@/src/components/globals/MainHeader';
-import Layout from '@/src/components/globals/Layout';
+import MainHeader from '@/src/components/common/MainHeader';
+import Layout from '@/src/components/common/Layout';
 
 
 export function reportWebVitals(metric: any) {

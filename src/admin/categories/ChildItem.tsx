@@ -1,19 +1,18 @@
-import CrudService from '@/src/services/CrudService';
+import crudService from '@/src/services/CrudService';
 import { FC, useState } from 'react';
-
-import FetchAPI from '@/src/components/globals/FetchAPI';
+ 
 import { useDeleteCategoryMutation, useUpdateCategoryMutation } from '@/src/redux/slices/categoriesSlice';
 
 
- 
+
 
 const ChildItem: FC<Category> = ({ id, name, parentId, subCategories, articles }) => {
     const [isUpdate, setIsUpdate] = useState(false);
     const [updateName, setUpdateName] = useState<string>(name);
     const [updateCategory, result] = useUpdateCategoryMutation();
     const [remove, removeResult] = useDeleteCategoryMutation();
-    const crudService = CrudService.getInstance();
  
+
 
 
     const handleUpdate = () => {

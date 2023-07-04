@@ -3,7 +3,7 @@ import BookItem from '@/src/admin/books/BookItem'
 import Layout from '@/src/admin/Layout'
 import React from 'react'
 import { ToastContainer } from 'react-toastify';
-import Header from '@/src/components/globals/Header';
+import Header from '@/src/components/common/Header';
 const index = () => {
   return (
     <>

@@ -54,5 +54,5 @@ class FetchAPI {
   }
 }
 
-
+export const fetchAPI = FetchAPI.getInstance();
 export default FetchAPI;

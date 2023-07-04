@@ -2,7 +2,7 @@
 import React, { FC } from 'react'
 import Image from 'next/image'
 import PlaylistItemSkeleton from './PlaylistItemSkeleton'
-import HeaderSkeleton from '../../globals/HeaderSkeleton'
+import HeaderSkeleton from '../../common/HeaderSkeleton'
 import Link from 'next/link'
 import { useGetVideosByPlaylistIdQuery } from '@/src/redux/slices/videoSlice'
 import { useGetPlaylistByIdQuery } from '@/src/redux/slices/playlistSlice'

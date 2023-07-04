@@ -2,7 +2,7 @@ import InfinitiVideoScroll from '@/src/components/videos/InfinitiVideoScroll'
 import React, { FC } from 'react'
 import Playlists from '@/src/components/videos/Playlists' 
 import Head from 'next/head'    
-import Header from '@/src/components/globals/Header'
+import Header from '@/src/components/common/Header'
 import { useDispatch,useSelector } from 'react-redux'
 import { playlistSelector } from '@/src/redux/slices/playlistSlice'
 interface Props {

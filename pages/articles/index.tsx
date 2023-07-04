@@ -2,8 +2,8 @@ import React, { FC } from 'react'
 import Head from 'next/head'
 import ArticleItem from '@/src/components/articles/ArticleItem'
 import Footer from '@/src/components/footer/Footer'
-import Header from '@/src/components/globals/Header'
-import FetchAPI from '@/src/components/globals/FetchAPI'
+import Header from '@/src/components/common/Header'
+import FetchAPI from '@/src/services/FetchAPI'
 import { GetStaticProps } from 'next'
 const articless: any[] = [
   {

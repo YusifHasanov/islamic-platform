@@ -2,7 +2,7 @@ import React, { CSSProperties, FC } from 'react'
 import VideoPlaylists from '@/src/components/videos/singleVideo/VideoPlaylists';
 import VideoItem from '@/src/components/videos/singleVideo/VideoItem';
 import Head from 'next/head';
-import FetchAPI from '@/src/components/globals/FetchAPI';
+import FetchAPI from '@/src/services/FetchAPI';
  
 
 interface Props { 

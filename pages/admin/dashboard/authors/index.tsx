@@ -1,6 +1,6 @@
 import Layout from '@/src/admin/Layout'
 import Title from '@/src/admin/Title'
-import Header from '@/src/components/globals/Header'
+import Header from '@/src/components/common/Header'
 import React from 'react'
 
 const index = () => {

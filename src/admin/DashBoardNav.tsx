@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useAtom, atom } from 'jotai';
 import { AiFillCloseCircle } from 'react-icons/ai';
-import ToggleTheme from '../components/globals/ToggleTheme';
+import ToggleTheme from '../components/common/ToggleTheme';
 const sidebarAtom = atom(false)
 const DashBoardNav = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false)

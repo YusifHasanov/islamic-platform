@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSession, getSession, signIn, signOut } from "next-auth/react"
-import Header from '@/src/components/globals/Header'
+import Header from '@/src/components/common/Header'
 import DashBoardNav from '@/src/admin/DashBoardNav'
 import Layout from '@/src/admin/Layout'
 import Title from '@/src/admin/Title'

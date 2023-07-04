@@ -3,7 +3,7 @@ import Head from 'next/head'
 
 import CategoryList from '@/src/components/questions/CategoryList'
 import QuestionList from '@/src/components/questions/QuestionList'
-import Header from '@/src/components/globals/Header'
+import Header from '@/src/components/common/Header'
 import Footer from '@/src/components/footer/Footer'
 const Index = () => {
   return (

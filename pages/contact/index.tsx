@@ -1,9 +1,9 @@
 import React from 'react'
 import Head from 'next/head'
 import Footer from '@/src/components/footer/Footer'
-import Header from '@/src/components/globals/Header'
+import Header from '@/src/components/common/Header'
 // import '@/styles/globals.css'
-import MedreseIcon from '@/src/components/globals/MedreseIcon'
+import MedreseIcon from '@/src/components/common/MedreseIcon'
 import { MdPlace } from "react-icons/md";
 import { AiFillPhone } from "react-icons/ai";
 import { HiMail } from "react-icons/hi";

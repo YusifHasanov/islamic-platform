@@ -2,7 +2,7 @@ import Title from '@/src/admin/Title'
 import ArticleItem from '@/src/admin/articles/ArticleItem'
 import Layout from '@/src/admin/Layout'
 import React, { FC, useState } from 'react'
-import Header from '@/src/components/globals/Header'
+import Header from '@/src/components/common/Header'
 const articles: Article[] = [
   {
     id: 1,

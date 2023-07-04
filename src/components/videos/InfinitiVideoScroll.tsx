@@ -1,8 +1,8 @@
 import React, { Fragment, useEffect, FC } from 'react'
 import axios from 'axios'
 import { useInView } from 'react-intersection-observer'
-import Spinner from '../globals/Spinner'
-import HeaderSkeleton from '../globals/HeaderSkeleton' 
+import Spinner from '../common/Spinner'
+import HeaderSkeleton from '../common/HeaderSkeleton' 
 import VideoSkeleton from './VideoSkeleton'
 import VideoComponent from './VideoComponent' 
 

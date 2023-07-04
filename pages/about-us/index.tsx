@@ -2,7 +2,7 @@ import Footer from '@/src/components/footer/Footer'
 import Head from 'next/head'
 import React from 'react'
 import Image from 'next/image'
-import Header from '@/src/components/globals/Header'
+import Header from '@/src/components/common/Header'
 
 
 

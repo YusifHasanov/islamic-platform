@@ -1,19 +1,13 @@
-import FetchAPI from "../components/globals/FetchAPI";
+import FetchAPI from "./FetchAPI";
 import Toast from "./Toast";
 
-export default class CrudService {
+
+class CrudService {
     private fetchAPI = FetchAPI.getInstance();
     private toast = Toast.getInstance();
     private static readonly INSTANCE = new CrudService();
-    
-    private async handleResponse(callbck: () => void) {
-        try {
-            callbck();
-            this.toast.success("Dəyişikliklər uğurla yadda saxlandı");
-        } catch (error) {
-            this.toast.error("Dəyişikliklər yadda saxlanılarkən xəta baş verdi");
-        }
-    }
+
+
     public async update(callbck: () => void) {
         if (window.confirm("Dəyişiklikləri yadda saxlamaq istədiyinizə əminsiniz?")) {
             this.handleResponse(callbck);
@@ -27,7 +21,6 @@ export default class CrudService {
             return;
         }
         this.toast.info("Silinmədi");
-
     }
 
     public async add(callbck: () => void) {
@@ -46,4 +39,15 @@ export default class CrudService {
     public static getInstance(): CrudService {
         return this.INSTANCE;
     }
+    
+    private async handleResponse(callbck: () => void) {
+        try {
+            callbck();
+            this.toast.success("Dəyişikliklər uğurla yadda saxlandı");
+        } catch (error) {
+            this.toast.error("Dəyişikliklər yadda saxlanılarkən xəta baş verdi");
+        }
+    }
 }
+
+export default  CrudService.getInstance();

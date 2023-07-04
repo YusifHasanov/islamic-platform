@@ -2,7 +2,7 @@ import React from 'react'
 import axios from 'axios';
 import Head from 'next/head';
 import VideoItemSkeleton from './VideoItemSkeleton';
-import HeaderSkeleton from '../../globals/HeaderSkeleton';
+import HeaderSkeleton from '../../common/HeaderSkeleton';
 
 
 

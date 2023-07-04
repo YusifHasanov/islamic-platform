@@ -9,7 +9,7 @@ import NavListMobile from './NavListMobile'
 import NavPrayTimes from './NavPrayTimes'
 import NavImages from './NavImages'
 import { memo } from 'react'
-import ToggleTheme from '../globals/ToggleTheme'
+import ToggleTheme from '../common/ToggleTheme'
 
 
 function classNames(...classes: any) {

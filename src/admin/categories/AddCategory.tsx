@@ -1,31 +1,22 @@
 
-import CrudService from '@/src/services/CrudService';
-import FetchAPI from '@/src/components/globals/FetchAPI';
+import crudService from '@/src/services/CrudService';
+ 
 import { useCreateCategoryMutation, useGetCategoriesQuery } from '@/src/redux/slices/categoriesSlice';
 
 import React, { FC, useEffect, useState } from 'react';
 
 
- 
-const AddCategory: FC<any> = ({}) => {
- 
-    const {data:categories,isLoading} = useGetCategoriesQuery(undefined, {refetchOnMountOrArgChange: true})
+
+const AddCategory: FC<any> = ({ }) => {
+
+    const { data: categories, isLoading } = useGetCategoriesQuery(undefined, { refetchOnMountOrArgChange: true })
     const [createCategory, result] = useCreateCategoryMutation();
-    const crudService = CrudService.getInstance();
-    const [category, setCategory] = useState({
-        name: "",
-        parentId: 0
-    });
-    useEffect(()=>{
-        console.log(category);
-    },[category])
  
+    const [category, setCategory] = useState({ name: "", parentId: 0 });
     const isDisabled = category.name.length < 3;
-    const handleChange = (key: string, value: string) =>
-        setCategory({
-            ...category,
-            [key]: value
-        })
+
+
+    const handleChange = (key: string, value: string) => setCategory({ ...category, [key]: value })
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -34,9 +25,6 @@ const AddCategory: FC<any> = ({}) => {
             parentId: category.parentId,
             subCategories: [],
         }));
-        console.log(category);  
-       
-
     }
     if (isLoading) {
         return <div>Loading...</div>

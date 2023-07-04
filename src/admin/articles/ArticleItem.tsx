@@ -13,7 +13,7 @@ import Editor from '../Editor';
 import { Value } from 'react-quill';
 import { BsMoonFill, BsSunFill } from 'react-icons/bs';
 import { FaMoon, FaSun } from 'react-icons/fa';
-import ToggleTheme from '@/src/components/globals/ToggleTheme';
+import ToggleTheme from '@/src/components/common/ToggleTheme';
 const QuillNoSSRWrapper = dynamic(import('react-quill'), {
     ssr: false,
     loading: () => <p>Loading ...</p>,
