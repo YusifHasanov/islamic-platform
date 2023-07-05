@@ -39,14 +39,18 @@ const categorySlice = apiSlice.injectEndpoints({
         }),
     }),
 })
-
+interface InnitialState {
+    search: string,
+    categoryId: number | null,
+    parentCategoryId: number | null
+}
 const categoryState = createSlice({
     name: 'categoryState',
-    initialState: {
-        search: "",
+    initialState : {
+        search: '',
         categoryId: null,
         parentCategoryId: null
-    },
+    } as InnitialState,
     reducers: {
         setCategory: (state, action) => {
             state.categoryId = action.payload;

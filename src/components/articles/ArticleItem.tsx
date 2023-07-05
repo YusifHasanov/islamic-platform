@@ -2,6 +2,7 @@ import React, { FC } from 'react'
 import moment from 'moment';
 import { useRouter } from 'next/router'
 import sanitizeHtml from 'sanitize-html';
+import Categories from '../common/Categories';
 interface Article {
     id: number;
     publishedAt: string;
@@ -21,6 +22,8 @@ interface Article {
 const ArticleItem: FC<Article> = (props) => {
     const router = useRouter();
     return (
+       
+
         <article className="p-4 article_item bg-gray-100 rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-800">
             <div className="flex justify-between items-center mb-3 text-gray-500">
                 <span className="bg-primary-100 text-primary-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-primary-200 dark:text-primary-800">
@@ -46,7 +49,7 @@ const ArticleItem: FC<Article> = (props) => {
                 </button>
             </div>
         </article>
-
+ 
     )
 }
 
