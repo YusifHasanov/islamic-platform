@@ -1,7 +1,7 @@
-''
-import Image from 'next/image';
+import React from 'react';
+import Image from "next/image";
 
-export default function ArticlesSection() {
+const Header = () => {
     return (
         <section className="relative w-full h-[400px]">
             {/* Background Image */}
@@ -14,7 +14,8 @@ export default function ArticlesSection() {
                     quality={100}
                     className="z-0"
                 />
-                <div className="absolute inset-0 bg-black opacity-50"></div> {/* Arka plana karartma efekti */}
+                <div className="absolute inset-0 bg-black opacity-50"></div>
+                {/* Arka plana karartma efekti */}
             </div>
 
             {/* Text Content */}
@@ -28,4 +29,6 @@ export default function ArticlesSection() {
             </div>
         </section>
     );
-}
+};
+
+export default Header;
