@@ -24,7 +24,6 @@ export default function VideoSlider() {
                 'İletişim bilgileri ve daha fazlası için hemen şimdi bizimle iletişime geçin.',
             buttonText: 'DAHA FAZLA BİLGİ AL',
         },
-        // Diğer slaytlar buraya eklenebilir
     ];
 
     return (
