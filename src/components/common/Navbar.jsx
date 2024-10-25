@@ -1,6 +1,7 @@
 
 'use client'
 import {useState} from "react";
+import Link from "next/link";
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -14,32 +15,32 @@ const Navbar = () => {
           </span>
                 </div>
                 <div className="hidden md:flex items-center space-x-8">
-                    <a href="/" className="text-[#F7E652] hover:text-white">
+                    <Link  href="/" className="text-[#F7E652] hover:text-white">
                         ANASAYFA
-                    </a>
-                    <a href="/sohbetler" className="text-white hover:text-[#F7E652]">
+                    </Link>
+                    <Link href="/videos" className="text-white hover:text-[#F7E652]">
                         SOHBETLER
-                    </a>
-                    <a href="/articles" className="text-white hover:text-[#F7E652]">
+                    </Link>
+                    <Link href="/articles" className="text-white hover:text-[#F7E652]">
                         MAKALELER
-                    </a>
-                    <a href="/hakkimizda" className="text-white hover:text-[#F7E652]">
+                    </Link>
+                    <Link href="/about" className="text-white hover:text-[#F7E652]">
                         HAKKIMIZDA
-                    </a>
-                    <a href="/dergi" className="text-white hover:text-[#F7E652]">
-                        DERGİ
-                    </a>
+                    </Link>
+                    {/*<Link href="/dergi" className="text-white hover:text-[#F7E652]">*/}
+                    {/*    DERGİ*/}
+                    {/*</Link>*/}
                     <div className="relative">
                         <button className="text-white hover:text-[#F7E652]">
                             İLETİŞİM
                         </button>
                     </div>
-                    <a
+                    <Link
                         href="/bagis"
                         className="bg-[#F7E652] text-[#007A4C] py-2 px-4 rounded-md hover:bg-white"
                     >
                         BAĞIŞ
-                    </a>
+                    </Link>
                 </div>
                 <div className="flex md:hidden">
                     <button

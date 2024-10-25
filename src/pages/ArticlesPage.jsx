@@ -1,5 +1,9 @@
+'use client'
 import Header from "@/components/articles/Header";
 import React from "react";
+import {useRouter} from "next/navigation";
+
+// background-image: linear-gradient(0deg, rgba(0, 0, 0, .35), transparent 75%);
 
 export default function ArticlesPage() {
 
@@ -118,21 +122,7 @@ export default function ArticlesPage() {
                             <PopularArticles />
                         </aside>
                     </div>
-
-                    {/* Yeni Kategorilere Göre Makaleler Section */}
-                    <div className="mt-12">
-                        <h2 className="text-2xl font-bold mb-6 text-gray-800">Kategorilere Göre Makaleler</h2>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            {categories.map((category, index) => (
-                                <CategorySection
-                                    key={index}
-                                    title={category.title}
-                                    articles={category.articles}
-                                />
-                            ))}
-                        </div>
-                    </div>
+                    <ArticleList/>
                 </div>
             </div>
         </>
@@ -140,8 +130,11 @@ export default function ArticlesPage() {
 }
 
 function ArticleCard({ title, description, date, image }) {
+    const router = useRouter()
     return (
-        <div style={{ maxHeight: "400px" }}
+        <div
+            onClick={()=>router.push("/articles/" + title)}
+            style={{ maxHeight: "400px" }}
              className="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
             <img src={image} alt={title} className="w-full h-48 object-cover" />
             <div className="p-4">
@@ -242,3 +235,65 @@ function PopularArticles() {
         </div>
     );
 }
+
+const OtherArticleCard = ({ title, date, image }) => {
+    return (
+        <div className="flex space-x-4 mb-6">
+            {/* Image */}
+            <div className="w-1/3">
+                <img src={image} alt={title} className="w-full h-24 rounded-lg object-cover" />
+            </div>
+            {/* Text */}
+            <div className="w-2/3">
+                <h3 className="text-md font-semibold text-gray-800">{title}</h3>
+                <p className="text-gray-500 text-sm mt-1">{date}</p>
+            </div>
+        </div>
+    );
+};
+
+const ArticleList = () => {
+    return (
+        <div className=" mx-auto py-8">
+            <div className="grid grid-cols-2 gap-8 gap-x-12">
+                {/* İman Column */}
+                <div  >
+                    <h2 className="text-xl font-bold text-gray-800 mb-4">İMAN</h2>
+                    <OtherArticleCard
+                        title="Efendimiz (s.a.v.) Boykot Döneminde Nasıl Sıkıntılar Çekmiştir?"
+                        date="Ekim 1, 2024"
+                        image="https://hayalhanem.com/wp-content/uploads/2024/10/Efendimizs.a.v.-Boykot-Doneminde-Nasil-Sikintilar-Cekmistir.webp"
+                    />
+                    <hr className="border-gray-300 mb-4" />
+                    <OtherArticleCard
+                        title="Ebû Talip İmanlı mı Öldü? – Hz. Hatice’nin (r.a.) Vefatı"
+                        date="Ekim 1, 2024"
+                        image="https://hayalhanem.com/wp-content/uploads/2024/10/Efendimizs.a.v.-Boykot-Doneminde-Nasil-Sikintilar-Cekmistir.webp"
+                    />
+                    <hr className="border-gray-300 mb-4" />
+                    <OtherArticleCard
+                        title="Efendimiz (s.a.v.) Taif’te Kimler Taşladı?"
+                        date="Ekim 1, 2024"
+                        image="https://hayalhanem.com/wp-content/uploads/2024/10/Efendimizs.a.v.-Boykot-Doneminde-Nasil-Sikintilar-Cekmistir.webp"
+                    />
+                    <hr className="border-gray-300 mb-4" />
+                    <OtherArticleCard
+                        title="Efendimiz (s.a.v.) Hayatı Boyunca Ne Sıkıntılar Yaşamıştır?"
+                        date="Ekim 1, 2024"
+                        image="https://hayalhanem.com/wp-content/uploads/2024/10/Efendimizs.a.v.-Boykot-Doneminde-Nasil-Sikintilar-Cekmistir.webp"
+                    />
+                </div>
+
+                {/* Fıkıh Column */}
+                <div>
+                    <h2 className="text-xl font-bold text-gray-800 mb-4">FIKIH</h2>
+                    <OtherArticleCard
+                        title="Müslümanın Borcu Olur mu? – Efendimiz (s.a.v.) Borcu Olan Müslümanın Cenaze Namazını Kıldırmamış mıdır?"
+                        date="Ekim 1, 2024"
+                        image="https://hayalhanem.com/wp-content/uploads/2024/10/efendimiz-cenaze-namazi-kildirmismidir-.webp"
+                    />
+                </div>
+            </div>
+        </div>
+    );
+};
