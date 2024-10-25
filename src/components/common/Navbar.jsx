@@ -1,10 +1,15 @@
-
 'use client'
-import {useState} from "react";
+import { useState } from "react";
 import Link from "next/link";
+import {usePathname} from "next/navigation";
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const pathname = usePathname()
+
+    const isActive = (href) => {
+        return pathname  === href ? "text-[#F7E652]" : "text-white";
+    };
 
     return (
         <nav className="bg-[#007A4C]">
@@ -15,26 +20,21 @@ const Navbar = () => {
           </span>
                 </div>
                 <div className="hidden md:flex items-center space-x-8">
-                    <Link  href="/" className="text-[#F7E652] hover:text-white">
+                    <Link href="/" className={`${isActive("/")} hover:text-[#F7E652]`}>
                         ANASAYFA
                     </Link>
-                    <Link href="/videos" className="text-white hover:text-[#F7E652]">
+                    <Link href="/videos" className={`${isActive("/videos")} hover:text-[#F7E652]`}>
                         SOHBETLER
                     </Link>
-                    <Link href="/articles" className="text-white hover:text-[#F7E652]">
+                    <Link href="/articles" className={`${isActive("/articles")} hover:text-[#F7E652]`}>
                         MAKALELER
                     </Link>
-                    <Link href="/about" className="text-white hover:text-[#F7E652]">
+                    <Link href="/about" className={`${isActive("/about")} hover:text-[#F7E652]`}>
                         HAKKIMIZDA
                     </Link>
-                    {/*<Link href="/dergi" className="text-white hover:text-[#F7E652]">*/}
-                    {/*    DERGİ*/}
-                    {/*</Link>*/}
-                    <div className="relative">
-                        <button className="text-white hover:text-[#F7E652]">
-                            İLETİŞİM
-                        </button>
-                    </div>
+                    <Link href="/contact" className={`${isActive("/contact")} hover:text-[#F7E652]`}>
+                        İLETİŞİM
+                    </Link>
                     <Link
                         href="/bagis"
                         className="bg-[#F7E652] text-[#007A4C] py-2 px-4 rounded-md hover:bg-white"
@@ -86,48 +86,24 @@ const Navbar = () => {
 
             <div className={`md:hidden ${isOpen ? "block" : "hidden"}`}>
                 <div className="px-2 pt-2 pb-3 space-y-1">
-                    <a
-                        href="/"
-                        className="text-[#F7E652] block px-3 py-2 rounded-md text-base font-medium bg-gray-100"
-                    >
+                    <Link href="/" className={`${isActive("/")} block px-3 py-2 rounded-md text-base font-medium`}>
                         ANASAYFA
-                    </a>
-                    <a
-                        href="/sohbetler"
-                        className="text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-100"
-                    >
+                    </Link>
+                    <Link href="/videos" className={`${isActive("/videos")} block px-3 py-2 rounded-md text-base font-medium`}>
                         SOHBETLER
-                    </a>
-                    <a
-                        href="/makaleler"
-                        className="text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-100"
-                    >
+                    </Link>
+                    <Link href="/articles" className={`${isActive("/articles")} block px-3 py-2 rounded-md text-base font-medium`}>
                         MAKALELER
-                    </a>
-                    <a
-                        href="/hakkimizda"
-                        className="text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-100"
-                    >
+                    </Link>
+                    <Link href="/about" className={`${isActive("/about")} block px-3 py-2 rounded-md text-base font-medium`}>
                         HAKKIMIZDA
-                    </a>
-                    <a
-                        href="/dergi"
-                        className="text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-100"
-                    >
-                        DERGİ
-                    </a>
-                    <a
-                        href="/iletisim"
-                        className="text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-100"
-                    >
+                    </Link>
+                    <Link href="/contact" className={`${isActive("/contact")} block px-3 py-2 rounded-md text-base font-medium`}>
                         İLETİŞİM
-                    </a>
-                    <a
-                        href="/bagis"
-                        className="bg-[#F7E652] text-[#007A4C] block px-3 py-2 rounded-md text-base font-medium hover:bg-white"
-                    >
+                    </Link>
+                    <Link href="/bagis" className="bg-[#F7E652] text-[#007A4C] block px-3 py-2 rounded-md text-base font-medium">
                         BAĞIŞ
-                    </a>
+                    </Link>
                 </div>
             </div>
         </nav>
