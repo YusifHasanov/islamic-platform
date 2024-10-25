@@ -69,7 +69,7 @@ const VideoPlayer = () => {
                     </div>
 
                     {/* Related Videos Section */}
-                    <div  className={"border border-gray-600 max-h-[540] rounded-lg overflow-hidden"}>
+                    <div style={{maxHeight:"540px"}}  className={"border border-gray-600  rounded-lg overflow-hidden"}>
                         <h3 className="text-white text-xl bg-gray-600 p-4 font-semibold mb-4">Hz. Muhammed'in (sav)
                             Hayatı</h3>
                         <div  className="space-y-4 max-h-full overflow-scroll px-3">
