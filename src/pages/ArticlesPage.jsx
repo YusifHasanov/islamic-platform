@@ -234,7 +234,7 @@ function PopularArticles() {
                         <img src={item.img} alt="Cemaat Olmanın Önemi"
                              className="w-16 h-16 object-cover rounded-lg" />
                         <div>
-                            <h4 className="text-sm  font-semibold text-gray-700">{item.title}</h4>
+                            <h4 className="text-sm font-semibold text-gray-700">{item.title}</h4>
                         </div>
                     </li>
                 ))}
