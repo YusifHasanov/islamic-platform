@@ -1,0 +1,23 @@
+{
+  "name": "esm",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "framer-motion": "^11.11.9",
+    "lucide-react": "^0.453.0",
+    "next": "15.0.1",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "swiper": "^11.1.14"
+  },
+  "devDependencies": {
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1"
+  }
+}
