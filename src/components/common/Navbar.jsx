@@ -1,3 +1,4 @@
+
 'use client'
 import {useState} from "react";
 
@@ -19,7 +20,7 @@ const Navbar = () => {
                     <a href="/sohbetler" className="text-white hover:text-[#F7E652]">
                         SOHBETLER
                     </a>
-                    <a href="/makaleler" className="text-white hover:text-[#F7E652]">
+                    <a href="/articles" className="text-white hover:text-[#F7E652]">
                         MAKALELER
                     </a>
                     <a href="/hakkimizda" className="text-white hover:text-[#F7E652]">

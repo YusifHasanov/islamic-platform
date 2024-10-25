@@ -5,7 +5,7 @@ import 'swiper/css/pagination';
 import Image from 'next/image';
 import {Autoplay, Pagination} from "swiper/modules";
 
-export default function TestimonialSwiper() {
+export default function Feedbacks() {
     const testimonials = [
         {
             text: 'Selamın aleyküm abi. Öğretmenimiz bize performans ödevi verdi. Okuduğunuz kitabın özeti ve yazar hakkında bilgi yazın dedi. Hemen aklıma sen geldin abi. Ben aşk 5 vakittir in özetini yazdım yazarken çok ama çok mutlu oldum. Tekrar olsa tekrar yazarım abi. Ve senin sayende 100 aldım çok mutlu oldum. Mutluluğumu seninle de paylaşmak istedim Allah\'a emanet olun abi.',

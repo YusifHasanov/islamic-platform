@@ -13,7 +13,7 @@ const books = [
     { title: 'Saîd bin Zeyd (R.A.)', image: 'https://hayalhanem.com/wp-content/uploads/2024/10/nasil-dayandin-ya-resulallah-1.jpeg' },
 ];
 
-export default function BooksCarousel() {
+export default function Books() {
     return (
         <div className="max-w-7xl mx-auto py-12">
             <h2 className="text-center text-3xl font-bold mb-6">MEHMET YILDIZ'IN TÜM KİTAPLARI</h2>
