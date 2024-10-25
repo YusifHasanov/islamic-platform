@@ -35,7 +35,7 @@ export default function VideoSlider() {
         >
             {slides.map((slide, index) => (
                 <SwiperSlide key={index} className="relative h-full w-full">
-                    {/* Arka planda video oynatma */}
+                    {/* Arka planda video oynatma . */}
                     <iframe width="560" height="315" src={slide.videoSrc}
                             title="YouTube video player" frameBorder="0"
                             className="absolute top-0 left-0 w-full h-full object-cover"
