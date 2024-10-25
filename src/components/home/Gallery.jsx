@@ -3,12 +3,12 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 
 const images = [
-    'https://medrese.vercel.app/assets/qardaslar_2.jfif',
-    'https://medrese.vercel.app/assets/qardaslar_2.jfif',
-    'https://medrese.vercel.app/assets/qardaslar_2.jfif',
-    'https://medrese.vercel.app/assets/qardaslar_2.jfif',
-    'https://medrese.vercel.app/assets/qardaslar_2.jfif',
-    'https://medrese.vercel.app/assets/qardaslar_2.jfif',
+ "https://hayalhanem.com/wp-content/uploads/revslider/slider-2/4.jpg",
+ "https://hayalhanem.com/wp-content/uploads/revslider/slider-2/4.jpg",
+ "https://hayalhanem.com/wp-content/uploads/revslider/slider-2/4.jpg",
+ "https://hayalhanem.com/wp-content/uploads/revslider/slider-2/4.jpg",
+ "https://hayalhanem.com/wp-content/uploads/revslider/slider-2/4.jpg",
+ "https://hayalhanem.com/wp-content/uploads/revslider/slider-2/4.jpg",
 ];
 
 const Gallery = () => {
