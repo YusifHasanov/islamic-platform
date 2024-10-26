@@ -26,3 +26,14 @@
     background-color: #4d4d4d;
     transition-duration: 0.2s;
 }
+
+.playlistCard {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+
+.playlistCard:hover {
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
+    transform: scale(1.05);
+    cursor: pointer;
+}

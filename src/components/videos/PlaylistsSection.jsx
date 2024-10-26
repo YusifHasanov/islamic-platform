@@ -56,14 +56,18 @@ const PlaylistsSection = () => {
                 {/* Playlists Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
                     {playlists.map((playlist, index) => (
-                        <div key={index} className="bg-white hover:scale-105 transition rounded-lg shadow-md p-4">
+                        <div
+                            key={index}
+                            className="bg-white playlistCard cursor-pointer rounded-xl overflow-hidden shadow-sm">
                             <img
                                 src={playlist.image}
                                 alt={playlist.title}
-                                className="w-full h-40 object-cover rounded-lg mb-4"
+                                className="w-full h-50 object-cover mb-1"
                             />
-                            <h3 className="text-lg font-semibold">{playlist.title}</h3>
-                            <p className="text-gray-500">{playlist.videoCount}</p>
+                            <div className="px-4 min-h-20 flex flex-col justify-between pb-1" >
+                                <h3 className="text-lg font-semibold">{playlist.title}</h3>
+                                <p className="text-gray-500 text-center">{playlist.videoCount}</p>
+                            </div>
                         </div>
                     ))}
                 </div>

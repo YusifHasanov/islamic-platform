@@ -5,6 +5,7 @@ import WhereWeAre from "@/components/home/WhereWeAre";
 import Gallery from "@/components/home/Gallery";
 import Books from "@/components/home/Books";
 import Feedbacks from "@/components/home/Feedbacks";
+import SocialMediaStats from "@/components/home/SocialMediaStats";
 
 
 
@@ -16,6 +17,7 @@ const HomePage = () => {
             <WhereWeAre/>
             <Articles/>
             <Gallery />
+            <SocialMediaStats/>
             <Books/>
             <Feedbacks/>
         </div>
