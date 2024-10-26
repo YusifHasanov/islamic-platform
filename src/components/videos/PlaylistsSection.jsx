@@ -58,7 +58,7 @@ const PlaylistsSection = () => {
                     {playlists.map((playlist, index) => (
                         <div
                             key={index}
-                            className="bg-white playlistCard cursor-pointer rounded-xl overflow-hidden shadow-sm">
+                            className="bg-white playlistCard cursor-pointer rounded-xl overflow-hidden  shadow-sm">
                             <img
                                 src={playlist.image}
                                 alt={playlist.title}

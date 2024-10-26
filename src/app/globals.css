@@ -37,3 +37,62 @@
     transform: scale(1.05);
     cursor: pointer;
 }
+
+
+/* Arama çubuğu genel stil */
+.search-bar {
+    display: flex;
+    max-width: 400px;
+    border-radius: 8px; /* Genel yuvarlaklık */
+    font-family: sans-serif;
+
+    margin: 0 auto 20px;
+}
+
+/* Giriş alanı */
+.search-bar input[type="text"] {
+    flex: 1;
+    padding: 6px 10px;
+    outline: none; /* Focus durumunda mavi çerçeve olmaması için */
+    font-size: 14px;
+    color: #6b7280; /* Metin rengi */
+    border: 1px solid #d7d4d4; /* Kenarlık rengi */
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-right: none;
+}
+
+.search-bar input[type="text"]:focus {
+    border: 1px solid #FCB900;
+}
+
+/* Buton */
+.search-bar button {
+    background-color: #FCB900; /* Buton arka plan rengi */
+    border: none; /* Kenarlık olmaması için */
+    padding: 0 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    outline: none;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+
+/* SVG ikon */
+.search-bar .icon {
+    fill: white; /* İkon rengi */
+}
+
+.categoriesList > li {
+    transition: all .3s ease-out;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.categoriesList > li:hover {
+    color: #FFFFFF;
+    background-color: #FCB900;
+}
