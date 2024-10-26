@@ -3,6 +3,9 @@ import "./globals.css";
 import Navbar from "@/components/common/Navbar";
 import Footer from "@/components/common/Footer";
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import {
+    Roboto
+} from "next/font/google";
 
 const geistSans = localFont({
     src: "./fonts/GeistVF.woff",
@@ -14,6 +17,10 @@ const geistMono = localFont({
     variable: "--font-geist-mono",
     weight: "100 900",
 });
+const roboto = Roboto({
+    weight: '400',
+    subsets: ['latin'],
+});
 
 export const metadata = {
     title: "Create Next App",
@@ -22,7 +29,7 @@ export const metadata = {
 
 export default function RootLayout({children}) {
     return (
-        <html lang="en">
+        <html lang="en" className={roboto.className}>
         <body
             className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >

@@ -73,9 +73,9 @@ const VideoPlayer = () => {
                     <div style={{maxHeight: "560px"}} className="border border-gray-600 rounded-lg overflow-hidden">
                         <h3 className="text-white text-xl bg-gray-600 p-4 font-semibold mb-4">Hz. Muhammed'in (sav)
                             Hayatı</h3>
-                        <div className="space-y-4 max-h-[470px] overflow-y-auto px-3">
+                        <div className="space-y-4  max-h-[470px] overflow-y-auto px-3">
                             {videos.map((video, id) => (
-                                <div key={id} className="flex items-center space-x-4">
+                                <div key={id} className="flex videosItem items-center space-x-4">
                                     <img
                                         src={video.img}
                                         alt="Video Thumbnail"
