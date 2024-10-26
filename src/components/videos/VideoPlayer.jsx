@@ -5,11 +5,11 @@ const VideoPlayer = () => {
 
     const videos =[
         {
-            img:"https://i.ytimg.com/vi/EMSap0XfWmQ/mqdefault.jpg",
+            img:"https://hayalhanem.com/wp-content/uploads/2024/10/Resulullah-sav-Vefati.webp",
             title:"        Hz. Muhammed'in (asm) Hayatı - Miraç - Bölüm 17 @Mehmedyildiz"
         },
         {
-            img:"https://i.ytimg.com/vi/UQvZdS5ThWk/mqdefault.jpg",
+            img:"https://hayalhanem.com/wp-content/uploads/2024/10/Cemaat-Olmanin-Onemi.webp",
             title:"        Hz. Muhammed'in (asm) Hayatı - Miraç - Bölüm 17 @Mehmedyildiz"
         },
         {

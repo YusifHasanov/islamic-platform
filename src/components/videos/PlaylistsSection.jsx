@@ -8,12 +8,12 @@ const PlaylistsSection = () => {
             videoCount: '1 Video',
         },
         {
-            image: 'https://i.ytimg.com/vi/Py-4LPSqym0/mqdefault.jpg',
+            image: 'https://hayalhanem.com/wp-content/uploads/2024/10/Cemaat-Olmanin-Onemi.webp',
             title: 'İşaratü\'l İ\'caz',
             videoCount: '3 Video',
         },
         {
-            image: 'https://i.ytimg.com/vi/Py-4LPSqym0/mqdefault.jpg',
+            image: 'https://hayalhanem.com/wp-content/uploads/2024/10/Aksam-Namazi-Tesbihati-Turkce-Okunusu.webp',
             title: 'Hayalhanem - Sağlık',
             videoCount: '7 Video',
         },
@@ -23,12 +23,12 @@ const PlaylistsSection = () => {
             videoCount: '25 Video',
         },
         {
-            image: 'https://i.ytimg.com/vi/Py-4LPSqym0/mqdefault.jpg',
+            image: "https://hayalhanem.com/wp-content/uploads/2024/10/efendimiz-cenaze-namazi-kildirmismidir-.webp",
             title: 'Hz. Muhammed\'in (sav) Hayatı',
             videoCount: '20 Video',
         },
         {
-            image: 'https://i.ytimg.com/vi/Py-4LPSqym0/mqdefault.jpg',
+            image: "https://hayalhanem.com/wp-content/uploads/2024/10/Uhud-Savasinin-Cikma-Sebebi-Nedir.webp",
             title: 'Fatih Ünal',
             videoCount: '3 Video',
         },
@@ -38,7 +38,7 @@ const PlaylistsSection = () => {
             videoCount: '3 Video',
         },
         {
-            image: 'https://i.ytimg.com/vi/Py-4LPSqym0/mqdefault.jpg',
+            image: "https://hayalhanem.com/wp-content/uploads/2024/10/Kuran-i-Kerimin-Kitap-Haline-Getirilmesi.webp",
             title: 'İrfan Aykut',
             videoCount: '5 Video',
         },
