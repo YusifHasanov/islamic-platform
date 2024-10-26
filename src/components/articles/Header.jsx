@@ -19,9 +19,10 @@ const Header = () => {
             </div>
 
             {/* Text Content */}
-            <div className="relative z-10 flex flex-col justify-center h-full max-w-4xl mx-auto px-4 text-white">
-                <h1 className="text-4xl font-bold mb-4">MAKALELER</h1>
-                <p className="text-lg">
+            <div
+                className="relative z-10 flex flex-col pt-16 sm:pt-28 h-full max-w-2xl sm:max-w-4xl mx-auto lg:mx-0 px-4 sm:px-8 lg:px-16 xl:px-32 text-white">
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 lg:text-left">MAKALELER</h1>
+                <p className="text-base sm:text-lg lg:text-left">
                     İman hakikatleri, fıkıh ve siyer konularında kaleme alınmış bu makaleler,
                     manevi dünyamızı zenginleştirmek ve bilgi birikimimizi artırmak için
                     makalelerimizi okuyabilirsiniz.
