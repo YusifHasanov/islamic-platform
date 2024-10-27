@@ -3,11 +3,11 @@ import React from 'react';
 // Reusable Card Component
 const MostReadCard = ({ image, title, date }) => {
     return (
-        <div className="flex items-center space-x-4 mb-8">
-            <img src={image} alt={title} className="w-40 h-24 object-cover rounded-lg" />
-            <div>
-                <h3 className="text-md font-medium text-gray-800">{title}</h3>
-                <p className="text-sm text-gray-500">{date}</p>
+        <div className="flex   space-x-4 mb-8">
+            <img src={image} alt={title} className="w-40 cursor-pointer h-24 object-cover rounded-lg" />
+            <div className="">
+                <h3  style={{fontSize:"15px"}}  className="mb-4 cursor-pointer hover:text-[#fcb900] font-normal text-gray-800">{title}</h3>
+                <p className="text-xs text-gray-500">{date}</p>
             </div>
         </div>
     );
@@ -40,7 +40,7 @@ const MostReadArticles = () => {
 
     return (
         <div className="max-w-md mx-auto">
-            <h2 className="text-xl font-semibold text-gray-800 mb-6">EN ÇOK OKUNANLAR</h2>
+            <h2 className="text-[17px] font-normal text-black mb-6">EN ÇOK OKUNANLAR</h2>
             <div className="space-y-6">
                 {mostReadData.map((item, index) => (
                     <React.Fragment key={index}>

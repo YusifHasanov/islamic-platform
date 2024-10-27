@@ -1,7 +1,9 @@
-'use client'
 import Header from "@/components/articles/Header";
 import React from "react";
-import {useRouter} from "next/navigation";
+import ArticleCard from "@/components/articles/ArticleCard";
+import ArticleCategories from "@/components/articles/ArticleCategories";
+import PopularArticles from "@/components/articles/PopularArticles";
+import OtherArticleList from "@/components/articles/OtherArticleList";
 
 // background-image: linear-gradient(0deg, rgba(0, 0, 0, .35), transparent 75%);
 
@@ -72,98 +74,19 @@ export default function ArticlesPage() {
                         {/* Sağ Sidebar (Kategoriler ve En Çok Okunanlar) */}
                         <aside className="bg-white p-6 rounded-lg  lg:w-5/12 w-full">
                             <Search/>
-                            <Categories/>
+                            <ArticleCategories/>
                             <PopularArticles/>
                         </aside>
                     </div>
-                    <ArticleList/>
+                    <OtherArticleList/>
                 </div>
             </div>
         </>
     );
 }
 
-const ArticleList = () => {
-    return (
-        <div className=" mx-auto py-8">
-            <div className="grid grid-cols-2 gap-8 gap-x-12">
-                {/* İman Column */}
-                <div>
-                    <h2 className="text-xl font-bold text-gray-800 mb-4">İMAN</h2>
-                    <OtherArticleCard
-                        title="Efendimiz (s.a.v.) Boykot Döneminde Nasıl Sıkıntılar Çekmiştir?"
-                        date="Ekim 1, 2024"
-                        image="https://hayalhanem.com/wp-content/uploads/2024/10/Efendimizs.a.v.-Boykot-Doneminde-Nasil-Sikintilar-Cekmistir.webp"
-                    />
-                    <hr className="border-gray-300 mb-4"/>
-                    <OtherArticleCard
-                        title="Ebû Talip İmanlı mı Öldü? – Hz. Hatice’nin (r.a.) Vefatı"
-                        date="Ekim 1, 2024"
-                        image="https://hayalhanem.com/wp-content/uploads/2024/10/Efendimizs.a.v.-Boykot-Doneminde-Nasil-Sikintilar-Cekmistir.webp"
-                    />
-                    <hr className="border-gray-300 mb-4"/>
-                    <OtherArticleCard
-                        title="Efendimiz (s.a.v.) Taif’te Kimler Taşladı?"
-                        date="Ekim 1, 2024"
-                        image="https://hayalhanem.com/wp-content/uploads/2024/10/Efendimizs.a.v.-Boykot-Doneminde-Nasil-Sikintilar-Cekmistir.webp"
-                    />
-                    <hr className="border-gray-300 mb-4"/>
-                    <OtherArticleCard
-                        title="Efendimiz (s.a.v.) Hayatı Boyunca Ne Sıkıntılar Yaşamıştır?"
-                        date="Ekim 1, 2024"
-                        image="https://hayalhanem.com/wp-content/uploads/2024/10/Efendimizs.a.v.-Boykot-Doneminde-Nasil-Sikintilar-Cekmistir.webp"
-                    />
-                </div>
-
-                {/* Fıkıh Column */}
-                <div>
-                    <h2 className="text-xl font-bold text-gray-800 mb-4">FIKIH</h2>
-                    <OtherArticleCard
-                        title="Müslümanın Borcu Olur mu? – Efendimiz (s.a.v.) Borcu Olan Müslümanın Cenaze Namazını Kıldırmamış mıdır?"
-                        date="Ekim 1, 2024"
-                        image="https://hayalhanem.com/wp-content/uploads/2024/10/efendimiz-cenaze-namazi-kildirmismidir-.webp"
-                    />
-                </div>
-            </div>
-        </div>
-    );
-};
-
-const OtherArticleCard = ({title, date, image}) => {
-    return (
-        <div className="flex space-x-4 mb-6">
-            {/* Image */}
-            <div className="w-1/3">
-                <img src={image} alt={title} className="w-full h-24 rounded-lg object-cover"/>
-            </div>
-            {/* Text */}
-            <div className="w-2/3">
-                <h3 className="text-md font-semibold text-gray-800">{title}</h3>
-                <p className="text-gray-500 text-sm mt-1">{date}</p>
-            </div>
-        </div>
-    );
-};
 
 
-function ArticleCard({title, description, date, image}) {
-    const router = useRouter()
-    return (
-        <div
-            style={{boxShadow: "0px 0px 10px 0px rgba(0, 0, 0, 0.09)"}}
-            className="bg-white rounded-md  overflow-hidden transform hover:scale-105 transition-transform duration-300">
-            <img
-                onClick={() => router.push("/articles/" + title)}
-                src={image} alt={title} className="w-full cursor-pointer  h-48 object-cover"/>
-            <div className="p-4">
-                <h2 onClick={() => router.push("/articles/" + title)}
-                    className="text-lg cursor-pointer font-semibold text-gray-800">{title}</h2>
-                <p className="text-gray-600 mt-2 text-sm">{description}</p>
-                <p className="text-gray-400 mt-4 text-xs">{date}</p>
-            </div>
-        </div>
-    );
-}
 
 function Search() {
     return (
@@ -180,88 +103,8 @@ function Search() {
     );
 }
 
-function Categories() {
 
-    const arr = [
-        {
-            name: "Abrurrhman b. Avf"
-        },
-        {
-            name: "Ebû Ubeyde b. Cerrâh"
-        },
-        {
-            name: "Hz. Ali"
-        },
-        {
-            name: "Hz. Ali"
-        },
-        {
-            name: "Hz. Ali"
-        },
-        {
-            name: "Hz. Ali"
-        },
-        {
-            name: "Hz. Ali"
-        },
-        {
-            name: "Hz. Ali"
-        },
-        {
-            name: "Hz. Ali"
-        }
-    ]
-    return (
-        <div className="mb-8">
-            <h3 className="text-xl font-bold mb-4 text-gray-800 border-b-4 border-yellow-500 pb-2">Kategoriler</h3>
-            <ul className="space-y-1 categoriesList text-gray-700 font-medium">
-                {
-                    arr.map((item, index) => (
-                        <li key={index} className={"hover:text-yellow-600 px-1 py-0.5 transition-colors cursor-pointer"}>
-                            {item.name}
-                        </li>
-                    ))
-                }
-            </ul>
-        </div>
-    );
-}
 
-function PopularArticles() {
-    const arr = [
-        {
-            img: "https://hayalhanem.com/wp-content/uploads/2024/10/Cemaat-Olmanin-Onemi.webp",
-            title: "Cemaat Olmanın Önemi"
-        },
-        {
-            img: "https://hayalhanem.com/wp-content/uploads/2024/10/Cemaat-Olmanin-Onemi.webp",
-            title: "Cemaat Olmanın Önemi"
-        },
-        {
-            img: "https://hayalhanem.com/wp-content/uploads/2024/10/Cemaat-Olmanin-Onemi.webp",
-            title: "Cemaat Olmanın Önemi"
-        },
-        {
-            img: "https://hayalhanem.com/wp-content/uploads/2024/10/Cemaat-Olmanin-Onemi.webp",
-            title: "Cemaat Olmanın Önemi"
-        },
-    ];
-    return (
-        <div>
-            <h3 className="text-xl font-bold mb-4 text-gray-800 border-b-4 border-yellow-500 pb-2">En Çok Okunanlar</h3>
-            <ul className="space-y-6">
-                {arr.map((item, id) => (
-                    <li key={id} className="flex items-center space-x-4">
-                        <img src={item.img} alt="Cemaat Olmanın Önemi"
-                             className="w-16 h-16 object-cover rounded-lg"/>
-                        <div>
-                            <h4 className="text-sm   font-semibold text-gray-700">{item.title}</h4>
-                        </div>
-                    </li>
-                ))}
-            </ul>
-        </div>
-    );
-}
+
 
 

@@ -96,3 +96,41 @@
     color: #FFFFFF;
     background-color: #FCB900;
 }
+
+
+.contactInput:focus {
+    background-color: #fff;
+    border-color: #fcb900;
+    color: #1D2939;
+    box-shadow: 0 0 5px 0 rgba(252, 185, 0, .6);
+    border-style: solid;
+    border-width: 1px 1px 1px 1px;
+    accent-color: #FCB900;
+}
+
+.contactSubmitBtn {
+    width: auto;
+    font-size: 14px;
+    height: auto;
+    line-height: normal;
+    text-align: center;
+    background: rgba(252, 185, 0, 1);
+    border-width: 1px;
+    border-color: #fcb900;
+    border-style: solid;
+    color: #fff;
+    cursor: pointer;
+    font-weight: 400;
+    border-radius: 20px;
+    text-shadow: none;
+    padding: 12px 26px 12px 26px;
+    box-sizing: border-box;
+    box-shadow: 0 1px 1px #eee;
+    margin: 10px 0;
+    vertical-align: middle;
+}
+.contactSubmitBtn:hover {
+    background: rgba(28, 3, 3, 1);
+    border-color: rgba(30, 0, 0, 1);
+    color: #fff;
+}

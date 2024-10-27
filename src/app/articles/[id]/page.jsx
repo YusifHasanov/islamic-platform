@@ -4,7 +4,7 @@ import ArticleDetail from "@/pages/ArticleDetailPage";
 const BlogDetail = () => {
     return (
         <>
-        <ArticleDetail/>
+            <ArticleDetail/>
         </>
     );
 };
