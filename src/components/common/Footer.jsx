@@ -2,26 +2,24 @@ import React from 'react';
 
 const Footer = () => {
     return (
-        <footer style={{
-            backgroundColor: '#444F5D',
-        }} className="text-white py-12">
-            <div className="container mx-auto grid grid-cols-3 gap-8">
+        <footer style={{ backgroundColor: '#444F5D' }} className="text-white py-12">
+            <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
                 {/* Left Section */}
                 <div>
-                    <img src="https://hayalhanem.com/wp-content/uploads/2024/10/logo-beyaz.svg" alt="Logo" className="mb-4" />
+                    <img src="https://hayalhanem.com/wp-content/uploads/2024/10/logo-beyaz.svg" alt="Logo" className="mb-4 mx-auto md:mx-0" />
                     <p className="text-gray-300 mb-6">
                         Bütün bildirimlerden ilk sizin haberiniz olmasını istiyorsanız aşağıdaki linkten kayıt olabilirsiniz.
                     </p>
-                    <div className="flex space-x-8 items-center">
+                    <div className="flex justify-center md:justify-start space-x-8 items-center">
                         <div className="text-center">
                             <a href="https://play.google.com" target="_blank" rel="noopener noreferrer">
-                                <img src="https://example.com/android.png" alt="Android" className="h-10" />
+                                <img src="https://example.com/android.png" alt="Android" className="h-10 mx-auto" />
                             </a>
                             <p className="text-gray-400 mt-2">ANDROID</p>
                         </div>
                         <div className="text-center">
                             <a href="https://apple.com" target="_blank" rel="noopener noreferrer">
-                                <img src="https://example.com/ios.png" alt="iOS" className="h-10" />
+                                <img src="https://example.com/ios.png" alt="iOS" className="h-10 mx-auto" />
                             </a>
                             <p className="text-gray-400 mt-2">iOS</p>
                         </div>
@@ -30,7 +28,7 @@ const Footer = () => {
 
                 {/* Middle Section */}
                 <div>
-                    <ul className="space-y-3 text-center">
+                    <ul className="space-y-3 md:pl-16">
                         <li><a href="#anasayfa" className="text-gray-400 hover:text-white">Anasayfa</a></li>
                         <li><a href="#sohbetler" className="text-gray-400 hover:text-white">Sohbetler</a></li>
                         <li><a href="#makaleler" className="text-yellow-400 hover:text-white">Makaleler</a></li>
@@ -43,20 +41,25 @@ const Footer = () => {
                 {/* Right Section */}
                 <div>
                     <ul className="space-y-4">
-                        <li className="text-gray-300">
-                            <span role="img" aria-label="email">📧</span> bilgi@hayalhanem.com
+                        <li className="flex items-center justify-center md:justify-start text-gray-300">
+                            <span className="mr-2">📧</span>
+                            <span>bilgi@hayalhanem.com</span>
                         </li>
-                        <li className="text-gray-300">
-                            <span role="img" aria-label="phone">📞</span> +90 (553) 552 1 444
+                        <li className="flex items-center justify-center md:justify-start text-gray-300">
+                            <span className="mr-2">📞</span>
+                            <span>+90 (553) 552 1 444</span>
                         </li>
-                        <li className="text-gray-300">
-                            <span role="img" aria-label="location">📍</span> Mersin, Çiftlikköy Mah. 3287 Sk. No:10 Yenişehir, MERSİN
+                        <li className="flex items-center justify-center md:justify-start text-gray-300">
+                            <span className="mr-2">📍</span>
+                            <span>Mersin, Çiftlikköy Mah. 3287 Sk. No:10 Yenişehir, MERSİN</span>
                         </li>
-                        <li className="text-gray-300">
-                            <span role="img" aria-label="location">📍</span> İstanbul, Esentepe, Dergiler Sk. No:2/1, 34394 Şişli, İSTANBUL
+                        <li className="flex items-center justify-center md:justify-start text-gray-300">
+                            <span className="mr-2">📍</span>
+                            <span>İstanbul, Esentepe, Dergiler Sk. No:2/1, 34394 Şişli, İSTANBUL</span>
                         </li>
-                        <li className="text-gray-300">
-                            <span role="img" aria-label="location">📍</span> Ankara, Aşağı Öveçler, 1332. Sk. No:8, 06460 Çankaya, ANKARA
+                        <li className="flex items-center justify-center md:justify-start text-gray-300">
+                            <span className="mr-2">📍</span>
+                            <span>Ankara, Aşağı Öveçler, 1332. Sk. No:8, 06460 Çankaya, ANKARA</span>
                         </li>
                     </ul>
                 </div>
