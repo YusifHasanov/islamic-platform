@@ -134,3 +134,12 @@
     border-color: rgba(30, 0, 0, 1);
     color: #fff;
 }
+.homePageGalleryItem{
+    transition: all ease 0.5s;
+}
+
+.homePageGalleryItem:hover {
+    transform: scale(1.7);
+    z-index: 21;
+
+}

@@ -2,41 +2,30 @@
 
 import React from 'react';
 import Image from 'next/image';
+import ArticleCard from "@/components/articles/ArticleCard";
 
 const articles = [
     {
-        title: "Cemaat Olmanın Önemi",
-        category: "HZ. MUHAMMED (SAV)",
+        title: "Efendimiz (s.a.v.) Boykot Döneminde Nasıl Sıkıntılar Çekmiştir?",
         date: "1 Ekim 2024",
-        description:
-            "Cemaat Olmanın Önemi Efendimiz(s.a.v.) meclislerle ilgili bir hadisinde şöyle buyuruyor: “Allah’ın(c.c.) yeryüzüne gönderdiği seyyah...",
-        image: "https://i.ytimg.com/vi/cuhKwEl6DuQ/hqdefault.jpg",
+        image: "https://hayalhanem.com/wp-content/uploads/2024/10/Efendimizs.a.v.-Boykot-Doneminde-Nasil-Sikintilar-Cekmistir.webp"
     },
     {
-        title: "Uhud Savaşı’nın Çıkma Sebebi Nedir?",
-        category: "HZ. MUHAMMED (SAV)",
+        title: "Ebû Talip İmanlı mı Öldü? – Hz. Hatice’nin (r.a.) Vefatı",
         date: "1 Ekim 2024",
-        description:
-            "Uhud Savaşı’nda yenilmenin olumsuzluklarını bir Bedir Gazvesi’nde türü üstünden atamadı. Mekke’deki insanlar...",
-        image: "https://i.ytimg.com/vi/cuhKwEl6DuQ/hqdefault.jpg",
+        image: "https://hayalhanem.com/wp-content/uploads/2024/10/Hz.-Hamzar.a.-Nasil-Sehit-Oldu-Muslumanlar-Uhudda-Neden-Galibiyet-Elde-Edemediler.webp"
     },
     {
-        title: "Duygularıma Nasıl Yön Verebilirim? – Neden...",
-        category: "BLOG",
-        date: "1 Ekim 2024",
-        description:
-            "Duygularıma Nasıl Yön Verebilirim? Bizler Ne Yaparsak Yapalım Sahabelere Yetişemeyiz mi? Sahabeyi Bu Kadar Yüksek Bir Mertebeye Çıkar...",
-        image: "https://i.ytimg.com/vi/cuhKwEl6DuQ/hqdefault.jpg",
+        title: "Efendimiz (s.a.v.) Taif’te Kimler Taşladı?",
+        date: "Ekim 1, 2024",
+        image: "https://hayalhanem.com/wp-content/uploads/2024/10/Munafiklarin-Ahlaki-Ozellikleri-Hadislerde-Nasil-Gecmektedir.webp"
     },
     {
-        title: "Resulullah’ın(s.a.v.) Vefatı",
-        category: "HZ. MUHAMMED (SAV)",
-        date: "1 Ekim 2024",
-        description:
-            "Resulullah’ın(s.a.v.) Vefatı Bir gün Resulullah’a(s.a.v.) bir vahiy geldi: “Bugün sizin için dininizi kemale erdirdim...",
-        image: "https://i.ytimg.com/vi/cuhKwEl6DuQ/hqdefault.jpg",
-    },
-];
+        title: "Efendimiz (s.a.v.) Hayatı Boyunca Ne Sıkıntılar Yaşamıştır?",
+        date: "Ekim 1, 2024",
+        image: "https://hayalhanem.com/wp-content/uploads/2024/10/Efendimizs.a.v.-Boykot-Doneminde-Nasil-Sikintilar-Cekmistir.webp"
+    }
+]
 
 const Articles = () => {
     return (
@@ -47,23 +36,14 @@ const Articles = () => {
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto px-4">
                 {articles.map((article, idx) => (
-                    <div key={idx} className="bg-white rounded-lg shadow-lg overflow-hidden">
-                        <Image
-                            src={article.image}
-                            alt={article.title}
-                            className="w-full h-48 object-cover"
-                            width={400}
-                            height={200}
-                        />
-                        <div className="p-6">
-                            <h3 className="text-[#007A4C] text-sm font-bold mb-2">
-                                {article.category}
-                            </h3>
-                            <h4 className="text-xl font-semibold mb-2">{article.title}</h4>
-                            <p className="text-gray-600 text-sm">{article.description}</p>
-                            <p className="mt-4 text-gray-500 text-sm">{article.date}</p>
-                        </div>
-                    </div>
+
+                    <ArticleCard
+                        key={idx}
+                        title={ article.title}
+                        description ={article.description}
+                        image = {article.image}
+                        date={article.date}
+                    />
                 ))}
             </div>
             <div className="flex justify-center mt-8">
