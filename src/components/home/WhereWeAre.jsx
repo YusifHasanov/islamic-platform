@@ -6,7 +6,7 @@ const WhereWeAre = () => {
     const [selectedCity, setSelectedCity] = useState('istanbul'); // Varsayılan olarak İstanbul'u seçtik
 
     return (
-        <div className="bg-[#2f3034] py-12 text-white">
+        <div className="bg-[#373D45] py-12 text-white">
             <div className="text-center mb-8">
                 <h2 className="text-4xl font-bold text-gray-200">NEREDEYİZ?</h2>
             </div>
