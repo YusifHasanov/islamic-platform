@@ -143,3 +143,34 @@
     z-index: 21;
 
 }
+.whereWeAreTitle {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 400 !important;
+    color: rgb(186, 197, 223);
+    letter-spacing: 0px;
+    line-height: 25px;
+    white-space: nowrap;
+    z-index: 13;
+    transform: translate(0px, 0px);
+}
+
+.homeArticlesHeader{
+    color: #000000;
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 36px;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+    background-color: white;
+    background-color: rgba(255, 255, 255, 0.5);
+    right:10px;
+    padding: 30px;
+    color: #000 !important;
+    fill: black !important;
+    stroke: black !important;
+    height: 12px !important;
+}
+

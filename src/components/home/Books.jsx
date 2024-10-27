@@ -22,7 +22,7 @@ export default function Books() {
                 spaceBetween={30}
                 slidesPerView={3}
                 navigation
-                pagination={{ clickable: true }}
+                // pagination={{ clickable: true }}
                 breakpoints={{
                     640: { slidesPerView: 1 },
                     768: { slidesPerView: 2 },

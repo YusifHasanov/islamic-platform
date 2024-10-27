@@ -3,29 +3,32 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 
 const images = [
- "https://hayalhanem.com/wp-content/uploads/revslider/slider-2/4.jpg",
- "https://hayalhanem.com/wp-content/uploads/revslider/slider-2/4.jpg",
- "https://hayalhanem.com/wp-content/uploads/revslider/slider-2/4.jpg",
- "https://hayalhanem.com/wp-content/uploads/revslider/slider-2/4.jpg",
- "https://hayalhanem.com/wp-content/uploads/revslider/slider-2/4.jpg",
- "https://hayalhanem.com/wp-content/uploads/revslider/slider-2/4.jpg",
+    "https://hayalhanem.com/wp-content/uploads/revslider/slider-2/4.jpg",
+    "https://hayalhanem.com/wp-content/uploads/revslider/slider-2/1.jpg",
+    "https://hayalhanem.com/wp-content/uploads/revslider/slider-2/IMG_5976-1.jpg",
+    "https://hayalhanem.com/wp-content/uploads/revslider/slider-2/433563753_18431221807053262_3442400062282089018_n.jpg",
+    "https://hayalhanem.com/wp-content/uploads/revslider/slider-2/IMG_5976-1.jpg",
+    "https://hayalhanem.com/wp-content/uploads/revslider/slider-2/433563753_18431221807053262_3442400062282089018_n.jpg",
+    "https://hayalhanem.com/wp-content/uploads/revslider/slider-2/IMG_5976-1.jpg",
+    "https://hayalhanem.com/wp-content/uploads/revslider/slider-2/433563753_18431221807053262_3442400062282089018_n.jpg",
+    "https://hayalhanem.com/wp-content/uploads/revslider/slider-2/IMG_5976-1.jpg",
 ];
 
 const Gallery = () => {
-    const [isZoomed, setIsZoomed] = useState(null);
+    const [selectedImage, setSelectedImage] = useState(null);
 
-    const handleZoom = (index) => {
-        if (isZoomed === index) {
-            setIsZoomed(null); // Zoom-out if already zoomed
-        } else {
-            setIsZoomed(index); // Zoom-in
-        }
+    const handleImageClick = (image) => {
+        setSelectedImage(image);
+    };
+
+    const closeModal = () => {
+        setSelectedImage(null);
     };
 
     return (
-        <div className="py-16 px-4 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-10">
+        <div className="py-16 px-4 mx-auto grid grid-cols-1 lg:grid-cols-3 gap-10">
             {/* Sol taraf - Galeri açıklaması */}
-            <div className="bg-[#F7E652] p-8 rounded-lg h-max">
+            <div className="bg-[#FCB900] p-8 rounded-lg h-max">
                 <h2 className="text-3xl font-bold mb-4">GALERİ</h2>
                 <p className="text-lg">
                     Bu fotoğrafta, her anı kucaklamak ve bu samimi hikayenin bir parçası olmak ister misin? İçindeki her
@@ -40,18 +43,49 @@ const Gallery = () => {
                 {images.map((image, index) => (
                     <div
                         key={index}
-                        className="relative overflow-hidden rounded-lg"
+                        className="relative overflow-hidden rounded-lg group cursor-pointer"
+                        onClick={() => handleImageClick(image)}
                     >
                         <Image
                             src={image}
                             alt={`Gallery image ${index + 1}`}
-                            className="object-cover w-full h-64"
+                            className="object-cover w-full h-40 transition-transform duration-300 group-hover:scale-105 group-hover:brightness-50 group-hover:scale-x-110"
                             width={400}
                             height={200}
                         />
+                        {/* Hover efektiyle görünen + simgesi */}
+                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <span className="text-4xl font-bold text-white transform transition-transform duration-300 group-hover:rotate-45 hover:rotate-90">
+                                +
+                            </span>
+                        </div>
                     </div>
                 ))}
             </div>
+
+            {/* Modal */}
+            {selectedImage && (
+                <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50">
+                    {/* Modal kapatma düğmesi */}
+                    <button
+                        onClick={closeModal}
+                        className="absolute top-10 right-10 text-white text-3xl font-bold bg-gray-800 p-2 rounded-full hover:bg-gray-600 transition duration-300"
+                    >
+                        &times;
+                    </button>
+
+                    {/* Resim */}
+                    <div className="relative">
+                        <Image
+                            src={selectedImage}
+                            alt="Selected"
+                            width={800}
+                            height={600}
+                            className="rounded-lg max-w-full max-h-full object-contain"
+                        />
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

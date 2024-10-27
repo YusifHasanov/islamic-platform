@@ -30,8 +30,8 @@ const articles = [
 const Articles = () => {
     return (
         <div className="py-16">
-            <h2 className="text-center text-4xl font-bold mb-8">MAKALELER</h2>
-            <p className="text-center text-lg mb-12 max-w-4xl mx-auto">
+            <h2 className="text-center homeArticlesHeader  mb-8">MAKALELER</h2>
+            <p className="text-center text-lg mb-12 container mx-auto">
                 Mehmet Yıldız'ın kaleminden, iman hakikatleri, siyer, fıkıh, sahabeler ve birçok önemli konuda derinleşen makaleleriyle sizlere bilgi dolu bir platform sunuyoruz. İslam’ın temel prensiplerini anlamak, tarih boyunca yaşanmış örnekleri keşfetmek ve günlük hayatımıza anlam katmak için yazıldı.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto px-4">
@@ -47,7 +47,7 @@ const Articles = () => {
                 ))}
             </div>
             <div className="flex justify-center mt-8">
-                <button className="bg-[#F7E652] text-[#007A4C] px-6 py-3 rounded-lg font-semibold hover:bg-[#e0d048]">
+                <button className="bg-[#F7E652] text-[#fff] px-6 py-2 rounded-2xl font-semibold hover:bg-[#e0d048]">
                     TÜM MAKALELERİ GÖSTER
                 </button>
             </div>

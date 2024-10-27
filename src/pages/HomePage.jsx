@@ -7,9 +7,6 @@ import Books from "@/components/home/Books";
 import Feedbacks from "@/components/home/Feedbacks";
 import SocialMediaStats from "@/components/home/SocialMediaStats";
 
-
-
-
 const HomePage = () => {
     return (
         <div>
