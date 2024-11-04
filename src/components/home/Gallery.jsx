@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react';
 import Image from 'next/image';
-
+// import { Image } from "primereact/image";
 const images = [
     "https://hayalhanem.com/wp-content/uploads/revslider/slider-2/4.jpg",
     "https://hayalhanem.com/wp-content/uploads/revslider/slider-2/1.jpg",
@@ -53,13 +53,14 @@ const Gallery = () => {
                             width={400}
                             height={200}
                         />
-                        {/* Hover efektiyle görünen + simgesi */}
+
+                         {/*Hover efektiyle görünen + simgesi*/}
                         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <span className="text-4xl font-bold text-white transform transition-transform duration-300 group-hover:rotate-45 hover:rotate-90">
                                 +
                             </span>
                         </div>
-                    </div>
+                     </div>
                 ))}
             </div>
 

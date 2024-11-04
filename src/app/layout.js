@@ -1,11 +1,12 @@
 import localFont from "next/font/local";
 import "./globals.css";
-import Navbar from "@/components/common/Navbar";
-import Footer from "@/components/common/Footer";
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import "primereact/resources/themes/lara-light-cyan/theme.css";
+import Tailwind from 'primereact/passthrough/tailwind';
 import {
     Roboto
 } from "next/font/google";
+import {PrimeReactProvider} from "primereact/api";
 
 const geistSans = localFont({
     src: "./fonts/GeistVF.woff",
@@ -33,9 +34,9 @@ export default function RootLayout({children}) {
         <body
             className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-        <Navbar/>
-        {children}
-        <Footer/>
+        <PrimeReactProvider value={{pt: Tailwind}}>
+            {children}
+        </PrimeReactProvider>
         </body>
         </html>
     );
