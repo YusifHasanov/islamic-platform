@@ -1,20 +1,24 @@
 'use client'
-import React, {useEffect} from 'react';
-import Sidebar from "@/components/admin/SideBar";
+
+import useTheme from "@/hooks/useTheme";
+import useAuthRedirect from "@/hooks/useAuthRedirect";
+import {LayoutProvider} from "@/components/layout/context/layoutcontext";
+import AppConfig from "@/components/layout/AppConfig";
+import React from "react";
 
 
 const Layout = ({children}) => {
-    useEffect(() => {
-        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
-    }, []);
+    useTheme();
+    // useAuthRedirect();
+
+
     return (
-        <Sidebar>
-            {children}
-        </Sidebar>
+        <>
+            <LayoutProvider>
+                {children}
+                <AppConfig minimal/>
+            </LayoutProvider>
+        </>
     );
 };
 

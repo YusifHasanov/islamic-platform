@@ -3,6 +3,7 @@ import "./globals.css";
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 import Tailwind from 'primereact/passthrough/tailwind';
+
 import {
     Roboto
 } from "next/font/google";
@@ -35,7 +36,7 @@ export default function RootLayout({children}) {
             className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
         <PrimeReactProvider value={{pt: Tailwind}}>
-            {children}
+                {children}
         </PrimeReactProvider>
         </body>
         </html>
