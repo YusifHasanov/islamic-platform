@@ -54,7 +54,7 @@ function BookList() {
             <h1 className="text-2xl font-bold mb-4">Books</h1>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {books.map((book, index) => (
-                    <Link key={index} className="border rounded-lg shadow-md overflow-hidden" href={'/src/app/(dashboard)/admin/(pages)/book/1'}>
+                    <Link key={index} className="border rounded-lg shadow-md overflow-hidden" href={`/src/app/(dashboard)/admin/book/${1}`}>
                         <img src={book.cover} alt={book.title} className="w-full h-40 object-cover" />
                         <div className="p-4">
                             <h2 className="text-xl font-semibold mb-1">{book.title}</h2>

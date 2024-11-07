@@ -6,9 +6,9 @@ import { Editor } from "primereact/editor";
 import { FileUpload } from "primereact/fileupload";
 import { InputText } from "primereact/inputtext";
 import { InputTextarea } from "primereact/inputtextarea";
+
 import "primeflex/primeflex.css";
 import "primeicons/primeicons.css";
-
 
 function CreateArticle() {
     const fileUploader = useRef(null);

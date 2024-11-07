@@ -1,63 +1,125 @@
-'use client'
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/pagination';
-import Image from 'next/image';
-import {Autoplay, Pagination} from "swiper/modules";
+"use client"
 
-export default function Feedbacks() {
-    const testimonials = [
-        {
-            text: 'Selamın aleyküm abi. Öğretmenimiz bize performans ödevi verdi. Okuduğunuz kitabın özeti ve yazar hakkında bilgi yazın dedi. Hemen aklıma sen geldin abi. Ben aşk 5 vakittir in özetini yazdım yazarken çok ama çok mutlu oldum. Tekrar olsa tekrar yazarım abi. Ve senin sayende 100 aldım çok mutlu oldum. Mutluluğumu seninle de paylaşmak istedim Allah\'a emanet olun abi.',
-            rating: 5,
-            icon: '/images/testimonial-icon.png', // Görsel yolunu buraya ekleyin
-        },
-        {
-            text: 'İkinci yorum burada olabilir. Yorum içeriğini buraya ekleyin.',
-            rating: 4,
-            icon: '/images/testimonial-icon.png',
-        },
-        {
-            text: 'Üçüncü yorum burada olabilir. Yorum içeriğini buraya ekleyin.',
-            rating: 5,
-            icon: '/images/testimonial-icon.png',
-        },
-    ];
+import { useState, useEffect } from "react"
+import {AiFillCaretLeft, AiFillCaretRight} from "react-icons/ai";
+import {Star} from "lucide-react";
+
+
+// Sample testimonial data
+const testimonials = [
+    {
+        id: 1,
+        author: "Mehmet B.",
+        text: "Mehmet bey, bir söylemenizde haramda huzur ararsan, huzur sana haram olur demişsiniz. Benden vazgeçme ya rab\" kitabın ilk çıktığı zaman alıp okuduktan sonra, birkaç sayfasını Flemenkçeye çevirip Hollandalı bir arkadaşıma anlattım. Elhamdülillah Müslüman olmuştu. Ben o zamanlar size anlatmayıp ahirete saklamak istemiştim ama haber vermemeye dayanamadım. Sizleri de sevindirmek istedim Allah hepinizden razı olsun...",
+        rating: 5,
+    },
+    {
+        id: 2,
+        author: "Ahmet K.",
+        text: "Harika bir deneyimdi. Kesinlikle tavsiye ederim.",
+        rating: 5,
+    },
+    {
+        id: 3,
+        author: "Ayşe M.",
+        text: "Çok memnun kaldım, teşekkür ederim.",
+        rating: 5,
+    },
+]
+
+export default function Component() {
+    const [currentSlide, setCurrentSlide] = useState(0)
+
+    // Auto-advance slides
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setCurrentSlide((prev) => (prev + 1) % testimonials.length)
+        }, 5000)
+        return () => clearInterval(timer)
+    }, [])
+
+    const nextSlide = () => {
+        setCurrentSlide((prev) => (prev + 1) % testimonials.length)
+    }
+
+    const prevSlide = () => {
+        setCurrentSlide((prev) => (prev - 1 + testimonials.length) % testimonials.length)
+    }
+
+    const goToSlide = (index) => {
+        setCurrentSlide(index)
+    }
 
     return (
-        <div className="bg-gray-100 py-12">
-            <Swiper
-                modules={[Pagination, Autoplay]}
-                pagination={{ clickable: true }} // Yuvarlak pagination
-                autoplay={{ delay: 5000, disableOnInteraction: false }} // 5 saniyelik otomatik geçiş
-                spaceBetween={50}
-                slidesPerView={1}
-                className="max-w-4xl mx-auto"
-            >
-                {testimonials.map((testimonial, index) => (
-                    <SwiperSlide key={index}>
-                        <div className="flex flex-col items-center text-center p-6 bg-white rounded-lg shadow-lg">
-                            {/* Yorum İkonu */}
-                            <div className="mb-4">
-                                <Image
-                                    src={testimonial.icon}
-                                    alt="Testimonial Icon"
-                                    width={50}
-                                    height={50}
-                                />
+        <div
+            style={{
+                backgroundImage:"url(https://hayalhanem.com/wp-content/uploads/2024/10/bg-sizden-elenler.webp)",
+                backgroundSize:"cover",
+                backgroundRepeat:"no-repeat",
+                backgroundPosition:"center center",
+            }}
+            className={"w-full"}>
+            <div className="relative mx-auto max-w-4xl px-4 py-16">
+                {/* Gmail-style logo */}
+                <div className="mb-8 flex justify-center">
+                    <div className="h-12 w-12 rounded-lg bg-gradient-to-r from-red-500 to-blue-500 p-2 text-white">
+                        <div className="flex h-full items-center justify-center text-2xl font-bold">M</div>
+                    </div>
+                </div>
+
+                {/* Testimonial */}
+                {/* Testimonial */}
+                <div className="relative min-h-[200px] overflow-hidden">
+                    <div
+                        className="flex transition-transform duration-500 ease-out"
+                        style={{transform: `translateX(-${currentSlide * 100}%)`}}
+                    >
+                        {testimonials.map((testimonial) => (
+                            <div
+                                key={testimonial.id}
+                                className="w-full flex-shrink-0 px-4 text-center"
+                            >
+                                <p className="mb-6 text-lg text-gray-700">{testimonial.text}</p>
+                                <div className="mb-4 flex justify-center space-x-1">
+                                    {[...Array(5)].map((_, i) => (
+                                        <Star
+                                            key={i}
+                                            className={`h-6 w-6 ${i < testimonial.rating ? "fill-yellow-400 text-yellow-400" : "text-gray-300"}`}
+                                        />
+                                    ))}
+                                </div>
                             </div>
-                            {/* Yorum Metni */}
-                            <p className="text-lg text-gray-700 mb-4">{testimonial.text}</p>
-                            {/* Yıldız Değerlendirmesi */}
-                            <div className="flex justify-center mb-4">
-                                {Array.from({ length: testimonial.rating }).map((_, idx) => (
-                                    <span key={idx} className="text-yellow-500 text-xl">★</span>
-                                ))}
-                            </div>
-                        </div>
-                    </SwiperSlide>
-                ))}
-            </Swiper>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Navigation buttons */}
+                <button
+                    onClick={prevSlide}
+                    className="absolute left-0 top-1/2 -translate-y-1/2 rounded-full bg-white p-2 shadow-lg hover:bg-gray-100"
+                >
+                    <AiFillCaretLeft className="h-6 w-6 text-gray-600"/>
+                </button>
+                <button
+                    onClick={nextSlide}
+                    className="absolute right-0 top-1/2 -translate-y-1/2 rounded-full bg-white p-2 shadow-lg hover:bg-gray-100"
+                >
+                    <AiFillCaretRight className="h-6 w-6 text-gray-600"/>
+                </button>
+
+                {/* Navigation dots */}
+                <div className="mt-8 flex justify-center space-x-2">
+                    {testimonials.map((_, index) => (
+                        <button
+                            key={index}
+                            onClick={() => goToSlide(index)}
+                            className={`h-2 w-2 rounded-full transition-all ${
+                                currentSlide === index ? "w-4 bg-blue-500" : "bg-gray-300"
+                            }`}
+                        />
+                    ))}
+                </div>
+            </div>
         </div>
-    );
+    )
 }
