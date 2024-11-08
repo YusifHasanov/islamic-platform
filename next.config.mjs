@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        domains: ['i.ytimg.com','medrese.vercel.app','hayalhanem.com','52principlesforchurchleaders.com'],
+        domains: ['res.cloudinary.com','i.ytimg.com','medrese.vercel.app','hayalhanem.com','52principlesforchurchleaders.com','images.unsplash.com'],
     },
 
 };
