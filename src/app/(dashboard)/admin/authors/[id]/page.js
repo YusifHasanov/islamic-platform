@@ -120,7 +120,7 @@ const AuthorDetail = () => {
                 <img
                     src={formData.image}
                     alt={formData.name}
-                    className="w-full h-48 object-cover rounded-md mb-4"
+                    className="w-full h-56 object-contain object-center rounded-md mb-4"
                 />
             )}
 
