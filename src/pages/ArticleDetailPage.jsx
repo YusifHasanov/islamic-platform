@@ -3,6 +3,8 @@ import MostReadArticles from "@/components/articledetail/MostReadArticles";
 
 import {BASE_URL} from "@/util/Const";
 
+export const revalidate = 60;
+
 const ArticleDetail = async ({id}) => {
     const response = await fetch(`${BASE_URL}/articles/${id}`);
     const article = await response.json();
@@ -39,8 +41,15 @@ const ArticleDetail = async ({id}) => {
             <div className=" mx-auto py-12 px-8">
                 <div className="grid grid-cols-1 lg:grid-cols-[70%_30%] gap-8">
                     {/* Blog İçeriği */}
-                    <div dangerouslySetInnerHTML={{__html: article.content}}/>
-                    {/* Sağ Menü - En Çok Okunanlar */}
+                    <div className={"flex flex-col justify-between"}>
+                        <div dangerouslySetInnerHTML={{__html: article.content}}/>
+                        <div>
+                            <div>Oxunma sayi {article.readCount}</div>
+                            <div>Publish date {article.publishedAt?.toString()}</div>
+                        </div>
+
+                    </div>
+
                     <MostReadArticles/>
                 </div>
             </div>

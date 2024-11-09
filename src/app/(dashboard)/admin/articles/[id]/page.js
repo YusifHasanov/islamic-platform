@@ -9,13 +9,14 @@ import {ChevronDown} from "lucide-react";
 import {TabPanel, TabView} from 'primereact/tabview';
 import {useParams} from 'next/navigation';
 import {patchConsoleError} from "next/dist/client/components/globals/intercept-console-error";
+import {Calendar} from "primereact/calendar";
 
 function ArticleEditor() {
     const toast = useRef(null);
     const {id} = useParams();
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
-    const [publishedAt, setPublishedAt] = useState('');
+    const [publishedAt, setPublishedAt] = useState([new Date()]);
     const [image, setImage] = useState(null);
     const [selectedAuthors, setSelectedAuthors] = useState([]);
     const [selectedCategories, setSelectedCategories] = useState([]);
@@ -36,26 +37,22 @@ function ArticleEditor() {
             .then(data => setCategories(data)).catch(err => console.error(err));
 
         // Eğer düzenleme modundaysak mevcut makale verilerini al
-        // Eğer düzenleme modundaysak mevcut makale verilerini al
         if (id) {
-            HttpClient.get(`/articles/${id}`)
+            HttpClient.get(`/articles/${id}`, {"X-Admin-Request": true})
                 .then(res => res.json())
                 .then(data => {
                     console.log(data);
                     setTitle(data.title);
                     setContent(data.content);
                     setImage(data.image);
-                    setPublishedAt(data.publishedAt);
-                    setSelectedAuthors(data.authors.map(a=>a.id));
+                    setPublishedAt(new Date(data.publishedAt));
+                    setSelectedAuthors(data.authors.map(a => a.id));
                     setSelectedCategories(data.categories || []);
                 })
                 .catch(err => console.error(err));
         }
     }, [id]);
 
-    useEffect(() => {
-        console.log(selectedCategories)
-    },[selectedCategories])
 
 
     // Görsel yükleme işlemi
@@ -92,6 +89,7 @@ function ArticleEditor() {
             content,
             authorIds: setSelectedAuthors,
             categories: selectedCategories,
+            publishedAt: publishedAt,
         };
         console.log(body);
         try {
@@ -149,7 +147,7 @@ function ArticleEditor() {
                                     {selectedAuthors.map(author => (
                                         <span key={`author.id_${author.id}`}
                                               className="bg-indigo-100 text-indigo-800 text-xs font-medium px-2 py-0.5 rounded">
-                        {authors.find(a=>a.id === author).name}
+                        {authors.find(a => a.id === author).name}
                       </span>
                                     ))}
                                 </div>
@@ -237,6 +235,20 @@ function ArticleEditor() {
                                 ))}
                             </div>
                         )}
+                    </div>
+
+                    <div className="mb-6">
+                        <label htmlFor="publishedAt" className="block text-sm font-medium text-gray-700">
+                            Published Date
+                        </label>
+                        <Calendar
+                            id="publishedAt"
+                            value={publishedAt}
+                            onChange={(e) => setPublishedAt(e.value)}
+                            dateFormat="yy-mm-dd"
+                            placeholder="Select Published Date"
+                            className="w-full p-3 border rounded"
+                            selectionMode={"single"}/>
                     </div>
 
                     <Button label="Save" icon="pi pi-check" className="p-button-success w-full" onClick={handleSubmit}/>

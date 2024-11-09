@@ -1,5 +1,5 @@
 'use client'
-import { useState } from "react";
+import {useState} from "react";
 import Link from "next/link";
 import {usePathname} from "next/navigation";
 
@@ -8,7 +8,7 @@ const Navbar = () => {
     const pathname = usePathname()
 
     const isActive = (href) => {
-        return pathname  === href ? "text-[#F7E652]" : "text-white";
+        return pathname === href ? "text-[#F7E652]" : "text-white";
     };
 
     return (
@@ -16,31 +16,33 @@ const Navbar = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
                 <div className="flex-shrink-0">
           <span className="text-white font-bold text-lg">
-            <span className="text-[#F7E652]">HAYAL</span>HANEM
+         <Link href={"/"}>
+                <span className="text-[#F7E652]">Əhli Sünnə </span>Mədrəsəsi
+         </Link>
           </span>
                 </div>
                 <div className="hidden md:flex items-center space-x-8">
                     <Link href="/" className={`${isActive("/")} hover:text-[#F7E652]`}>
-                        ANASAYFA
+                        Ana səhifə
                     </Link>
                     <Link href="/videos" className={`${isActive("/videos")} hover:text-[#F7E652]`}>
-                        SOHBETLER
+                        Videolar
                     </Link>
                     <Link href="/articles" className={`${isActive("/articles")} hover:text-[#F7E652]`}>
-                        MAKALELER
+                        Məqalələr
                     </Link>
                     <Link href="/about" className={`${isActive("/about")} hover:text-[#F7E652]`}>
-                        HAKKIMIZDA
+                        Haqqımızda
                     </Link>
                     <Link href="/contact" className={`${isActive("/contact")} hover:text-[#F7E652]`}>
-                        İLETİŞİM
+                        Əlaqə
                     </Link>
-                    <Link
-                        href="/bagis"
-                        className="bg-[#F7E652] text-[#007A4C] py-2 px-4 rounded-md hover:bg-white"
-                    >
-                        BAĞIŞ
-                    </Link>
+                    {/*<Link*/}
+                    {/*    href="/bagis"*/}
+                    {/*    className="bg-[#F7E652] text-[#007A4C] py-2 px-4 rounded-md hover:bg-white"*/}
+                    {/*>*/}
+                    {/*    BAĞIŞ*/}
+                    {/*</Link>*/}
                 </div>
                 <div className="flex md:hidden">
                     <button
@@ -89,19 +91,24 @@ const Navbar = () => {
                     <Link href="/" className={`${isActive("/")} block px-3 py-2 rounded-md text-base font-medium`}>
                         ANASAYFA
                     </Link>
-                    <Link href="/videos" className={`${isActive("/videos")} block px-3 py-2 rounded-md text-base font-medium`}>
+                    <Link href="/videos"
+                          className={`${isActive("/videos")} block px-3 py-2 rounded-md text-base font-medium`}>
                         SOHBETLER
                     </Link>
-                    <Link href="/articles" className={`${isActive("/articles")} block px-3 py-2 rounded-md text-base font-medium`}>
+                    <Link href="/articles"
+                          className={`${isActive("/articles")} block px-3 py-2 rounded-md text-base font-medium`}>
                         MAKALELER
                     </Link>
-                    <Link href="/about" className={`${isActive("/about")} block px-3 py-2 rounded-md text-base font-medium`}>
+                    <Link href="/about"
+                          className={`${isActive("/about")} block px-3 py-2 rounded-md text-base font-medium`}>
                         HAKKIMIZDA
                     </Link>
-                    <Link href="/contact" className={`${isActive("/contact")} block px-3 py-2 rounded-md text-base font-medium`}>
+                    <Link href="/contact"
+                          className={`${isActive("/contact")} block px-3 py-2 rounded-md text-base font-medium`}>
                         İLETİŞİM
                     </Link>
-                    <Link href="/bagis" className="bg-[#F7E652] text-[#007A4C] block px-3 py-2 rounded-md text-base font-medium">
+                    <Link href="/bagis"
+                          className="bg-[#F7E652] text-[#007A4C] block px-3 py-2 rounded-md text-base font-medium">
                         BAĞIŞ
                     </Link>
                 </div>

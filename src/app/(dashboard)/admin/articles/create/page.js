@@ -7,14 +7,13 @@ import {Toast} from 'primereact/toast';
 import HttpClient from '@/util/HttpClient';
 import {ChevronDown} from "lucide-react";
 import {TabPanel, TabView} from "primereact/tabview";
-import ArticleContent from "@/components/articledetail/ArticleContent";
-import MostReadArticles from "@/components/articledetail/MostReadArticles";
+import {Calendar} from "primereact/calendar";
 
 function CreateArticle() {
     const toast = useRef(null);
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
-    const [publishedAt, setPublishedAt] = useState('');
+    const [publishedAt, setPublishedAt] = useState([new Date()]);
     const [image, setImage] = useState(null);
     const [selectedAuthors, setSelectedAuthors] = useState([])
     const [selectedCategories, setSelectedCategories] = useState([])
@@ -79,9 +78,9 @@ function CreateArticle() {
             image,
             title,
             content,
-            // publishedAt,
+            publishedAt,
             authorIds: selectedAuthors.map(a => a.id),
-            categories:selectedCategories.map(a => a.id),
+            categories: selectedCategories.map(a => a.id),
         };
 
         try {
@@ -127,15 +126,6 @@ function CreateArticle() {
                         />
                     </div>
 
-                    {/* Yayınlanma Tarihi */}
-                    <div className="mb-6">
-                        <InputText
-                            value={publishedAt}
-                            onChange={(e) => setPublishedAt(e.target.value)}
-                            placeholder="Published Date (YYYY-MM-DD)"
-                            className="w-full p-3 border rounded"
-                        />
-                    </div>
 
                     {/* Yazar Seçimi */}
                     <div className="relative mb-4" ref={authorDropDownRef}>
@@ -241,6 +231,20 @@ function CreateArticle() {
                         )}
                     </div>
 
+                    <div className="mb-6">
+                        <label htmlFor="publishedAt" className="block text-sm font-medium text-gray-700">
+                            Published Date
+                        </label>
+                        <Calendar
+                            id="publishedAt"
+                            value={publishedAt}
+                            onChange={(e) => setPublishedAt(e.value)}
+                            dateFormat="yy-mm-dd"
+                            placeholder="Select Published Date"
+                            className="w-full p-3 border rounded"
+                            selectionMode={"single"}/>
+                    </div>
+
                     {/* Butonlar */}
                     <div className="flex justify-between">
                         <Button label="Publish" icon="pi pi-check" className="p-button-success w-full"
@@ -294,7 +298,7 @@ function CreateArticle() {
                         <div className=" mx-auto py-12 px-8">
                             <div className="grid grid-cols-1 lg:grid-cols-[70%_30%] gap-8">
                                 {/* Blog İçeriği */}
-                                <div  dangerouslySetInnerHTML={{__html: content}} />
+                                <div dangerouslySetInnerHTML={{__html: content}}/>
 
                                 {/* Sağ Menü - En Çok Okunanlar */}
                             </div>
