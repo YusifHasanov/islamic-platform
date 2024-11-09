@@ -1,10 +1,11 @@
 import React from 'react';
 import Articles from "@/pages/ArticlesPage";
 
-const Page = () => {
+const Page = async ({searchParams}) => {
+   const {page,category} = await searchParams;
     return (
         <>
-         <Articles/>
+            <Articles page={page} category={category}/>
         </>
     );
 };

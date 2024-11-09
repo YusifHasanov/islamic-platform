@@ -86,13 +86,13 @@
     fill: white; /* İkon rengi */
 }
 
-.categoriesList > li {
+.categoriesList  li {
     transition: all .3s ease-out;
     font-size: 13px;
     font-weight: bold;
 }
 
-.categoriesList > li:hover {
+.categoriesList  li:hover {
     color: #FFFFFF;
     background-color: #FCB900;
 }

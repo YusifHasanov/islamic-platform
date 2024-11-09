@@ -30,6 +30,7 @@ function ArticleEditor() {
         HttpClient.get('/authors')
             .then(res => res.json())
             .then(data => setAuthors(data)).catch(err => console.log(err));
+
         HttpClient.get('/categories')
             .then(res => res.json())
             .then(data => setCategories(data)).catch(err => console.error(err));
@@ -40,16 +41,21 @@ function ArticleEditor() {
             HttpClient.get(`/articles/${id}`)
                 .then(res => res.json())
                 .then(data => {
+                    console.log(data);
                     setTitle(data.title);
                     setContent(data.content);
                     setImage(data.image);
                     setPublishedAt(data.publishedAt);
-                    setSelectedAuthors(data.authors || []);
+                    setSelectedAuthors(data.authors.map(a=>a.id));
                     setSelectedCategories(data.categories || []);
                 })
                 .catch(err => console.error(err));
         }
     }, [id]);
+
+    useEffect(() => {
+        console.log(selectedCategories)
+    },[selectedCategories])
 
 
     // Görsel yükleme işlemi
@@ -101,6 +107,7 @@ function ArticleEditor() {
             toast.current.show({severity: 'error', summary: 'Error', detail: 'Failed to save articles'});
         }
     };
+
 
     return (
         <div className="max-w-6xl mx-auto p-6 bg-white rounded-lg shadow-lg">

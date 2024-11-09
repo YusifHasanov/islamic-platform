@@ -1,10 +1,11 @@
 import React from 'react';
 import ArticleDetail from "@/pages/ArticleDetailPage";
 
-const BlogDetail = () => {
+const BlogDetail = async ({params}) => {
+    const {id} = await params; // Burada 'params' doğrudan destructure ediliyor
     return (
         <>
-            <ArticleDetail/>
+            <ArticleDetail id={id}/>
         </>
     );
 };

@@ -4,49 +4,24 @@ import ArticleCard from "@/components/articles/ArticleCard";
 import ArticleCategories from "@/components/articles/ArticleCategories";
 import PopularArticles from "@/components/articles/PopularArticles";
 import OtherArticleList from "@/components/articles/OtherArticleList";
+import {BASE_URL} from "@/util/Const";
+import Pagination from "@/components/articles/Pagination";
 
-// background-image: linear-gradient(0deg, rgba(0, 0, 0, .35), transparent 75%);
+export const revalidate = 60; // ISR: 60 saniyede bir yeniden oluştur
+const PAGE_SIZE = 10;
 
-export default function ArticlesPage() {
 
-    const arr = [
-        {
-            title: "Cemaat Olmanın Önemi",
-            description: "Cemaat Olmanın Önemi Efendimiz(s.a.v) meclislerle ilgili bir hadisinde şöyle buyuruyor...",
-            date: "1 Ekim 2024",
-            image: "https://hayalhanem.com/wp-content/uploads/2024/10/Resulullah-sav-Vefati.webp"
-        },
-        {
-            title: "Cemaat Olmanın Önemi",
-            description: "Cemaat Olmanın Önemi Efendimiz(s.a.v) meclislerle ilgili bir hadisinde şöyle buyuruyor...",
-            date: "1 Ekim 2024",
-            image: "https://hayalhanem.com/wp-content/uploads/2024/10/Cemaat-Olmanin-Onemi.webp"
-        },
-        {
-            title: "Cemaat Olmanın Önemi",
-            description: "Cemaat Olmanın Önemi Efendimiz(s.a.v) meclislerle ilgili bir hadisinde şöyle buyuruyor...",
-            date: "1 Ekim 2024",
-            image: "https://hayalhanem.com/wp-content/uploads/2024/10/Aksam-Namazi-Tesbihati-Turkce-Okunusu.webp"
-        },
-        {
-            title: "Cemaat Olmanın Önemi",
-            description: "Cemaat Olmanın Önemi Efendimiz(s.a.v) meclislerle ilgili bir hadisinde şöyle buyuruyor...",
-            date: "1 Ekim 2024",
-            image: "https://hayalhanem.com/wp-content/uploads/2024/10/efendimiz-cenaze-namazi-kildirmismidir-.webp"
-        },
-        {
-            title: "Cemaat Olmanın Önemi",
-            description: "Cemaat Olmanın Önemi Efendimiz(s.a.v) meclislerle ilgili bir hadisinde şöyle buyuruyor...",
-            date: "1 Ekim 2024",
-            image: "https://hayalhanem.com/wp-content/uploads/2024/10/Uhud-Savasinin-Cikma-Sebebi-Nedir.webp"
-        },
-        {
-            title: "Cemaat Olmanın Önemi",
-            description: "Cemaat Olmanın Önemi Efendimiz(s.a.v) meclislerle ilgili bir hadisinde şöyle buyuruyor...",
-            date: "1 Ekim 2024",
-            image: "https://hayalhanem.com/wp-content/uploads/2024/10/Kuran-i-Kerimin-Kitap-Haline-Getirilmesi.webp"
-        },
-    ];
+export default async function ArticlesPage({page, category}) {
+    page = parseInt(page || '0', 10);
+
+    // API'den veri çek ve sayfalama parameterizing ekle
+    category = parseInt(category || '0', 0);
+
+    const res = await fetch(`${BASE_URL}/articles?page=${page}&size=${PAGE_SIZE}&categoryId=${category}`);
+    const data = await res.json();
+    const {content, pageable} = data;
+    console.log(data);
+
 
     return (
         <>
@@ -58,10 +33,11 @@ export default function ArticlesPage() {
                         {/* Makale Kartları */}
                         <div style={{gridTemplateRows: "repeat(2, 350px)"}}
                              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {
-                                arr.map((item, id) => (
+                            { content &&
+                                content.map((item, id) => (
                                     <ArticleCard
                                         key={id}
+                                        id={item.id}
                                         title={item.title}
                                         description={item.description}
                                         image={item.image}
@@ -74,18 +50,17 @@ export default function ArticlesPage() {
                         {/* Sağ Sidebar (Kategoriler ve En Çok Okunanlar) */}
                         <aside className="bg-white p-6 rounded-lg  lg:w-5/12 w-full">
                             <Search/>
-                            <ArticleCategories/>
+                            <ArticleCategories page={page} category={category}/>
                             <PopularArticles/>
                         </aside>
                     </div>
+                    <Pagination currentPage={data.pageable.pageNumber + 1} totalPages={data.totalPages}/>
                     <OtherArticleList/>
                 </div>
             </div>
         </>
     );
 }
-
-
 
 
 function Search() {

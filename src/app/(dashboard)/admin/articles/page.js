@@ -9,18 +9,37 @@ import Link from "next/link";
 function ArticleList() {
     const router = useRouter();
     const [articles, setArticles] = useState([]);
+    const [page, setPage] = useState(0); // Başlangıç sayfası 0
+    const [totalPages, setTotalPages] = useState(0); // Toplam sayfa sayısı
+    const PAGE_SIZE = 10;
 
+    // API'den makaleleri çek
+    const fetchArticles = async (currentPage) => {
+        try {
+            const res = await HttpClient.get(`/articles?page=${currentPage}&size=${PAGE_SIZE}`);
+            const data = await res.json();
+            setArticles(data.content);
+            setTotalPages(data.totalPages);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    // İlk yüklemede ve sayfa değiştiğinde makaleleri çek
     useEffect(() => {
-        HttpClient.get(`/articles`)
-            .then((res) => res.json())
-            .then((res) => setArticles(res))
-            .catch((err) => console.log(err));
-
-
-    }, []);
+        fetchArticles(page);
+    }, [page]);
 
     const onClick = (id) => {
         router.push(`/admin/articles/${id}`);
+    };
+
+    const goToPreviousPage = () => {
+        if (page > 0) setPage(page - 1);
+    };
+
+    const goToNextPage = () => {
+        if (page < totalPages - 1) setPage(page + 1);
     };
 
     if (articles.length === 0) {
@@ -72,11 +91,32 @@ function ArticleList() {
                     </div>
                 ))}
             </div>
+
+            {/* Sayfalama Butonları */}
             <div className="flex justify-center mt-4 space-x-2">
-                <button className="px-3 py-1 border rounded">&laquo;</button>
-                <button className="px-3 py-1 border rounded">1</button>
-                <button className="px-3 py-1 border rounded bg-gray-200">2</button>
-                <button className="px-3 py-1 border rounded">&raquo;</button>
+                <button
+                    className="px-3 py-1 border rounded"
+                    onClick={goToPreviousPage}
+                    disabled={page === 0}
+                >
+                    &laquo; Previous
+                </button>
+                {[...Array(totalPages)].map((_, index) => (
+                    <button
+                        key={index}
+                        className={`px-3 py-1 border rounded ${index === page ? 'bg-gray-200' : ''}`}
+                        onClick={() => setPage(index)}
+                    >
+                        {index + 1}
+                    </button>
+                ))}
+                <button
+                    className="px-3 py-1 border rounded"
+                    onClick={goToNextPage}
+                    disabled={page === totalPages - 1}
+                >
+                    Next &raquo;
+                </button>
             </div>
         </div>
     );
