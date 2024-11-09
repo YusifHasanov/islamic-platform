@@ -9,8 +9,7 @@ import SideBar from "@/components/admin/SideBar";
 
 const Layout = ({children}) => {
     useTheme();
-    // useAuthRedirect();
-
+    // useAuthRedirect()
     return (
         <>
             <SideBar>

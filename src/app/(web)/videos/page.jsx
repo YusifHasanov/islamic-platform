@@ -1,5 +1,5 @@
 import React from 'react';
-import Videos from "@/pages/VideosPage";
+import Videos from "@/layouts/VideosPage";
 
 const Page = () => {
     return (

@@ -1,5 +1,5 @@
 import React from 'react';
-import AboutUsPage from "@/pages/AboutUsPage";
+import AboutUsPage from "@/layouts/AboutUsPage";
 
 const Page = () => {
     return (
