@@ -57,14 +57,24 @@ const AboutUsPage = () => {
                     <div className="w-full lg:w-[65%]">
                         <h2 className="text-3xl font-semibold mb-4">Amacımız</h2>
                         <p className="text-gray-700 mb-4">
-                            İman hakikatlerini anlatma amacıyla yola çıkan Hayalhanem, bir ilim ve kültür derneğidir. Bu
-                            kuruluş Peygamber Efendimiz’in(s.a.v) mesleği olan tebliğ odaklı bir vizyon ile faaliyet
-                            göstermektedir...
+                            Allaha iman edən bir kimsə, şübhəsiz, Onu sevir, çünki imanı ilə bilir ki, hər şeyi Allah
+                            xəlq etmiş, özünü və bütün sevdiklərini yoxluqdan var etmiş, onu hədsiz nemətlərlə təmin
+                            etmişdir. Həmçinin cənnəti əbədi olaraq ona və bütün möminlərə vəd etmişdir.
+
+                            Belə uca, mərhəmətli bir yaradıcını tanıyan, əlbəttə, Onu bütün qəlbi ilə sevəcəkdir. Məhz
+                            möminlərin Allah sevgisinə Quran belə işarə edir: “Allah onları sevər, onlar da Allahı
+                            sevərlər.” (Maidə, 54). Allahı sevən bir insanın onun rizasını və sevgisini qazanmağa
+                            çalışması lazımdır.
+
                         </p>
                         <p className="text-gray-700 mb-4">
-                            Hayalhanem’de gerçekleşen Risale-i Nur dersleri, iman hakikatlerini anlama ve yaşama
-                            konusunda katılımcılara kılavuzluk etmektedir. Bu sayede derneğimizin temel amacına daha
-                            etkili bir şekilde ulaşmamıza yardımcı olmaktadır...
+                            Biz də – bir qrup mömin Əhli-Sünnə bayrağı altında toplaşaraq Allahın pak dinini insanlara
+                            çatdırmağa çalışırıq. Bu layihəmizin adı da “Əhli-Sünnə Mədrəsəsi”dir.
+
+                            Bu layihə qədim üsula bağlı qalaraq batil firqələrə qarşı sipər, bilgisizlərə çıraq, ruhən
+                            ölənlərə nəfəs niyyəti ilə Allah üçün xidmətdədir. Çalışmaq bizdən, müvəffəqiyyət
+                            Allahdandır!
+
                         </p>
                     </div>
                     <div className="w-full lg:w-[35%]">
