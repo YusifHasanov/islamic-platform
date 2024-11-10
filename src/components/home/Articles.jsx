@@ -1,33 +1,12 @@
-'use client'
-
 import React from 'react';
-import Image from 'next/image';
 import ArticleCard from "@/components/articles/ArticleCard";
+import {BASE_URL} from "@/util/Const";
 
-const articles = [
-    {
-        title: "Efendimiz (s.a.v.) Boykot Döneminde Nasıl Sıkıntılar Çekmiştir?",
-        date: "1 Ekim 2024",
-        image: "https://hayalhanem.com/wp-content/uploads/2024/10/Efendimizs.a.v.-Boykot-Doneminde-Nasil-Sikintilar-Cekmistir.webp"
-    },
-    {
-        title: "Ebû Talip İmanlı mı Öldü? – Hz. Hatice’nin (r.a.) Vefatı",
-        date: "1 Ekim 2024",
-        image: "https://hayalhanem.com/wp-content/uploads/2024/10/Hz.-Hamzar.a.-Nasil-Sehit-Oldu-Muslumanlar-Uhudda-Neden-Galibiyet-Elde-Edemediler.webp"
-    },
-    {
-        title: "Efendimiz (s.a.v.) Taif’te Kimler Taşladı?",
-        date: "Ekim 1, 2024",
-        image: "https://hayalhanem.com/wp-content/uploads/2024/10/Munafiklarin-Ahlaki-Ozellikleri-Hadislerde-Nasil-Gecmektedir.webp"
-    },
-    {
-        title: "Efendimiz (s.a.v.) Hayatı Boyunca Ne Sıkıntılar Yaşamıştır?",
-        date: "Ekim 1, 2024",
-        image: "https://hayalhanem.com/wp-content/uploads/2024/10/Efendimizs.a.v.-Boykot-Doneminde-Nasil-Sikintilar-Cekmistir.webp"
-    }
-]
 
-const Articles = () => {
+
+const Articles =  async () => {
+    const res = await fetch(`${BASE_URL}/articles/popular`)
+    const articles = await res.json();
     return (
         <div className="py-16">
             <h2 className="text-center homeArticlesHeader  mb-8">MAKALELER</h2>
@@ -38,6 +17,7 @@ const Articles = () => {
                 {articles.map((article, idx) => (
 
                     <ArticleCard
+                        id={article.id}
                         key={idx}
                         title={ article.title}
                         description ={article.description}

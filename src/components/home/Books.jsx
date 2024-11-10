@@ -51,7 +51,8 @@ export default  function Component() {
                                         src={book.image}
                                         alt={book.title}
                                         fill
-                                        className="object-cover transition-transform duration-300 group-hover:scale-105"
+                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                        className="object-cover object-center w-full h-full transition-transform duration-300 group-hover:scale-105"
                                     />
                                 </div>
                                 <h3 className="mt-4 text-center text-lg font-semibold">{book.title}</h3>
