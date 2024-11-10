@@ -5,7 +5,9 @@ import Link from "next/link";
 export const revalidate = 60;
 
 const PlaylistsSection = async ({playlistId}) => {
-    const res = await fetch(`${BASE_URL}/playlists`);
+    const res = await fetch(`${BASE_URL}/playlists`, {
+        next: { revalidate: 60 },
+    });
     const playlists = await res.json();
 
     return (

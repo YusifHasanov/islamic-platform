@@ -17,7 +17,9 @@ export default async function ArticlesPage({page, category}) {
     // API'den veri çek ve sayfalama parameterizing ekle
     category = parseInt(category || '0', 0);
 
-    const res = await fetch(`${BASE_URL}/articles?page=${page}&size=${PAGE_SIZE}&categoryId=${category}`);
+    const res = await fetch(`${BASE_URL}/articles?page=${page}&size=${PAGE_SIZE}&categoryId=${category}`, {
+        next: { revalidate: 60 },
+    });
     const data = await res.json();
     const {content, pageable} = data;
     console.log(data);

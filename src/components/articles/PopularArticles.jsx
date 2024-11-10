@@ -3,7 +3,9 @@ import {BASE_URL} from "@/util/Const";
 import Link from "next/link";
 
 const PopularArticles = async () => {
-    const res = await fetch(`${BASE_URL}/articles/popular`)
+    const res = await fetch(`${BASE_URL}/articles/popular`, {
+        next: { revalidate: 60 },
+    });
     const articles = await res.json();
 
     return (

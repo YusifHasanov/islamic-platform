@@ -3,7 +3,9 @@ import {BASE_URL} from "@/util/Const";
 import Link from "next/link";
 
 const ArticleCategories = async ({page, category}) => {
-    const res = await fetch(`${BASE_URL}/categories`);
+    const res = await fetch(`${BASE_URL}/categories`, {
+        next: { revalidate: 60 },
+    });
     const categories = await res.json();
     console.log(categories);
     return (
