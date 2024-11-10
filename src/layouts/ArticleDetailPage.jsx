@@ -9,7 +9,7 @@ const ArticleDetail = async ({id}) => {
     const response = await fetch(`${BASE_URL}/articles/${id}`);
     const article = await response.json();
 
-    console.log(article);
+    console.log("article", article);
 
     if (!article) {
         return <di>Loading</di>
@@ -30,9 +30,19 @@ const ArticleDetail = async ({id}) => {
                         <h1 className="text-2xl md:text-4xl font-bold mb-2">
                             {article.title}
                         </h1>
-                        <p className="text-lg mb-4">Ekim 1, 2024</p>
+                        {/* Yayınlanma Tarihi */}
+                        <p className="text-lg mb-4">
+                            {new Date(article.publishedAt).toLocaleDateString('az-AZ', {
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric',
+                            })}
+                        </p>
                         <p className="text-yellow-500 font-semibold">
-                            İMAN / PEYGAMBERE İMAN / HZ. MUHAMMED (sav)
+                            {/*İMAN / PEYGAMBERE İMAN / HZ. MUHAMMED (sav)*/}
+                            {article.authors.length > 1
+                                ? article.authors.map((a) => a.name).join(', ')
+                                : article.authors[0]?.name || 'Bilinmiyor'}
                         </p>
                     </div>
                 </div>
@@ -41,13 +51,45 @@ const ArticleDetail = async ({id}) => {
             <div className=" mx-auto py-12 px-8">
                 <div className="grid grid-cols-1 lg:grid-cols-[70%_30%] gap-8">
                     {/* Blog İçeriği */}
-                    <div className={"flex flex-col justify-between"}>
-                        <div dangerouslySetInnerHTML={{__html: article.content}}/>
-                        <div>
-                            <div>Oxunma sayi {article.readCount}</div>
-                            <div>Publish date {article.publishedAt?.toString()}</div>
-                        </div>
+                    <div className="flex flex-col justify-between bg-white rounded-lg shadow-md p-6 space-y-6">
+                        {/* Makale İçeriği */}
+                        <div className="prose max-w-none" dangerouslySetInnerHTML={{__html: article.content}}/>
 
+                        {/* Alt Bilgi Bölümü */}
+                        <div className="border-t pt-4 space-y-2 text-gray-600">
+                            <div className="flex items-center justify-between">
+                            <span className="font-semibold">Oxunma sayı:</span>
+                                <span className="text-gray-800">{article.readCount}</span>
+                            </div>
+
+                            <div className="flex items-center justify-between">
+                                <span className="font-semibold">Yayımlanma Tarixi:</span>
+                                <span
+                                    className="text-gray-800"> {new Date(article.publishedAt).toLocaleDateString('az-AZ', {
+                                    year: 'numeric',
+                                    month: 'long',
+                                    day: 'numeric',
+                                })}</span>
+                            </div>
+
+                            <div className="flex flex-wrap items-center pt-2 space-x-4">
+                                {article.authors.length > 0 ? (
+                                    article.authors.map((author, index) => (
+                                        <div key={index} className="flex items-center space-x-2">
+                                            <img
+                                                src={author.image || '/default-avatar.png'}
+                                                alt={author.name}
+                                                className="w-8 h-8 rounded-full object-cover"
+                                            />
+                                            <span className="text-gray-800">{author.name}</span>
+                                            {index < article.authors.length - 1 && <span>,</span>}
+                                        </div>
+                                    ))
+                                ) : (
+                                    <span className="text-gray-800">Bilinmiyor</span>
+                                )}
+                            </div>
+                        </div>
                     </div>
 
                     <MostReadArticles/>
