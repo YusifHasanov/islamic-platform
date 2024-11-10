@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 // import { Image } from "primereact/image";
 const images = [
-    "/qardaslar_1.jfif",
-    "/qardaslar_2.jfif",
+    "https://hayalhanem.com/wp-content/uploads/revslider/slider-2/4.jpg",
+    "https://hayalhanem.com/wp-content/uploads/revslider/slider-2/1.jpg",
     "https://hayalhanem.com/wp-content/uploads/revslider/slider-2/IMG_5976-1.jpg",
     "https://hayalhanem.com/wp-content/uploads/revslider/slider-2/433563753_18431221807053262_3442400062282089018_n.jpg",
     "https://hayalhanem.com/wp-content/uploads/revslider/slider-2/IMG_5976-1.jpg",
