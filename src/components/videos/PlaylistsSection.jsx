@@ -1,74 +1,39 @@
 import React from 'react';
+import {BASE_URL} from "@/util/Const";
+import Link from "next/link";
 
-const PlaylistsSection = () => {
-    const playlists = [
-        {
-            image: 'https://i.ytimg.com/vi/Py-4LPSqym0/mqdefault.jpg',
-            title: 'Katkı Özel',
-            videoCount: '1 Video',
-        },
-        {
-            image: 'https://hayalhanem.com/wp-content/uploads/2024/10/Cemaat-Olmanin-Onemi.webp',
-            title: 'İşaratü\'l İ\'caz',
-            videoCount: '3 Video',
-        },
-        {
-            image: 'https://hayalhanem.com/wp-content/uploads/2024/10/Aksam-Namazi-Tesbihati-Turkce-Okunusu.webp',
-            title: 'Hayalhanem - Sağlık',
-            videoCount: '7 Video',
-        },
-        {
-            image: 'https://i.ytimg.com/vi/Py-4LPSqym0/mqdefault.jpg',
-            title: 'Kur\'an-ı Kerim - Hatm-i Şerif (114 Sure)',
-            videoCount: '25 Video',
-        },
-        {
-            image: "https://hayalhanem.com/wp-content/uploads/2024/10/efendimiz-cenaze-namazi-kildirmismidir-.webp",
-            title: 'Hz. Muhammed\'in (sav) Hayatı',
-            videoCount: '20 Video',
-        },
-        {
-            image: "https://hayalhanem.com/wp-content/uploads/2024/10/Uhud-Savasinin-Cikma-Sebebi-Nedir.webp",
-            title: 'Fatih Ünal',
-            videoCount: '3 Video',
-        },
-        {
-            image: 'https://i.ytimg.com/vi/Py-4LPSqym0/mqdefault.jpg',
-            title: 'Fatih Atmaca',
-            videoCount: '3 Video',
-        },
-        {
-            image: "https://hayalhanem.com/wp-content/uploads/2024/10/Kuran-i-Kerimin-Kitap-Haline-Getirilmesi.webp",
-            title: 'İrfan Aykut',
-            videoCount: '5 Video',
-        },
-    ];
+const PlaylistsSection = async ({playlistId}) => {
+    const res = await fetch(`${BASE_URL}/playlists`);
+    const playlists = await res.json();
 
     return (
         <div className="min-h-screen bg-gray-100 py-8">
             <div className="py-3 mx-auto px-7">
                 {/* Buttons Section */}
+                {/*<div className="flex justify-center space-x-4 mb-8">*/}
+                {/*    <button className="bg-gray-700 text-white py-2 px-4 rounded-full">Oynatma Listeleri</button>*/}
+                {/*    <button className="bg-gray-700 text-white py-2 px-4 rounded-full">Son Yüklenenler</button>*/}
+                {/*</div>*/}
                 <div className="flex justify-center space-x-4 mb-8">
-                    <button className="bg-gray-700 text-white py-2 px-4 rounded-full">Oynatma Listeleri</button>
-                    <button className="bg-gray-700 text-white py-2 px-4 rounded-full">Son Yüklenenler</button>
+                    <button className="bg-gray-700 text-white py-2 px-4 rounded-full">Playlistlər</button>
                 </div>
 
                 {/* Playlists Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
                     {playlists.map((playlist, index) => (
-                        <div
-                            key={index}
-                            className="bg-white playlistCard cursor-pointer rounded-xl overflow-hidden  shadow-sm">
+                        <Link href={`/videos?playlistId=${playlist.playlistId}`}
+                            key={playlist.playlistId}
+                            className="bg-white playlistCard cursor-pointer rounded-2xl overflow-hidden  shadow-sm">
                             <img
-                                src={playlist.image}
+                                src={playlist.thumbnail.split("+")[2]}
                                 alt={playlist.title}
                                 className="w-full h-50 object-cover mb-1"
                             />
-                            <div className="px-4 min-h-20 flex flex-col justify-between pb-1" >
+                            <div className="px-4 min-h-20 flex flex-col justify-between pb-1">
                                 <h3 className="text-lg font-semibold">{playlist.title}</h3>
-                                <p className="text-gray-500 text-center">{playlist.videoCount}</p>
+                                <p className="text-gray-500 text-center">{playlist.videoCount} Video</p>
                             </div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
             </div>

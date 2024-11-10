@@ -1,11 +1,12 @@
 import React from 'react';
 import Videos from "@/layouts/VideosPage";
 
-const Page = () => {
+const Page = async ({searchParams}) => {
+    const {playlistId,videoId} = await searchParams;
+
     return (
         <>
-         <Videos/>
-
+         <Videos playlistId ={playlistId} videoId = {videoId}/>
         </>
     );
 };

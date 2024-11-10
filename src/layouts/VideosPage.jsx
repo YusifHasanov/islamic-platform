@@ -2,10 +2,10 @@ import React from 'react';
 import VideoPlayer from "@/components/videos/VideoPlayer";
 import PlaylistsSection from "@/components/videos/PlaylistsSection";
 
-const Videos = () => {
+const Videos = ({playlistId,videoId}) => {
     return (
         <>
-            <VideoPlayer/>
+            <VideoPlayer playlistId={playlistId} videoId={videoId} />
             <PlaylistsSection/>
         </>
     );
