@@ -2,7 +2,7 @@ import React from 'react';
 import ArticleCard from "@/components/articles/ArticleCard";
 import {BASE_URL} from "@/util/Const";
 
-
+export const revalidate = 60;
 
 const Articles =  async () => {
     const res = await fetch(`${BASE_URL}/articles/popular`)

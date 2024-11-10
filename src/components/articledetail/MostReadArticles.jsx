@@ -2,7 +2,7 @@ import React from 'react';
 import {BASE_URL} from "@/util/Const";
 import Link from "next/link";
 
-
+export const revalidate = 60;
 
 // Main Component
 const MostReadArticles = async () => {

@@ -2,6 +2,8 @@ import React from 'react';
 import {BASE_URL} from "@/util/Const";
 import Link from "next/link";
 
+export const revalidate = 60;
+
 const PlaylistsSection = async ({playlistId}) => {
     const res = await fetch(`${BASE_URL}/playlists`);
     const playlists = await res.json();
