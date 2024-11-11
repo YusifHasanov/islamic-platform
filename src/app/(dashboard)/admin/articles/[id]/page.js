@@ -54,6 +54,18 @@ function ArticleEditor() {
     }, [id]);
 
 
+    async function revalidateArticle(articleId) {
+        const response = await fetch(`/api/revalidate?path=/articles/${articleId}&secret=${process.env.NEXT_PUBLIC_REVALIDATE_SECRET}`, {
+            method: 'GET',
+        });
+
+        if (response.ok) {
+            console.log(`Revalidated article ${articleId} successfully.`);
+        } else {
+            console.error(`Failed to revalidate article ${articleId}.`);
+        }
+    }
+
 
     // Görsel yükleme işlemi
     const handleImageUpload = (e) => {
@@ -96,6 +108,9 @@ function ArticleEditor() {
             if (id) {
                 await HttpClient.put(`/articles/${id}`, body);
                 toast.current.show({severity: 'success', summary: 'Success', detail: 'Article updated successfully'});
+                revalidateArticle(id)
+                    .then(() => console.log('Successfully updated article updated successfully'))
+                    .catch(err => console.log(err));
             } else {
                 await HttpClient.post('/articles', body);
                 toast.current.show({severity: 'success', summary: 'Success', detail: 'Article created successfully'});
