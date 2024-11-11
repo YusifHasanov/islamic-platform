@@ -10,11 +10,10 @@ const ArticleApiCount = () => {
         fetch(`${BASE_URL}/articles/count/${id}`, {
             method: "PUT",
             contentType: "application/json",
-        }).then(()=>console.log("count increment"))
-            .catch((err) => console.log(err));
+        }).catch((err) => console.log(err));
     }, [])
 
-    return (<div></div>);
+    return (<></>);
 };
 
 export default ArticleApiCount;
