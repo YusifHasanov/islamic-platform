@@ -1,7 +1,7 @@
 'use client'
 import React, {useRef, useState} from "react";
 import HttpClient from "@/util/HttpClient";
-import {ChevronDown, Upload, X} from "lucide-react";
+import { Upload, X} from "lucide-react";
 import {Toast} from "primereact/toast";
 
 const CreateAuthor = () => {

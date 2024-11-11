@@ -35,8 +35,8 @@ const ContactUsTable = () => {
         setLoading(false);
     };
 
-    useEffect(() => {
-        fetchContacts(page, rows);
+    useEffect(async () => {
+        await fetchContacts(page, rows);
     }, [page, rows]);
 
     const onPaginatorChange = (event) => {
@@ -63,17 +63,21 @@ const ContactUsTable = () => {
 
     const saveChanges = async () => {
         try {
-            await HttpClient.put('/contact/update-batch', updatedContacts.map(u=>u.id));
+            HttpClient.put('/contact/update-batch', updatedContacts.map(u => u.id))
+                .then(() => {
+                    console.log('Successfully updated contacts updated successfully')
+                })
+                .catch(err => console.log(err));
             alert('Changes saved successfully!');
             setUpdatedContacts([]);
-            fetchContacts(page, rows);
+            await fetchContacts(page, rows);
         } catch (error) {
             console.error('Error saving changes:', error);
             alert('Failed to save changes.');
         }
     };
 
-    // Mesaj kolonunun render fonksiyonu
+
     const messageBody = (data) => (
         <span onClick={() => {
             setSelectedMessage(data.message);
@@ -83,7 +87,6 @@ const ContactUsTable = () => {
         </span>
     );
 
-    // Checkbox render fonksiyonu
     const readBody = (data) => (
         <Checkbox checked={data.read} onChange={() => onReadChange(data)}/>
     );
