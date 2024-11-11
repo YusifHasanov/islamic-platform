@@ -64,6 +64,14 @@ function ArticleEditor() {
         } else {
             console.error(`Failed to revalidate article ${articleId}.`);
         }
+
+
+        const response2 = await fetch(`/api/revalidate?path=/articles&secret=${process.env.NEXT_PUBLIC_REVALIDATE_SECRET}`);
+        if (response2.ok) {
+            console.log("Successfully revalidated /articles page.");
+        } else {
+            console.error("Failed to revalidate /articles page.");
+        }
     }
 
 
