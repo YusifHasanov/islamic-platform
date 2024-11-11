@@ -86,9 +86,12 @@ function CreateArticle() {
         try {
             await HttpClient.post('/articles', body);
             toast.current.show({severity: 'success', summary: 'Success', detail: 'Article created successfully'});
+            fetch(`/api/revalidate?path=/articles&secret=${process.env.NEXT_PUBLIC_REVALIDATE_SECRET}`)
+                .then(() => console.log('Revalidated articles revalidated.'))
+                .catch(err => console.error("Failed to revalidate /articles page."));
         } catch (error) {
             console.error(error);
-            toast.current.show({severity: 'error', summary: 'Error', detail: 'Failed to create articles'});
+            toast.current.show({severity: 'error', summary: 'Error', detail: error.message});
         }
     };
 

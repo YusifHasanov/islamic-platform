@@ -55,23 +55,14 @@ function ArticleEditor() {
 
 
     async function revalidateArticle(articleId) {
-        const response = await fetch(`/api/revalidate?path=/articles/${articleId}&secret=${process.env.NEXT_PUBLIC_REVALIDATE_SECRET}`, {
+        fetch(`/api/revalidate?path=/articles/${articleId}&secret=${process.env.NEXT_PUBLIC_REVALIDATE_SECRET}`, {
             method: 'GET',
-        });
+        }).then(() => console.log(`Revalidated article ${articleId} successfully.`))
+            .catch(() => console.error(`Failed to revalidate article ${articleId}.`))
 
-        if (response.ok) {
-            console.log(`Revalidated article ${articleId} successfully.`);
-        } else {
-            console.error(`Failed to revalidate article ${articleId}.`);
-        }
-
-
-        const response2 = await fetch(`/api/revalidate?path=/articles&secret=${process.env.NEXT_PUBLIC_REVALIDATE_SECRET}`);
-        if (response2.ok) {
-            console.log("Successfully revalidated /articles page.");
-        } else {
-            console.error("Failed to revalidate /articles page.");
-        }
+        fetch(`/api/revalidate?path=/articles&secret=${process.env.NEXT_PUBLIC_REVALIDATE_SECRET}`)
+            .then(() => console.log('Revalidated articles revalidated.'))
+            .catch(err => console.error("Failed to revalidate /articles page."));
     }
 
 
