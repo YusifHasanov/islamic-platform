@@ -1,9 +1,9 @@
 import React from 'react';
 import MostReadArticles from "@/components/articledetail/MostReadArticles";
+import ArticleApiCount from "@/components/articledetail/ArticleApiCount";
 
 
 const ArticleDetail = async ({article}) => {
-
     return (
         <div>
             {/* Full Width Image */}
@@ -80,6 +80,7 @@ const ArticleDetail = async ({article}) => {
                             </div>
                         </div>
                     </div>
+                    <ArticleApiCount/>
 
                     <MostReadArticles/>
                 </div>
