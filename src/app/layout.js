@@ -8,6 +8,7 @@ import {
     Roboto
 } from "next/font/google";
 import {PrimeReactProvider} from "primereact/api";
+import Head from "next/head";
 
 const geistSans = localFont({
     src: "./fonts/GeistVF.woff",
@@ -30,13 +31,20 @@ export const metadata = {
 };
 
 export default function RootLayout({children}) {
+    const domain = process.env.NEXT_PUBLIC_DOMAIN;
     return (
         <html lang="en" className={roboto.className}>
+        <Head>
+            <link rel="canonical" href={domain}/>
+            <link rel="preconnect" href="https://fonts.googleapis.com"/>
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true"/>
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"/>
+        </Head>
         <body
             className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
         <PrimeReactProvider value={{pt: Tailwind}}>
-                {children}
+            {children}
         </PrimeReactProvider>
         </body>
         </html>

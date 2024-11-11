@@ -1,6 +1,8 @@
 import React from 'react';
 import ArticleDetail from "@/layouts/ArticleDetailPage";
 import {BASE_URL} from "@/util/Const";
+import Head from "next/head";
+import Script from "next/script";
 
 export const revalidate = 60
 
@@ -20,8 +22,26 @@ const BlogDetail = async ({params}) => {
     const article = await fetch(`${BASE_URL}/articles/${id}`)
         .then(res => res.json())
 
+    const schemaData = {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Məqalə Başlığı",
+        "author": {
+            "@type": "Person",
+            "name": article.authors[0]?.name,
+        },
+        "datePublished": article.publishedAt.toLocaleString(),
+        "image": article.image,
+        "articleBody": article.content,
+    }
     return (
         <>
+            <Head>
+                <Script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{__html: JSON.stringify(schemaData)}}
+                />
+            </Head>
             <ArticleDetail article={article}/>
         </>
     );
