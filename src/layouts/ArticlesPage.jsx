@@ -8,7 +8,7 @@ import {BASE_URL} from "@/util/Const";
 import Pagination from "@/components/articles/Pagination";
 
 export const revalidate = 60; // ISR: 60 saniyede bir yeniden oluştur
-const PAGE_SIZE = 10;
+const PAGE_SIZE = 6;
 
 
 export default async function ArticlesPage({page, category}) {
