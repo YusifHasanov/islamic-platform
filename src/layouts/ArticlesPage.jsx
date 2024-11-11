@@ -7,12 +7,12 @@ import OtherArticleList from "@/components/articles/OtherArticleList";
 import {BASE_URL} from "@/util/Const";
 import Pagination from "@/components/articles/Pagination";
 
-export const revalidate = 60;
-const PAGE_SIZE = 6;
+export const revalidate = 60; // ISR: 60 saniyede bir yeniden oluştur
+const PAGE_SIZE = 10;
 
 
 export default async function ArticlesPage({page, category}) {
-    page = parseInt(page || '0', PAGE_SIZE);
+    page = parseInt(page || '0', 10);
 
     // API'den veri çek ve sayfalama parameterizing ekle
     category = parseInt(category || '0', 0);
@@ -56,7 +56,7 @@ export default async function ArticlesPage({page, category}) {
                             <PopularArticles/>
                         </aside>
                     </div>
-                    <Pagination currentPage={data.pageable.pageNumber + 1} totalPages={data.totalPages}/>
+                    <Pagination currentPage={data.pageable.pageNumber} totalPages={data.totalPages}/>
                     <OtherArticleList/>
                 </div>
             </div>
