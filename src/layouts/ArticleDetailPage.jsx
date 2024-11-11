@@ -1,19 +1,8 @@
 import React from 'react';
 import MostReadArticles from "@/components/articledetail/MostReadArticles";
 
-import {BASE_URL} from "@/util/Const";
 
-export const revalidate = 60;
-
-const ArticleDetail = async ({id}) => {
-    const response = await fetch(`${BASE_URL}/articles/${id}`);
-    const article = await response.json();
-
-    console.log("article", article);
-
-    if (!article) {
-        return <di>Loading</di>
-    }
+const ArticleDetail = async ({article}) => {
 
     return (
         <div>
