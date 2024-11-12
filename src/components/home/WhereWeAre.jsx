@@ -1,7 +1,23 @@
 'use client'
 import React, {useEffect, useState} from 'react';
-import {MapPin, Phone} from 'lucide-react';
+import {Phone} from 'lucide-react';
 
+const CityButton = ({city, selectedCity, onClick}) => {
+    const isActive = selectedCity === city;
+    const buttonClass = isActive
+        ? 'bg-[#F7E652] text-[#2f3034]'
+        : 'bg-gray-600 text-white hover:bg-[#F7E652]';
+
+    return (
+        <button
+            style={{transition: "all ease 0.3s"}}
+            onClick={() => onClick(city)}
+            className={`px-6 py-1 rounded-full ${buttonClass}`}
+        >
+            {city.toUpperCase()}
+        </button>
+    );
+};
 
 const WhereWeAre = () => {
     const [selectedCity, setSelectedCity] = useState('istanbul');
@@ -16,22 +32,7 @@ const WhereWeAre = () => {
     }, []);
 
 
-    const CityButton = ({city, selectedCity, onClick}) => {
-        const isActive = selectedCity === city;
-        const buttonClass = isActive
-            ? 'bg-[#F7E652] text-[#2f3034]'
-            : 'bg-gray-600 text-white hover:bg-[#F7E652]';
 
-        return (
-            <button
-                style={{transition: "all ease 0.3s"}}
-                onClick={() => onClick(city)}
-                className={`px-6 py-1 rounded-full ${buttonClass}`}
-            >
-                {city.toUpperCase()}
-            </button>
-        );
-    };
 
     const IstanbulSection = () => {
 
@@ -188,7 +189,11 @@ const WhereWeAre = () => {
             </div>
 
             {/* Şehirler Butonları */}
-            <div className="flex justify-center space-x-20 mb-8">
+            <div style={{
+                width:"max-content",
+                marginLeft:"auto",
+                marginRight:"auto",
+            }} className="flex justify-center space-x-20 mb-8">
                 <CityButton
                     city="mersin"
                     selectedCity={selectedCity}
