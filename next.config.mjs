@@ -14,14 +14,6 @@ const nextConfig = {
     experimental: {
         optimizeCss: true,
     },
-    async rewrites() {
-        return [
-            {
-                source: '/api/:path*',
-                destination: 'http://31.220.95.127:8083/api/:path*',
-            },
-        ];
-    },
 };
 
 export default nextConfig;

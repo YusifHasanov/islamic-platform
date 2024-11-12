@@ -9,20 +9,14 @@ import {useEffect, useState} from "react";
 import HttpClient from "@/util/HttpClient";
 
 
-export default  function Component() {
+export default function Component() {
     const [books, setBooks] = useState([]);
     useEffect(() => {
-        // HttpClient.get('/books')
-        //     .then(res => res.json())
-        //     .then(books => setBooks(books))
-        //     .catch(err => console.log(err))
-            useEffect(() => {
-                fetch('/api/books')
-                    .then((res) => res.json())
-                    .then((data) => setBooks(data))
-                    .catch((error) => console.error('Fetch error:', error));
-            }, []);
-    },
+            HttpClient.get('/books')
+                .then(res => res.json())
+                .then(books => setBooks(books))
+                .catch(err => console.log(err))
+        },
         [])
 
 
