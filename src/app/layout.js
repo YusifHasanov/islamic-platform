@@ -36,6 +36,7 @@ export default function RootLayout({children}) {
         <html lang="en" className={roboto.className}>
         <head>
             <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests"/>
+            <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"/>
         </head>
         <Head>
             <link rel="canonical" href={domain}/>
