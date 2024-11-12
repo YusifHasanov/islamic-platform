@@ -29,7 +29,7 @@ export default async function ArticlesPage({page, category}) {
         <>
             <Header/>
             <div className="min-h-screen">
-                <div className="px-12 mx-auto p-4">
+                <div className=" px-6 sm:px-12 mx-auto p-4">
                     <h1 className="text-3xl font-bold mb-8 text-gray-800">Son Eklenenler</h1>
                     <div className="flex flex-wrap lg:flex-nowrap gap-10">
                         {/* Makale Kartları */}

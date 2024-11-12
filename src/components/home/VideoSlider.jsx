@@ -9,7 +9,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 export default function VideoSlider() {
     const slides = [
         {
-            videoSrc: 'https://www.youtube.com/embed/ffzoHzwn5d8?si=cI8u6-K9RTzrmPgg', // Videonuzun yolu
+            videoSrc: 'https://www.youtube.com/embed/ffzoHzwn5d8?si=cI8u6-K9RTzrmPgg',
             title: 'HER CUMARTESİ',
             subtitle: 'Sizleri de bekliyoruz!',
             description:
@@ -17,7 +17,7 @@ export default function VideoSlider() {
             buttonText: 'BİZİMLE İLETİŞİME GEÇ',
         },
         {
-            videoSrc: 'https://www.youtube.com/embed/furdMsQ_aJk?si=f6Y3SKpfOzir3j7a', // İkinci video
+            videoSrc: 'https://www.youtube.com/embed/furdMsQ_aJk?si=f6Y3SKpfOzir3j7a',
             title: 'SİZİ BEKLİYORUZ',
             subtitle: 'Bu etkinlik tam size göre!',
             description:
@@ -35,20 +35,25 @@ export default function VideoSlider() {
         >
             {slides.map((slide, index) => (
                 <SwiperSlide key={index} className="relative h-full w-full">
-                    {/* Arka planda video oynatma . */}
-                    <iframe width="560" height="315" src={slide.videoSrc}
-                            title="YouTube video player" frameBorder="0"
-                            className="absolute top-0 left-0 w-full h-full object-cover"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+                    {/* Arka planda video */}
+                    <iframe
+                        src={slide.videoSrc}
+                        title="YouTube video player"
+                        frameBorder="0"
+                        className="absolute top-0 left-0 w-full h-full object-cover"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerPolicy="strict-origin-when-cross-origin"
+                        allowFullScreen
+                    ></iframe>
 
                     {/* Slider içeriği */}
                     <div
-                        className="absolute inset-0 flex items-center justify-end text-white bg-black bg-opacity-50 pr-10">
-                        <div className="text-right space-y-4 max-w-xl">
+                        className="absolute inset-0 flex items-center justify-center lg:justify-end text-white bg-black bg-opacity-50 p-4 md:p-10"
+                    >
+                        <div className="text-center lg:text-right space-y-4 max-w-lg lg:max-w-xl">
                             {/* Başlık animasyonu */}
                             <motion.h1
-                                className="text-5xl font-bold"
+                                className="text-2xl md:text-4xl lg:text-5xl font-bold"
                                 initial={{ opacity: 0, y: -50 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 1 }}
@@ -58,7 +63,7 @@ export default function VideoSlider() {
 
                             {/* Alt başlık animasyonu */}
                             <motion.p
-                                className="text-xl"
+                                className="text-sm md:text-lg lg:text-xl"
                                 initial={{ opacity: 0, y: 50 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 1, delay: 0.5 }}
@@ -68,7 +73,7 @@ export default function VideoSlider() {
 
                             {/* Açıklama animasyonu */}
                             <motion.p
-                                className="text-lg max-w-lg"
+                                className="text-xs md:text-base lg:text-lg max-w-xs md:max-w-md lg:max-w-lg"
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ duration: 1, delay: 1 }}
@@ -79,7 +84,7 @@ export default function VideoSlider() {
                             {/* Buton */}
                             <motion.a
                                 href="#contact"
-                                className="inline-block bg-white text-black py-3 px-6 rounded-lg font-semibold hover:bg-gray-200 transition"
+                                className="inline-block bg-white text-black py-2 px-4 md:py-3 md:px-6 rounded-lg font-semibold hover:bg-gray-200 transition"
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ duration: 1, delay: 1.5 }}

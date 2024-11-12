@@ -25,7 +25,7 @@ const VideoPlayer = async ({playlistId, videoId}) => {
                 backgroundColor: "#1d1f2a",
                 borderBottomLeftRadius: "20px",
                 borderBottomRightRadius: "20px"
-            }} className="w-full py-6 px-8">
+            }} className="w-full py-6 px-4 sm:px-8 ">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {/* Main Video Player Section */}
                     <div className="lg:col-span-2">
