@@ -26,30 +26,35 @@ function ArticleEditor() {
     const [isCategoryOpen, setIsCategoryOpen] = useState(false);
     const authorDropDownRef = useRef(null)
     const categoryDropDownRef = useRef(null)
+
     useEffect(() => {
-        // Yazarları ve kategorileri fetch et
+        // Fetch authors and categories once on component mount
         HttpClient.get('/authors')
-            .then(res => res.json())
-            .then(data => setAuthors(data)).catch(err => console.log(err));
+            .then((res) => res.json())
+            .then((data) => setAuthors(data))
+            .catch((err) => console.error(err));
 
         HttpClient.get('/categories')
-            .then(res => res.json())
-            .then(data => setCategories(data)).catch(err => console.error(err));
+            .then((res) => res.json())
+            .then((data) => setCategories(data))
+            .catch((err) => console.error(err));
+    }, []); // Empty array to run this effect only once
 
-        // Eğer düzenleme modundaysak mevcut makale verilerini al
+    useEffect(() => {
+        // Fetch article data if in edit mode
         if (id) {
-            HttpClient.get(`/articles/${id}`, {"X-Admin-Request": true})
-                .then(res => res.json())
-                .then(data => {
+            HttpClient.get(`/articles/${id}`, { "X-Admin-Request": true })
+                .then((res) => res.json())
+                .then((data) => {
                     console.log(data);
                     setTitle(data.title);
                     setContent(data.content);
                     setImage(data.image);
                     setPublishedAt(new Date(data.publishedAt));
-                    setSelectedAuthors(data.authors.map(a => a.id));
-                    setSelectedCategories(data.categories || []);
+                    setSelectedAuthors(data.authors.map((a) => a.id));
+                    setSelectedCategories(data.categories.map((c) => c.id));
                 })
-                .catch(err => console.error(err));
+                .catch((err) => console.error(err));
         }
     }, [id]);
 
@@ -161,7 +166,7 @@ function ArticleEditor() {
                                     {selectedAuthors.map(author => (
                                         <span key={`author.id_${author.id}`}
                                               className="bg-indigo-100 text-indigo-800 text-xs font-medium px-2 py-0.5 rounded">
-                        {authors.find(a => a.id === author).name}
+                        {authors.find(a => a.id === author)?.name}
                       </span>
                                     ))}
                                 </div>
@@ -182,7 +187,7 @@ function ArticleEditor() {
                                         } cursor-pointer select-none relative py-2 pl-3 pr-9 hover:bg-indigo-100`}
                                         onClick={() => handleAuthorToggle(author)}
                                     >
-                                        <span className="block truncate">{author.name}</span>
+                                        <span className="block truncate">{author?.name}</span>
                                         {selectedAuthors.some(a => a.id === author.id) && (
                                             <span
                                                 className="absolute inset-y-0 right-0 flex items-center pr-4 text-indigo-600">
@@ -213,7 +218,7 @@ function ArticleEditor() {
                                     {selectedCategories.map(author => (
                                         <span key={`selected_category.id_${author}`}
                                               className="bg-indigo-100 text-indigo-800 text-xs font-medium px-2 py-0.5 rounded">
-                        {categories.find(a => a.id === author).name}
+                        {categories.find(a => a.id === author)?.name}
                       </span>
                                     ))}
                                 </div>
@@ -234,7 +239,7 @@ function ArticleEditor() {
                                         } cursor-pointer select-none relative py-2 pl-3 pr-9 hover:bg-indigo-100`}
                                         onClick={() => handleCategoryToggle(author)}
                                     >
-                                        <span className="block truncate">{author.name}</span>
+                                        <span className="block truncate">{author?.name}</span>
                                         {selectedCategories.some(a => a.id === author.id) && (
                                             <span
                                                 className="absolute inset-y-0 right-0 flex items-center pr-4 text-indigo-600">
