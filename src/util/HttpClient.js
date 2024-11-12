@@ -12,7 +12,7 @@ class HttpClient {
     static get(path, headers = null) {
         const customHeaders = headers ??  {};
 
-        return fetch(this.baseUrl + path, {
+        return fetch("/ex-api"+ path, {
             method: 'GET',
             headers: {
                 ...this.defaultHeaders,

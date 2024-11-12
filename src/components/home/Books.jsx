@@ -12,17 +12,11 @@ import HttpClient from "@/util/HttpClient";
 export default function Component() {
     const [books, setBooks] = useState([]);
     useEffect(() => {
-            // HttpClient.get('/books')
-            //     .then(res => res.json())
-            //     .then(books => setBooks(books))
-            //     .catch(err => console.log(err))
-        fetch("/ex-api/books")
-            .then(res => res.json())
-            .then(books => {
-                console.log(books);
-                setBooks(books ?? [])
-            })
-            .catch(err => console.log(err))
+            HttpClient.get('/books')
+                .then(res => res.json())
+                .then(books => setBooks(books))
+                .catch(err => console.log(err))
+
         },
         [])
 
