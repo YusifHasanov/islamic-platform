@@ -18,7 +18,10 @@ export default function Component() {
             //     .catch(err => console.log(err))
         fetch("/ex-api/books")
             .then(res => res.json())
-            .then(books => setBooks(books))
+            .then(books => {
+                console.log(books);
+                setBooks(books ?? [])
+            })
             .catch(err => console.log(err))
         },
         [])
