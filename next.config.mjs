@@ -14,27 +14,7 @@ const nextConfig = {
     experimental: {
         optimizeCss: true,
     },
-    async rewrites() {
-        return [
-            {
-                source: '/api/:path*',
-                destination: `${process.env.NEXT_PUBLIC_BASE_URL}/:path*`,
-            },
-        ];
-    },
-    async headers() {
-        return [
-            {
-                source: '/(.*)',
-                headers: [
-                    {
-                        key: 'Content-Security-Policy',
-                        value: "upgrade-insecure-requests",
-                    },
-                ],
-            },
-        ];
-    },
+
 };
 
 export default nextConfig;
