@@ -34,12 +34,15 @@ export default function RootLayout({children}) {
     const domain = process.env.NEXT_PUBLIC_DOMAIN;
     return (
         <html lang="en" className={roboto.className}>
+        <head>
+            <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests"/>
+        </head>
         <Head>
             <link rel="canonical" href={domain}/>
             <link rel="preconnect" href="https://fonts.googleapis.com"/>
             <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true"/>
             <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"/>
-            <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests"/>
+            {/*<meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests"/>*/}
         </Head>
         <body
             className={`${geistSans.variable} ${geistMono.variable} antialiased`}
