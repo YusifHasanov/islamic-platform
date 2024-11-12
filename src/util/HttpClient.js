@@ -1,7 +1,8 @@
 import {BASE_URL} from "@/util/Const";
 
 class HttpClient {
-    static baseUrl = BASE_URL
+    // static baseUrl = BASE_URL
+    static baseUrl = '/ex-api'
 
 
     static defaultHeaders = {

@@ -1,3 +1,2 @@
-// export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
-export const BASE_URL = "/ex-api";
+export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
