@@ -120,6 +120,12 @@ function ArticleEditor() {
         }
     };
 
+    const handleContentChange = (e) => {
+        // Only update state if the new content is different
+        if (e.htmlValue !== content) {
+            setContent(e.htmlValue);
+        }
+    };
 
     return (
         <div className="max-w-6xl mx-auto p-6 bg-white rounded-lg shadow-lg">
@@ -141,8 +147,7 @@ function ArticleEditor() {
 
                     <div className="mb-6">
 
-                        <Editor value={content} onTextChange={(e) => setContent(e.htmlValue)}
-                                style={{height: '250px'}}/>
+                        <Editor value={content} onTextChange={handleContentChange} style={{height: '250px'}}/>
 
                     </div>
 
