@@ -10,12 +10,12 @@ const VideoPlayer = async ({playlistId, videoId}) => {
     }
 
     const videRes = await fetch(`${BASE_URL}/videos?playlistId=${playlistId}`, {
-        next: { revalidate: 60 },
+        next: {revalidate: 60},
     });
     const videos = await videRes.json();
 
     const playlistRes = await fetch(`${BASE_URL}/playlists/${playlistId}`, {
-        next: { revalidate: 60 },
+        next: {revalidate: 60},
     });
     const playlist = await playlistRes.json();
 
@@ -51,8 +51,9 @@ const VideoPlayer = async ({playlistId, videoId}) => {
                         <h3 className="text-white text-xl bg-gray-600 p-4 font-semibold mb-4">{playlist.title}</h3>
                         <div className="space-y-4  max-h-[470px] overflow-y-auto px-3">
                             {videos.map((video, id) => (
-                                <Link href={`/videos?playlistId=${playlistId}&videoId=${video.videoId}`} key={id}
-                                      className="flex videosItem items-center space-x-4">
+                                <Link href={`/videos?playlistId=${playlistId}&videoId=${video.videoId}`}
+                                      key={id}
+                                      className={`flex videosItem items-center space-x-4 ${(videoId == null && id === 0) || video.videoId === videoId ? "bg-gray-800" : ""}`}>
                                     <img
                                         src={video.thumbnail.split("+")[2]}
                                         alt="Video Thumbnail"
