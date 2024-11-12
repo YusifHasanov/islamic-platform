@@ -26,35 +26,30 @@ function ArticleEditor() {
     const [isCategoryOpen, setIsCategoryOpen] = useState(false);
     const authorDropDownRef = useRef(null)
     const categoryDropDownRef = useRef(null)
-
     useEffect(() => {
-        // Fetch authors and categories once on component mount
+        // Yazarları ve kategorileri fetch et
         HttpClient.get('/authors')
-            .then((res) => res.json())
-            .then((data) => setAuthors(data))
-            .catch((err) => console.error(err));
+            .then(res => res.json())
+            .then(data => setAuthors(data)).catch(err => console.log(err));
 
         HttpClient.get('/categories')
-            .then((res) => res.json())
-            .then((data) => setCategories(data))
-            .catch((err) => console.error(err));
-    }, []); // Empty array to run this effect only once
+            .then(res => res.json())
+            .then(data => setCategories(data)).catch(err => console.error(err));
 
-    useEffect(() => {
-        // Fetch article data if in edit mode
+        // Eğer düzenleme modundaysak mevcut makale verilerini al
         if (id) {
-            HttpClient.get(`/articles/${id}`, { "X-Admin-Request": true })
-                .then((res) => res.json())
-                .then((data) => {
+            HttpClient.get(`/articles/${id}`, {"X-Admin-Request": true})
+                .then(res => res.json())
+                .then(data => {
                     console.log(data);
                     setTitle(data.title);
                     setContent(data.content);
                     setImage(data.image);
                     setPublishedAt(new Date(data.publishedAt));
-                    setSelectedAuthors(data.authors.map((a) => a.id));
-                    setSelectedCategories(data.categories.map((c) => c.id));
+                    setSelectedAuthors(data.authors.map(a => a.id));
+                    setSelectedCategories(data.categories || []);
                 })
-                .catch((err) => console.error(err));
+                .catch(err => console.error(err));
         }
     }, [id]);
 
