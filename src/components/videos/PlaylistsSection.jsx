@@ -10,6 +10,10 @@ const PlaylistsSection = async ({playlistId}) => {
     });
     const playlists = await res.json();
 
+    const isCurrentPlaylist = (id)=>{
+        return playlistId === id ? "bg-slate-200" : "";
+    }
+
     return (
         <div className="min-h-screen bg-gray-100 py-8">
             <div className="py-3 mx-auto px-7">
@@ -31,9 +35,9 @@ const PlaylistsSection = async ({playlistId}) => {
                             <img
                                 src={playlist.thumbnail.split("+")[2]}
                                 alt={playlist.title}
-                                className="w-full h-50 object-cover mb-1"
+                                className="w-full h-50 object-cover "
                             />
-                            <div className="px-4 min-h-20 flex flex-col justify-between pb-1">
+                            <div className={`px-4 pt-1 min-h-20 flex flex-col justify-between pb-1 ${isCurrentPlaylist(playlist.playlistId)}`}>
                                 <h3 className="text-lg font-semibold">{playlist.title}</h3>
                                 <p className="text-gray-500 text-center">{playlist.videoCount} Video</p>
                             </div>

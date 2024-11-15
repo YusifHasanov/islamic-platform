@@ -6,7 +6,7 @@ const Videos = ({playlistId,videoId}) => {
     return (
         <>
             <VideoPlayer playlistId={playlistId} videoId={videoId} />
-            <PlaylistsSection/>
+            <PlaylistsSection playlistId={playlistId} />
         </>
         //dsada
     );
