@@ -1,5 +1,5 @@
 'use client'
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Link from "next/link";
 import {usePathname} from "next/navigation";
 
@@ -10,6 +10,11 @@ const Navbar = () => {
     const isActive = (href) => {
         return pathname === href ? "text-[#F7E652]" : "text-white";
     };
+
+    useEffect(() => {
+        setIsOpen(false);
+    }, [pathname]);
+
 
     return (
         <nav className="bg-[#007A4C]">

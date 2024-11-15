@@ -30,11 +30,11 @@ export default async function ArticlesPage({page, category}) {
             <Header/>
             <div className="min-h-screen">
                 <div className=" px-6 sm:px-12 mx-auto p-4">
-                    <h1 className="text-3xl font-bold mb-8 text-gray-800">Son Eklenenler</h1>
+                    <h1 className="text-3xl font-bold sm:text-left text-center mb-8 text-gray-800">Son Eklenenler</h1>
                     <div className="flex flex-wrap lg:flex-nowrap gap-10">
                         {/* Makale Kartları */}
                         <div style={{gridTemplateRows: "repeat(2, 350px)"}}
-                             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                             className="grid grid-cols-1 mx-auto md:grid-cols-2 lg:grid-cols-3 gap-6">
                             { content &&
                                 content.map((item, id) => (
                                     <ArticleCard
