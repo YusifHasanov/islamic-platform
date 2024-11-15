@@ -5,11 +5,14 @@ import Link from "next/link";
 export const revalidate = 60;
 
 // Main Component
-const MostReadArticles = async () => {
+const MostReadArticles = async ({article}) => {
 
     const res = await fetch(`${BASE_URL}/articles/popular`)
     const articles = await res.json();
 
+    const isCurrentArticle = (id) => {
+        return id.toString() === article.id.toString() ? "text-[#fcb900]" : "";
+    }
 
     return (
         <div className="max-w-md mx-auto">
@@ -17,14 +20,16 @@ const MostReadArticles = async () => {
             <div className="space-y-6">
                 {articles.map((item, index) => (
                     <React.Fragment key={index}>
-                        <Link href={`/articles/${item.id}`} className="flex   space-x-4 mb-8">
-                            <img src={item.image} alt={item.title} className="w-40 cursor-pointer h-24 object-cover rounded-lg" />
+                        <Link href={`/articles/${item.id}`} className={`flex space-x-4 mb-8`}>
+                            <img src={item.image} alt={item.title}
+                                 className="w-40 cursor-pointer h-24 object-cover rounded-lg"/>
                             <div className="">
-                                <h3  style={{fontSize:"15px"}}  className="mb-4 cursor-pointer hover:text-[#fcb900] font-normal text-gray-800">{item.title}</h3>
-                                <p className="text-xs text-gray-500">{item.publishedAt}</p>
+                                <h3 style={{fontSize: "15px"}}
+                                    className={`${isCurrentArticle(item.id)} mb-4 cursor-pointer hover:text-[#fcb900] font-normal text-gray-800`}>{item.title}</h3>
+                                <p className={`text-xs text-gray-500 ${isCurrentArticle(item.id)}`}>{item.publishedAt}</p>
                             </div>
                         </Link>
-                        {index !== articles.length - 1 && <hr className="border-gray-300" />}
+                        {index !== articles.length - 1 && <hr className="border-gray-300"/>}
                     </React.Fragment>
                 ))}
             </div>

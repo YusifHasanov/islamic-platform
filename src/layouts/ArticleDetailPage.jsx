@@ -82,7 +82,7 @@ const ArticleDetail = async ({article}) => {
                     </div>
                     <ArticleApiCount/>
 
-                    <MostReadArticles/>
+                    <MostReadArticles article={article}/>
                 </div>
             </div>
         </div>
