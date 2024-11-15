@@ -1,5 +1,5 @@
 'use client'
-import {useEffect, useState} from "react";
+import {useEffect, useLayoutEffect, useState} from "react";
 import Link from "next/link";
 import {usePathname} from "next/navigation";
 
@@ -11,10 +11,9 @@ const Navbar = () => {
         return pathname === href ? "text-[#F7E652]" : "text-white";
     };
 
-    useEffect(() => {
-        setIsOpen(false);
-    }, [pathname]);
-
+    const handleClick = () => {
+        setIsOpen(!isOpen);
+    }
 
     return (
         <nav className="bg-[#007A4C]">
@@ -91,31 +90,36 @@ const Navbar = () => {
                 </div>
             </div>
 
-            <div className={`md:hidden ${isOpen ? "block" : "hidden"}`}>
+            <div
+                className={`md:hidden transition-all duration-500 ease-in-out ${
+                    isOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
+                } overflow-hidden`}
+            >
                 <div className="px-2 pt-2 pb-3 space-y-1">
-                    <Link href="/" className={`${isActive("/")} block px-3 py-2 rounded-md text-base font-medium`}>
+                    <Link onClick={handleClick} href="/"
+                          className={`${isActive("/")} block px-3 py-2 rounded-md text-base font-medium`}>
                         ANASAYFA
                     </Link>
-                    <Link href="/videos"
+                    <Link onClick={handleClick} href="/videos"
                           className={`${isActive("/videos")} block px-3 py-2 rounded-md text-base font-medium`}>
                         SOHBETLER
                     </Link>
-                    <Link href="/articles"
+                    <Link onClick={handleClick} href="/articles"
                           className={`${isActive("/articles")} block px-3 py-2 rounded-md text-base font-medium`}>
                         MAKALELER
                     </Link>
-                    <Link href="/about"
+                    <Link onClick={handleClick} href="/about"
                           className={`${isActive("/about")} block px-3 py-2 rounded-md text-base font-medium`}>
                         HAKKIMIZDA
                     </Link>
-                    <Link href="/contact"
+                    <Link onClick={handleClick} href="/contact"
                           className={`${isActive("/contact")} block px-3 py-2 rounded-md text-base font-medium`}>
                         İLETİŞİM
                     </Link>
-                    <Link href="/bagis"
-                          className="bg-[#F7E652] text-[#007A4C] block px-3 py-2 rounded-md text-base font-medium">
-                        BAĞIŞ
-                    </Link>
+                    {/*<Link href="/bagis"*/}
+                    {/*      className="bg-[#F7E652] text-[#007A4C] block px-3 py-2 rounded-md text-base font-medium">*/}
+                    {/*    BAĞIŞ*/}
+                    {/*</Link>*/}
                 </div>
             </div>
         </nav>
