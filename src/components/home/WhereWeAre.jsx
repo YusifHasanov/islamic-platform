@@ -188,12 +188,10 @@ const WhereWeAre = () => {
                 <h2 className="whereWeAreTitle ">NEREDEYİZ?</h2>
             </div>
 
-            {/* Şehirler Butonları */}
-            <div style={{
-                width:"max-content",
-                marginLeft:"auto",
-                marginRight:"auto",
-            }} className="flex justify-center space-x-20 mb-8">
+            <div
+                className="pb-8 flex flex-wrap justify-center gap-4 md:gap-8 mb-8 px-4"
+                style={{width: "100%", maxWidth: "600px", margin: "0 auto"}}
+            >
                 <CityButton
                     city="mersin"
                     selectedCity={selectedCity}
