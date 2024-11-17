@@ -8,7 +8,13 @@ const Navbar = () => {
     const pathname = usePathname()
 
     const isActive = (href) => {
-        return pathname === href ? "text-[#F7E652]" : "text-white";
+        if (href !== "/" && pathname.startsWith(href)) {
+            return "text-[#F7E652]";
+        }
+        if (href === "/" && pathname === "/") {
+            return "text-[#F7E652]";
+        }
+        return "text-white";
     };
 
     const handleClick = () => {
