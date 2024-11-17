@@ -11,7 +11,7 @@ const PlaylistsSection = async ({playlistId}) => {
     const playlists = await res.json();
 
     const isCurrentPlaylist = (id)=>{
-        return playlistId === id ? "bg-slate-200" : "";
+        return playlistId == id ? "bg-slate-200" : "";
     }
 
     return (
