@@ -41,7 +41,7 @@ class HttpClient {
     }
 
     static async put(path, body, headers = null) {
-        const customHeaders = headers ? Object.fromEntries(headers) : {};
+        const customHeaders = headers ?? {};
         const response = await fetch(this.baseUrl + path, {
             method: 'PUT',
             body: JSON.stringify(body),

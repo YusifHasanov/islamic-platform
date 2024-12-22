@@ -2,15 +2,15 @@
 import React, {useEffect} from 'react';
 import {useParams} from "next/navigation";
 import {BASE_URL} from "@/util/Const";
+import HttpClient from "@/util/HttpClient";
 
 const ArticleApiCount = () => {
     const {id} = useParams();
 
     useEffect(() => {
-        fetch(`${BASE_URL}/articles/count/${id}`, {
-            method: "PUT",
-            contentType: "application/json",
-        }).catch((err) => console.log(err));
+        HttpClient.put(`/articles/count/${id}`,null)
+            .then(res => console.log(res))
+            .catch((err) => console.log(err));
     }, [])
 
     return (<></>);

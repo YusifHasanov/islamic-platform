@@ -6,18 +6,18 @@ import Link from "next/link";
 import {BASE_URL} from "@/util/Const";
 import {Button} from "primereact/button";
 import {InputText} from "primereact/inputtext";
+import HttpClient from "@/util/HttpClient";
 
 const BookList = () => {
     const [books, setBooks] = useState([]);
 
     useEffect(() => {
-        fetch(`http://31.220.95.127:8083/api/books`)
+        HttpClient.get("/books")
             .then(r => r.json())
             .then(books => {
                 setBooks(books)
                 console.log(books)
             })
-
             .catch(e => console.error("Error fetching books:", e));
     }, []);
 
