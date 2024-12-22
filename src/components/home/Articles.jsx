@@ -15,7 +15,7 @@ const Articles =  async () => {
                 Mehmet Yıldız'ın kaleminden, iman hakikatleri, siyer, fıkıh, sahabeler ve birçok önemli konuda derinleşen makaleleriyle sizlere bilgi dolu bir platform sunuyoruz. İslam’ın temel prensiplerini anlamak, tarih boyunca yaşanmış örnekleri keşfetmek ve günlük hayatımıza anlam katmak için yazıldı.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto px-4">
-                {articles.map((article, idx) => (
+                {articles?.map((article, idx) => (
 
                     <ArticleCard
                         id={article.id}
