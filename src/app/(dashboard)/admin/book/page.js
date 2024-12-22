@@ -11,7 +11,7 @@ const BookList = () => {
     const [books, setBooks] = useState([]);
 
     useEffect(() => {
-        fetch(`http://31.220.95.127:8082/api/books`)
+        fetch(`http://31.220.95.127:8083/api/books`)
             .then(r => r.json())
             .then(books => {
                 setBooks(books)
