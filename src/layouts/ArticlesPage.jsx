@@ -54,7 +54,7 @@ export default async function ArticlesPage({page, category}) {
                             <PopularArticles/>
                         </aside>
                     </div>
-                    <Pagination currentPage={data.pageable.pageNumber} totalPages={data.totalPages}/>
+                    <Pagination currentPage={data?.pageable?.pageNumber} totalPages={data.totalPages}/>
                     {/*<OtherArticleList/>*/}
                 </div>
             </div>
