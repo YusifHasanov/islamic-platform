@@ -1,18 +1,11 @@
 'use client';
 import React, {useEffect, useState} from 'react';
-import { BASE_URL } from "@/util/Const";
 import Link from "next/link";
 import HttpClient from "@/util/HttpClient";
 
-const fetchCategories = async () => {
-    const res = await fetch(`${BASE_URL}/categories`, {
-        next: { revalidate: 60 },
-    });
-    return await res.json();
-};
 
 const ArticleCategories =  ({ page, category }) => {
-    // const categories = await fetchCategories();
+
     const [categories,setCategories]= useState([]);
     useEffect(() => {
         HttpClient.get("/categories",{
@@ -21,10 +14,11 @@ const ArticleCategories =  ({ page, category }) => {
         .then(data => setCategories(data))
         .catch(err => console.error(err));
     }, []);
-    // State to track which categories are expanded
+
+
     const [expanded, setExpanded] = useState({});
 
-    // Toggle accordion for a specific category
+
     const toggleAccordion = (id) => {
         setExpanded((prev) => ({
             ...prev,
@@ -32,7 +26,7 @@ const ArticleCategories =  ({ page, category }) => {
         }));
     };
 
-    // Render categories and subcategories recursively
+
     const renderCategoryTree = (parentId = null) => {
         const filteredCategories = categories.filter(cat => cat.parentId === parentId);
 

@@ -7,23 +7,21 @@ import OtherArticleList from "@/components/articles/OtherArticleList";
 import {BASE_URL} from "@/util/Const";
 import Pagination from "@/components/articles/Pagination";
 
-export const revalidate = 60; // ISR: 60 saniyede bir yeniden oluştur
+export const revalidate = 60;
 const PAGE_SIZE = 6;
 
 
 export default async function ArticlesPage({page, category}) {
     page = parseInt(page || '0', 10);
 
-    // API'den veri çek ve sayfalama parameterizing ekle
     category = parseInt(category || '0', 0);
 
     const res = await fetch(`${BASE_URL}/articles?page=${page}&size=${PAGE_SIZE}&categoryId=${category}`, {
         next: { revalidate: 60 },
     });
+
     const data = await res.json();
     const {content, pageable} = data;
-    console.log(data);
-
 
     return (
         <>
@@ -57,7 +55,7 @@ export default async function ArticlesPage({page, category}) {
                         </aside>
                     </div>
                     <Pagination currentPage={data.pageable.pageNumber} totalPages={data.totalPages}/>
-                    <OtherArticleList/>
+                    {/*<OtherArticleList/>*/}
                 </div>
             </div>
         </>
