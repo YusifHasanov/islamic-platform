@@ -36,7 +36,7 @@ const CategoriesAdmin = () => {
         e.preventDefault();
         try {
             if (isEditing) {
-                 HttpClient.put(`/categories/${formData.id}`, formData)
+                HttpClient.put(`/categories/${formData.id}`, formData)
                     .then(_ =>
                         toast.current.show({
                             severity: 'success',
@@ -44,6 +44,7 @@ const CategoriesAdmin = () => {
                             detail: "Category updated successfully"
                         })
                     )
+                    .then(async _ => await fetchCategories())
                     .catch(err =>
                         toast.current.show({
                             severity: 'error',
@@ -52,23 +53,23 @@ const CategoriesAdmin = () => {
                         })
                     );
             } else {
-                 HttpClient.post('/categories', formData)
-                     .then(_ =>
-                     toast.current.show({
-                         severity: 'success',
-                         summary: 'Success',
-                         detail: "Category created successfully"
-                     })
-                 )
-                     .catch(err =>
-                         toast.current.show({
-                             severity: 'error',
-                             summary: 'Error',
-                             detail: err.message
-                         })
-                     );
+                HttpClient.post('/categories', formData)
+                    .then(_ =>
+                        toast.current.show({
+                            severity: 'success',
+                            summary: 'Success',
+                            detail: "Category created successfully"
+                        })
+                    )
+                    .then(async _ => await fetchCategories())
+                    .catch(err =>
+                        toast.current.show({
+                            severity: 'error',
+                            summary: 'Error',
+                            detail: err.message
+                        })
+                    );
             }
-            await fetchCategories();
             resetForm();
         } catch (err) {
             console.error('Failed to save category:', err);
@@ -123,21 +124,23 @@ const CategoriesAdmin = () => {
         return (
             <ul className="pl-4 border-l border-gray-300">
                 {filteredCategories.map((category) => (
-                    <li key={category.id} className="mb-2">
-                        <div className="flex items-center space-x-2">
-                            {categories.some((cat) => cat.parentId === category.id) && (
-                                <button
-                                    onClick={() => toggleNode(category.id)}
-                                    className="text-gray-600 hover:text-gray-800"
-                                >
-                                    {expandedNodes.includes(category.id) ? (
-                                        <ChevronDown className="w-6 h-6"/>
-                                    ) : (
-                                        <ChevronRight className="w-6 h-6"/>
-                                    )}
-                                </button>
-                            )}
+                    <li key={category.id} className="mt-3">
+                        <div className="flex justify-between items-center w-full  space-x-2 border-2 rounded-lg p-1 ">
+                        <span>
+                                {categories.some((cat) => cat.parentId === category.id) && (
+                                    <button
+                                        onClick={() => toggleNode(category.id)}
+                                        className="text-gray-600 hover:text-gray-800"
+                                    >
+                                        {expandedNodes.includes(category.id) ? (
+                                            <ChevronDown className="w-6 h-6"/>
+                                        ) : (
+                                            <ChevronRight className="w-6 h-6"/>
+                                        )}
+                                    </button>
+                                )}
                             <span className="text-xl font-medium text-gray-700">{category.name}</span>
+                        </span>
                             <div className="flex space-x-2">
                                 <button
                                     onClick={() => handleEdit(category)}

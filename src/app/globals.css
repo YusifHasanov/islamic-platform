@@ -92,9 +92,9 @@
     font-weight: bold;
 }
 
-.categoriesList  li:hover {
-    color: #FFFFFF;
-    background-color: #FCB900;
+.categoriesList  li:hover .categoryLink {
+    color: #000;
+    /*background-color: #FCB900;*/
 }
 
 

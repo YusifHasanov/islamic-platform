@@ -52,7 +52,7 @@ function ArticleList() {
 
         selectedArticles.forEach((article) => {
             HttpClient.delete(`/articles/${article}`)
-                .then(r => alert('Selected articles deleted successfully.'))
+                .then(r => console.log('Selected articles deleted successfully.'))
                 .catch(err => {
                     console.error('Error deleting articles:', err);
 
@@ -78,9 +78,12 @@ function ArticleList() {
             <div className="articles">
                 <p>No articles found</p>
                 <div className="flex items-center mb-2 space-x-2">
-                    <Button>
-                        <Link href={'/admin/articles/create'}>Create</Link>
-                    </Button>
+
+                    <Link href={'/admin/articles/create'}>
+                        <Button>
+                            Create
+                        </Button>
+                    </Link>
                 </div>
             </div>
         );

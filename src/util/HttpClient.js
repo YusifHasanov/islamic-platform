@@ -69,10 +69,9 @@ class HttpClient {
         });
 
         if (!response.ok) {
-            const errorResponse = await response.json();
-            throw new Error(errorResponse.message || 'Request failed with status ' + response.status);
+            throw new Error('Request failed with status ' + response.status);
         }
-        return response.json();
+        return response;
     }
 }
 
