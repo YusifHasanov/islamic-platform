@@ -27,7 +27,7 @@ function ArticleEditor() {
     const authorDropDownRef = useRef(null)
     const categoryDropDownRef = useRef(null)
     useEffect(() => {
-        // Yazarları ve kategorileri fetch et
+
         HttpClient.get('/authors')
             .then(res => res.json())
             .then(data => setAuthors(data)).catch(err => console.log(err));
@@ -36,7 +36,7 @@ function ArticleEditor() {
             .then(res => res.json())
             .then(data => setCategories(data)).catch(err => console.error(err));
 
-        // Eğer düzenleme modundaysak mevcut makale verilerini al
+
         if (id) {
             HttpClient.get(`/articles/${id}`, {"X-Admin-Request": true})
                 .then(res => res.json())
@@ -66,7 +66,7 @@ function ArticleEditor() {
     }
 
 
-    // Görsel yükleme işlemi
+
     const handleImageUpload = (e) => {
         const file = e.target.files[0];
         if (file) {
@@ -121,7 +121,7 @@ function ArticleEditor() {
     };
 
     const handleContentChange = (e) => {
-        // Only update state if the new content is different
+
         if (e.htmlValue !== content) {
             setContent(e.htmlValue);
         }
@@ -147,7 +147,7 @@ function ArticleEditor() {
 
                     <div className="mb-6">
 
-                        <Editor value={content} onTextChange={handleContentChange} style={{height: '250px'}}/>
+                        <Editor value={content} onTextChange={handleContentChange} style={{minHeight: '400px'}}/>
 
                     </div>
 

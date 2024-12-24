@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import React, {useState, useEffect, use} from 'react';
-import {FaClock, FaUser} from "react-icons/fa";
-import {BASE_URL} from "@/util/Const";
-import {useRouter, notFound} from "next/navigation";
+import React, { useState, useEffect, use } from 'react';
+import { FaClock, FaUser } from "react-icons/fa";
+import { BASE_URL } from "@/util/Const";
+import { useRouter } from "next/navigation";
 import HttpClient from "@/util/HttpClient";
 
-const Page = ({params}) => {
-    const {id} = use(params);
+const Page = ({ params }) => {
+    const { id } = use(params);
     const router = useRouter();
 
     const [book, setBook] = useState(null);
@@ -44,8 +44,8 @@ const Page = ({params}) => {
 
     // Handle form input changes
     const handleInputChange = (e) => {
-        const {name, value} = e.target;
-        setFormData((prev) => ({...prev, [name]: value}));
+        const { name, value } = e.target;
+        setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
     // Handle image change
@@ -54,7 +54,7 @@ const Page = ({params}) => {
         if (file) {
             const reader = new FileReader();
             reader.onloadend = () => {
-                setFormData((prev) => ({...prev, image: reader.result}));
+                setFormData((prev) => ({ ...prev, image: reader.result }));
             };
             reader.readAsDataURL(file);
         }
@@ -109,83 +109,82 @@ const Page = ({params}) => {
     };
 
     if (!book) {
-        return <p>Loading...</p>;
+        return <div className="flex items-center justify-center h-screen"><p className="text-lg text-gray-700">Loading...</p></div>;
     }
 
     return (
-        <div className="max-w-4xl mx-auto p-4">
-            <div className="flex justify-between items-center mb-4">
-                <h1 className="text-3xl font-bold">Edit Book</h1>
+        <div className="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg space-y-6">
+            <div className="flex justify-between items-center">
+                <h1 className="text-2xl font-bold text-gray-800">Edit Book</h1>
             </div>
 
-            <div className="flex justify-between items-center mb-4">
-                <div className="flex items-center space-x-2">
-                    <FaUser className="text-gray-500"/>
-                    <span className="text-gray-700 font-medium">Author:</span>
-                    <select
-                        name="authorId"
-                        value={formData.authorId}
-                        onChange={handleInputChange}
-                        className="border p-2 rounded"
-                    >
-                        <option value="">Select Author</option>
-                        {authors.map((author) => (
-                            <option key={author.id} value={author.id}>
-                                {author.name}
-                            </option>
-                        ))}
-                    </select>
-                </div>
+            <div>
+                <label className="block text-sm font-medium text-gray-600 mb-1">Author:</label>
+                <select
+                    name="authorId"
+                    value={formData.authorId}
+                    onChange={handleInputChange}
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2"
+                >
+                    <option value="">Select Author</option>
+                    {authors.map((author) => (
+                        <option key={author.id} value={author.id}>
+                            {author.name}
+                        </option>
+                    ))}
+                </select>
             </div>
 
-            <div className="mb-4">
-                <label className="block text-gray-700 font-medium">Title:</label>
+            <div>
+                <label className="block text-sm font-medium text-gray-600 mb-1">Title:</label>
                 <input
                     type="text"
                     name="title"
                     value={formData.title}
                     onChange={handleInputChange}
-                    className="w-full border p-2 rounded"
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2"
+                    placeholder="Enter book title"
                 />
             </div>
 
-            <div className="mb-4">
-                <label className="block text-gray-700 font-medium">Change Image:</label>
+            <div>
+                <label className="block text-sm font-medium text-gray-600 mb-1">Change Image:</label>
                 <input
                     type="file"
                     accept="image/*"
                     onChange={handleImageChange}
-                    className="w-full border p-2 rounded"
+                    className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:border-0 file:text-sm file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                 />
+                {formData.image && (
+                    <div className="mt-4">
+                        <img
+                            src={formData.image}
+                            alt={formData.title}
+                            className="w-full h-64 object-cover rounded-lg"
+                        />
+                    </div>
+                )}
             </div>
 
-            {formData.image && (
-                <img
-                    src={formData.image}
-                    alt={formData.title}
-                    className="w-full h-80 object-cover rounded-lg mb-4"
-                />
-            )}
-
-            <div className="text-gray-500 mb-4">
-                <FaClock className="inline mr-1"/>
+            <div className="text-gray-600">
+                <FaClock className="inline mr-2 text-gray-400" />
                 <span>Published: {book.publishedDate}</span>
             </div>
 
-            <div className="flex space-x-2">
+            <div className="flex justify-end space-x-4">
                 <button
                     onClick={handleSave}
-                    className="bg-blue-500 text-white px-4 py-2 rounded"
+                    className="bg-blue-500 hover:bg-blue-600 text-white px-5 py-2 rounded-lg shadow"
                     disabled={loading}
                 >
-                    {loading ? 'Saving...' : 'Save'}
+                    {loading ? 'Saving...' : 'Save Changes'}
                 </button>
                 <button
                     onClick={handleDelete}
-                    className="bg-red-500 text-white px-4 py-2 rounded"
+                    className="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-lg shadow"
                     disabled={loading}
                 >
-                    {loading ? 'Deleting...' : 'Delete'}
+                    {loading ? 'Deleting...' : 'Delete Book'}
                 </button>
             </div>
         </div>

@@ -1,7 +1,6 @@
 'use client'
 import React, {useEffect} from 'react';
 import {useParams} from "next/navigation";
-import {BASE_URL} from "@/util/Const";
 import HttpClient from "@/util/HttpClient";
 
 const ArticleApiCount = () => {

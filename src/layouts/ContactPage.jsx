@@ -26,13 +26,7 @@ const ContactPage = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch(`${BASE_URL}/contact`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await  HttpClient.post("/contact", formData)
 
       if (response.ok) {
         toast.current.show({severity: 'success', summary: 'Success', detail: 'Mesajınız başarıyla gönderildi!'});
@@ -44,7 +38,7 @@ const ContactPage = () => {
 
     } catch (error) {
       console.error('API hatası:', error);
-      setResponseMessage('Bir hata oluştu. Lütfen tekrar deneyin.');
+      toast.current.show({severity: 'error', summary: 'Error', detail: 'Bir hata oluştu. Lütfen tekrar deneyin.'});
     }
 
     setIsLoading(false);
