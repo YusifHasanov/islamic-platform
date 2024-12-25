@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { ChevronDown } from 'lucide-react';
 import HttpClient from '@/util/HttpClient';
 import { usePathname } from 'next/navigation';
+import Image from 'next/image'
 
 const staticMenuItems = [
     {
@@ -32,12 +33,13 @@ const staticMenuItems = [
 const Navbar = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [menuItems, setMenuItems] = useState([]);
-    const [openSubMenu, setOpenSubMenu] = useState(null); // Submenu state
+    const [openSubMenu, setOpenSubMenu] = useState(null);
     const pathname = usePathname();
 
     useEffect(() => {
         HttpClient.get('/categories/menu', {
-            revalidate: 600,
+            next: { revalidate: 3600 },
+            cache: 'force-cache'
         })
             .then((res) => res.json())
             .then((res) => setMenuItems([...res, ...staticMenuItems]))
@@ -128,9 +130,10 @@ const Navbar = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
                     <div className="flex items-center">
+                        <Image height={60} width={60} src={"/esm_logo.png"} alt={"logo"} />
                         <div className="flex-shrink-0">
                             <span className="text-white font-bold text-lg">
-                                <Link href={'/'}>
+                                <Link onClick={handleClick} href={'/'}>
                                     <span className="text-[#F7E652]">Əhli Sünnə </span>Mədrəsəsi
                                 </Link>
                             </span>
