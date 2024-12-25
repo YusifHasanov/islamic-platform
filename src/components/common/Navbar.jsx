@@ -60,7 +60,7 @@ const Navbar = () => {
 
     const toggleSubMenu = (name) => {
         setOpenSubMenu(openSubMenu === name ? null : name); // Toggle submenu state
-        handleClick();
+
     };
 
 
