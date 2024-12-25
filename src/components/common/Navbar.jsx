@@ -60,7 +60,11 @@ const Navbar = () => {
 
     const toggleSubMenu = (name) => {
         setOpenSubMenu(openSubMenu === name ? null : name); // Toggle submenu state
+        handleClick();
     };
+
+
+
 
     const href = (id) => {
         return `/search?categoryId=${id}`;
@@ -69,6 +73,7 @@ const Navbar = () => {
     const renderSubcategories = (subcategories) => {
         return subcategories.map((subItem) => (
             <Link
+                onClick={() => toggleSubMenu(subItem.name)}
                 key={subItem.name}
                 href={subItem.href ?? href(subItem.id)}
                 className="block px-4 py-2 text-sm hover:bg-gray-200  rounded"
@@ -83,6 +88,7 @@ const Navbar = () => {
             <div key={item.name} className="relative menu-item">
                 <div className="flex justify-between items-center">
                     <Link
+                        onClick={() => toggleSubMenu(item.name)}
                         href={item.href ?? href(item.id)}
                         className={`${isActive(item.href ?? href(item.id))} hover:text-[#F7E652]`}
                     >
