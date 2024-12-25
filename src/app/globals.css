@@ -19,7 +19,9 @@
 /*  background: var(--background);*/
 /*  font-family: Arial, Helvetica, sans-serif;*/
 /*}*/
-
+html {
+    scroll-behavior: smooth;
+}
 
 .videosItem:hover {
     cursor: pointer;
@@ -192,11 +194,11 @@ nav {
 }
 
 .submenu {
-    display: none;
-    position: absolute;
-    left: 80%; /* Alt kategorinin sağda görünmesi için */
-    top: 100%;
+    display: none; /* Hover'dan tıkla açılmaya geçiyoruz */
     background: white;
+    position: absolute;
+    left: 80%; /* Sağda görünmesi için */
+    top: 100%;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     z-index: 10;
     padding: 0.5rem;
@@ -207,12 +209,18 @@ nav {
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.menu-item:hover > .submenu,
-.submenu-item:hover > .submenu {
+.submenu.show {
     display: block;
     opacity: 1;
     transform: translateY(0);
 }
+
+/*.menu-item:hover > .submenu,*/
+/*.submenu-item:hover > .submenu {*/
+/*    display: block;*/
+/*    opacity: 1;*/
+/*    transform: translateY(0);*/
+/*}*/
 
 /* Mobil için hover ve renk düzenlemeleri */
 @media (max-width: 768px) {

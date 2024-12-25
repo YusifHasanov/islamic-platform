@@ -71,7 +71,7 @@ const Navbar = () => {
             <Link
                 key={subItem.name}
                 href={subItem.href ?? href(subItem.id)}
-                className="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-800 hover:text-[#F7E652] rounded"
+                className="block px-4 py-2 text-sm hover:bg-gray-200  rounded"
             >
                 {subItem.name}
             </Link>
