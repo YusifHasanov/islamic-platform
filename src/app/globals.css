@@ -181,3 +181,81 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
+
+nav {
+    background: linear-gradient(90deg, #007A4C, #004D2B);
+
+}
+
+.menu-item {
+    position: relative;
+}
+
+.submenu {
+    display: none;
+    position: absolute;
+    left: 80%; /* Alt kategorinin sağda görünmesi için */
+    top: 100%;
+    background: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    padding: 0.5rem;
+    width: 200px;
+    border-radius: 10px;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.menu-item:hover > .submenu,
+.submenu-item:hover > .submenu {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Mobil için hover ve renk düzenlemeleri */
+@media (max-width: 768px) {
+    .menu-item .submenu {
+        position: relative;
+        left: 0;
+        top: 0;
+        box-shadow: none;
+        padding: 0;
+        background: transparent;
+    }
+
+    .menu-item {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .menu-item a {
+        padding: 12px 16px;
+        display: block;
+        width: 100%;
+        color: white;
+        font-weight: 500;
+        transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .menu-item a:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: #F7E652;
+    }
+
+    .submenu {
+        display: none;
+        background: #007A4C;
+        padding: 0.5rem;
+        border-radius: 8px;
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .submenu.show {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
