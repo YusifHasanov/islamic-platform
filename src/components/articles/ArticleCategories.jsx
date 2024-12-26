@@ -1,18 +1,22 @@
 'use client';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useLayoutEffect, useState} from 'react';
 import Link from "next/link";
 import HttpClient from "@/util/HttpClient";
+import CacheProvider from "@/util/CacheProvider";
 
 
-const ArticleCategories =  ({ page, category }) => {
+const ArticleCategories = ({page, category}) => {
 
-    const [categories,setCategories]= useState([]);
+    const [categories, setCategories] = useState([]);
     useEffect(() => {
-        HttpClient.get("/categories",{
-            next: { revalidate: 60 },
-        }).then(r=>r.json())
-        .then(data => setCategories(data))
-        .catch(err => console.error(err));
+        CacheProvider.fetchData("article_categories", 60, async () => HttpClient.get('/categories'))
+            .then(data => setCategories(data))
+            .catch((err) => console.log(err));
+        // HttpClient.get("/categories",{
+        //     next: { revalidate: 60 },
+        // }).then(r=>r.json())
+        // .then(data => setCategories(data))
+        // .catch(err => console.error(err));
     }, []);
 
 
@@ -68,7 +72,7 @@ const ArticleCategories =  ({ page, category }) => {
     return (
         <div className="mb-8">
             <h3
-                style={{ lineHeight: "1" }}
+                style={{lineHeight: "1"}}
                 className="text-lg mb-5 text-gray-800 border-l-4 pl-4 border-yellow-500"
             >
                 Kategoriler

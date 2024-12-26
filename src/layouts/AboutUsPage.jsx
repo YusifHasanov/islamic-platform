@@ -12,13 +12,13 @@ const AboutUsPage = () => {
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center">
                     <div className="container mx-auto px-4 lg:px-20">
-                        <h1 className="text-white text-4xl font-bold mb-4">HAKKIMIZDA</h1>
+                        <h1 className="text-white text-4xl font-bold mb-4">Məqsədimiz</h1>
                         <p className="text-white text-lg">
-                            Hayalhanem Derneği olarak biz, İslami değerleri ve toplumsal yardımlaşmayı merkeze alarak
-                            çeşitli alanlarda faaliyet gösteriyoruz. Amacımız, hem manevi hem de maddi açıdan insanlara
-                            yardımcı olmak ve toplumumuzu daha güçlü ve bilinçli hale getirmektir. Hayalhanem Derneği
-                            olarak, sizin desteklerinizle büyüyor ve daha fazla insana ulaşıyoruz. Gelin, birlikte daha
-                            güçlü ve bilinçli bir toplum oluşturalım.
+                            Əlisünnə Mədrəsəsi olaraq, İslam dininin hikmətini və mənəvi dəyərlərini geniş auditoriyaya
+                            çatdırmaq üçün fəaliyyət göstəririk. Məqsədimiz, Əhli Sünnə təlimlərinin əsasında, saf və
+                            düzgün dini bilikləri təqdim edərək, fərdlərin imanını möhkəmləndirmək və cəmiyyətə faydalı
+                            olmaqdır. Hər kəsi İslamın mərhəmət və sevgi dolu mesajı ilə tanış etmək ən önəmli
+                            vəzifəmizdir.
                         </p>
                     </div>
                 </div>
@@ -36,18 +36,21 @@ const AboutUsPage = () => {
                         />
                     </div>
                     <div className="w-full lg:w-[65%]">
-                        <h2 className="text-3xl font-semibold mb-4">Tarihçemiz</h2>
+                        <h2 className="text-3xl font-semibold mb-4">Tədris və Maarifləndirmə</h2>
                         <p className="text-gray-700 mb-4">
-                            Mersin’de bir tantuni dükkanının üst katını kiralayarak başlayan serüvenimiz, bu küçük yerin
-                            artan talepleri karşılayamaması sonucu, Hayalhanem dört katlı olarak devam etti. Mehmet
-                            Yıldız’ın da içinde bulunduğu üç arkadaş, 2013 yılında toplanıp büyük bir yer için arsa
-                            satın aldılar...
+                            Bizim əsas fəaliyyət istiqamətimiz İslam elmlərinin dərinliklərinə enərək, onları aydın və
+                            asan başa düşülən şəkildə təqdim etməkdir. Qurani-Kərim təfsiri, hədislər, fiqh və əxlaq
+                            dərsləri vasitəsilə dini bilikləri həm yeni başlayanlar, həm də inkişaf etmiş bilik
+                            səviyyəsinə malik olan şəxslər üçün əlçatan edirik. Təlimlərimizdə yalnız nəzəri biliklər
+                            deyil, həm də bu biliklərin gündəlik həyatda tətbiqinə xüsusi diqqət yetiririk. Bu yanaşma,
+                            insanların yalnız dini biliklərini artırmaqla kifayətlənməyərək, eyni zamanda mənəvi olaraq
+                            güclənmələrinə dəstək olur.
                         </p>
                         <p className="text-gray-700 mb-4">
-                            Aynı hedef doğrultusunda, 2019 yılında, İstanbul’un Beşiktaş ilçesinde 190 metrekarelik bir
-                            yer kiralandı ve orada da Risale-i Nur dersleri anlatılmaya başlandı. Bu küçük yer de
-                            talepleri karşılamada yetersiz kalınca, 2022 yılının mart ayında İstanbul’un Şişli ilçesinde
-                            altı katlı bir mekân kiralandı...
+                            Digər tərəfdən, müasir dövrün ehtiyaclarına uyğunlaşmağı əsas prinsip kimi qəbul edirik.
+                            Mədrəsəmizdə təqdim olunan maarifləndirmə materialları, dini və mənəvi bilikləri praktik
+                            şəkildə həyata keçirə bilməyə yönəldilmişdir. Hədəfimiz, biliklərlə yanaşı, mənəviyyatı
+                            gücləndirən bir yol yoldaşı olmaqdır.
                         </p>
                     </div>
                 </div>
@@ -55,25 +58,22 @@ const AboutUsPage = () => {
                 {/* Amacımız Bölümü */}
                 <div className="flex flex-col-reverse lg:flex-row gap-8">
                     <div className="w-full lg:w-[65%]">
-                        <h2 className="text-3xl font-semibold mb-4">Amacımız</h2>
+                        <h2 className="text-3xl font-semibold mb-4">Dəyərlərimiz və Görüşümüz</h2>
                         <p className="text-gray-700 mb-4">
-                            Allaha iman edən bir kimsə, şübhəsiz, Onu sevir, çünki imanı ilə bilir ki, hər şeyi Allah
-                            xəlq etmiş, özünü və bütün sevdiklərini yoxluqdan var etmiş, onu hədsiz nemətlərlə təmin
-                            etmişdir. Həmçinin cənnəti əbədi olaraq ona və bütün möminlərə vəd etmişdir.
-
-                            Belə uca, mərhəmətli bir yaradıcını tanıyan, əlbəttə, Onu bütün qəlbi ilə sevəcəkdir. Məhz
-                            möminlərin Allah sevgisinə Quran belə işarə edir: “Allah onları sevər, onlar da Allahı
-                            sevərlər.” (Maidə, 54). Allahı sevən bir insanın onun rizasını və sevgisini qazanmağa
-                            çalışması lazımdır.
+                            Əlisünnə Mədrəsəsi sevgi, sülh və birlik dəyərlərinə sadiq qalaraq, İslamın bütün insanlara
+                            təqdim etdiyi universal mesajı vurğulayır. Biz, hər bir fərdin bu dünyada mənəvi axtarışını
+                            gücləndirmək və onu doğru istiqamətləndirmək üçün yaradılmışıq. Əsas dəyərlərimizdən biri,
+                            hər bir fərdin dindən aldığı bilikləri sevgi və anlayışla paylaşmasına şərait yaratmaqdır.
+                            İnanırıq ki, İslam dəyərlərinin düzgün təbliği, cəmiyyətlər arasında həmrəyliyin və
+                            harmoniyanın inkişafına xidmət edir.
 
                         </p>
                         <p className="text-gray-700 mb-4">
-                            Biz də – bir qrup mömin Əhli-Sünnə bayrağı altında toplaşaraq Allahın pak dinini insanlara
-                            çatdırmağa çalışırıq. Bu layihəmizin adı da “Əhli-Sünnə Mədrəsəsi”dir.
-
-                            Bu layihə qədim üsula bağlı qalaraq batil firqələrə qarşı sipər, bilgisizlərə çıraq, ruhən
-                            ölənlərə nəfəs niyyəti ilə Allah üçün xidmətdədir. Çalışmaq bizdən, müvəffəqiyyət
-                            Allahdandır!
+                            Eyni zamanda, gələcəyə baxışımızı müasir dünyanın ehtiyaclarına uyğun formalaşdırmışıq.
+                            Vizyonumuz, İslamın hikmət dolu irsini həm yerli, həm də qlobal miqyasda təbliğ edərək,
+                            bilik, əxlaq və iman üzərində qurulan bir cəmiyyətin yaranmasına töhfə verməkdir.
+                            Təlimlərimizlə insanlara yalnız din öyrətmirik, eyni zamanda onların mənəvi ehtiyaclarına
+                            cavab verərək həyatlarında mənalı bir iz qoymağı hədəfləyirik.
 
                         </p>
                     </div>

@@ -1,11 +1,12 @@
 'use client'
 
-import { useEffect, useState } from 'react';
+import {useEffect, useLayoutEffect, useState} from 'react';
 import Link from 'next/link';
-import { ChevronDown } from 'lucide-react';
+import {ChevronDown} from 'lucide-react';
 import HttpClient from '@/util/HttpClient';
-import { usePathname } from 'next/navigation';
+import {usePathname} from 'next/navigation';
 import Image from 'next/image'
+import CacheProvider from "@/util/CacheProvider";
 
 const staticMenuItems = [
     {
@@ -37,13 +38,20 @@ const Navbar = () => {
     const pathname = usePathname();
 
     useEffect(() => {
-        HttpClient.get('/categories/menu', {
-            next: { revalidate: 3600 },
-            cache: 'force-cache'
-        })
-            .then((res) => res.json())
+        CacheProvider.fetchData(
+            "menu_items", 60, async () => {
+                return HttpClient.get('/categories/menu')
+            }
+        )
             .then((res) => setMenuItems([...res, ...staticMenuItems]))
             .catch((err) => console.log(err));
+        // HttpClient.get('/categories/menu', {
+        //     next: { revalidate: 3600 },
+        //     cache: 'force-cache'
+        // })
+        //     .then((res) => res.json())
+        //     .then((res) => setMenuItems([...res, ...staticMenuItems]))
+        //     .catch((err) => console.log(err));
     }, []);
 
     const isActive = (href) => {
@@ -65,10 +73,9 @@ const Navbar = () => {
     };
 
     const toggleSubMenuAndClose = (name) => {
-        toggleSubMenu(name);
+        toggleSubMenu(null);
         setMobileMenuOpen(false);
     }
-
 
 
     const href = (id) => {
@@ -130,7 +137,7 @@ const Navbar = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
                     <div className="flex items-center">
-                        <Image height={60} width={60} src={"/esm_logo.png"} alt={"logo"} />
+                        <Image height={60} width={60} src={"/esm_logo.png"} alt={"logo"}/>
                         <div className="flex-shrink-0">
                             <span className="text-white font-bold text-lg">
                                 <Link onClick={handleClick} href={'/'}>
