@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { BASE_URL } from "@/util/Const";
+import HttpClient from "@/util/HttpClient";
 
 const AuthorDetail = () => {
     const router = useRouter();
@@ -14,7 +15,7 @@ const AuthorDetail = () => {
 
 
     useEffect(() => {
-        fetch(`${BASE_URL}/authors/${id}`)
+        HttpClient.get(`/authors/${id}`)
             .then((res) => res.json())
             .then((data) => {
                 setAuthor(data);

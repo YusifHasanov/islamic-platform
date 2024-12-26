@@ -6,24 +6,8 @@ const Footer = () => {
             <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
                 {/* Left Section */}
                 <div>
-                    <img src="https://hayalhanem.com/wp-content/uploads/2024/10/logo-beyaz.svg" alt="Logo" className="mb-4 mx-auto md:mx-0" />
-                    <p className="text-gray-300 mb-6">
-                        Bütün bildirimlerden ilk sizin haberiniz olmasını istiyorsanız aşağıdaki linkten kayıt olabilirsiniz.
-                    </p>
-                    <div className="flex justify-center md:justify-start space-x-8 items-center">
-                        <div className="text-center">
-                            <a href="https://play.google.com" target="_blank" rel="noopener noreferrer">
-                                <img src="https://example.com/android.png" alt="Android" className="h-10 mx-auto" />
-                            </a>
-                            <p className="text-gray-400 mt-2">ANDROID</p>
-                        </div>
-                        <div className="text-center">
-                            <a href="https://apple.com" target="_blank" rel="noopener noreferrer">
-                                <img src="https://example.com/ios.png" alt="iOS" className="h-10 mx-auto" />
-                            </a>
-                            <p className="text-gray-400 mt-2">iOS</p>
-                        </div>
-                    </div>
+                    <img src="/esm_logo.png" alt="Logo" className="mb-4  w-64 md:mx-0" />
+
                 </div>
 
                 {/* Middle Section */}
@@ -49,19 +33,11 @@ const Footer = () => {
                             <span className="mr-2">📞</span>
                             <span>+90 (553) 552 1 444</span>
                         </li>
-                        <li className="flex items-center justify-center md:justify-start text-gray-300">
-                            <span className="mr-2">📍</span>
-                            <span>Mersin, Çiftlikköy Mah. 3287 Sk. No:10 Yenişehir, MERSİN</span>
-                        </li>
-                        <li className="flex items-center justify-center md:justify-start text-gray-300">
-                            <span className="mr-2">📍</span>
-                            <span>İstanbul, Esentepe, Dergiler Sk. No:2/1, 34394 Şişli, İSTANBUL</span>
-                        </li>
-                        <li className="flex items-center justify-center md:justify-start text-gray-300">
-                            <span className="mr-2">📍</span>
-                            <span>Ankara, Aşağı Öveçler, 1332. Sk. No:8, 06460 Çankaya, ANKARA</span>
-                        </li>
                     </ul>
+                    <p className="text-gray-300 mt-6">
+                        Bütün bildirimlerden ilk sizin haberiniz olmasını istiyorsanız aşağıdaki linkten kayıt
+                        olabilirsiniz.
+                    </p>
                 </div>
             </div>
         </footer>

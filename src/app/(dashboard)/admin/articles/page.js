@@ -79,11 +79,12 @@ function ArticleList() {
                 <p>No articles found</p>
                 <div className="flex items-center mb-2 space-x-2">
 
-                    <Link href={'/admin/articles/create'}>
-                        <Button>
-                            Create
-                        </Button>
-                    </Link>
+                        <Link href={'/admin/articles/create'}>
+                            <Button>
+                                Create
+                            </Button>
+                            </Link>
+
                 </div>
             </div>
         );
