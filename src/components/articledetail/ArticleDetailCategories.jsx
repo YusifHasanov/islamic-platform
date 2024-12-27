@@ -9,7 +9,7 @@ const ArticleDetailCategories = ({category}) => {
 
     const [categories, setCategories] = useState([]);
     useEffect(() => {
-        CacheProvider.fetchData("article_detail_categories", 60, async () => HttpClient.get('/categories'))
+        CacheProvider.fetchData("article_categories", 60, async () => HttpClient.get('/categories'))
             .then(data => setCategories(data))
             .catch((err) => console.log(err));
         // HttpClient.get("/categories",{
