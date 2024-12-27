@@ -1,6 +1,7 @@
 import React from 'react';
 import MostReadArticles from "@/components/articledetail/MostReadArticles";
 import ArticleApiCount from "@/components/articledetail/ArticleApiCount";
+import ArticleDetailCategories from "@/components/articledetail/ArticleDetailCategories";
 
 
 const ArticleDetail = async ({article}) => {
@@ -47,7 +48,7 @@ const ArticleDetail = async ({article}) => {
                         {/* Alt Bilgi Bölümü */}
                         <div className="border-t pt-4 space-y-2 text-gray-600">
                             <div className="flex items-center justify-between">
-                            <span className="font-semibold">Oxunma sayı:</span>
+                                <span className="font-semibold">Oxunma sayı:</span>
                                 <span className="text-gray-800">{article.readCount}</span>
                             </div>
 
@@ -82,7 +83,13 @@ const ArticleDetail = async ({article}) => {
                     </div>
                     <ArticleApiCount/>
 
-                    <MostReadArticles article={article}/>
+                   <div className={"pr-2"}>
+                       <div className={"mb-6 mr-2"}>
+                           <ArticleDetailCategories />
+                       </div>
+                       <MostReadArticles article={article}/>
+
+                   </div>
                 </div>
             </div>
         </div>
