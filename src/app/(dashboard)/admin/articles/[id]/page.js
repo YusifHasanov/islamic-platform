@@ -105,7 +105,8 @@ function ArticleEditor() {
         console.log(body);
         try {
             if (id) {
-                await HttpClient.put(`/articles/${id}`, body);
+                console.log(body);
+            //    await HttpClient.put(`/articles/${id}`, body);
                 toast.current.show({severity: 'success', summary: 'Success', detail: 'Article updated successfully'});
                 revalidateArticle(id)
                     .then(() => console.log('Successfully updated article updated successfully'))
