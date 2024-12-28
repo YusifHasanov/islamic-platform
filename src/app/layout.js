@@ -4,6 +4,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 import Tailwind from 'primereact/passthrough/tailwind';
 
+
 import {
     Roboto
 } from "next/font/google";
@@ -206,6 +207,7 @@ export default function RootLayout({children}) {
 
     return (
         <html lang="en" className={roboto.className}>
+
         <head>
             <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests"/>
         </head>
