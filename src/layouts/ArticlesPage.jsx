@@ -6,6 +6,7 @@ import PopularArticles from "@/components/articles/PopularArticles";
 import OtherArticleList from "@/components/articles/OtherArticleList";
 import {BASE_URL} from "@/util/Const";
 import Pagination from "@/components/articles/Pagination";
+import ConsoleLog from "@/components/common/ConsoleLog";
 
 export const revalidate = 60;
 const PAGE_SIZE = 6;
@@ -17,7 +18,7 @@ export default async function ArticlesPage({page, category}) {
     category = parseInt(category || '0', 0);
 
     const res = await fetch(`${BASE_URL}/articles?page=${page}&size=${PAGE_SIZE}&categoryId=${category}`, {
-        next: { revalidate: 60 },
+        next: {revalidate: 60},
     });
 
     const data = await res.json();
@@ -25,15 +26,16 @@ export default async function ArticlesPage({page, category}) {
 
     return (
         <>
+            <ConsoleLog log={{content, category}}/>
             <Header/>
             <div className="min-h-screen">
                 <div className=" px-6 sm:px-12 mx-auto p-4">
-                    <h1 className="text-3xl font-bold sm:text-left text-center mb-8 text-gray-800">Son Eklenenler</h1>
+                    <HeaderText categoryId={category}/>
                     <div className="flex flex-wrap lg:flex-nowrap gap-10">
                         {/* Makale Kartları */}
                         <div style={{gridTemplateRows: "repeat(2, 350px)"}}
                              className="grid grid-cols-1 mx-auto md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            { content &&
+                            {content &&
                                 content.map((item, id) => (
                                     <ArticleCard
                                         key={id}
@@ -78,7 +80,24 @@ function Search() {
     );
 }
 
+const HeaderText = async ({categoryId}) => {
 
+    let text = 'Son Eklenenler';
+
+    if (categoryId) {
+
+        const res = await fetch(`${BASE_URL}/categories/${categoryId}`, {
+            next: {revalidate: 60},
+        });
+
+        const data = await res.json();
+        text = data.name;
+    }
+
+    return <>
+        <h1 className="text-3xl font-bold sm:text-left text-center mb-8 text-gray-800">{text}</h1>
+    </>
+}
 
 
 
