@@ -8,11 +8,11 @@ export const metadata = {
 
 
 const Page = async ({searchParams}) => {
-    const {playlistId,videoId} = await searchParams;
+    const {playlistId,videoId, search} = await searchParams;
 
     return (
         <>
-         <Videos playlistId ={playlistId} videoId = {videoId}/>
+         <Videos playlistId ={playlistId} videoId = {videoId} search = {search} />
         </>
     );
 };
