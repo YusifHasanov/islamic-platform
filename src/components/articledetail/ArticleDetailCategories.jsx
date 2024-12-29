@@ -1,24 +1,19 @@
 'use client';
-import React, {useEffect, useLayoutEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Link from "next/link";
 import HttpClient from "@/util/HttpClient";
 import CacheProvider from "@/util/CacheProvider";
 
 
-const ArticleDetailCategories = ({category}) => {
+const ArticleDetailCategories = () => {
 
     const [categories, setCategories] = useState([]);
+
     useEffect(() => {
         CacheProvider.fetchData("article_categories", 60, async () => HttpClient.get('/categories'))
             .then(data => setCategories(data))
             .catch((err) => console.log(err));
-        // HttpClient.get("/categories",{
-        //     next: { revalidate: 60 },
-        // }).then(r=>r.json())
-        // .then(data => setCategories(data))
-        // .catch(err => console.error(err));
     }, []);
-
 
     const [expanded, setExpanded] = useState({});
 
@@ -41,14 +36,13 @@ const ArticleDetailCategories = ({category}) => {
                 {filteredCategories.map((item) => (
                     <li key={item.id} className="border-b border-gray-200">
                         <div className="flex justify-between items-center py-2 px-1">
-                            {/*<Link*/}
-                            {/*    href={category === item.id ? `/articles?page=${page}` : `/articles?page=${page}&category=${item.id}`}*/}
-                            {/*    className={`transition-colors font-medium text-gray-700 hover:text-yellow-600 ${*/}
-                            {/*        item.id === category ? "text-yellow-600" : ""*/}
-                            {/*    }`}*/}
-                            {/*>*/}
+
+                            <Link
+                                href={`/articles?page=0&category=${item.id}`}
+                                className={`transition-colors font-medium text-gray-700 hover:text-yellow-600`}
+                            >
                                 {item.name}
-                            {/*</Link>*/}
+                            </Link>
                             {categories.some(cat => cat.parentId === item.id) && (
                                 <button
                                     onClick={() => toggleAccordion(item.id)}
@@ -75,7 +69,7 @@ const ArticleDetailCategories = ({category}) => {
                 style={{lineHeight: "1"}}
                 className="text-lg mb-5 text-gray-800 border-l-4 pl-4 border-yellow-500"
             >
-                Kategoriler
+                Kateqoriyalar
             </h3>
             {renderCategoryTree()}
         </div>

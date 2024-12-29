@@ -15,7 +15,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }){
-    const { id } = params;
+    const { id } = await params;
 
     const article = await fetch(`${BASE_URL}/articles/${id}`, {
         method: "GET",
@@ -72,7 +72,7 @@ export async function generateMetadata({ params }){
 }
 
 const BlogDetail = async ({ params }) => {
-    const { id } = params;
+    const { id } = await params;
     const article = await fetch(`${BASE_URL}/articles/${id}`).then((res) => res.json());
 
     const schemaData = {

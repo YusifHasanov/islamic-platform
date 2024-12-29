@@ -138,7 +138,7 @@ function ArticleEditor() {
                     <div className="mb-6">
                         <input type="file" accept="image/*" onChange={handleImageUpload}
                                className="w-full p-2 border rounded"/>
-                        {image && <img src={image} alt="Cover" className="w-full h-64 object-cover rounded-lg mt-4"/>}
+                        {image && <img src={image} alt="Cover" className="w-full h-96 object-cover rounded-lg mt-4"/>}
                     </div>
 
                     <div className="mb-6">
