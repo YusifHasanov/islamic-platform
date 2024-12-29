@@ -216,10 +216,12 @@ export default function RootLayout({children}) {
             <link rel="preconnect" href="https://fonts.googleapis.com"/>
             <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true"/>
             <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"/>
+            <meta name="description" content="Əhli-Sünnə Mədrəsəsi haqqında məlumatlar və maarifləndirici məqalələr."/>
+            <meta name="keywords" content="Əhli-Sünnə Mədrəsəsi, Ehlisun Medresesi, İslam maarifi"/>
             {/*<meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests"/>*/}
             <Script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+                dangerouslySetInnerHTML={{__html: JSON.stringify(jsonLd)}}
             />
         </Head>
         <body

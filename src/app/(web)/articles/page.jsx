@@ -1,5 +1,6 @@
 import React from 'react';
 import Articles from "@/layouts/ArticlesPage";
+import Head from "next/head";
 
 
 export const metadata = {
@@ -11,12 +12,12 @@ const Page = async ({searchParams}) => {
    const {page,category} = await searchParams;
     return (
         <>
-            <head>
+            <Head>
                 <meta
                     name="description"
                     content="Əhli-Sünnə Mədrəsəsi saytında İslam dini haqqında dəyərli və maarifləndirici məqalələri oxuyun."
                 />
-            </head>
+            </Head>
             <Articles page={page} category={category}/>
         </>
     );

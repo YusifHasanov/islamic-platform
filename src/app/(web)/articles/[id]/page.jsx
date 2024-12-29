@@ -29,15 +29,15 @@ export async function generateMetadata({ params }){
                 name: article.authors[0]?.name || "Əhli-Sünnə Mədrəsəsi"
             }
         ],
-        description: article.description,
-        keywords: article.tags,
+        description: article.title,
+        keywords: article.title,
         openGraph: {
             title: `${article.title} | Əhli-Sünnə Mədrəsəsi`,
             description: article.description,
             type: "article",
             url: `https://www.ehlisunnemedresesi.az/${article.id}`,
             publishedTime: article.publishedAt,
-            modifiedTime: article.updatedAt,
+            modifiedTime: article.publishedAt,
             authors: ["https://www.ehlisunnemedresesi.az/about"],
             tags: article.categories,
             images: [
@@ -55,7 +55,7 @@ export async function generateMetadata({ params }){
             site: "@ehlisunne",
             creator: "@ehlisunne",
             title: `${article.title} | Əhli-Sünnə Mədrəsəsi`,
-            description: article.description,
+            description: article.title,
             images: [
                 {
                     url: article.image,
@@ -94,10 +94,8 @@ const BlogDetail = async ({ params }) => {
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{__html: JSON.stringify(schemaData)}}
                 />
-                <Meta
-                    name="description"
-                    content="Əhli-Sünnə Mədrəsəsi saytında İslam dini haqqında dəyərli və maarifləndirici məqalələri oxuyun."
-                />
+                <Meta name="description" content={article.title}/>
+                <Meta name="keywords" content={`Əhli-Sünnə Mədrəsəsi, Ehlisun Medresesi, ${article.title}`}/>
             </Head>
             <ArticleDetail article={article}/>
         </>
