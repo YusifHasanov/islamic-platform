@@ -15,7 +15,7 @@ const Footer = () => {
                     <ul className="space-y-3 md:pl-16">
                         <li><a href="#anasayfa" className="text-gray-400 hover:text-white">Anasayfa</a></li>
                         <li><a href="#sohbetler" className="text-gray-400 hover:text-white">Sohbetler</a></li>
-                        <li><a href="#makaleler" className="text-yellow-400 hover:text-white">Makaleler</a></li>
+                        <li><a href="#makaleler" className="text-yellow-400 hover:text-white">Makalelerr</a></li>
                         <li><a href="#hakkimizda" className="text-gray-400 hover:text-white">Hakkımızda</a></li>
                         <li><a href="#dergi" className="text-gray-400 hover:text-white">Dergi</a></li>
                         <li><a href="#iletisim" className="text-yellow-400 hover:text-white">İletişim</a></li>
