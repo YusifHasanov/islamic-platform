@@ -2,6 +2,7 @@ import React from 'react';
 import {BASE_URL} from "@/util/Const";
 import Link from "next/link";
 import SearchComponent from "@/components/videos/SearchComponent";
+import ConsoleLog from "@/components/common/ConsoleLog";
 
 
 export const revalidate = 60;
@@ -11,6 +12,8 @@ const PlaylistsSection = async ({playlistId, search}) => {
         next: {revalidate: 60},
     });
     let playlists = await res.json();
+
+
 
     if (search && search !== '') {
         playlists = playlists.filter(x => x.title.toLowerCase().includes(search.toLowerCase()));
@@ -39,6 +42,7 @@ const PlaylistsSection = async ({playlistId, search}) => {
                     </div>
                     <SearchComponent/>
                 </div>
+                <ConsoleLog log={playlists}/>
 
                 {/* Playlists Grid */}
                 {

@@ -20,7 +20,9 @@ const nextConfig = {
         return [
             {
                 source: '/ex-api/:path*',
-                destination: 'http://31.220.95.127:8083/api/:path*',
+                // destination: 'http://31.220.95.127:8083/api/:path*',
+                //  destination: 'http://localhost:8083/api/:path*',
+                 destination: `${process.env.NEXT_PUBLIC_BASE_URL}/:path*`,
             },
             {
                 source: "/sitemap.xml",

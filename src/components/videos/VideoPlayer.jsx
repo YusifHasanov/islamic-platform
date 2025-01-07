@@ -1,6 +1,7 @@
 import React from 'react';
 import {BASE_URL} from "@/util/Const";
 import Link from "next/link";
+import VideoPlayerPlaylistItems from "@/components/videos/VideoPlayerPlaylistItems";
 
 
 const VideoPlayer = async ({playlistId, videoId}) => {
@@ -50,22 +51,7 @@ const VideoPlayer = async ({playlistId, videoId}) => {
                     <div style={{maxHeight: "560px"}} className="border border-gray-600 rounded-lg overflow-hidden">
                         <h3 className="text-white text-xl bg-gray-600 p-4 font-semibold mb-4">{playlist.title}</h3>
                         <div className="space-y-4  max-h-[470px] overflow-y-auto px-3">
-                            {videos.map((video, id) => (
-                                <Link href={`/videos?playlistId=${playlistId}&videoId=${video.videoId}`}
-                                      key={id}
-                                      className={`flex videosItem items-center space-x-4 ${(videoId == null && id === 0) || video.videoId === videoId ? "bg-gray-800" : ""}`}>
-                                    <img
-                                        src={video.thumbnail.split("+")[2]}
-                                        alt="Video Thumbnail"
-                                        className="w-28 h-20 object-cover"
-                                    />
-                                    <div>
-                                        <h4 className="text-white text-md font-medium">
-                                            {video.title}
-                                        </h4>
-                                    </div>
-                                </Link>
-                            ))}
+                          <VideoPlayerPlaylistItems playlistId={playlistId} videos={videos} videoId={videoId} />
                         </div>
                     </div>
                 </div>
