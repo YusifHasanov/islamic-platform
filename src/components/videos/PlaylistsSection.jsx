@@ -3,6 +3,7 @@ import {BASE_URL} from "@/util/Const";
 import Link from "next/link";
 import SearchComponent from "@/components/videos/SearchComponent";
 import ConsoleLog from "@/components/common/ConsoleLog";
+import Image from "next/image";
 
 
 export const revalidate = 60;
@@ -53,10 +54,12 @@ const PlaylistsSection = async ({playlistId, search}) => {
                                 <Link href={`/videos?playlistId=${playlist.playlistId}`}
                                       key={playlist.playlistId}
                                       className="bg-white playlistCard cursor-pointer rounded-2xl overflow-hidden  shadow-sm">
-                                    <img
+                                    <Image
                                         src={playlist.thumbnail.split("+")[2]}
                                         alt={playlist.title}
                                         className="w-full h-50 object-cover "
+                                        height={50}
+                                        width={200}
                                     />
                                     <div
                                         className={`px-4 pt-1 min-h-20 flex flex-col justify-between pb-1 ${isCurrentPlaylist(playlist.playlistId)}`}>
