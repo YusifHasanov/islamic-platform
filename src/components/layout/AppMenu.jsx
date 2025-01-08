@@ -252,7 +252,7 @@ const AppMenu = () => {
                         },
                         {
                             label: "Forgot Password",
-                            icon: "pi pi-fw pi-question",
+                            icon: "pi pi-fw pi-questions",
                             to: "/auth/forgotpassword",
                         },
                         {
@@ -294,7 +294,7 @@ const AppMenu = () => {
                 },
                 {
                     label: "Help",
-                    icon: "pi pi-fw pi-question-circle",
+                    icon: "pi pi-fw pi-questions-circle",
                     to: "/layouts/help",
                 },
                 {
@@ -309,7 +309,7 @@ const AppMenu = () => {
                 },
                 {
                     label: "FAQ",
-                    icon: "pi pi-fw pi-question",
+                    icon: "pi pi-fw pi-questions",
                     to: "/layouts/faq",
                 },
                 {

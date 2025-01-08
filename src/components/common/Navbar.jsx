@@ -20,6 +20,11 @@ const staticMenuItems = [
         subcategories: [],
     },
     {
+        name: 'Suallar',
+        href: '/questions',
+        subcategories: [],
+    },
+    {
         name: 'Haqqımızda',
         href: '/about',
         subcategories: [],

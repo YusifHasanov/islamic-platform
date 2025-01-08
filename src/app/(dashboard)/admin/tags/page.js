@@ -1,6 +1,7 @@
 'use client'
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useRef} from 'react';
 import HttpClient from "@/util/HttpClient";
+import {Toast} from "primereact/toast";
 
 export default function AdminTagsPage() {
     const [tags, setTags] = useState([]);
@@ -9,7 +10,7 @@ export default function AdminTagsPage() {
     const [editingValue, setEditingValue] = useState('');
     const [selectedTags, setSelectedTags] = useState([]);
     const [loading, setLoading] = useState(false);
-
+    const toast = useRef(null);
     // API'den tagleri yükleme
     const fetchTags = async () => {
         setLoading(true);
@@ -18,6 +19,7 @@ export default function AdminTagsPage() {
             const data = await response.json();
             setTags(data);
         } catch (error) {
+            toast.current.show({severity: 'error', summary: 'Error', detail: 'Failed to save articles'});
             console.error('Tagleri yüklerken bir hata oluştu:', error);
         } finally {
             setLoading(false);
@@ -111,6 +113,7 @@ export default function AdminTagsPage() {
 
     return (
         <div className="min-h-screen bg-gradient-to-b from-gray-100 to-gray-200 p-6">
+            <Toast ref={toast}/>
             <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-8">
                 <h1 className="text-3xl font-bold text-gray-800 mb-6">Tag Yönetimi</h1>
 
@@ -128,8 +131,9 @@ export default function AdminTagsPage() {
                             className="flex-grow border border-gray-300 rounded-lg px-4 py-3 focus:ring-4 focus:ring-blue-500 focus:outline-none shadow-sm text-gray-700"
                         />
                         <button
+                            disabled={loading}
                             onClick={handleAddTag}
-                            className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition shadow-md"
+                            className={`bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition shadow-md ${loading ? "bg-gray-100" : ""}`}
                         >
                             Ekle
                         </button>
@@ -174,8 +178,9 @@ export default function AdminTagsPage() {
                                                 className="flex-grow border border-gray-300 rounded-lg px-3 py-1 focus:ring-4 focus:ring-blue-500 focus:outline-none"
                                             />
                                             <button
+                                                disabled={loading}
                                                 type="submit"
-                                                className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition"
+                                                className={`bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition ${loading ? "bg-black" : ""}`}
                                             >
                                                 Kaydet
                                             </button>
