@@ -2,7 +2,6 @@ import React from 'react';
 import {BASE_URL} from "@/util/Const";
 import Link from "next/link";
 import SearchComponent from "@/components/videos/SearchComponent";
-import ConsoleLog from "@/components/common/ConsoleLog";
 import Image from "next/image";
 
 
@@ -43,7 +42,8 @@ const PlaylistsSection = async ({playlistId, search}) => {
                     </div>
                     <SearchComponent/>
                 </div>
-                <ConsoleLog log={playlists}/>
+                {/*<ConsoleLog log={playlists}/>*/}
+
 
                 {/* Playlists Grid */}
                 {
@@ -55,6 +55,7 @@ const PlaylistsSection = async ({playlistId, search}) => {
                                       key={playlist.playlistId}
                                       className="bg-white playlistCard cursor-pointer rounded-2xl overflow-hidden  shadow-sm">
                                     <Image
+                                        loading={"lazy"}
                                         src={playlist.thumbnail.split("+")[2]}
                                         alt={playlist.title}
                                         className="w-full h-50 object-cover "

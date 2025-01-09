@@ -1,6 +1,7 @@
 'use client'
 import React, { useEffect, useState } from 'react';
 import Link from "next/link";
+import Image from "next/image";
 
 const VideoPlayerPlaylistItems = ({ videos, videoId, playlistId }) => {
     const [search, setSearch] = useState('');
@@ -31,9 +32,12 @@ const VideoPlayerPlaylistItems = ({ videos, videoId, playlistId }) => {
                     <Link href={`/videos?playlistId=${playlistId}&videoId=${video.videoId}`}
                           key={id}
                           className={`flex videosItem items-center space-x-4 p-2 rounded-lg hover:bg-gray-700 ${(videoId == null && id === 0) || video.videoId === videoId ? "bg-gray-800" : ""}`}>
-                        <img
+                        <Image
+                            loading={"lazy"}
                             src={video.thumbnail.split("+")[2]}
                             alt="Video Thumbnail"
+                            height={20}
+                            width={200}
                             className="w-28 h-20 object-cover rounded-lg"
                         />
                         <div>
