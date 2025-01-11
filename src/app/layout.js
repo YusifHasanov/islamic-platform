@@ -34,6 +34,24 @@ export const viewport = {
     initialScale: 1,
     themeColor: "#ffffff"
 };
+const keywords = [
+    "Ehli Sünne", "Medrese", "İslam Maarifi", "Əhli-Sünnə Mədrəsəsi", "Din Maarifi",
+    "Dini Təhsil", "İslam Mədrəsəsi", "Ehli Sünne Mədrəsəsi", "Əhli-Sünnə Məzhəbi",
+    "Dini Maarifləndirmə", "Əhli-Sünnə Mədrəsəsi Bakı", "Əhli-Sünnə Mədrəsəsi Azərbaycan",
+    "İslam Mədrəsəsi Bakı", "Bakı Ehli Sünne Mədrəsəsi", "Dini təhsil Bakı",
+    "Əhli-Sünnə Mədrəsəsi Gəncə", "Əhli-Sünnə Mədrəsəsi Naxçıvan",
+    "Azərbaycan Ehli Sünne Mədrəsəsi", "Ehli Sünne Məktəbi",
+    "Quran dərsləri Ehli Sünne Mədrəsəsində", "Əhli-Sünnə Mədrəsəsi tarixi",
+    "Əhli-Sünnə Mədrəsəsinin xidmətləri", "Ehli Sünne Mədrəsəsi nədir?",
+    "Əhli-Sünnə Mədrəsəsi və Quran dərsləri", "Ehli Sünne inancı və prinsipləri",
+    "İslam maarifi və Əhli-Sünnə Mədrəsəsi", "Əhli-Sünnə Mədrəsəsi dərnəkləri",
+    "Fiqh dərsləri Mədrəsədə", "Hədis elmi və Əhli-Sünnə", "Uşaqlar üçün dini təhsil",
+    "Ehli Sünne haqqında məqalələr", "İslam dini haqqında resurslar",
+    "Ehli Sünne Mədrəsəsi xəbərləri", "Ehli Sünne Mədrəsəsi xidmətləri",
+    "Henefi","Safi","Henbeli","Maliki","Hənəfi","Şafi","Hənbəli","Maliki",
+    "Firudin Babaoğlu","Hədis","Quran","Allah","Din",
+];
+
 
 export const metadata = {
     title: "Əhli-Sünnə Mədrəsəsi",
@@ -180,6 +198,8 @@ export default function RootLayout({children}) {
             "@type": "WebPage",
             "@id": "https://www.ehlisunnemedresesi.az/makale-detay"
         },
+        keywords: keywords,
+
         headline: "İslam Dininə Aid Dəyərli Məqalələr",
         description:
             "Əhli-Sünnə Mədrəsəsi saytında İslam dini haqqında dəyərli və maarifləndirici məqalələri oxuyun.",
@@ -206,18 +226,21 @@ export default function RootLayout({children}) {
     };
 
     return (
-        <html lang="en" className={roboto.className}>
+        <html lang="az-AZ" className={roboto.className}>
 
         <head>
             <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests"/>
+            <title>Əhli-Sünnə Mədrəsəsi</title>
         </head>
         <Head>
+            <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests"/>
+            <title>Əhli-Sünnə Mədrəsəsi</title>
             <link rel="canonical" href={domain}/>
             <link rel="preconnect" href="https://fonts.googleapis.com"/>
             <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true"/>
             <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"/>
             <meta name="description" content="Əhli-Sünnə Mədrəsəsi haqqında məlumatlar və maarifləndirici məqalələr."/>
-            <meta name="keywords" content="Əhli-Sünnə Mədrəsəsi, Ehlisun Medresesi, İslam maarifi"/>
+            <meta name="keywords" content={keywords.join(", ")}/>
             {/*<meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests"/>*/}
             <Script
                 type="application/ld+json"
