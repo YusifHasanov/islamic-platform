@@ -3,6 +3,7 @@ import {BASE_URL} from "@/util/Const";
 import Link from "next/link";
 import SearchComponent from "@/components/videos/SearchComponent";
 import Image from "next/image";
+import ConsoleLog from "@/components/common/ConsoleLog";
 
 
 export const revalidate = 60;
@@ -28,6 +29,7 @@ const PlaylistsSection = async ({playlistId, search}) => {
         return playlistId === id ? "bg-slate-200" : "";
     }
 
+
     return (
         <div className="min-h-screen bg-gray-100 py-8">
             <div className="py-3 mx-auto px-7">
@@ -42,11 +44,12 @@ const PlaylistsSection = async ({playlistId, search}) => {
                     </div>
                     <SearchComponent/>
                 </div>
-                {/*<ConsoleLog log={playlists}/>*/}
+                <ConsoleLog log={playlists}/>
 
 
                 {/* Playlists Grid */}
                 {
+
                     playlists?.length === 0 ? <NoAnyPlaylist/> :
 
                         <div className="grid grid-cols-1 mt-12 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
@@ -58,9 +61,9 @@ const PlaylistsSection = async ({playlistId, search}) => {
                                         loading={"lazy"}
                                         src={playlist.thumbnail.split("+")[2]}
                                         alt={playlist.title}
-                                        className="w-full h-50 object-cover "
+                                        className="w-full object-cover "
                                         height={50}
-                                        width={200}
+                                        width={500}
                                     />
                                     <div
                                         className={`px-4 pt-1 min-h-20 flex flex-col justify-between pb-1 ${isCurrentPlaylist(playlist.playlistId)}`}>

@@ -6,6 +6,7 @@ import HttpClient from "@/util/HttpClient";
 import Link from "next/link";
 import CacheProvider from "@/util/CacheProvider";
 import Spinner from "@/components/search/Spinner";
+import Image from "next/image";
 
 export default function SearchPage() {
     const router = useRouter();
@@ -192,7 +193,9 @@ function Card({image, title, info1Label, info1, info2Label, info2, href}) {
             className="group relative flex flex-col border border-gray-100 rounded-xl overflow-hidden bg-white shadow-sm hover:shadow-xl transition-all hover:-translate-y-1">
             {/* Image */}
             <div className="overflow-hidden h-40 md:h-48">
-                <img
+                <Image
+                    height={50}
+                    width={500}
                     src={image}
                     alt={title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
@@ -201,7 +204,7 @@ function Card({image, title, info1Label, info1, info2Label, info2, href}) {
 
             {/* Card Body */}
             <div className="p-4 flex flex-col justify-between flex-1">
-                <h3 className="text-lg font-semibold mb-2 text-gray-800 line-clamp-2">
+                <h3 className="text-lg hover:text-yellow-600 font-semibold mb-2 text-gray-800 line-clamp-2">
                     <Link href={href}>
                         {title}
                     </Link>

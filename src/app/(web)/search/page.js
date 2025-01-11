@@ -1,5 +1,3 @@
-"use client";
-
 import React, { Suspense } from "react";
 import SearchPage from "@/components/search/SearchPage";
 import Spinner from "@/components/search/Spinner";

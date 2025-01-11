@@ -1,6 +1,7 @@
 import React from 'react';
 import {BASE_URL} from "@/util/Const";
 import Link from "next/link";
+import Image from "next/image";
 
 export const revalidate = 60;
 
@@ -21,7 +22,7 @@ const MostReadArticles = async ({article}) => {
                 {articles.map((item, index) => (
                     <React.Fragment key={index}>
                         <Link href={`/articles/${item.id}`} className={`flex space-x-4 mb-8`}>
-                            <img src={item.image} alt={item.title}
+                            <Image src={item.image} alt={item.title} height={24} width={400}
                                  className="w-40 cursor-pointer h-24 object-cover rounded-lg"/>
                             <div className="">
                                 <h3 style={{fontSize: "15px"}}

@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from "next/link";
-
+import Image from "next/image";
 const ArticleCard = ({id,title, description,image, date}) => {
 
     return (
@@ -8,8 +8,11 @@ const ArticleCard = ({id,title, description,image, date}) => {
             style={{boxShadow: "0px 0px 10px 0px rgba(0, 0, 0, 0.09)"}}
             className="bg-white rounded-md  overflow-hidden transform hover:scale-105 transition-transform duration-300">
             <Link href={"/articles/" + id}>
-                <img
-                    src={image} alt={title} className="w-full cursor-pointer  h-48 object-cover"/>
+                <Image
+                    src={image} alt={title}
+                    height={48}
+                    width={500}
+                    className="w-full cursor-pointer  h-48 object-cover"/>
             </Link>
             <div className="p-4">
                 <Link href={"/articles/" + id}>

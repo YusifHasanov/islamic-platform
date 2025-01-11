@@ -2,6 +2,7 @@ import React from 'react';
 import MostReadArticles from "@/components/articledetail/MostReadArticles";
 import ArticleApiCount from "@/components/articledetail/ArticleApiCount";
 import ArticleDetailCategories from "@/components/articledetail/ArticleDetailCategories";
+import Image from "next/image";
 
 
 const ArticleDetail = async ({article}) => {
@@ -9,7 +10,9 @@ const ArticleDetail = async ({article}) => {
         <div>
             {/* Full Width Image */}
             <div className="relative w-full h-[700px]">
-                <img
+                <Image
+                    height={100}
+                    width={2000}
                     src={article.image}
                     alt="Blog Image"
                     className="w-full h-full object-cover"
@@ -88,7 +91,6 @@ const ArticleDetail = async ({article}) => {
                            <ArticleDetailCategories />
                        </div>
                        <MostReadArticles article={article}/>
-
                    </div>
                 </div>
             </div>
