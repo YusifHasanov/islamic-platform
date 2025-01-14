@@ -31,7 +31,8 @@ export default function AdminTagsPage() {
     }, []);
 
     // Yeni tag ekleme
-    const handleAddTag = async () => {
+    const handleAddTag = async (e) => {
+        e.preventDefault();
         if (newTag.trim()) {
             setLoading(true);
             try {
@@ -122,7 +123,7 @@ export default function AdminTagsPage() {
 
                 {/* Yeni Tag Ekleme */}
                 <div className="mb-8">
-                    <div className="flex items-center gap-4">
+                    <form onSubmit={handleAddTag} className="flex items-center gap-4">
                         <input
                             type="text"
                             placeholder="Yeni bir tag yazın..."
@@ -131,13 +132,14 @@ export default function AdminTagsPage() {
                             className="flex-grow border border-gray-300 rounded-lg px-4 py-3 focus:ring-4 focus:ring-blue-500 focus:outline-none shadow-sm text-gray-700"
                         />
                         <button
+                            type="submit"
                             disabled={loading}
-                            onClick={handleAddTag}
+                            // onClick={handleAddTag}
                             className={`bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition shadow-md ${loading ? "bg-gray-100" : ""}`}
                         >
                             Ekle
                         </button>
-                    </div>
+                    </form>
                 </div>
 
                 {/* Multi Delete */}
