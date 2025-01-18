@@ -35,6 +35,7 @@ export const viewport = {
     themeColor: "#ffffff"
 };
 const keywords = [
+    "ehlisunne","islam","din","quran","allah","iman","oruc",
     "Ehli Sünne", "Medrese", "İslam Maarifi", "Əhli-Sünnə Mədrəsəsi", "Din Maarifi",
     "Dini Təhsil", "İslam Mədrəsəsi", "Ehli Sünne Mədrəsəsi", "Əhli-Sünnə Məzhəbi",
     "Dini Maarifləndirmə", "Əhli-Sünnə Mədrəsəsi Bakı", "Əhli-Sünnə Mədrəsəsi Azərbaycan",
