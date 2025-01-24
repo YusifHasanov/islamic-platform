@@ -16,6 +16,7 @@ export default function Component() {
                 .then(res => res.json())
                 .then(books => setBooks(books))
                 .catch(err => console.log(err))
+        console.log("dsdas")
 
         },
         [])
