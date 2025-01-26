@@ -4,14 +4,23 @@ import Link from "next/link";
 import SearchComponent from "@/components/videos/SearchComponent";
 import Image from "next/image";
 import ConsoleLog from "@/components/common/ConsoleLog";
+import HttpClient from "@/util/HttpClient";
 
 
 export const revalidate = 60;
 
 const PlaylistsSection = async ({playlistId, search}) => {
-    const res = await fetch(`${BASE_URL}/playlists`, {
+    // const res = await fetch(`${BASE_URL}/playlists`, {
+    //     next: {revalidate: 60},
+    // });
+    // let playlists = await res.json();
+
+
+
+    const res = await HttpClient.get(`/playlists`, {
         next: {revalidate: 60},
     });
+
     let playlists = await res.json();
 
 
