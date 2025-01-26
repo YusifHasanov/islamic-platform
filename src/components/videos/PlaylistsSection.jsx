@@ -10,17 +10,9 @@ import HttpClient from "@/util/HttpClient";
 export const revalidate = 60;
 
 const PlaylistsSection = async ({playlistId, search}) => {
-    // const res = await fetch(`${BASE_URL}/playlists`, {
-    //     next: {revalidate: 60},
-    // });
-    // let playlists = await res.json();
-
-
-
-    const res = await HttpClient.get(`/playlists`, {
+    const res = await fetch(`${BASE_URL}/playlists`, {
         next: {revalidate: 60},
     });
-
     let playlists = await res.json();
 
 

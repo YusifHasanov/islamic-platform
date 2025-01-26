@@ -1,8 +1,6 @@
 import React from 'react';
 import {BASE_URL} from "@/util/Const";
-import Link from "next/link";
 import VideoPlayerPlaylistItems from "@/components/videos/VideoPlayerPlaylistItems";
-import HttpClient from "@/util/HttpClient";
 
 
 const VideoPlayer = async ({playlistId, videoId}) => {
@@ -11,28 +9,14 @@ const VideoPlayer = async ({playlistId, videoId}) => {
         playlistId = process.env.DEFAULT_PLAYLIST_ID;
     }
 
-    // const videRes = await fetch(`${BASE_URL}/videos?playlistId=${playlistId}`, {
-    //     next: {revalidate: 60},
-    // });
-    // const videos = await videRes.json();
-    //
-    // const playlistRes = await fetch(`${BASE_URL}/playlists/${playlistId}`, {
-    //     next: {revalidate: 60},
-    // });
-    // const playlist = await playlistRes.json();
-
-
-
-
-    const videRes = await HttpClient.get(`/videos?playlistId=${playlistId}`, {
+    const videRes = await fetch(`${BASE_URL}/videos?playlistId=${playlistId}`, {
         next: {revalidate: 60},
     });
     const videos = await videRes.json();
 
-    const playlistRes = await HttpClient.get(`/playlists/${playlistId}`, {
+    const playlistRes = await fetch(`${BASE_URL}/playlists/${playlistId}`, {
         next: {revalidate: 60},
     });
-
     const playlist = await playlistRes.json();
 
     return (
