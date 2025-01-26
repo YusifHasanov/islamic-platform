@@ -3,6 +3,7 @@ import "./globals.css";
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 import Tailwind from 'primereact/passthrough/tailwind';
+import { Analytics } from '@vercel/analytics/next';
 
 
 import {
@@ -254,6 +255,7 @@ export default function RootLayout({children}) {
         <PrimeReactProvider value={{pt: Tailwind}}>
             {children}
         </PrimeReactProvider>
+        <Analytics/>
         </body>
         </html>
     );
