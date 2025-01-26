@@ -3,13 +3,31 @@
 const nextConfig = {
     reactStrictMode: false,
     images: {
-        domains: [
-            'res.cloudinary.com',
-            'i.ytimg.com',
-            'medrese.vercel.app',
-            'hayalhanem.com',
-            '52principlesforchurchleaders.com',
-            'images.unsplash.com',
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: 'res.cloudinary.com',
+            },
+            {
+                protocol: 'https',
+                hostname: 'i.ytimg.com',
+            },
+            {
+                protocol: 'https',
+                hostname: 'medrese.vercel.app',
+            },
+            {
+                protocol: 'https',
+                hostname: 'hayalhanem.com',
+            },
+            {
+                protocol: 'https',
+                hostname: '52principlesforchurchleaders.com',
+            },
+            {
+                protocol: 'https',
+                hostname: 'images.unsplash.com',
+            },
         ],
     },
     experimental: {

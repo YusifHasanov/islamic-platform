@@ -16,7 +16,6 @@ const PlaylistsSection = async ({playlistId, search}) => {
     let playlists = await res.json();
 
 
-
     if (search && search !== '') {
         playlists = playlists.filter(x => x.title.toLowerCase().includes(search.toLowerCase()));
     }
@@ -60,7 +59,7 @@ const PlaylistsSection = async ({playlistId, search}) => {
                                       className="bg-white playlistCard cursor-pointer rounded-2xl overflow-hidden  shadow-sm">
                                     <Image
                                         loading={"lazy"}
-                                        src={playlist.thumbnail.split("+")[2]}
+                                        src={playlist.thumbnail.split("+")[2] ?? playlist.thumbnail.split("+")[1] ?? playlist.thumbnail.split("+")[0]}
                                         alt={playlist.title}
                                         className="w-full object-cover "
                                         height={50}
