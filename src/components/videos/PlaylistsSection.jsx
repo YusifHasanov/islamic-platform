@@ -57,13 +57,18 @@ const PlaylistsSection = async ({playlistId, search}) => {
                                 <Link href={`/videos?playlistId=${playlist.playlistId}`}
                                       key={playlist.playlistId}
                                       className="bg-white playlistCard cursor-pointer rounded-2xl overflow-hidden  shadow-sm">
-                                    <Image
-                                        loading={"lazy"}
+                                    {/*<Image*/}
+                                    {/*    loading={"lazy"}*/}
+                                    {/*    src={playlist.thumbnail.split("+")[2] ?? playlist.thumbnail.split("+")[1] ?? playlist.thumbnail.split("+")[0]}*/}
+                                    {/*    alt={playlist.title}*/}
+                                    {/*    className="w-full object-cover "*/}
+                                    {/*    height={50}*/}
+                                    {/*    width={500}*/}
+                                    {/*/>  */}
+                                    <img
                                         src={playlist.thumbnail.split("+")[2] ?? playlist.thumbnail.split("+")[1] ?? playlist.thumbnail.split("+")[0]}
                                         alt={playlist.title}
                                         className="w-full object-cover "
-                                        height={50}
-                                        width={500}
                                     />
                                     <div
                                         className={`px-4 pt-1 min-h-20 flex flex-col justify-between pb-1 ${isCurrentPlaylist(playlist.playlistId)}`}>
