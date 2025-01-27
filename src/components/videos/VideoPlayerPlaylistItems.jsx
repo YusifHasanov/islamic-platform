@@ -32,13 +32,18 @@ const VideoPlayerPlaylistItems = ({ videos, videoId, playlistId }) => {
                     <Link href={`/videos?playlistId=${playlistId}&videoId=${video.videoId}`}
                           key={id}
                           className={`flex videosItem items-center space-x-4 p-2 rounded-lg hover:bg-gray-700 ${(videoId == null && id === 0) || video.videoId === videoId ? "bg-gray-800" : ""}`}>
-                        <Image
-                            loading={"lazy"}
-                            src={video.thumbnail.split("+")[2]}
-                            alt="Video Thumbnail"
-                            height={20}
-                            width={200}
-                            className="w-28 h-20 object-cover rounded-lg"
+                        {/*<Image*/}
+                        {/*    loading={"lazy"}*/}
+                        {/*    src={video.thumbnail.split("+")[2]}*/}
+                        {/*    alt={video.title}*/}
+                        {/*    height={20}*/}
+                        {/*    width={200}*/}
+                        {/*    className="w-28 h-20 object-cover rounded-lg"*/}
+                        {/*/>*/}
+                        <img
+                            src={video.thumbnail.split("+")[2] ?? video.thumbnail.split("+")[1] ?? video.thumbnail.split("+")[0]}
+                            alt={video.title}
+                            className="w-28 object-cover "
                         />
                         <div>
                             <h4 className="text-white text-md font-medium">
