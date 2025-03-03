@@ -4,11 +4,15 @@ import { BASE_URL } from "@/util/Const";
 import Head from "next/head";
 import Script from "next/script";
 import {Meta} from "next/dist/lib/metadata/generate/meta";
+import {NextResponse as res} from "next/server";
 
 export const revalidate = 60;
 
-export async function generateStaticParams() {
-    const posts = await fetch(`${BASE_URL}/articles/all`).then((res) => res.json());
+export async function generateStaticParams( ) {
+    const postsJson = await fetch(`${BASE_URL}/articles/all`)
+
+    const posts = await postsJson.json();
+
     return posts.map((post) => ({
         id: String(post.id),
     }));
