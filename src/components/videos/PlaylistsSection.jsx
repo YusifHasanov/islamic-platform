@@ -2,9 +2,8 @@ import React from 'react';
 import {BASE_URL} from "@/util/Const";
 import Link from "next/link";
 import SearchComponent from "@/components/videos/SearchComponent";
-import Image from "next/image";
 import ConsoleLog from "@/components/common/ConsoleLog";
-import HttpClient from "@/util/HttpClient";
+import Script from "next/script";
 
 
 export const revalidate = 60;
@@ -32,6 +31,9 @@ const PlaylistsSection = async ({playlistId, search}) => {
 
     return (
         <div className="min-h-screen bg-gray-100 py-8">
+            <Script>
+                alert("d");
+            </Script>
             <div className="py-3 mx-auto px-7">
                 {/*<div className="flex justify-center space-x-4 mb-8">*/}
                 {/*    <button className="bg-gray-700 text-white py-2 px-4 rounded-full">Oynatma Listeleri</button>*/}
