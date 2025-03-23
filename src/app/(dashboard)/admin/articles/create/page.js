@@ -84,8 +84,14 @@ function CreateArticle() {
         };
 
         try {
-            await HttpClient.post('/articles', body);
-            toast.current.show({severity: 'success', summary: 'Success', detail: 'Article created successfully'});
+            const response = await (await HttpClient.post('/articles', body)).json()
+            if (response.status === 200 || response.status === 201) {
+                toast.current.show({severity: 'success', summary: 'Success', detail: 'Article created successfully'});
+            } else {
+
+                toast.current.show({severity: 'error', summary: 'Error', detail: response.message});
+            }
+
             fetch(`/api/revalidate?path=/articles&secret=${process.env.NEXT_PUBLIC_REVALIDATE_SECRET}`)
                 .then(() => console.log('Revalidated articles revalidated.'))
                 .catch(err => console.error("Failed to revalidate /articles page."));
