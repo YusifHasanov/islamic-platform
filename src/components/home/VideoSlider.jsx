@@ -14,7 +14,7 @@ export default function VideoSlider() {
 
     const slides = [
         {
-            videoSrc: 'https://res.cloudinary.com/dhhlnrons/video/upload/v1742720218/esm/sei3h3hv2sf3uy9uhykh.mp4',
+            videoSrc: 'https://res.cloudinary.com/dhhlnrons/video/upload/v1742720671/esm/jdpytj2o4dv8skgcg0eu.mp4',
             title: 'Şeyx Muxaxlı Seyfəddin Baba',
             subtitle: 'Səbr Edənlərin Mükafatı!',
             description: null,

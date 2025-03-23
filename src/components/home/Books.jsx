@@ -10,22 +10,36 @@ import HttpClient from "@/util/HttpClient";
 
 
 export default function Component() {
-    const [books, setBooks] = useState([]);
-    useEffect(() => {
-            HttpClient.get('/books')
-                .then(res => res.json())
-                .then(books => setBooks(books))
-                .catch(err => console.log(err))
-        console.log("dsdas")
-
+    const [books, setBooks] = useState([
+        {
+            image:"https://res.cloudinary.com/dhhlnrons/image/upload/v1742722148/esm/books/tujvd6zrscuqiqhskvxp.jpg",
+            title:"Əhli-Sünnə Əqidəsi"
         },
-        [])
+        {
+            image:"https://res.cloudinary.com/dhhlnrons/image/upload/v1742722145/esm/books/qwqgjoagkondanp5gktf.jpg",
+            title:"Asan Əməllər"
+        },
+        {
+            image:"https://res.cloudinary.com/dhhlnrons/image/upload/v1742722117/esm/books/zxwlxh1zsjutjhocvi1x.jpg",
+            title:"Töhfə"
+        }
+
+    ]);
+    // useEffect(() => {
+    //         HttpClient.get('/books')
+    //             .then(res => res.json())
+    //             .then(books => setBooks(books))
+    //             .catch(err => console.log(err))
+    //     console.log("dsdas")
+    //
+    //     },
+    //     [])
 
 
     return (
         <div className="mx-auto max-w-7xl px-4 py-16">
             <div className="mb-12 text-center">
-                <h2 className="text-3xl font-bold tracking-tight">MEHMET YILDIZ&apos;IN TÜM KİTAPLARI</h2>
+                <h2 className="text-4xl font-bold tracking-tight">Kitablarımız</h2>
                 <div className="mt-2 mx-auto h-1 w-24 bg-orange-500"/>
             </div>
 
@@ -41,14 +55,13 @@ export default function Component() {
                     breakpoints={{
                         640: {slidesPerView: 2},
                         1024: {slidesPerView: 3},
-                        1280: {slidesPerView: 4},
+                        1280: {slidesPerView: 3},
                     }}
                     className="!px-4"
                 >
                     {books.map((book, index) => (
-                        <SwiperSlide key={index}>
-                            <div
-                                className="group relative flex flex-col items-center transition-all duration-300 hover:-translate-y-2">
+                        <SwiperSlide key={index} className="!flex justify-center">
+                            <div className="group flex w-full max-w-[250px] flex-col items-center transition-all duration-300 hover:-translate-y-2">
                                 <div className="relative aspect-[3/4] w-full overflow-hidden rounded-lg shadow-lg">
                                     <Image
                                         src={book.image}
