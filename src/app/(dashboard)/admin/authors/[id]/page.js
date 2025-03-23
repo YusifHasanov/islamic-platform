@@ -1,33 +1,32 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { useRouter, useParams } from "next/navigation";
-import { BASE_URL } from "@/util/Const";
+import React, {useState, useEffect} from "react";
+import {useRouter, useParams} from "next/navigation";
+import {BASE_URL} from "@/util/Const";
 import HttpClient from "@/util/HttpClient";
 
 const AuthorDetail = () => {
     const router = useRouter();
-    const { id } = useParams();
+    const {id} = useParams();
 
     const [author, setAuthor] = useState(null);
-    const [formData, setFormData] = useState({ name: "", image: "" });
+    const [formData, setFormData] = useState({name: "", image: ""});
     const [loading, setLoading] = useState(false);
-
 
     useEffect(() => {
         HttpClient.get(`/authors/${id}`)
             .then((res) => res.json())
             .then((data) => {
                 setAuthor(data);
-                setFormData({ name: data.name, image: data.image });
+                setFormData({name: data.name, image: data.image});
             })
             .catch((err) => console.error("Error fetching author:", err));
     }, [id]);
 
     // Form inputlarını yönet
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormData((prev) => ({ ...prev, [name]: value }));
+        const {name, value} = e.target;
+        setFormData((prev) => ({...prev, [name]: value}));
     };
 
     // Resim dosyasını yükle ve Base64'e çevir
@@ -37,7 +36,7 @@ const AuthorDetail = () => {
             const reader = new FileReader();
 
             reader.onloadend = () => {
-                setFormData((prev) => ({ ...prev, image: reader.result }));
+                setFormData((prev) => ({...prev, image: reader.result}));
             };
 
             reader.readAsDataURL(file);
@@ -70,13 +69,14 @@ const AuthorDetail = () => {
     // Yazar sil
     const handleDelete = async () => {
         if (!confirm("Are you sure you want to delete this author?")) return;
-
+        console.log("Deleting autgor");
         setLoading(true);
         try {
-            const res =await ( await HttpClient.delete(`/authors/${id}`, {})).json()
-            if (res.status === 200) {
+            const res = await (await HttpClient.delete(`/authors/${id}`)).json()
+            if (res.status === 204) {
                 alert("Author deleted successfully");
-            }else{
+                router.push("/admin/authors");
+            } else {
                 alert(res.message);
             }
         } catch (error) {
@@ -84,6 +84,7 @@ const AuthorDetail = () => {
         } finally {
             setLoading(false);
         }
+
     };
 
     if (!author) {
