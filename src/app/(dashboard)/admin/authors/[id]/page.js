@@ -73,17 +73,14 @@ const AuthorDetail = () => {
 
         setLoading(true);
         try {
-            const res = await HttpClient.delete(`/authors/${id}`, {})
-            // const res = await fetch(`${BASE_URL}/authors/${id}`, {
-            //     method: "DELETE",
-            // });
-
-            if (!res.ok) throw new Error("Failed to delete author");
-            alert("Author deleted successfully");
-            router.push("/authors"); // Yazarlar listesine dön
+            const res =await ( await HttpClient.delete(`/authors/${id}`, {})).json()
+            if (res.status === 200) {
+                alert("Author deleted successfully");
+            }else{
+                alert(res.message);
+            }
         } catch (error) {
             console.error(error);
-            alert("Error deleting author");
         } finally {
             setLoading(false);
         }
