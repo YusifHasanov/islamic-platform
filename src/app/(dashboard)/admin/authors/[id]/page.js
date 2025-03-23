@@ -73,9 +73,10 @@ const AuthorDetail = () => {
 
         setLoading(true);
         try {
-            const res = await fetch(`${BASE_URL}/authors/${id}`, {
-                method: "DELETE",
-            });
+            const res = await HttpClient.delete(`/authors/${id}`, {})
+            // const res = await fetch(`${BASE_URL}/authors/${id}`, {
+            //     method: "DELETE",
+            // });
 
             if (!res.ok) throw new Error("Failed to delete author");
             alert("Author deleted successfully");
