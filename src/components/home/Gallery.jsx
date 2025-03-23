@@ -3,15 +3,15 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 // import { Image } from "primereact/image";
 const images = [
-    "https://hayalhanem.com/wp-content/uploads/revslider/slider-2/4.jpg",
-    "https://hayalhanem.com/wp-content/uploads/revslider/slider-2/1.jpg",
-    "https://hayalhanem.com/wp-content/uploads/revslider/slider-2/IMG_5976-1.jpg",
-    "https://hayalhanem.com/wp-content/uploads/revslider/slider-2/433563753_18431221807053262_3442400062282089018_n.jpg",
-    "https://hayalhanem.com/wp-content/uploads/revslider/slider-2/IMG_5976-1.jpg",
-    "https://hayalhanem.com/wp-content/uploads/revslider/slider-2/433563753_18431221807053262_3442400062282089018_n.jpg",
-    "https://hayalhanem.com/wp-content/uploads/revslider/slider-2/IMG_5976-1.jpg",
-    "https://hayalhanem.com/wp-content/uploads/revslider/slider-2/433563753_18431221807053262_3442400062282089018_n.jpg",
-    "https://hayalhanem.com/wp-content/uploads/revslider/slider-2/IMG_5976-1.jpg",
+    "https://hayalhanem.com/wp-content/uploads/2025/02/hayalhanem-mersin.jpg.webp",
+    "https://hayalhanem.com/wp-content/uploads/2024/10/6.webp",
+    "https://hayalhanem.com/wp-content/uploads/2025/02/hayalhanem-konferans.jpg.webp",
+    "https://hayalhanem.com/wp-content/uploads/2025/02/hayalhanem-sohbet-2.jpg.webp",
+    "https://hayalhanem.com/wp-content/uploads/2024/10/5-.webp",
+    "https://hayalhanem.com/wp-content/uploads/2025/02/hayalhanem-sohbet.jpg.webp",
+    "https://hayalhanem.com/wp-content/uploads/2024/10/2.webp",
+    "https://hayalhanem.com/wp-content/uploads/2024/10/4.webp",
+    "https://hayalhanem.com/wp-content/uploads/2024/10/3.webp",
 ];
 
 const Gallery = () => {

@@ -12,7 +12,7 @@ const HomePage = async () => {
     return (
         <div>
             <VideoSlider/>
-            <WhereWeAre/>
+            {/*<WhereWeAre/>*/}
             <Articles/>
             <Gallery />
             <SocialMediaStats/>
