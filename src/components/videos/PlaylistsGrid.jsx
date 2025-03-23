@@ -7,7 +7,8 @@ import ConsoleLog from "@/components/common/ConsoleLog";
 
 export const revalidate = 60;
 
-const PlaylistsSection = async ({playlistId, search}) => {
+const PlaylistsGrid = async ({playlistId, search, videoId, content}) => {
+
     const res = await fetch(`${BASE_URL}/playlists`, {
         next: {revalidate: 60},
     });
@@ -30,27 +31,9 @@ const PlaylistsSection = async ({playlistId, search}) => {
 
     return (
         <div className="min-h-screen bg-gray-100 py-8">
-            {/*<Script>*/}
-            {/*    alert("d");*/}
-            {/*</Script>*/}
+
             <div className="py-3 mx-auto px-7">
-                {/*<div className="flex justify-center space-x-4 mb-8">*/}
-                {/*    <button className="bg-gray-700 text-white py-2 px-4 rounded-full">Oynatma Listeleri</button>*/}
-                {/*    <button className="bg-gray-700 text-white py-2 px-4 rounded-full">Son Yüklenenler</button>*/}
-                {/*</div>*/}
-
-                <div className={"flex justify-center items-center w-full"}>
-                    <div className="flex justify-center mr-4">
-                        <button className="bg-gray-700 text-white py-2 px-4 rounded-full">Playlistlər</button>
-                    </div>
-                    <SearchComponent/>
-                </div>
-                <ConsoleLog log={playlists}/>
-
-
-                {/* Playlists Grid */}
                 {
-
                     playlists?.length === 0 ? <NoAnyPlaylist/> :
 
                         <div className="grid grid-cols-1 mt-12 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
@@ -85,7 +68,7 @@ const PlaylistsSection = async ({playlistId, search}) => {
     );
 };
 
-export default PlaylistsSection;
+export default PlaylistsGrid;
 
 
 const NoAnyPlaylist = () => {

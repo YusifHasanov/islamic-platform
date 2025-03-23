@@ -1,6 +1,5 @@
 import React from 'react';
 import VideoSlider from "@/components/home/VideoSlider";
-import WhereWeAre from "@/components/home/WhereWeAre";
 import Gallery from "@/components/home/Gallery";
 import Books from "@/components/home/Books";
 import Feedbacks from "@/components/home/Feedbacks";
@@ -15,8 +14,8 @@ const HomePage = async () => {
             {/*<WhereWeAre/>*/}
             <Articles/>
             <Gallery />
-            <SocialMediaStats/>
             <Books/>
+            <SocialMediaStats/>
             <Feedbacks/>
         </div>
     );
