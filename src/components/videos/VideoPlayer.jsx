@@ -7,7 +7,8 @@ export const revalidate = 60;
 const VideoPlayer = async ({ playlistId, videoId }) => {
 
     // Yalnız videoId verilmişsə, playlistId tapılır
-    if ((!playlistId || playlistId === "undefined" || playlistId === "null") && videoId) {
+    if ( videoId) {
+    // if ((!playlistId || playlistId === "undefined" || playlistId === "null") && videoId) {
       console.log("birinci ifff")
         const playlistRes = await fetch(`${BASE_URL}/playlists/of-video/${videoId}`, {
             next: { revalidate: 60 }
