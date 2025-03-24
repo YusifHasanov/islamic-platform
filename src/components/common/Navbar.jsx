@@ -73,6 +73,12 @@ const Navbar = () => {
         setMobileMenuOpen(!mobileMenuOpen);
     };
 
+    const handleClick2 = () => {
+        if(mobileMenuOpen ) {
+            setMobileMenuOpen(!mobileMenuOpen);
+        }
+    };
+
     const toggleSubMenu = (name) => {
         setOpenSubMenu(openSubMenu === name ? null : name); // Toggle submenu state
     };
@@ -145,7 +151,7 @@ const Navbar = () => {
                         <Image height={60} width={70} src={"/esm_logo.png"} alt={"logo"}/>
                         <div className="flex-shrink-0">
                             <span className="text-white font-bold text-lg">
-                                <Link onClick={handleClick} href={'/'}>
+                                <Link onClick={handleClick2} href={'/'}>
                                     <span className="text-[#F7E652]">Əhli Sünnə </span>Mədrəsəsi
                                 </Link>
                             </span>

@@ -46,8 +46,7 @@ export default function VideoSlider() {
 
     return (
         <Swiper
-            modules={[Navigation, Pagination]}
-            navigation
+            modules={[ Pagination]}
             pagination={{clickable: true}}
             className="h-screen w-full"
             onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
