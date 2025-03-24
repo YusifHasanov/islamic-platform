@@ -3,15 +3,12 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 // import { Image } from "primereact/image";
 const images = [
-    "https://hayalhanem.com/wp-content/uploads/2025/02/hayalhanem-mersin.jpg.webp",
-    "https://hayalhanem.com/wp-content/uploads/2024/10/6.webp",
-    "https://hayalhanem.com/wp-content/uploads/2025/02/hayalhanem-konferans.jpg.webp",
-    "https://hayalhanem.com/wp-content/uploads/2025/02/hayalhanem-sohbet-2.jpg.webp",
-    "https://hayalhanem.com/wp-content/uploads/2024/10/5-.webp",
-    "https://hayalhanem.com/wp-content/uploads/2025/02/hayalhanem-sohbet.jpg.webp",
-    "https://hayalhanem.com/wp-content/uploads/2024/10/2.webp",
-    "https://hayalhanem.com/wp-content/uploads/2024/10/4.webp",
-    "https://hayalhanem.com/wp-content/uploads/2024/10/3.webp",
+    "/qardaslar_1.jfif",
+    "/qardaslar_2.jfif",
+    "/qardaslar_1.jfif",
+    "/qardaslar_2.jfif",
+    "/qardaslar_1.jfif",
+    "/qardaslar_2.jfif",
 ];
 
 const Gallery = () => {
@@ -26,7 +23,7 @@ const Gallery = () => {
     };
 
     return (
-        <div className="py-16 px-4 mx-auto grid grid-cols-1 lg:grid-cols-3 gap-10">
+        <div className="py-16 bg-gray-100 px-4 mx-auto grid grid-cols-1 lg:grid-cols-3 gap-10">
             {/* Sol taraf - Galeri açıklaması */}
             <div className="bg-[#FCB900] p-8 rounded-lg h-max">
                 <h2 className="text-3xl font-bold mb-4">GALERİ</h2>

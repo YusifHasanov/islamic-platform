@@ -13,7 +13,7 @@ const HomePage = async () => {
             <VideoSlider/>
             {/*<WhereWeAre/>*/}
             <Articles/>
-            <Gallery />
+            {/*<Gallery />*/}
             <Books/>
             <SocialMediaStats/>
             <Feedbacks/>

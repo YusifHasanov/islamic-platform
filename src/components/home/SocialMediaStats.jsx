@@ -7,11 +7,10 @@ const SocialMediaStats = () => {
 
                 {/* Left Section */}
                 <div className="lg:w-5/12 p-5 lg:pr-12 lg:border-r lg:border-gray-400">
-                    <h2 className="text-3xl font-bold mb-4">BİZİ TAKİP EDİYOR MUSUNUZ?</h2>
+                    <h2 className="text-3xl font-bold mb-4">Bizi izləyirsinizmi?</h2>
                     <p className="text-gray-300 leading-relaxed">
-                        Dijital mecralarda milyonlarca kişiye ulaştık, kalplere dokunduk. Her paylaşım, bir hikayenin
-                        başlangıcı oldu. Sizlerle paylaştığımız her içerik, bir köprü kurdu aramızda, Hayalhanem olarak
-                        milyonların kalbinde iman hakikatlarının yer etmesi bize umut veriyor.
+                        Rəqəmsal platformalarda milyonlarla insana çatdıq, ürəklərə toxunduq. Hər paylaşım bir hekayənin başlanğıcı oldu.
+                        Sizinlə paylaşdığımız hər məzmun aramızda bir körpü qurdu. Əhli Sünnə Medresesi olaraq, milyonların ürəyində iman həqiqətlərinin yer alması bizə ümid verir.
                     </p>
                 </div>
 

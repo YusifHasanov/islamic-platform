@@ -30,7 +30,7 @@ const Articles =  async () => {
                     />
                 ))}
             </div>
-            <div className="flex justify-center mt-8">
+            <div className="flex justify-center mt-12">
                 <Link href={"/articles"} className="bg-[#F7E652] text-[#fff] px-6 py-2 rounded-2xl font-semibold hover:bg-[#e0d048]">
                     TÜM MAKALELERİ GÖSTER
                 </Link>

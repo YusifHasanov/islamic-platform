@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import {useState, useEffect} from "react"
 import {AiFillCaretLeft, AiFillCaretRight} from "react-icons/ai";
 import {Star} from "lucide-react";
 
@@ -9,23 +9,23 @@ import {Star} from "lucide-react";
 const testimonials = [
     {
         id: 1,
-        author: "Mehmet B.",
-        text: "Mehmet bey, bir söylemenizde haramda huzur ararsan, huzur sana haram olur demişsiniz. Benden vazgeçme ya rab\" kitabın ilk çıktığı zaman alıp okuduktan sonra, birkaç sayfasını Flemenkçeye çevirip Hollandalı bir arkadaşıma anlattım. Elhamdülillah Müslüman olmuştu. Ben o zamanlar size anlatmayıp ahirete saklamak istemiştim ama haber vermemeye dayanamadım. Sizleri de sevindirmek istedim Allah hepinizden razı olsun...",
+        author: "Elçin S.",
+        text: "Əhli Sünnə Mədrəsəsi vasitəsilə ruhumun dərinliklərinə səyahət etdim. Hər dərs və mühazirə mənə iman və mənəviyyatın əhəmiyyətini bir daha xatırlatdı. Həyatımda yeni bir səhifə açdı.",
         rating: 5,
     },
     {
         id: 2,
-        author: "Ahmet K.",
-        text: "Harika bir deneyimdi. Kesinlikle tavsiye ederim.",
+        author: "Nigar A.",
+        text: "Bu mədrəsənin dərsləri insanı düşünməyə, öyrənməyə və özünü inkişaf etdirməyə sövq edir. Müəllimlərin səmimi yanaşması və zəngin bilikləri mənim üçün ilham mənbəyi oldu.",
         rating: 5,
     },
     {
         id: 3,
-        author: "Ayşe M.",
-        text: "Çok memnun kaldım, teşekkür ederim.",
+        author: "Fərid M.",
+        text: "Əhli Sünnə Meədrəsəsində öyrəndiklərim gündəlik həyatımda yol göstərici oldu. Dərslərin dərinliyi və müəllimlərin təcrübəsi mənəvi zənginliyimə böyük töhfə verdi.",
         rating: 5,
     },
-]
+];
 
 export default function Component() {
     const [currentSlide, setCurrentSlide] = useState(0)
@@ -53,10 +53,10 @@ export default function Component() {
     return (
         <div
             style={{
-                backgroundImage:"url(https://hayalhanem.com/wp-content/uploads/2024/10/bg-sizden-elenler.webp)",
-                backgroundSize:"cover",
-                backgroundRepeat:"no-repeat",
-                backgroundPosition:"center center",
+                backgroundImage: "url(https://hayalhanem.com/wp-content/uploads/2024/10/bg-sizden-elenler.webp)",
+                backgroundSize: "cover",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center center",
             }}
             className={"w-full"}>
             <div className="relative mx-auto max-w-4xl px-4 py-16">
