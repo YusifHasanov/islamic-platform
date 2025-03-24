@@ -111,7 +111,7 @@ const Footer = () => {
 
             {/* Footer Bottom */}
             <div className="mt-8 border-t border-gray-700 pt-4 text-center text-gray-400 text-sm">
-                © {new Date().getFullYear()} Əhli Sünnə Medrəsəsi. Bütün hüquqlar qorunur.
+                © {new Date().getFullYear()} Əhli Sünnə Mədrəsəsi. Bütün hüquqlar qorunur.
             </div>
         </footer>
     );
