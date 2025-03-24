@@ -41,7 +41,7 @@ export default async function ArticlesPage({page, category}) {
             {/*<ConsoleLog log={{content, category}}/>*/}
             <Header/>
             <div className="min-h-screen">
-                <div className=" px-6 sm:px-12 mx-auto p-4">
+                <div className=" px-4 sm:px-12 mx-auto p-4">
                     <HeaderText categoryId={category}/>
                     <div className="flex flex-wrap lg:flex-nowrap gap-10">
                         {/* Makale Kartları */}

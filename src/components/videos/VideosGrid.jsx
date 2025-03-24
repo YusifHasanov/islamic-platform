@@ -54,7 +54,7 @@ const VideosGrid = async ({searchParams, playlistId, search, videoId, page}) => 
 
     return (
         <div className="min-h-screen bg-gray-100 py-8">
-            <div className="py-3 mx-auto px-7">
+            <div className="py-3 mx-auto md:px-7 px-0">
                 {
                     videos?.length === 0 ? <NoAnyVideo/> :
                         <>
