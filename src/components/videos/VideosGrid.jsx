@@ -1,18 +1,19 @@
 import React from 'react';
-import { BASE_URL } from "@/util/Const";
+import {BASE_URL} from "@/util/Const";
 import Link from "next/link";
+import Pagination from "@/components/common/Pagination";
 
 export const revalidate = 60;
 
 const LIMIT = 12;
 
-const VideosGrid = async ({ searchParams, playlistId, search, videoId , page}) => {
+const VideosGrid = async ({searchParams, playlistId, search, videoId, page}) => {
 
     const clientPage = parseInt(page, 10) || 1;
     const backendPage = clientPage - 1;
 
     const res = await fetch(`${BASE_URL}/videos?page=${backendPage}&size=${LIMIT}`, {
-        next: { revalidate: 60 }
+        next: {revalidate: 60}
     });
 
     const data = await res.json();
@@ -36,9 +37,9 @@ const VideosGrid = async ({ searchParams, playlistId, search, videoId , page}) =
         const params = new URLSearchParams();
         params.set('page', newPage);
 
-        if(dynamicVideoId) {
+        if (dynamicVideoId) {
             params.set('videoId', dynamicVideoId);
-        }else if(videoId){
+        } else if (videoId) {
             params.set('videoId', videoId);
         }
 
@@ -55,7 +56,7 @@ const VideosGrid = async ({ searchParams, playlistId, search, videoId , page}) =
         <div className="min-h-screen bg-gray-100 py-8">
             <div className="py-3 mx-auto px-7">
                 {
-                    videos?.length === 0 ? <NoAnyVideo /> :
+                    videos?.length === 0 ? <NoAnyVideo/> :
                         <>
                             <div className="grid grid-cols-1 mt-12 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
                                 {videos?.map((video) => (
@@ -66,7 +67,8 @@ const VideosGrid = async ({ searchParams, playlistId, search, videoId , page}) =
                                             alt={video.title}
                                             className="w-full object-cover"
                                         />
-                                        <div className={`px-4 pt-1 min-h-20 flex flex-col justify-between pb-1 ${isCurrentVideo(video.videoId)}`}>
+                                        <div
+                                            className={`px-4 pt-1 min-h-20 flex flex-col justify-between pb-1 ${isCurrentVideo(video.videoId)}`}>
                                             <h3 className="text-lg font-semibold">{video.title}</h3>
                                         </div>
                                     </Link>
@@ -75,42 +77,7 @@ const VideosGrid = async ({ searchParams, playlistId, search, videoId , page}) =
 
                             {/* Pagination */}
                             {/* Pagination */}
-                            <div className="flex flex-wrap justify-center items-center mt-10 space-x-2">
-
-                                {clientPage > 1 && (
-                                    <Link href={buildPageLink(1)} className="...">⏮ İlk</Link>
-                                )}
-
-                                {clientPage > 1 && (
-                                    <Link href={buildPageLink(clientPage - 1)} className="...">Əvvəlki</Link>
-                                )}
-
-                                {/* Səhifə nömrələri */}
-                                {Array.from({ length: totalPages }, (_, i) => i + 1)
-                                    .filter(p => Math.abs(p - clientPage) <= 2 || p === 1 || p === totalPages)
-                                    .map((p, idx, arr) => {
-                                        const prev = arr[idx - 1];
-                                        const showDots = prev && p - prev > 1;
-
-                                        return (
-                                            <React.Fragment key={p}>
-                                                {showDots && <span className="px-2">...</span>}
-                                                <Link href={buildPageLink(p)}
-                                                      className={`px-3 py-2 rounded ${p === clientPage ? 'bg-blue-500 text-white' : 'bg-gray-200 hover:bg-gray-300'}`}>
-                                                    {p}
-                                                </Link>
-                                            </React.Fragment>
-                                        );
-                                    })}
-
-                                {clientPage < totalPages && (
-                                    <Link href={buildPageLink(clientPage + 1)} className="...">Növbəti</Link>
-                                )}
-
-                                {clientPage < totalPages && (
-                                    <Link href={buildPageLink(totalPages)} className="...">Son ⏭</Link>
-                                )}
-                            </div>
+                            <Pagination clientPage={clientPage} totalPages={totalPages} buildPageLink={buildPageLink}/>
                         </>
                 }
             </div>

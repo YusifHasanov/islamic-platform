@@ -8,17 +8,8 @@ const VideoAndPlaylists = ({playlistId, search, videoId, content, page}) => {
 
     return (
         <div className="min-h-screen bg-gray-100 py-8">
-            {/*<Script>*/}
-            {/*    alert("d");*/}
-            {/*</Script>*/}
             <div className="py-3 mx-auto px-7">
-                {/*<div className="flex justify-center space-x-4 mb-8">*/}
-                {/*    <button className="bg-gray-700 text-white py-2 px-4 rounded-full">Oynatma Listeleri</button>*/}
-                {/*    <button className="bg-gray-700 text-white py-2 px-4 rounded-full">Son Yüklenenler</button>*/}
-                {/*</div>*/}
-
-                <SearchAndToggle     content={content} />
-
+                <SearchAndToggle content={content}/>
 
                 {
                     content === "playlists" && <PlaylistsGrid
@@ -37,9 +28,6 @@ const VideoAndPlaylists = ({playlistId, search, videoId, content, page}) => {
                         page={page}
                     />
                 }
-
-                {/* Playlists Grid */}
-
             </div>
         </div>
     );

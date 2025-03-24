@@ -5,28 +5,40 @@ import ArticleCategories from "@/components/articles/ArticleCategories";
 import PopularArticles from "@/components/articles/PopularArticles";
 import OtherArticleList from "@/components/articles/OtherArticleList";
 import {BASE_URL} from "@/util/Const";
-import Pagination from "@/components/articles/Pagination";
+import Pagination from "@/components/common/Pagination";
 import ConsoleLog from "@/components/common/ConsoleLog";
+import Link from "next/link";
 
 export const revalidate = 60;
 const PAGE_SIZE = 6;
 
 
 export default async function ArticlesPage({page, category}) {
-    page = parseInt(page || '0', 10);
+    const clientPage = parseInt(page, 10) || 1;
+    const backendPage = clientPage - 1;
 
     category = parseInt(category || '0', 0);
 
-    const res = await fetch(`${BASE_URL}/articles?page=${page}&size=${PAGE_SIZE}&categoryId=${category}`, {
+    const res = await fetch(`${BASE_URL}/articles?page=${backendPage}&size=${PAGE_SIZE}&categoryId=${category}`, {
         next: {revalidate: 60},
     });
 
     const data = await res.json();
-    const {content, pageable} = data;
+    const totalPages = data.page.totalPages ?? 1;
+
+
+    const {content, page: pagable} = data;
+
+    console.log("ArticlesPage data: ", content);
+    const buildPageLink = (newPage) => {
+        const params = new URLSearchParams();
+        params.set('page', newPage);
+        return `?${params.toString()}`;
+    };
 
     return (
         <>
-            <ConsoleLog log={{content, category}}/>
+            {/*<ConsoleLog log={{content, category}}/>*/}
             <Header/>
             <div className="min-h-screen">
                 <div className=" px-6 sm:px-12 mx-auto p-4">
@@ -44,6 +56,8 @@ export default async function ArticlesPage({page, category}) {
                                         description={item.description}
                                         image={item.image}
                                         date={item.date}
+                                        authorName={item.authorName}
+                                        authorImage={item.authorImage}
                                     />
                                 ))
                             }
@@ -52,11 +66,12 @@ export default async function ArticlesPage({page, category}) {
                         {/* Sağ Sidebar (Kategoriler ve En Çok Okunanlar) */}
                         <aside className="bg-white p-6 rounded-lg  lg:w-5/12 w-full">
                             <Search/>
-                            <ArticleCategories page={page} category={category}/>
+                            <ArticleCategories page={clientPage} category={category}/>
                             <PopularArticles/>
                         </aside>
                     </div>
-                    <Pagination currentPage={data?.pageable?.pageNumber} totalPages={data.totalPages}/>
+                    {/* Pagination */}
+                    <Pagination clientPage={clientPage} totalPages={totalPages} buildPageLink={buildPageLink}/>
                     {/*<OtherArticleList/>*/}
                 </div>
             </div>
@@ -82,7 +97,7 @@ function Search() {
 
 const HeaderText = async ({categoryId}) => {
 
-    let text = 'Son Eklenenler';
+    let text = 'Son Məqalələr';
 
     if (categoryId) {
 

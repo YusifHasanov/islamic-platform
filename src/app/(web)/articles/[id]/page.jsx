@@ -30,7 +30,7 @@ export async function generateMetadata({ params }){
         title: `${article.title} | Əhli-Sünnə Mədrəsəsi`,
         authors: [
             {
-                name: article.authors[0]?.name || "Əhli-Sünnə Mədrəsəsi"
+                name: article.authorName || "Əhli-Sünnə Mədrəsəsi"
             }
         ],
         description: article.title,
@@ -85,7 +85,7 @@ const BlogDetail = async ({ params }) => {
         "headline": article.title,
         "author": {
             "@type": "Person",
-            "name": article.authors[0]?.name,
+            "name": article.authorName,
         },
         "datePublished": article.publishedAt,
         "image": article.image,

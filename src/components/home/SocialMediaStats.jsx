@@ -20,31 +20,31 @@ const SocialMediaStats = () => {
                     {/* Instagram */}
                     <div className="w-1/2 lg:w-auto text-center">
                         <i className="fab fa-instagram text-5xl mb-2"></i>
-                        <p className="text-lg">6.500.000+</p>
+                        <p className="text-lg">13.800+</p>
                     </div>
 
                     {/* YouTube */}
                     <div className="w-1/2 lg:w-auto text-center">
                         <i className="fab fa-youtube text-5xl mb-2"></i>
-                        <p className="text-lg">5.900.000+</p>
+                        <p className="text-lg">35.600+</p>
                     </div>
 
                     {/* Facebook */}
                     <div className="w-1/2 lg:w-auto text-center">
                         <i className="fab fa-facebook text-5xl mb-2"></i>
-                        <p className="text-lg">4.080.000+</p>
+                        <p className="text-lg">6300+</p>
                     </div>
 
-                    {/* Twitter */}
-                    <div className="w-1/2 lg:w-auto text-center">
-                        <i className="fab fa-twitter text-5xl mb-2"></i>
-                        <p className="text-lg">930.000+</p>
-                    </div>
+                    {/*/!* Twitter *!/*/}
+                    {/*<div className="w-1/2 lg:w-auto text-center">*/}
+                    {/*    <i className="fab fa-twitter text-5xl mb-2"></i>*/}
+                    {/*    <p className="text-lg">930.000+</p>*/}
+                    {/*</div>*/}
 
                     {/* Telegram */}
                     <div className="w-full lg:w-auto text-center">
                         <i className="fab fa-telegram text-5xl mb-2"></i>
-                        <p className="text-lg">9.000+</p>
+                        <p className="text-lg">1.000+</p>
                     </div>
                 </div>
             </div>

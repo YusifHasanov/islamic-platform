@@ -6,6 +6,7 @@ import Image from "next/image";
 
 
 const ArticleDetail = async ({article}) => {
+   console.log("ArticleDetail", article);
     return (
         <div>
             {/* Full Width Image */}
@@ -33,9 +34,7 @@ const ArticleDetail = async ({article}) => {
                         </p>
                         <p className="text-yellow-500 font-semibold">
                             {/*İMAN / PEYGAMBERE İMAN / HZ. MUHAMMED (sav)*/}
-                            {article.authors.length > 1
-                                ? article.authors.map((a) => a.name).join(', ')
-                                : article.authors[0]?.name || 'Bilinmiyor'}
+                            {article?.author.name || 'Bilinmiyor'}
                         </p>
                     </div>
                 </div>
@@ -66,32 +65,31 @@ const ArticleDetail = async ({article}) => {
                             </div>
 
                             <div className="flex flex-wrap items-center pt-2 space-x-4">
-                                {article.authors.length > 0 ? (
-                                    article.authors.map((author, index) => (
-                                        <div key={index} className="flex items-center space-x-2">
+                                {
+                                    article.author ? (
+                                        <div className="flex items-center space-x-2">
                                             <img
-                                                src={author.image || '/default-avatar.png'}
-                                                alt={author.name}
+                                                src={article.author.image || "/default-avatar.png"}
+                                                alt={article.author.name}
                                                 className="w-8 h-8 rounded-full object-cover"
                                             />
-                                            <span className="text-gray-800">{author.name}</span>
-                                            {index < article.authors.length - 1 && <span>,</span>}
+                                            <span className="text-gray-800">{article.author.name}</span>
                                         </div>
-                                    ))
-                                ) : (
-                                    <span className="text-gray-800">Bilinmiyor</span>
-                                )}
+                                    ) : (
+                                        <span className="text-gray-800">Bilinmiyor</span>
+                                    )
+                                }
                             </div>
                         </div>
                     </div>
                     <ArticleApiCount/>
 
-                   <div className={"pr-2"}>
-                       <div className={"mb-6 mr-2"}>
-                           <ArticleDetailCategories />
-                       </div>
-                       <MostReadArticles article={article}/>
-                   </div>
+                    <div className={"pr-2"}>
+                        <div className={"mb-6 mr-2"}>
+                            <ArticleDetailCategories/>
+                        </div>
+                        <MostReadArticles article={article}/>
+                    </div>
                 </div>
             </div>
         </div>

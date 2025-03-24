@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Link from "next/link";
 
 
@@ -113,6 +113,35 @@ const sidebarItems = [
 ];
 
 function Sidebar({children}) {
+    // Track dropdown state
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [revalidateDisabled, setRevalidateDisabled] = useState(false);
+
+    const revalidate = () => {
+        setRevalidateDisabled(true);
+        const secret = process.env.NEXT_PUBLIC_REVALIDATE_SECRET;
+        const paths = [
+            '/articles',
+            '/videos',
+            '/',
+            '/videos/**',
+            '/articles/**'
+        ];
+
+        Promise.all(
+            paths.map(path =>
+                fetch(`/api/revalidate?path=${encodeURIComponent(path)}&secret=${secret}`)
+                    .then(() => console.log(`Revalidated ${path} successfully.`))
+                    .catch(err => console.error(`Failed to revalidate ${path}.`, err))
+            )
+        )
+            .then(() => console.log('All revalidation calls finished.'))
+            .catch(err => console.error('Some revalidation calls failed.', err))
+            .finally(() => setRevalidateDisabled(false));
+
+    }
+
+
     return (
         <>
             <nav
@@ -120,12 +149,15 @@ function Sidebar({children}) {
                 <div className="px-3 py-3 lg:px-5 lg:pl-3">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center justify-start rtl:justify-end">
+                            {/* Sidebar toggle button (mobile) */}
                             <button
                                 data-drawer-target="logo-sidebar"
                                 data-drawer-toggle="logo-sidebar"
                                 aria-controls="logo-sidebar"
                                 type="button"
-                                className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                                className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100
+                           focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700
+                           dark:focus:ring-gray-600"
                             >
                                 <span className="sr-only">Open sidebar</span>
                                 <svg
@@ -138,30 +170,37 @@ function Sidebar({children}) {
                                     <path
                                         clipRule="evenodd"
                                         fillRule="evenodd"
-                                        d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
+                                        d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0
+                       010 1.5H2.75A.75.75 0 012 4.75zm0
+                       10.5a.75.75 0 01.75-.75h7.5a.75.75 0
+                       010 1.5h-7.5a.75.75 0 01-.75-.75zM2
+                       10a.75.75 0 01.75-.75h14.5a.75.75 0
+                       010 1.5H2.75A.75.75 0 012 10z"
                                     />
                                 </svg>
                             </button>
                             <Link href="/" className="flex ms-2 md:me-24">
                                 <img
-                                    src="https://flowbite.com/docs/images/logo.svg"
+                                    src="/esm_logo.png"
                                     className="h-8 me-3"
-                                    alt="FlowBite Logo"
+                                    alt="Esm Logo"
                                 />
                                 <span
                                     className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">
-              Flowbite
-            </span>
+                  Ehlisunne Medresesi Admin
+                </span>
                             </Link>
                         </div>
                         <div className="flex items-center">
                             <div className="flex items-center ms-3">
                                 <div>
+                                    {/* Toggle dropdown on click */}
                                     <button
                                         type="button"
-                                        className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-                                        aria-expanded="false"
-                                        data-dropdown-toggle="dropdown-user"
+                                        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                                        className="flex text-sm bg-gray-800 rounded-full
+                               focus:ring-4 focus:ring-gray-300
+                               dark:focus:ring-gray-600"
                                     >
                                         <span className="sr-only">Open user menu</span>
                                         <img
@@ -171,85 +210,103 @@ function Sidebar({children}) {
                                         />
                                     </button>
                                 </div>
-                                <div
-                                    className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600"
-                                    id="dropdown-user"
-                                >
-                                    <div className="px-4 py-3" role="none">
-                                        <p
-                                            className="text-sm text-gray-900 dark:text-white"
-                                            role="none"
-                                        >
-                                            Neil Sims
-                                        </p>
-                                        <p
-                                            className="text-sm font-medium text-gray-900 truncate dark:text-gray-300"
-                                            role="none"
-                                        >
-                                            neil.sims@flowbite.com
-                                        </p>
+                                {/* Conditionally render the dropdown */}
+                                {isDropdownOpen && (
+                                    <div
+                                        className="z-50 my-4 text-base list-none bg-white
+                               divide-y divide-gray-100 rounded shadow
+                               dark:bg-gray-700 dark:divide-gray-600
+                               absolute top-14 right-4"
+                                    >
+                                        <div className="px-4 py-3" role="none">
+                                            <p className="text-sm text-gray-900 dark:text-white"
+                                                    role="none">
+                                                neill
+                                            </p>
+                                            <p
+                                                className="text-sm font-medium text-gray-900 truncate dark:text-gray-300"
+                                                role="none"
+                                            >
+                                                neil.sims@flowbite.com
+                                            </p>
+                                        </div>
+                                        <ul className="py-1" role="none">
+                                            <li>
+                                                <a
+                                                    href="#"
+                                                    className="block px-4 py-2 text-sm text-gray-700
+                                     hover:bg-gray-100 dark:text-gray-300
+                                     dark:hover:bg-gray-600 dark:hover:text-white"
+                                                    role="menuitem"
+                                                >
+                                                    Dashboard
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <button disabled={revalidateDisabled}
+                                                        onClick={revalidate}
+                                                        className="text-sm ml-4 text-gray-900 dark:text-white"
+                                                        role="none">
+                                                    Revalidate all Menus
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <a
+                                                    href="#"
+                                                    className="block px-4 py-2 text-sm text-gray-700
+                                     hover:bg-gray-100 dark:text-gray-300
+                                     dark:hover:bg-gray-600 dark:hover:text-white"
+                                                    role="menuitem"
+                                                >
+                                                    Earnings
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a
+                                                    href="#"
+                                                    className="block px-4 py-2 text-sm text-gray-700
+                                     hover:bg-gray-100 dark:text-gray-300
+                                     dark:hover:bg-gray-600 dark:hover:text-white"
+                                                    role="menuitem"
+                                                >
+                                                    Sign out
+                                                </a>
+                                            </li>
+                                        </ul>
                                     </div>
-                                    <ul className="py-1" role="none">
-                                        <li>
-                                            <a
-                                                href="#"
-                                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                                                role="menuitem"
-                                            >
-                                                Dashboard
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                href="#"
-                                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                                                role="menuitem"
-                                            >
-                                                Settings
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                href="#"
-                                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                                                role="menuitem"
-                                            >
-                                                Earnings
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                href="#"
-                                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                                                role="menuitem"
-                                            >
-                                                Sign out
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
+                                )}
                             </div>
                         </div>
                     </div>
                 </div>
             </nav>
-            <aside aria-label="Sidebar" id="logo-sidebar"
-                   className="fixed top-0 left-0 z-40 w-64 h-screen bg-white border-r border-gray-200 dark:bg-gray-800">
+
+            <aside
+                aria-label="Sidebar"
+                id="logo-sidebar"
+                className="fixed top-0 left-0 z-40 w-64 h-screen bg-white border-r
+                   border-gray-200 dark:bg-gray-800"
+            >
                 <div className="px-3 py-4 overflow-y-auto">
                     <ul className="space-y-2">
                         {sidebarItems.map((item, index) => (
                             <li key={index}>
                                 <Link
                                     href={item.href}
-                                    className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                                    className="flex items-center p-2 text-gray-900
+                             rounded-lg dark:text-white hover:bg-gray-100
+                             dark:hover:bg-gray-700 group"
                                 >
                                     {item.icon}
                                     <span className="ml-3">{item.label}</span>
                                     {item.badge && (
                                         <span
-                                            className="ml-auto inline-flex items-center justify-center px-2 py-1 text-sm font-medium text-gray-800 bg-gray-100 rounded-full dark:bg-gray-700 dark:text-gray-300">
-                                            {item.badge}
-                                        </span>
+                                            className="ml-auto inline-flex items-center justify-center px-2 py-1
+                                 text-sm font-medium text-gray-800 bg-gray-100
+                                 rounded-full dark:bg-gray-700 dark:text-gray-300"
+                                        >
+                      {item.badge}
+                    </span>
                                     )}
                                 </Link>
                             </li>
@@ -259,7 +316,9 @@ function Sidebar({children}) {
             </aside>
 
             <div className="p-4 sm:ml-64">
-                <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
+                <div className="p-4 border-2 border-gray-200 border-dashed
+                        rounded-lg dark:border-gray-700 mt-14"
+                >
                     {children}
                 </div>
             </div>
@@ -268,3 +327,5 @@ function Sidebar({children}) {
 }
 
 export default Sidebar;
+
+

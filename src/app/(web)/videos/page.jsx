@@ -18,12 +18,9 @@ const Page = async ({searchParams}) => {
         page = 0
     }
 
-    console.log("contentcontentcontentcontent 1", content);
     if (content === null || content === undefined) {
         content = "videos"
     }
-
-    console.log("contentcontentcontentcontent 2", content);
 
 
     return (

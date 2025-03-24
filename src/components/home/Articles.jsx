@@ -8,7 +8,7 @@ export const revalidate = 60;
 const Articles =  async () => {
     const res = await fetch(`${BASE_URL}/articles/popular`)
     const articles = await res.json();
-    console.log(articles);
+    console.log("articles", articles);
     return (
         <div className="py-16">
             <h2 className="text-center homeArticlesHeader  mb-8">MAKALELER</h2>
@@ -25,6 +25,8 @@ const Articles =  async () => {
                         description ={article.description}
                         image = {article.image}
                         date={article.date}
+                        authorImage={article.authorImage}
+                        authorName={article.authorName}
                     />
                 ))}
             </div>

@@ -1,10 +1,12 @@
 'use client';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {FaComment, FaShare, FaClock} from 'react-icons/fa';
 import {useRouter} from "next/navigation";
 import HttpClient from "@/util/HttpClient";
 import {Button} from "primereact/button";
 import Link from "next/link";
+import {InputNumber} from "primereact/inputnumber";
+import {Toast} from "primereact/toast";
 
 function ArticleList() {
     const router = useRouter();
@@ -13,7 +15,8 @@ function ArticleList() {
     const [page, setPage] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
     const PAGE_SIZE = 10;
-
+    const [findById, setFindById] = useState(0);
+    const toast = useRef(null);
     // Fetch articles from API
     const fetchArticles = async (currentPage) => {
         try {
@@ -50,20 +53,44 @@ function ArticleList() {
         if (!confirm('Are you sure you want to delete the selected articles?')) return;
 
 
-        selectedArticles.forEach((article) => {
-            HttpClient.delete(`/articles/${article}`)
-                .then(r => console.log('Selected articles deleted successfully.'))
-                .catch(err => {
-                    console.error('Error deleting articles:', err);
-
-                    alert("Failed to delete selected articles")
-                });
-        })
-        setSelectedArticles([]);
-        await fetchArticles(page); // Refresh articles
-
+        try {
+            // Await all delete requests
+            await Promise.all(
+                selectedArticles.map(articleId =>
+                    HttpClient.delete(`/articles/${articleId}`)
+                )
+            );
+            toast.current.show({
+                severity: 'success',
+                summary: 'Success',
+                detail: 'Selected articles deleted successfully.',
+            });
+            // Clear the selection
+            setSelectedArticles([]);
+            // Revalidate and refresh the list
+            await revalidateArticle(null);
+            await fetchArticles(page);
+        } catch (err) {
+            console.error('Error deleting articles:', err);
+            alert("Failed to delete selected articles");
+        }
 
     };
+    async function revalidateArticle(articleId) {
+        if (!articleId) {
+        fetch(
+            `/api/revalidate?path=/articles/${articleId}&secret=${process.env.NEXT_PUBLIC_REVALIDATE_SECRET}`,
+            {method: 'GET'}
+        )
+            .then(() => console.log(`Revalidated article ${articleId} successfully.`))
+            .catch(() => console.error(`Failed to revalidate article ${articleId}.`));
+
+        }
+
+        fetch(`/api/revalidate?path=/articles&secret=${process.env.NEXT_PUBLIC_REVALIDATE_SECRET}`)
+            .then(() => console.log('Revalidated articles revalidated.'))
+            .catch((err) => console.error('Failed to revalidate /articles page.'));
+    }
 
     const goToPreviousPage = () => {
         if (page > 0) setPage(page - 1);
@@ -79,23 +106,37 @@ function ArticleList() {
                 <p>No articles found</p>
                 <div className="flex items-center mb-2 space-x-2">
 
-                        <Link href={'/admin/articles/create'}>
-                            <Button>
-                                Create
-                            </Button>
-                            </Link>
+                    <Link href={'/admin/articles/create'}>
+                        <Button>
+                            Create
+                        </Button>
+                    </Link>
 
                 </div>
             </div>
         );
     }
 
+
+    const goFindById = () => {
+        if (findById != null && findById > 0) {
+            router.push(`/admin/articles/${findById}`);
+        }
+    }
+
+    const route = (path) => router.push(path);
+
     return (
         <div className="max-w-6xl mx-auto p-4">
+            <Toast ref={toast}/>
             <div className="flex justify-between items-center mb-4">
-                <Button>
-                    <Link href={'/admin/articles/create'}>Create</Link>
+                <Button onClick={() => route('/admin/articles/create')}>
+                    Create
                 </Button>
+                <div className={"flex"}>
+                    <InputNumber value={findById} onValueChange={(e) => setFindById(e.target.value)}/>
+                    <Button onClick={goFindById}>Tap </Button>
+                </div>
                 <Button
                     onClick={deleteSelectedArticles}
                     className="bg-red-500 hover:bg-red-700 text-white"
@@ -144,12 +185,16 @@ function ArticleList() {
                                 Categories: {article.categories || 'No Categories'}
                             </p>
                             <p className="text-gray-600 mb-4">
-                                Authors: {article.authors || 'No Authors'}
+                                Authors: {article.authorName || 'No Authors'}
                             </p>
                             <div className="flex justify-between text-gray-500">
                                 <div className="flex items-center space-x-1">
                                     <FaClock/>
-                                    <span>Published</span>
+                                    <span>Published : {new Date(article.publishedAt).toLocaleDateString('az-AZ', {
+                                        year: 'numeric',
+                                        month: 'numeric',
+                                        day: 'numeric',
+                                    })}</span>
                                 </div>
                             </div>
                         </div>

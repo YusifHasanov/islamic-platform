@@ -1,75 +1,84 @@
 import React from 'react';
-import { BASE_URL } from "@/util/Const";
+import {BASE_URL} from "@/util/Const";
 import VideoPlayerPlaylistItems from "@/components/videos/VideoPlayerPlaylistItems";
 
 export const revalidate = 60;
 
-const VideoPlayer = async ({ playlistId, videoId }) => {
+const VideoPlayer = async ({playlistId, videoId}) => {
+    // Geçerliliği kontrol eden yardımcı fonksiyon
+    const isValid = (prop) => prop != null && prop !== "undefined" && prop !== "null";
 
-    // Yalnız videoId verilmişsə, playlistId tapılır
-    if ( videoId) {
-    // if ((!playlistId || playlistId === "undefined" || playlistId === "null") && videoId) {
-      console.log("birinci ifff")
-        const playlistRes = await fetch(`${BASE_URL}/playlists/of-video/${videoId}`, {
-            next: { revalidate: 60 }
+    let selectedVideo, videos, playlist
+
+    // Eğer playlistId sağlanmamışsa, videoId varsa ilgili playlisti bul; yoksa varsayılanı kullan.
+    if (!isValid(playlistId)) {
+        if (isValid(videoId)) {
+            const findPlaylistResponse = await fetch(`${BASE_URL}/playlists/of-video/${videoId}`, {
+                next: {revalidate: 60}
+            });
+            const findPlaylist = await findPlaylistResponse.json();
+            playlistId = findPlaylist?.playlistId ?? process.env.DEFAULT_PLAYLIST_ID;
+        } else {
+            playlistId = process.env.DEFAULT_PLAYLIST_ID;
+        }
+    }
+
+    // Playlist ve videoları paralel şekilde çek
+    const [playlistRes, videosRes] = await Promise.all([
+        fetch(`${BASE_URL}/playlists/${playlistId}`, {next: {revalidate: 60}}),
+        fetch(`${BASE_URL}/videos?playlistId=${playlistId}`, {next: {revalidate: 60}})
+    ]);
+    playlist = await playlistRes.json();
+    videos = await videosRes.json();
+
+    // videoId geçerli ise, ayrı fetch ile seçilen videoyu getir; aksi halde playlist içerisinden seç.
+    if (isValid(videoId) && isValid(playlistId)) {
+        const selectedVideoResponse = await fetch(`${BASE_URL}/videos/${videoId}`, {
+            next: {revalidate: 60}
         });
-        const playlist = await playlistRes.json();
-        playlistId = playlist?.playlistId ?? process.env.DEFAULT_PLAYLIST_ID;
+        selectedVideo = await selectedVideoResponse.json();
+    } else {
+        selectedVideo = videos.find(v => v.playlistId === playlistId) ?? videos[0];
     }
-
-    // Əgər playlistId yenə də yoxdursa (nə videoId, nə də playlistId gəlibsə), default dəyəri ver
-    if (!playlistId || playlistId === "undefined" || playlistId === "null") {
-        console.log("ikinci ifff")
-        playlistId = process.env.DEFAULT_PLAYLIST_ID;
-    }
-
-    // Playlist videolarını çək
-    const videRes = await fetch(`${BASE_URL}/videos?playlistId=${playlistId}`, {
-        next: { revalidate: 60 },
-    });
-    const videos = await videRes.json();
-
-    // Playlist məlumatını çək
-    const playlistRes = await fetch(`${BASE_URL}/playlists/${playlistId}`, {
-        next: { revalidate: 60 },
-    });
-    const playlist = await playlistRes.json();
-
-    const selectedVideo = videos.find(v => v.videoId === videoId) ?? videos[0];
 
     return (
         <div>
-            <div style={{
-                backgroundColor: "#1d1f2a",
-                borderBottomLeftRadius: "20px",
-                borderBottomRightRadius: "20px"
-            }} className="w-full py-6 px-4 sm:px-8">
+            <div
+                style={{
+                    backgroundColor: "#1d1f2a",
+                    borderBottomLeftRadius: "20px",
+                    borderBottomRightRadius: "20px"
+                }}
+                className="w-full py-6 px-4 sm:px-8"
+            >
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    {/* Main Video Player Section */}
+                    {/* Ana Video Oynatıcı Bölümü */}
                     <div className="lg:col-span-2">
-                        <div style={{ height: "500px" }} className="aspect-w-16 aspect-h-9 mb-4">
+                        <div style={{height: "500px"}} className="aspect-w-16 aspect-h-9 mb-4">
                             <iframe
                                 className="w-full h-full rounded-lg"
-                                src={`https://www.youtube.com/embed/${selectedVideo.videoId}`}
-                                title={selectedVideo.title}
+                                src={`https://www.youtube.com/embed/${selectedVideo?.videoId}`}
+                                title={selectedVideo?.title}
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowFullScreen
                             ></iframe>
                         </div>
                         <h2 className="text-white text-2xl font-semibold mb-2">
-                            {selectedVideo.title}
+                            {selectedVideo?.title}
                         </h2>
-                        <p className="text-gray-400">{selectedVideo.title}</p>
+                        <p className="text-gray-400">{selectedVideo?.title}</p>
                     </div>
 
-                    {/* Related Videos Section */}
-                    <div style={{ maxHeight: "560px" }} className="border border-gray-600 rounded-lg overflow-hidden">
-                        <h3 className="text-white text-xl bg-gray-600 p-4 font-semibold mb-4">{playlist.title}</h3>
+                    {/* İlgili Videolar Bölümü */}
+                    <div style={{maxHeight: "560px"}} className="border border-gray-600 rounded-lg overflow-hidden">
+                        <h3 className="text-white text-xl bg-gray-600 p-4 font-semibold mb-4">
+                            {playlist?.title}
+                        </h3>
                         <div className="space-y-4 max-h-[470px] overflow-y-auto px-3">
                             <VideoPlayerPlaylistItems
                                 playlistId={playlistId}
                                 videos={videos}
-                                videoId={selectedVideo.videoId}
+                                videoId={selectedVideo?.videoId}
                             />
                         </div>
                     </div>

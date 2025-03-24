@@ -11,8 +11,10 @@ const MostReadArticles = async ({article}) => {
     const res = await fetch(`${BASE_URL}/articles/popular`)
     const articles = await res.json();
 
+    console.log("MostReadArticles", article);
+
     const isCurrentArticle = (id) => {
-        return id.toString() === article.id.toString() ? "text-[#fcb900]" : "";
+        return id.toString() === article.id?.toString() ? "text-[#fcb900]" : "";
     }
 
     return (
