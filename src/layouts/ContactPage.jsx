@@ -50,16 +50,16 @@ const ContactPage = () => {
         {/* Üst Kısım (Background Image ve Metinler) */}
         <div className="relative w-full h-[400px]">
           <img
-              src="https://hayalhanem.com/wp-content/uploads/2024/10/5-.webp"
+              src="https://images.unsplash.com/photo-1713013727106-bfa2a9bdddc1?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               alt="İletişim Background"
               className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center">
             <div className="container mx-auto px-4 lg:px-20 text-white">
-              <h1 className="text-4xl font-bold mb-4">İLETİŞİM</h1>
+              <h1 className="text-4xl font-bold mb-4">Əlaqə</h1>
               <p className="text-lg">
-                Hayalhanem ekibi olarak sizinle iletişimde olmak bizi çok mutlu eder!
-                Sorularınız, projelere destek olmak ya da sadece bir merhaba demek için bile bize ulaşabilirsiniz.
+                Əhli Sünnə Medresəsi komandası olaraq, sizinlə əlaqədə olmaq bizi çox sevindirir!
+                Suallarınız, layihələrə dəstək vermək və ya sadəcə bir salam demək üçün bizimlə əlaqə saxlaya bilərsiniz.
               </p>
             </div>
           </div>
@@ -83,13 +83,13 @@ const ContactPage = () => {
                 onChange={handleChange}
                 required
                 type="email"
-                placeholder="E-posta"
+                placeholder="E-mail"
                 className="w-full contactInput sm:w-80 py-3 px-4 border border-gray-300 rounded-3xl  focus:outline-none f "
             />
             <input
                 type="text"
                 name="subject"
-                placeholder="Konu"
+                placeholder="Mövzu"
                 value={formData.subject}
                 onChange={handleChange}
                 className="w-full contactInput sm:w-80 py-3 px-4 border border-gray-300 rounded-3xl  focus:outline-none "
