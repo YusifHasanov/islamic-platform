@@ -7,6 +7,7 @@ import Link from "next/link";
 import CacheProvider from "@/util/CacheProvider";
 import Spinner from "@/components/search/Spinner";
 import Image from "next/image";
+import ConsoleLog from "@/components/common/ConsoleLog";
 
 export default function SearchPage() {
     const router = useRouter();
@@ -111,6 +112,7 @@ export default function SearchPage() {
                     Axtarışın nəticələri
                 </h1>
 
+                <ConsoleLog log={articles} />
                 {/* Articles Section */}
                 <Section title="Məqalələr" data={articles}>
                     {articles?.map((article) => (
@@ -119,10 +121,10 @@ export default function SearchPage() {
                             key={article.id}
                             image={article.image}
                             title={article.title}
-                            info1Label="Categories"
+                            info1Label="Kategoriyalar"
                             info1={article.categories.join(", ")}
-                            info2Label="Authors"
-                            info2={article.authors.join(", ")}
+                            info2Label="Müəllif"
+                            info2={article.authorName}
                         />
                     ))}
                 </Section>
