@@ -12,7 +12,7 @@ const Page = () => {
     const fetchQuestions = async () => {
         setLoading(true);
         try {
-            const response = await HttpClient.get('/questions?containKeys=1');
+            const response = await HttpClient.get('/questions?containsTag=1&containsCategory=1');
             const data = await response.json();
             setQuestions(data.content);
         } catch (error) {

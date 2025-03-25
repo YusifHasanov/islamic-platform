@@ -40,6 +40,7 @@ export default function AdminTagsPage() {
                 const addedTag = await response.json();
                 setTags([...tags, addedTag]);
                 setNewTag('');
+                clearCache();
             } catch (error) {
                 console.error('Tag eklerken bir hata oluştu:', error);
             } finally {
@@ -56,6 +57,7 @@ export default function AdminTagsPage() {
                 .then(_ => {
                     setTags(tags.filter((tag) => tag.id !== tagId));
                     setSelectedTags(selectedTags.filter((id) => id !== tagId));
+                    clearCache();
                 })
 
         } catch (error) {
@@ -80,6 +82,7 @@ export default function AdminTagsPage() {
                     setTags(tags.map((tag) =>
                         tag.id === response.id ? {...tag, name: response.name.trim()} : tag
                     ));
+                    clearCache();
                 })
             } catch (error) {
                 console.error('Tag güncellerken bir hata oluştu:', error);
@@ -97,6 +100,7 @@ export default function AdminTagsPage() {
             if (response.ok) {
                 setTags(tags.filter((tag) => !selectedTags.includes(tag.id)));
                 setSelectedTags([]);
+                clearCache();
             }
         } catch (error) {
             console.error('Tagleri topluca silerken bir hata oluştu:', error);
@@ -104,6 +108,10 @@ export default function AdminTagsPage() {
             setLoading(false);
         }
     };
+
+    const clearCache = () => {
+        localStorage.removeItem('tags');
+    }
 
     // Seçimi toggle et
     const toggleSelectTag = (tagId) => {
