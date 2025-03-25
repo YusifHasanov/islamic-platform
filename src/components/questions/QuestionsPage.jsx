@@ -224,13 +224,13 @@ export default function QuestionsListPage() {
                         </div>
 
                         {/* Results count */}
-                        <div className="mb-6 mx-auto">
-                            <p className="text-gray-500 dark:text-gray-400">
-                                Showing {filteredQuestions.length} of {totalElements} questions
-                                (page {page + 1} of{" "}
-                                {totalPages || 1})
-                            </p>
-                        </div>
+                        {/*<div className="mb-6 mx-auto">*/}
+                        {/*    <p className="text-gray-500 dark:text-gray-400">*/}
+                        {/*        Showing {filteredQuestions.length} of {totalElements} questions*/}
+                        {/*        (page {page + 1} of{" "}*/}
+                        {/*        {totalPages || 1})*/}
+                        {/*    </p>*/}
+                        {/*</div>*/}
 
                     </div>
                 </div>

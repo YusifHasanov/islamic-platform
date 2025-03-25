@@ -39,7 +39,7 @@ export default function DetailPage() {
                     className="inline-flex items-center text-sm text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors"
                 >
                     <ArrowLeft className="mr-2 h-4 w-4"/>
-                    Back to Questions
+                    Suallara qayıt
                 </Link>
             </div>
 
