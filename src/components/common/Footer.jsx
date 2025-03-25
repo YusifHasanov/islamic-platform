@@ -1,13 +1,12 @@
 import React from 'react';
 import Link from "next/link";
-// Import whichever icons you prefer from React Icons
 import { FaFacebook, FaInstagram, FaYoutube } from 'react-icons/fa';
 
 const Footer = () => {
     return (
         <footer className="bg-[#444F5D] text-white py-12">
             <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8 text-center md:text-left">
-                {/* Column 1: Logo & Description */}
+                {/* 1. Logo və təsvir */}
                 <div>
                     <img
                         src="/esm_logo.png"
@@ -20,43 +19,30 @@ const Footer = () => {
                     </p>
                 </div>
 
-                {/* Column 2: Navigation Links */}
-                <div>
+                {/* 2. Səhifələr */}
+                <div className="flex flex-col md:block">
                     <h3 className="text-lg font-semibold mb-3">Səhifələr</h3>
-                    <ul className="space-y-2">
-                        <li>
-                            <Link href="/" className="text-gray-400 hover:text-white">
-                                Ana Səhifə
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="/videos" className="text-gray-400 hover:text-white">
-                                Videolar
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="/articles" className="text-yellow-400 hover:text-white">
-                                Məqalələr
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="/about" className="text-gray-400 hover:text-white">
-                                Haqqımızda
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="/contact" className="text-yellow-400 hover:text-white">
-                                Əlaqə
-                            </Link>
-                        </li>
+                    <ul className="space-y-2 text-center md:text-left">
+                        <li><Link href="/" className="text-gray-400 hover:text-white">Ana Səhifə</Link></li>
+                        <li><Link href="/videos" className="text-gray-400 hover:text-white">Videolar</Link></li>
+                        <li><Link href="/articles" className="text-yellow-400 hover:text-white">Məqalələr</Link></li>
+                        <li><Link href="/about" className="text-gray-400 hover:text-white">Haqqımızda</Link></li>
+                        <li><Link href="/contact" className="text-yellow-400 hover:text-white">Əlaqə</Link></li>
                     </ul>
+
+                    {/* Mobil görünüş üçün sosial ikonlar sağda */}
+                    <div className="flex justify-center mt-4 space-x-4 md:hidden">
+                        <a href="https://www.facebook.com/ehlisunnemedresesi/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white"><FaFacebook size={30} /></a>
+                        <a href="https://www.instagram.com/ehlisunnemedresesi/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white"><FaInstagram size={30} /></a>
+                        <a href="https://www.youtube.com/@ehlisunnemedresesi" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white"><FaYoutube size={30} /></a>
+                    </div>
                 </div>
 
-                {/* Column 3: Contact Info */}
+                {/* 3. Əlaqə */}
                 <div>
                     <h3 className="text-lg font-semibold mb-3">Əlaqə</h3>
                     <ul className="space-y-2">
-                        <li className={"flex justify-center md:justify-start "}>
+                        <li className="flex justify-center md:justify-start">
                             <a
                                 href="tel:+994706240062"
                                 className="flex items-center text-gray-400 hover:text-white"
@@ -65,47 +51,15 @@ const Footer = () => {
                                 <span>+994 70 624 00 62</span>
                             </a>
                         </li>
-                        {/*<li>*/}
-                        {/*    <a*/}
-                        {/*        href="mailto:info@ehli-sunne.az"*/}
-                        {/*        className="text-gray-400 hover:text-white"*/}
-                        {/*    >*/}
-                        {/*        info@ehli-sunne.az*/}
-                        {/*    </a>*/}
-                        {/*</li>*/}
                     </ul>
                 </div>
 
-                {/* Column 4: Social Media Icons */}
-                <div>
+                {/* 4. Desktop üçün Sosial Şəbəkələr */}
+                <div className="hidden md:flex md:flex-col md:items-start space-y-4">
                     <h3 className="text-lg font-semibold mb-3">Sosial Şəbəkələr</h3>
-                    {/* Stack icons vertically */}
-                    <div className="flex flex-col md:ml-10 md:items-start items-center space-y-4">
-                        <a
-                            href="https://www.facebook.com/ehlisunnemedresesi/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-gray-400 hover:text-white"
-                        >
-                            <FaFacebook size={40}/>
-                        </a>
-                        <a
-                            href="https://www.instagram.com/ehlisunnemedresesi/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-gray-400 hover:text-white"
-                        >
-                            <FaInstagram size={40}/>
-                        </a>
-                        <a
-                            href="https://www.youtube.com/@ehlisunnemedresesi"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-gray-400 hover:text-white"
-                        >
-                            <FaYoutube size={40}/>
-                        </a>
-                    </div>
+                    <a href="https://www.facebook.com/ehlisunnemedresesi/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white"><FaFacebook size={30} /></a>
+                    <a href="https://www.instagram.com/ehlisunnemedresesi/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white"><FaInstagram size={30} /></a>
+                    <a href="https://www.youtube.com/@ehlisunnemedresesi" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white"><FaYoutube size={30} /></a>
                 </div>
             </div>
 
