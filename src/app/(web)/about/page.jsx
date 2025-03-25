@@ -14,7 +14,7 @@ const Page = () => {
         "@context": "https://schema.org",
         "@type": "Organization",
         "name": "Şirket Adı",
-        "url": "https://yourwebsite.com",
+        "url": "https://www.ehlisunnemedresesi.az",
         "logo": "https://yourwebsite.com/path/to/logo.jpg",
         "contactPoint": {
             "@type": "ContactPoint",

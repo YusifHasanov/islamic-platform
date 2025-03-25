@@ -6,7 +6,7 @@ const AboutUsPage = () => {
             {/* Üst Kısım (Background Image ile Hakkımızda Metni) */}
             <div className="relative w-full h-[500px]">
                 <img
-                    src="https://hayalhanem.com/wp-content/uploads/2024/10/hayalhanem-mehmet-yildiz5-1-1-scaled-1.jpg"
+                    src="/about_us.png"
                     alt="Hakkımızda Background"
                     className="w-full h-full object-cover"
                 />
@@ -30,7 +30,7 @@ const AboutUsPage = () => {
                 <div className="flex flex-col lg:flex-row gap-8 mb-12">
                     <div className="w-full lg:w-[35%]">
                         <img
-                            src="https://hayalhanem.com/wp-content/uploads/2024/10/6-katli.jpg"
+                            src="/about_us_2.png"
                             alt="Tarihçemiz"
                             className="w-full h-auto rounded-lg shadow-lg"
                         />
@@ -79,7 +79,7 @@ const AboutUsPage = () => {
                     </div>
                     <div className="w-full lg:w-[35%]">
                         <img
-                            src="https://hayalhanem.com/wp-content/uploads/2024/10/my-kapak-2-mehmet-yildiz-scaled-1-e1713914027676.jpg"
+                            src="/firudin.png"
                             alt="Amacımız"
                             className="w-full h-auto rounded-lg shadow-lg"
                         />
