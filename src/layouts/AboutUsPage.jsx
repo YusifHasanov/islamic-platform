@@ -79,7 +79,7 @@ const AboutUsPage = () => {
                     </div>
                     <div className="w-full lg:w-[35%]">
                         <img
-                            src="/firudin.png"
+                            src="/4mezheb.png"
                             alt="Amacımız"
                             className="w-full h-auto rounded-lg shadow-lg"
                         />
