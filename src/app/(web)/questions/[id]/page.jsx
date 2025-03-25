@@ -45,7 +45,7 @@ export default function DetailPage() {
 
             <article className="space-y-8">
                 <div>
-                    <h1 className="text-3xl font-bold mb-4">{question.question}</h1>
+                    <h1 className="text-2xl font-bold mb-4">{question.question}</h1>
                     <div className="flex flex-wrap gap-3 text-sm text-gray-500 dark:text-gray-400">
                         <div className="flex items-center">
                             <CalendarIcon className="mr-1 h-4 w-4"/>
