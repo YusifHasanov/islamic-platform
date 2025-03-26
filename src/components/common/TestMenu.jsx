@@ -5,16 +5,22 @@ import Link from "next/link"
 import Image from "next/image"
 import {Menu, ChevronDown, ChevronUp} from "lucide-react"
 import {usePathname} from "next/navigation";
+import {create} from 'zustand'
 
-
+export const useNavbarState = create((set) => ({
+    mobileMenuOpen: false,
+    toggleMenu: () => set((state) => ({mobileMenuOpen: !state.mobileMenuOpen})),
+    closeMenu: () => set({mobileMenuOpen: false}),
+}));
 
 export const TestMenu = ({menus}) => {
-    const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false)
+    const {mobileMenuOpen, toggleMenu, closeMenu} = useNavbarState();
 
 
     return (
         <nav className="relative bg-[#007A4C] ">
-            <section className=" flex w-full md:max-w-7xl mx-auto justify-between  md:justify-between md:items-center py-2 px-3 rounded">
+            <section
+                className=" flex w-full md:max-w-7xl mx-auto justify-between  md:justify-between md:items-center py-2 px-3 rounded">
                 <div className={"ml-3 md:ml-0 flex justify-center items-center"}>
                     <Link href="/" className="">
                         <Image height={60} width={70} src={"/esm_logo.png"} alt={"logo"}/>
@@ -28,7 +34,7 @@ export const TestMenu = ({menus}) => {
                     </div>
                 </div>
                 <div className="lg:hidden mr-2 flex items-center">
-                    <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="p-2 focus:outline-none">
+                    <button onClick={() => toggleMenu()} className="p-2 focus:outline-none">
                         <Menu className={"text-white"}/>
                     </button>
                 </div>
@@ -36,7 +42,7 @@ export const TestMenu = ({menus}) => {
 
                     {menus.map((item, idx) => (
                         <React.Fragment key={idx}>
-                            <NavDropDownMenu item={item}  />
+                            <NavDropDownMenu item={item}/>
                             {idx < menus.length - 1 && <div className="w-6"/>}
                         </React.Fragment>
                     ))}
@@ -46,7 +52,7 @@ export const TestMenu = ({menus}) => {
             {/* Mobile dropdown menu */}
             {mobileMenuOpen && (
                 <div className="lg:hidden absolute z-50 w-full bg-green-800 text-white shadow-lg rounded-b-md">
-                    <MobileNav navItems={menus} closeMenu={() => setMobileMenuOpen(false)}/>
+                    <MobileNav navItems={menus} closeMenu={() => closeMenu()}/>
                 </div>
             )}
         </nav>
@@ -92,7 +98,8 @@ const NavDropDownMenu = ({item}) => {
     return (
         <div className="relative" onMouseLeave={() => setOpen(false)}>
             <div onMouseEnter={() => setOpen(true)}>
-                <Link href={item.href} className={`flex items-center justify-center ${isActive(item.href)} hover:text-[#F7E652]`}>
+                <Link href={item.href}
+                      className={`flex items-center justify-center ${isActive(item.href)} hover:text-[#F7E652]`}>
                     {item.name} {item.subcategories.length > 0 && <>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -134,7 +141,6 @@ const NavDropDownMenu = ({item}) => {
 
 const NavSubMenu = ({item}) => {
     const [open, setOpen] = React.useState(false)
-
 
 
     return (
@@ -195,6 +201,7 @@ function MobileNav({navItems}) {
 
 const MobileNavMenu = ({item}) => {
     const [isOpen, setIsOpen] = React.useState(false)
+    const {mobileMenuOpen, toggleMenu, closeMenu} = useNavbarState();
 
     return (
         <div className="w-full">
@@ -203,13 +210,9 @@ const MobileNavMenu = ({item}) => {
                 onClick={() => item.subcategories.length > 0 && setIsOpen(!isOpen)}
             >
                 <Link
-                    href={item.subcategories.length > 0 ? "#" : "/"}
+                    href={item.href}
                     className="flex-grow"
-                    onClick={(e) => {
-                        if (item.subcategories.length > 0) {
-                            e.preventDefault()
-                        }
-                    }}
+                    onClick={(e) => {closeMenu()}}
                 >
                     {item.name}
                 </Link>
@@ -219,15 +222,17 @@ const MobileNavMenu = ({item}) => {
                 )}
             </div>
 
-            {isOpen && item.subcategories.length > 0 && (
-                <div className="bg-green-800">
-                    {item.subcategories.map((childItem, index) => (
-                        <div key={index} className="px-8 py-3 border-b border-green-700 text-white">
-                            <Link href={childItem.href}>{childItem.name}</Link>
-                        </div>
-                    ))}
-                </div>
-            )}
+            {
+                isOpen && item.subcategories.length > 0 && (
+                    <div className="bg-green-800">
+                        {item.subcategories.map((childItem, index) => (
+                            <div key={index} className="px-8 py-3 border-b border-green-700 text-white">
+                                <Link href={childItem.href}>{childItem.name}</Link>
+                            </div>
+                        ))}
+                    </div>
+                )
+            }
         </div>
     )
 }
