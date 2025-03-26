@@ -6,7 +6,7 @@ import Image from "next/image";
 
 
 const ArticleDetail = async ({article}) => {
-   console.log("ArticleDetail", article);
+   // console.log("ArticleDetail", article);
     return (
         <div>
             {/* Full Width Image */}

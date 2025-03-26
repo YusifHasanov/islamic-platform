@@ -16,7 +16,7 @@ const BookList = () => {
             .then(r => r.json())
             .then(books => {
                 setBooks(books)
-                console.log(books)
+                // console.log(books)
             })
             .catch(e => console.error("Error fetching books:", e));
     }, []);

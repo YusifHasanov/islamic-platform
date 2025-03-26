@@ -5,44 +5,7 @@ import Link from "next/link";
 import {SearchIcon, ChevronLeft, ChevronRight, ClockIcon, MessageCircle, ThumbsUp, TagIcon, XIcon} from "lucide-react";
 import CacheProvider from "@/util/CacheProvider";
 
-// Skeleton loader ve "Soru Bulunamadı" bileşenlerini React.memo ile dışa taşıyarak gereksiz render'ları azaltıyoruz.
-const SkeletonLoader = React.memo(({maxResult}) => (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-4 ">
-        {[...Array(maxResult)].map((_, index) => (
-            <div
-                key={index}
-                className="p-5 bg-gray-200 rounded-lg shadow-md animate-pulse flex flex-col justify-between h-36"
-            >
-                <div className="h-6 bg-gray-300 rounded mb-4"></div>
-                <div className="h-4 bg-gray-300 rounded mb-2 w-1/2"></div>
-                <div className="h-4 bg-gray-300 rounded mt-auto"></div>
-            </div>
-        ))}
-    </div>
-));
 
-const QuestionNotFound = React.memo(({onReset}) => (
-    <div className="flex flex-col items-center justify-center min-h-[300px] bg-white shadow-md rounded-lg p-6">
-        <img
-            src="/question_not_found.jpg"
-            alt="No Questions Found"
-            className="w-40 h-40 mb-4"
-        />
-        <h2 className="text-xl font-semibold text-gray-800 mb-2">
-            Uygun bir sual tapılmadı
-        </h2>
-        <p className="text-gray-500 text-center mb-4">
-            Seçdiyiniz filtrelere uyğun heç bir sual tapılmadı. <br/>
-            Başqa bir şey axtarmağa çalışın və ya filtreləri sıfırlayın.
-        </p>
-        <button
-            onClick={onReset}
-            className="px-6 py-2 bg-blue-500 text-white font-medium rounded-lg shadow hover:bg-blue-600 transition"
-        >
-            Filtreleri Sıfırla
-        </button>
-    </div>
-));
 
 export default function QuestionsListPage() {
     const [questions, setQuestions] = useState([]);
@@ -413,3 +376,44 @@ export default function QuestionsListPage() {
         </div>
     );
 }
+
+
+// Skeleton loader ve "Soru Bulunamadı" bileşenlerini React.memo ile dışa taşıyarak gereksiz render'ları azaltıyoruz.
+const SkeletonLoader = React.memo(({maxResult}) => (
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-4 ">
+        {[...Array(maxResult)].map((_, index) => (
+            <div
+                key={index}
+                className="p-5 bg-gray-200 rounded-lg shadow-md animate-pulse flex flex-col justify-between h-36"
+            >
+                <div className="h-6 bg-gray-300 rounded mb-4"></div>
+                <div className="h-4 bg-gray-300 rounded mb-2 w-1/2"></div>
+                <div className="h-4 bg-gray-300 rounded mt-auto"></div>
+            </div>
+        ))}
+    </div>
+));
+
+const QuestionNotFound = React.memo(({onReset}) => (
+    <div className="flex flex-col items-center justify-center min-h-[300px] bg-white shadow-md rounded-lg p-6">
+        <img
+            src="/question_not_found.jpg"
+            alt="No Questions Found"
+            className="w-40 h-40 mb-4"
+        />
+        <h2 className="text-xl font-semibold text-gray-800 mb-2">
+            Uygun bir sual tapılmadı
+        </h2>
+        <p className="text-gray-500 text-center mb-4">
+            Seçdiyiniz filtrelere uyğun heç bir sual tapılmadı. <br/>
+            Başqa bir şey axtarmağa çalışın və ya filtreləri sıfırlayın.
+        </p>
+        <button
+            onClick={onReset}
+            className="px-6 py-2 bg-blue-500 text-white font-medium rounded-lg shadow hover:bg-blue-600 transition"
+        >
+            Filtreleri Sıfırla
+        </button>
+    </div>
+));
+

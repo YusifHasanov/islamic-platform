@@ -46,7 +46,7 @@ function ArticleEditor() {
                 .then((data) => {
 
 
-                    console.log(data);
+                    // console.log(data);
 
                     if (data?.status === 400 || data?.status === 404) {
                         const message = data.status === 404 ? data.message : "Xeta bas verdi";
@@ -129,7 +129,7 @@ function ArticleEditor() {
             categories: selectedCategories,
             publishedAt: publishedAt,
         };
-        console.log(body);
+        // console.log(body);
         try {
             if (id) {
                 await HttpClient.put(`/articles/${id}`, body);

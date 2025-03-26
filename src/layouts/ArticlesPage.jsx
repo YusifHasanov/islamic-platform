@@ -29,7 +29,7 @@ export default async function ArticlesPage({page, category}) {
 
     const {content, page: pagable} = data;
 
-    console.log("ArticlesPage data: ", content);
+    // console.log("ArticlesPage data: ", content);
     const buildPageLink = (newPage) => {
         const params = new URLSearchParams();
         params.set('page', newPage);

@@ -29,7 +29,7 @@ export default function SearchPage() {
         if (searchValue === '' && initialCategoryId === '') {
             router.push("/");
         }
-        console.log("fetch")
+        // console.log("fetch")
         fetchSearchData()
     }, [initialCategoryId, searchValue]);
 
