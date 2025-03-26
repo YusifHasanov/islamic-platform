@@ -20,7 +20,7 @@ export const TestMenu = ({menus}) => {
     return (
         <nav className="relative bg-[#007A4C] ">
             <section
-                className=" flex w-full md:max-w-7xl mx-auto justify-between  md:justify-between md:items-center py-2 px-3 rounded">
+                className=" flex w-full md:max-w-7xl mx-auto justify-between  md:justify-between md:items-center   px-3 rounded">
                 <div className={"ml-3 md:ml-0 flex justify-center items-center"}>
                     <Link href="/" className="">
                         <Image height={60} width={70} src={"/esm_logo.png"} alt={"logo"}/>
@@ -100,22 +100,28 @@ const NavDropDownMenu = ({item}) => {
             <div onMouseEnter={() => setOpen(true)}>
                 <Link href={item.href}
                       className={`flex items-center justify-center ${isActive(item.href)} hover:text-[#F7E652]`}>
-                    {item.name} {item.subcategories.length > 0 && <>
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="lucide lucide-chevron-right"
-                    >
-                        <path d="m9 18 6-6-6-6"></path>
-                    </svg>
-                </>}
+                    <span className={"mr-1"}>
+                        {item.name}
+                    </span>
+
+                    {item.subcategories.length > 0 &&
+                    <>
+                        <svg
+                            style={{transform: `rotate(${90}deg)`}}
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="lucide lucide-chevron-right"
+                        >
+                            <path d="m9 18 6-6-6-6"></path>
+                        </svg>
+                    </>}
                 </Link>
             </div>
 
@@ -201,7 +207,7 @@ function MobileNav({navItems}) {
 
 const MobileNavMenu = ({item}) => {
     const [isOpen, setIsOpen] = React.useState(false)
-    const {mobileMenuOpen, toggleMenu, closeMenu} = useNavbarState();
+    const {closeMenu} = useNavbarState();
 
     return (
         <div className="w-full">
@@ -212,7 +218,9 @@ const MobileNavMenu = ({item}) => {
                 <Link
                     href={item.href}
                     className="flex-grow"
-                    onClick={(e) => {closeMenu()}}
+                    onClick={(e) => {
+                        closeMenu()
+                    }}
                 >
                     {item.name}
                 </Link>
