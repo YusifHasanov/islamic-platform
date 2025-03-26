@@ -38,7 +38,7 @@ const CreateAuthor = () => {
         HttpClient.post("/authors", body, { revalidate: true })
             .then((res) => res.json())
             .then((data) => {
-                console.log("Başarılı:", data);
+                // console.log("Başarılı:", data);
                 alert("Book created successfully!");
             })
             .catch((err) => {

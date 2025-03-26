@@ -112,7 +112,7 @@ export default function SearchPage() {
                     Axtarışın nəticələri
                 </h1>
 
-                <ConsoleLog log={articles} />
+                {/*<ConsoleLog log={articles} />*/}
                 {/* Articles Section */}
                 <Section title="Məqalələr" data={articles}>
                     {articles?.map((article) => (

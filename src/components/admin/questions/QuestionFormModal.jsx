@@ -147,7 +147,7 @@ const QuestionFormModal = ({question, onClose, onSuccess}) => {
                         <label className="block text-gray-700 font-medium mb-1">Tags</label>
                         <div className="flex flex-wrap gap-2">
                             {availableTags.map((tag) => {
-                                console.log(formData.tags, tag)
+                                // console.log(formData.tags, tag)
                                 return (
                                     <button
                                         type="button"

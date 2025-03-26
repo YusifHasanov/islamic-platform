@@ -4,8 +4,7 @@ import * as React from "react"
 import Link from "next/link"
 import Image from "next/image"
 import {Menu, ChevronDown, ChevronUp} from "lucide-react"
-import {usePathname, useSearchParams} from "next/navigation";
-import {useEffect} from "react";
+import {usePathname} from "next/navigation";
 
 
 
@@ -37,7 +36,7 @@ export const TestMenu = ({menus}) => {
 
                     {menus.map((item, idx) => (
                         <React.Fragment key={idx}>
-                            <NavDropDownMenu item={item} />
+                            <NavDropDownMenu item={item}  />
                             {idx < menus.length - 1 && <div className="w-6"/>}
                         </React.Fragment>
                     ))}
@@ -58,8 +57,6 @@ const NavDropDownMenu = ({item}) => {
     const [open, setOpen] = React.useState(false)
     const pathname = usePathname();
 
-    const searchParams = useSearchParams();
-
 
     const isActive = (href) => {
         const currentPath = pathname;
@@ -73,24 +70,24 @@ const NavDropDownMenu = ({item}) => {
             return 'text-[#F7E652]';
         }
 
-        const categoryId = searchParams.get("categoryId");
-        const categoryIdNum = Number(categoryId);
+        // const categoryIdNum = Number(categoryId);
 
         // Bu item və ya hər hansı bir subcategory'si ilə eynidirsə
-        if (categoryIdNum && hasMatchingCategoryId(item, categoryIdNum)) {
-            return 'text-[#F7E652]';
-        }
+        // if (categoryIdNum && hasMatchingCategoryId(item, categoryIdNum)) {
+        //     return 'text-[#F7E652]';
+        // }
 
         return 'text-white';
     };
 
-    const hasMatchingCategoryId = (item, categoryId) => {
-        if (!item) return false;
-        if (item.id === categoryId) return true;
-        if (!item.subcategories || item.subcategories.length === 0) return false;
-
-        return item.subcategories.some((sub) => hasMatchingCategoryId(sub, categoryId));
-    };
+    // const hasMatchingCategoryId = (item, categoryId) => {
+    //     console.log("item, categoryId", categoryId);
+    //     if (!item) return false;
+    //     if (item.id === categoryId) return true;
+    //     if (!item.subcategories || item.subcategories.length === 0) return false;
+    //
+    //     return item.subcategories.some((sub) => hasMatchingCategoryId(sub, categoryId));
+    // };
 
     return (
         <div className="relative" onMouseLeave={() => setOpen(false)}>

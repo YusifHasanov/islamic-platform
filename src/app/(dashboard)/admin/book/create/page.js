@@ -63,7 +63,7 @@ const BookCreatePage = () => {
             authorId: authors[0].id,
             image: image,
         }
-        console.log("Body", body)
+        // console.log("Body", body)
 
         HttpClient.post("/books", body, {revalidate: true}).then(res => res.json())
             .then(data => console.log(data))

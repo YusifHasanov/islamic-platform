@@ -1,7 +1,5 @@
 import React from 'react';
-import Navbar from "@/components/common/Navbar";
 import Footer from "@/components/common/Footer";
-import NavbarOld from "@/components/common/NavbarOld";
 import {TestMenu} from "@/components/common/TestMenu";
 import {BASE_URL} from "@/util/Const";
 
@@ -37,6 +35,7 @@ const Layout = async ({children}) => {
     const res = await fetch(`${BASE_URL}/categories/menu`)
     const menusData = await res.json();
 
+
     const addHrefToMenuItems = (menuItems) => {
         return menuItems.map((item) => ({
             ...item,
@@ -51,7 +50,7 @@ const Layout = async ({children}) => {
     return (
         <>
             {/*<Navbar/>*/}
-            <TestMenu menus={menus}/>
+            <TestMenu menus={menus} />
             {/*<NavbarOld/>*/}
             {children}
             <Footer/>

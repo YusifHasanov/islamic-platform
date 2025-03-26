@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 const ArticleCard = ({ id, title, description, image, date, authorName, authorImage }) => {
-   console.log({ id, title, description, image, date, authorName, authorImage });
+   // console.log({ id, title, description, image, date, authorName, authorImage });
 
     return (
         <div
