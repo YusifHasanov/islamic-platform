@@ -2,6 +2,7 @@ import React from 'react';
 import {BASE_URL} from "@/util/Const";
 import Link from "next/link";
 import Pagination from "@/components/common/Pagination";
+import {getBestThumbnailUrl} from "@/util/Thumbnail";
 
 export const revalidate = 60;
 
@@ -63,7 +64,7 @@ const VideosGrid = async ({searchParams, playlistId, search, videoId, page}) => 
                                     <Link href={buildPageLink(clientPage, video.videoId)} key={video.videoId}
                                           className="bg-white playlistCard cursor-pointer rounded-2xl overflow-hidden shadow-sm">
                                         <img
-                                            src={video.thumbnail.split("+")[2] ?? video.thumbnail.split("+")[1] ?? video.thumbnail.split("+")[0]}
+                                            src={getBestThumbnailUrl(video.thumbnail)}
                                             alt={video.title}
                                             className="w-full object-cover"
                                         />

@@ -3,6 +3,7 @@ import {BASE_URL} from "@/util/Const";
 import Link from "next/link";
 import SearchComponent from "@/components/videos/SearchComponent";
 import ConsoleLog from "@/components/common/ConsoleLog";
+import {getBestThumbnailUrl} from "@/util/Thumbnail";
 
 
 export const revalidate = 60;
@@ -50,7 +51,7 @@ const PlaylistsGrid = async ({playlistId, search, videoId, content}) => {
                                     {/*    width={500}*/}
                                     {/*/>  */}
                                     <img
-                                        src={playlist.thumbnail.split("+")[2] ?? playlist.thumbnail.split("+")[1] ?? playlist.thumbnail.split("+")[0]}
+                                        src={getBestThumbnailUrl(playlist.thumbnail)}
                                         alt={playlist.title}
                                         className="w-full object-cover "
                                     />

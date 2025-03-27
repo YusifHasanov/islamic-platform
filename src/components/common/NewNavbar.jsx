@@ -14,7 +14,7 @@ export const useNavbarState = create((set) => ({
     closeMenu: () => set({mobileMenuOpen: false}),
 }));
 
-export const TestMenu = ({menus}) => {
+export const NewNavbar = ({menus}) => {
     const {mobileMenuOpen, toggleMenu, closeMenu} = useNavbarState();
 
     return (
@@ -28,7 +28,8 @@ export const TestMenu = ({menus}) => {
                     <div className="flex-shrink-0">
                         <span className="text-white font-bold text-lg">
                             <Link href={'/'}>
-                                <span className="text-[#F7E652]">Əhli Sünnə </span>Mədrəsəsi
+                                {/*<span className="text-[#F7E652]">Əhli Sünnə </span>Mədrəsəsi*/}
+                                <span >Əhli - Sünnə </span>Mədrəsəsi
                             </Link>
                         </span>
                     </div>

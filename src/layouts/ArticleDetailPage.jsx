@@ -45,7 +45,7 @@ const ArticleDetail = async ({article}) => {
                     {/* Blog İçeriği */}
                     <div className="flex flex-col justify-between bg-white rounded-lg shadow-md p-6 space-y-6">
                         {/* Makale İçeriği */}
-                        <div className="prose max-w-none" dangerouslySetInnerHTML={{__html: article.content}}/>
+                        <div className="prose text-justify max-w-none" dangerouslySetInnerHTML={{__html: article.content}}/>
 
                         {/* Alt Bilgi Bölümü */}
                         <div className="border-t pt-4 space-y-2 text-gray-600">

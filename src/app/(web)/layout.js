@@ -1,6 +1,6 @@
 import React from 'react';
 import Footer from "@/components/common/Footer";
-import {TestMenu} from "@/components/common/TestMenu";
+import {NewNavbar} from "@/components/common/NewNavbar";
 import {BASE_URL} from "@/util/Const";
 
 const staticMenuItems = [
@@ -50,7 +50,7 @@ const Layout = async ({children}) => {
     return (
         <>
             {/*<Navbar/>*/}
-            <TestMenu menus={menus} />
+            <NewNavbar menus={menus} />
             {/*<NavbarOld/>*/}
             {children}
             <Footer/>

@@ -2,6 +2,7 @@
 import React, {useEffect, useState} from 'react';
 import Link from "next/link";
 import Image from "next/image";
+import {getBestThumbnailUrl} from "@/util/Thumbnail";
 
 const VideoPlayerPlaylistItems = ({videos, videoId, playlistId}) => {
     const [search, setSearch] = useState('');
@@ -43,7 +44,7 @@ const VideoPlayerPlaylistItems = ({videos, videoId, playlistId}) => {
                         {/*    className="w-28 h-20 object-cover rounded-lg"*/}
                         {/*/>*/}
                         <img
-                            src={video.thumbnail.split("+")[2] ?? video.thumbnail.split("+")[1] ?? video.thumbnail.split("+")[0]}
+                            src={getBestThumbnailUrl(video.thumbnail)}
                             alt={video.title}
                             className="w-28 object-cover "
                         />

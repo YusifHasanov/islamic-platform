@@ -22,7 +22,8 @@ export default function VideoSlider() {
             youtubeLink: 'https://youtu.be/WH4r8eL64DY?si=NDQeZDByUpzMsEA1',
         },
         {
-            videoSrc: 'https://res.cloudinary.com/dhhlnrons/video/upload/v1742721316/esm/v05rq0nqbutipvczdo4k.mp4',
+            // videoSrc: 'https://res.cloudinary.com/dhhlnrons/video/upload/v1742721316/esm/v05rq0nqbutipvczdo4k.mp4',
+            videoSrc: 'https://res.cloudinary.com/dhhlnrons/video/upload/v1743080791/esm/homepage/lubjcf8kkdivjgk2hdox.mp4',
             title: 'Ramazan Avari',
             subtitle: 'Əhli-Sünnə Mədrəsəsinin Fəaliyyəti ilə Bağlı Önəmli Açıqlama',
             description:
@@ -48,9 +49,10 @@ export default function VideoSlider() {
 
     return (
         <Swiper
-            modules={[Pagination]}
+            modules={[Pagination,Navigation]}
             pagination={{clickable: true}}
             className="h-screen w-full"
+            navigation={true}
             // onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
         >
             {slides.map((slide, index) => (
