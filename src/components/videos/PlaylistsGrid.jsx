@@ -32,7 +32,7 @@ const PlaylistsGrid = async ({playlistId, search, videoId, content}) => {
     return (
         <div className="min-h-screen bg-gray-100 py-8">
 
-            <div className="py-3 mx-auto px-7">
+            <div className="py-3 mx-auto ">
                 {
                     playlists?.length === 0 ? <NoAnyPlaylist/> :
 

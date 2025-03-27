@@ -19,7 +19,8 @@ export const TestMenu = ({menus}) => {
 
     return (
         <nav className="relative bg-[#007A4C]">
-            <section className="flex w-full md:max-w-7xl mx-auto justify-between md:justify-between md:items-center px-3 rounded">
+            <section
+                className="flex w-full md:max-w-7xl mx-auto justify-between md:justify-between md:items-center px-3 rounded">
                 <div className="ml-3 md:ml-0 flex justify-center items-center">
                     <Link href="/" className="">
                         <Image height={60} width={70} src={"/esm_logo.png"} alt={"logo"}/>
@@ -124,15 +125,16 @@ const NavDropDownMenu = ({item}) => {
                             childItem.subcategories.length > 0 ? (
                                 <NavSubMenu key={idx} item={childItem}/>
                             ) : (
-                                <motion.div
-                                    key={idx}
-                                    whileHover={{scale: 1.02, backgroundColor: 'rgba(243, 244, 246, 1)'}}
-                                    className="px-4 py-2 text-sm hover:bg-gray-100"
-                                >
-                                    <Link href={childItem.href} className="block w-full">
-                                        {childItem.name}
-                                    </Link>
-                                </motion.div>
+                                <div key={idx} className={"overflow-hidden"}>
+                                    <motion.div
+                                        whileHover={{scale: 1.02, backgroundColor: 'rgba(243, 244, 246, 1)'}}
+                                        className="px-4 py-2 text-sm hover:bg-gray-100"
+                                    >
+                                        <Link href={childItem.href} className="block w-full">
+                                            {childItem.name}
+                                        </Link>
+                                    </motion.div>
+                                </div>
                             ),
                         )}
                     </motion.div>
@@ -180,22 +182,24 @@ const NavSubMenu = ({item}) => {
                         initial={{opacity: 0, x: -10}}
                         animate={{opacity: 1, x: 0}}
                         exit={{opacity: 0, x: -10}}
+
                         transition={{duration: 0.2}}
-                        className="absolute left-full top-0 z-10 mt-1 w-48 rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5"
+                        className="absolute  left-full top-0 z-10 mt-1 w-48 rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5"
                     >
                         {item.subcategories.map((childItem, idx) =>
                             childItem.subcategories.length > 0 ? (
                                 <NavSubMenu key={idx} item={childItem}/>
                             ) : (
-                                <motion.div
-                                    key={idx}
-                                    whileHover={{scale: 1.02, backgroundColor: 'rgba(243, 244, 246, 1)'}}
-                                    className="px-4 py-2 text-sm hover:bg-gray-100"
-                                >
-                                    <Link href={childItem.href} className="block w-full">
-                                        {childItem.name}
-                                    </Link>
-                                </motion.div>
+                                <div className={"overflow-hidden"} key={idx}>
+                                    <motion.div
+                                        whileHover={{scale: 1.02, backgroundColor: 'rgba(243, 244, 246, 1)'}}
+                                        className="px-4 py-2  text-sm hover:bg-gray-100"
+                                    >
+                                        <Link href={childItem.href} className="block w-full">
+                                            {childItem.name}
+                                        </Link>
+                                    </motion.div>
+                                </div>
                             ),
                         )}
                     </motion.div>
