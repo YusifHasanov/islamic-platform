@@ -1,9 +1,9 @@
 'use client'
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Link from "next/link";
 import Image from "next/image";
 
-const VideoPlayerPlaylistItems = ({ videos, videoId, playlistId }) => {
+const VideoPlayerPlaylistItems = ({videos, videoId, playlistId}) => {
     const [search, setSearch] = useState('');
     const [filteredVideos, setFilteredVideos] = useState(videos);
 
@@ -29,9 +29,11 @@ const VideoPlayerPlaylistItems = ({ videos, videoId, playlistId }) => {
 
             <div className="space-y-2">
                 {filteredVideos.map((video, id) => (
-                    <Link href={`/videos?playlistId=${playlistId}&videoId=${video.videoId}`}
-                          key={id}
-                          className={`flex videosItem items-center space-x-4 p-2 rounded-lg hover:bg-gray-700 ${(videoId == null && id === 0) || video.videoId === videoId ? "bg-gray-800" : ""}`}>
+                    <Link
+                        scroll={false}
+                        href={`/videos?playlistId=${playlistId}&videoId=${video.videoId}`}
+                        key={id}
+                        className={`flex videosItem items-center space-x-4 p-2 rounded-lg hover:bg-gray-700 ${(videoId == null && id === 0) || video.videoId === videoId ? "bg-gray-800" : ""}`}>
                         {/*<Image*/}
                         {/*    loading={"lazy"}*/}
                         {/*    src={video.thumbnail.split("+")[2]}*/}

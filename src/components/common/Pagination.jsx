@@ -6,11 +6,11 @@ const Pagination = ({clientPage, totalPages, buildPageLink}) => {
         <div className="flex flex-wrap justify-center items-center mt-10 space-x-2">
 
             {clientPage > 1 && (
-                <Link href={buildPageLink(1)} className="...">⏮ İlk</Link>
+                <Link scroll={false} href={buildPageLink(1)} className="...">⏮ İlk</Link>
             )}
 
             {clientPage > 1 && (
-                <Link href={buildPageLink(clientPage - 1)} className="...">Əvvəlki</Link>
+                <Link scroll={false}  href={buildPageLink(clientPage - 1)} className="...">Əvvəlki</Link>
             )}
 
             {/* Səhifə nömrələri */}
@@ -23,7 +23,7 @@ const Pagination = ({clientPage, totalPages, buildPageLink}) => {
                     return (
                         <React.Fragment key={p}>
                             {showDots && <span className="px-2">...</span>}
-                            <Link href={buildPageLink(p)}
+                            <Link scroll={false}  href={buildPageLink(p)}
                                   className={`px-3 py-2 rounded ${p === clientPage ? 'bg-blue-500 text-white' : 'bg-gray-200 hover:bg-gray-300'}`}>
                                 {p}
                             </Link>
@@ -32,11 +32,11 @@ const Pagination = ({clientPage, totalPages, buildPageLink}) => {
                 })}
 
             {clientPage < totalPages && (
-                <Link href={buildPageLink(clientPage + 1)} className="...">Növbəti</Link>
+                <Link scroll={false}  href={buildPageLink(clientPage + 1)} className="...">Növbəti</Link>
             )}
 
             {clientPage < totalPages && (
-                <Link href={buildPageLink(totalPages)} className="...">Son ⏭</Link>
+                <Link scroll={false}  href={buildPageLink(totalPages)} className="...">Son ⏭</Link>
             )}
         </div>
     );
