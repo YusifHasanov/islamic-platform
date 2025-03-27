@@ -12,15 +12,24 @@ const VideoPlayer = async ({playlistId, videoId}) => {
 
     // Eğer playlistId sağlanmamışsa, videoId varsa ilgili playlisti bul; yoksa varsayılanı kullan.
     if (!isValid(playlistId)) {
-        if (isValid(videoId)) {
-            const findPlaylistResponse = await fetch(`${BASE_URL}/playlists/of-video/${videoId}`, {
+        if (!isValid(videoId)) {
+            const latestVideoRes = await fetch(`${BASE_URL}/videos/latest`, {
                 next: {revalidate: 60}
             });
-            const findPlaylist = await findPlaylistResponse.json();
-            playlistId = findPlaylist?.playlistId ?? process.env.DEFAULT_PLAYLIST_ID;
-        } else {
-            playlistId = process.env.DEFAULT_PLAYLIST_ID;
+
+            selectedVideo = await latestVideoRes.json();
+            videoId = selectedVideo.videoId;
         }
+
+        // if (isValid(videoId)) {
+        const findPlaylistResponse = await fetch(`${BASE_URL}/playlists/of-video/${videoId}`, {
+            next: {revalidate: 60}
+        });
+        const findPlaylist = await findPlaylistResponse.json();
+        playlistId = findPlaylist?.playlistId ?? process.env.DEFAULT_PLAYLIST_ID;
+        // } else {
+        //     playlistId = process.env.DEFAULT_PLAYLIST_ID;
+        // }
     }
 
     // Playlist ve videoları paralel şekilde çek
@@ -32,13 +41,16 @@ const VideoPlayer = async ({playlistId, videoId}) => {
     videos = await videosRes.json();
 
     // videoId geçerli ise, ayrı fetch ile seçilen videoyu getir; aksi halde playlist içerisinden seç.
-    if (isValid(videoId) && isValid(playlistId)) {
-        const selectedVideoResponse = await fetch(`${BASE_URL}/videos/${videoId}`, {
-            next: {revalidate: 60}
-        });
-        selectedVideo = await selectedVideoResponse.json();
-    } else {
-        selectedVideo = videos.find(v => v.playlistId === playlistId) ?? videos[0];
+
+    if (selectedVideo == null) {
+        if (isValid(videoId) && isValid(playlistId)) {
+            const selectedVideoResponse = await fetch(`${BASE_URL}/videos/${videoId}`, {
+                next: {revalidate: 60}
+            });
+            selectedVideo = await selectedVideoResponse.json();
+        } else {
+            selectedVideo = videos.find(v => v.playlistId === playlistId) ?? videos[0];
+        }
     }
 
     return (
