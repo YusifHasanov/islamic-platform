@@ -1,10 +1,10 @@
 'use client';
-import React, { useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { Search } from 'lucide-react'; // Importing an icon for better design
+import React, {useState} from 'react';
+import {useRouter, useSearchParams} from 'next/navigation';
+import {Search} from 'lucide-react'; // Importing an icon for better design
 
-const SearchComponent = () => {
-    const [search, setSearch] = useState('');
+const SearchComponent = ({searchProps}) => {
+    const [search, setSearch] = useState(searchProps ?? "");
     const router = useRouter();
     const searchParams = useSearchParams();
 
@@ -19,10 +19,12 @@ const SearchComponent = () => {
             currentParams.delete('search');
         }
 
-        const path = `/videos?${currentParams.toString()}`;
+        const path = `?${currentParams.toString()}`;
 
         // setSearch('');
-        router.push(path);
+        router.push(path, {
+            scroll: false
+        });
     };
 
     return (
@@ -47,7 +49,7 @@ const SearchComponent = () => {
                     type="submit"
                     className="flex items-center justify-center w-10 h-8 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition duration-200"
                 >
-                    <Search size={20} />
+                    <Search size={20}/>
                 </button>
             </form>
         </div>

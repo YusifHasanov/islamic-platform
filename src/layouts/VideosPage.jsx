@@ -14,7 +14,7 @@ const Videos = ({playlistId, search, videoId, content, page}) => {
             {/*<PlaylistsSection params={params}  />*/}
             <div className="min-h-screen bg-gray-100 py-8">
                 <div className="py-3 mx-auto px-7">
-                    <SearchAndToggle content={content}/>
+                    <SearchAndToggle content={content}    search={search}/>
                     {
                         content === "playlists" && <PlaylistsGrid
                             playlistId={playlistId}

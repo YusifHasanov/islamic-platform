@@ -8,12 +8,12 @@ export const revalidate = 60;
 
 const LIMIT = 12;
 
-const VideosGrid = async ({searchParams, playlistId, search, videoId, page}) => {
+const VideosGrid = async ({playlistId, search, videoId, page}) => {
 
     const clientPage = parseInt(page, 10) || 1;
     const backendPage = clientPage - 1;
 
-    const res = await fetch(`${BASE_URL}/videos?page=${backendPage}&size=${LIMIT}`, {
+    const res = await fetch(`${BASE_URL}/videos?page=${backendPage}&size=${LIMIT}&search=${search ?? ""}`, {
         next: {revalidate: 60}
     });
 
@@ -22,9 +22,9 @@ const VideosGrid = async ({searchParams, playlistId, search, videoId, page}) => 
     let videos = data.content ?? data;
     const totalPages = data.page.totalPages ?? 1;
 
-    if (search && search !== '') {
-        videos = videos?.filter(x => x.title.toLowerCase().includes(search.toLowerCase()));
-    }
+    // if (search && search !== '') {
+    //     videos = videos?.filter(x => x.title.toLowerCase().includes(search.toLowerCase()));
+    // }
 
     if (playlistId) {
         videos = videos?.sort((a, b) =>

@@ -4,7 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import SearchComponent from "@/components/videos/SearchComponent";
 import Link from "next/link";
 
-const SearchAndToggle = ({ content }) => {
+const SearchAndToggle = ({ content, search }) => {
     const searchParams = useSearchParams();
     const router = useRouter();
 
@@ -41,7 +41,7 @@ const SearchAndToggle = ({ content }) => {
                 </Link>
             </div>
             <div className="w-full md:w-auto flex justify-center">
-                <SearchComponent/>
+                <SearchComponent searchProps={search}/>
             </div>
         </div>
     );

@@ -10,15 +10,16 @@ export const revalidate = 60;
 
 const PlaylistsGrid = async ({playlistId, search, videoId, content}) => {
 
-    const res = await fetch(`${BASE_URL}/playlists`, {
+    console.log("search", search ?? "")
+    const res = await fetch(`${BASE_URL}/playlists?search=${search ?? ""}`, {
         next: {revalidate: 60},
     });
     let playlists = await res.json();
 
 
-    if (search && search !== '') {
-        playlists = playlists.filter(x => x.title.toLowerCase().includes(search.toLowerCase()));
-    }
+    // if (search && search !== '') {
+    //     playlists = playlists.filter(x => x.title.toLowerCase().includes(search.toLowerCase()));
+    // }
 
     if (playlistId) {
         playlists = playlists.sort((a, b) => (a.playlistId === playlistId ? -1 : b.playlistId === playlistId ? 1 : 0));
