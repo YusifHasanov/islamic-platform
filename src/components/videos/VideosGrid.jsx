@@ -8,12 +8,14 @@ export const revalidate = 60;
 
 const LIMIT = 12;
 
-const VideosGrid = async ({playlistId, search, videoId, page}) => {
+const VideosGrid = async ({playlistId, search, videoId, page, content}) => {
 
     const clientPage = parseInt(page, 10) || 1;
     const backendPage = clientPage - 1;
 
-    const res = await fetch(`${BASE_URL}/videos?page=${backendPage}&size=${LIMIT}&search=${search ?? ""}`, {
+    const isShorts = content === "shorts" ? 1 : 0;
+
+    const res = await fetch(`${BASE_URL}/videos?page=${backendPage}&size=${LIMIT}&search=${search ?? ""}&shorts=${isShorts}`, {
         next: {revalidate: 60}
     });
 
@@ -44,6 +46,9 @@ const VideosGrid = async ({playlistId, search, videoId, page}) => {
             params.set('videoId', videoId);
         }
 
+        if (content) {
+            params.set('content', content);
+        }
         if (search) {
             params.set('search', search);
         }
@@ -57,7 +62,20 @@ const VideosGrid = async ({playlistId, search, videoId, page}) => {
         <div className="min-h-screen bg-gray-100 py-8">
             <div className="py-3 mx-auto md:px-7 px-0">
                 {
-                    videos?.length === 0 ? <NoAnyVideo/> :
+                    videos?.length === 0 ? (
+                            <div className="mt-24 items-center justify-center bg-gray-100">
+                                <div className="text-center">
+                                    <svg className="mx-auto h-16 w-16 text-gray-400" fill="none" stroke="currentColor"
+                                         strokeWidth={2}
+                                         viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path strokeLinecap="round" strokeLinejoin="round"
+                                              d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    <h2 className="mt-4 text-2xl font-semibold text-gray-700">Heç bir video tapılmadı</h2>
+                                    <p className="mt-2 text-gray-500">Axtarışa uyğun bir nəticə tapılmadı</p>
+                                </div>
+                            </div>
+                        ) :
                         <>
                             <div className="grid grid-cols-1 mt-12 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
                                 {videos?.map((video) => (
@@ -77,7 +95,6 @@ const VideosGrid = async ({playlistId, search, videoId, page}) => {
                             </div>
 
                             {/* Pagination */}
-                            {/* Pagination */}
                             <Pagination clientPage={clientPage} totalPages={totalPages} buildPageLink={buildPageLink}/>
                         </>
                 }
@@ -87,17 +104,3 @@ const VideosGrid = async ({playlistId, search, videoId, page}) => {
 };
 
 export default VideosGrid;
-
-const NoAnyVideo = () => (
-    <div className="mt-24 items-center justify-center bg-gray-100">
-        <div className="text-center">
-            <svg className="mx-auto h-16 w-16 text-gray-400" fill="none" stroke="currentColor" strokeWidth={2}
-                 viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round"
-                      d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-            </svg>
-            <h2 className="mt-4 text-2xl font-semibold text-gray-700">Heç bir video tapılmadı</h2>
-            <p className="mt-2 text-gray-500">Axtarışa uyğun bir nəticə tapılmadı</p>
-        </div>
-    </div>
-);

@@ -1,47 +1,55 @@
-'use client';
-
-import { useRouter, useSearchParams } from "next/navigation";
 import SearchComponent from "@/components/videos/SearchComponent";
 import Link from "next/link";
 
-const SearchAndToggle = ({ content, search }) => {
-    const searchParams = useSearchParams();
-    const router = useRouter();
+const SearchAndToggle = ({ playlistId, search, videoId, content }) => {
 
+    // Link yaratmaq üçün optimallaşdırılmış funksiya
     const createHref = (contentValue) => {
-        const currentParams = new URLSearchParams(searchParams);
-        const key = "content";
-        if (searchParams.has(contentValue)) {
-            return;
+        const currentParams = new URLSearchParams();
+
+        if (content !== contentValue || content == null) {
+            currentParams.set("content", contentValue.trim());
         }
 
-        if (searchParams.get(key) !== contentValue || searchParams.get(key) == null) {
-            currentParams.set(key, contentValue.trim());
+        if (playlistId != null) {
+            currentParams.set("playlistId", playlistId);
         }
 
-        const path = `/videos?${currentParams.toString()}`;
+        if (videoId != null) {
+            currentParams.set("videoId", videoId);
+        }
 
-        // router.push(path);
-        return path;
+        if (search != null) {
+            currentParams.set("search", search);
+        }
+
+        return `?${currentParams.toString()}`;
     };
+
+    // Düymələrin məlumatları
+    const buttons = [
+        { label: "Playlistlər", value: "playlists" },
+        { label: "Videolar", value: "videos" },
+        { label: "Shortlar", value: "shorts" }
+    ];
 
     return (
         <div className="flex flex-col md:flex-row justify-center items-center w-full space-y-4 md:space-y-0 md:space-x-4 p-4">
-            <div className="flex justify-center">
-                <Link scroll={false} href={createHref("playlists")}
-
-                    className={`mr-2 ${content === "playlists" ? "bg-yellow-400" : "bg-gray-700"} text-white py-2 px-4 rounded-full`}
-                >
-                    Playlistlər
-                </Link>
-                <Link scroll={false} href={createHref("videos")}
-                    className={`${content === "videos" ? "bg-yellow-400" : "bg-gray-700"} text-white py-2 px-4 rounded-full`}
-                >
-                    Videolar
-                </Link>
+            <div className="flex flex-wrap justify-center gap-2">
+                {buttons.map((btn) => (
+                    <Link
+                        key={btn.value}
+                        scroll={false}
+                        href={createHref(btn.value)}
+                        className={`text-white py-2 px-4 rounded-full transition-colors duration-200
+                            ${content === btn.value ? "bg-yellow-400" : "bg-gray-700 hover:bg-gray-600"}`}
+                    >
+                        {btn.label}
+                    </Link>
+                ))}
             </div>
-            <div className="w-full md:w-auto flex justify-center">
-                <SearchComponent searchProps={search}/>
+            <div className="w-full md:w-auto flex justify-center mt-4 md:mt-0">
+                <SearchComponent searchProps={search} />
             </div>
         </div>
     );

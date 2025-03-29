@@ -8,17 +8,7 @@ export const metadata = {
 
 
 const Page = async ({searchParams}) => {
-    let {playlistId, search, videoId, content, page} = await searchParams;
-
-
-    if (page == null) {
-        if (content == null && videoId != null) {
-            content = "videos";
-        }
-        page = 0;
-    }
-
-    content ??= "videos";
+    const {playlistId, search, videoId, content, page} = await searchParams;
 
     return (
         <>

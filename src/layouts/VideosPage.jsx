@@ -5,16 +5,29 @@ import PlaylistsGrid from "@/components/videos/PlaylistsGrid";
 import VideosGrid from "@/components/videos/VideosGrid";
 
 const Videos = ({playlistId, search, videoId, content, page}) => {
+
+    if (page == null) {
+        if (content == null && videoId != null) {
+            content = "videos";
+        }
+        page = 0;
+    }
+
+    content ??= "videos";
+
     return (
         <>
             <VideoPlayer playlistId={playlistId}
                          videoId={videoId}
                          content={content}
                          search={search}/>
-            {/*<PlaylistsSection params={params}  />*/}
+
             <div className="min-h-screen bg-gray-100 py-8">
                 <div className="py-3 mx-auto px-7">
-                    <SearchAndToggle content={content}    search={search}/>
+                    <SearchAndToggle playlistId={playlistId}
+                                     videoId={videoId}
+                                     content={content}
+                                     search={search}/>
                     {
                         content === "playlists" && <PlaylistsGrid
                             playlistId={playlistId}
@@ -24,7 +37,7 @@ const Videos = ({playlistId, search, videoId, content, page}) => {
                         />
                     }
                     {
-                        content === "videos" && <VideosGrid
+                        (content === "videos" || content === "shorts") && <VideosGrid
                             playlistId={playlistId}
                             videoId={videoId}
                             content={content}

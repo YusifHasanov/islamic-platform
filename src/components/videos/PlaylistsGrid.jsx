@@ -1,8 +1,6 @@
 import React from 'react';
 import {BASE_URL} from "@/util/Const";
 import Link from "next/link";
-import SearchComponent from "@/components/videos/SearchComponent";
-import ConsoleLog from "@/components/common/ConsoleLog";
 import {getBestThumbnailUrl} from "@/util/Thumbnail";
 
 
@@ -31,39 +29,84 @@ const PlaylistsGrid = async ({playlistId, search, videoId, content}) => {
     }
 
 
+    const buildPageLink = (dynamicPlaylistId) => {
+        const params = new URLSearchParams();
+        if (dynamicPlaylistId) {
+            params.set('playlistId', dynamicPlaylistId);
+        } else if (dynamicPlaylistId) {
+            params.set('playlistId', dynamicPlaylistId);
+        }
+
+        if (content) {
+            params.set('content', content);
+        }
+
+        if (search) {
+            params.set('search', search);
+        }
+
+        return `?${params.toString()}`;
+    };
+
+
     return (
         <div className="min-h-screen bg-gray-100 py-8">
 
             <div className="py-3 mx-auto ">
                 {
-                    playlists?.length === 0 ? <NoAnyPlaylist/> :
+                    playlists?.length === 0 ? (
+                            <div className=" mt-24 items-center justify-center bg-gray-100">
+                                <div className="text-center">
+                                    <svg
+                                        className="mx-auto h-16 w-16 text-gray-400"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth={2}
+                                        viewBox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                        ></path>
+                                    </svg>
+                                    <h2 className="mt-4 text-2xl font-semibold text-gray-700">Heç bir playlst tapılmadı</h2>
+                                    <p className="mt-2 text-gray-500">
+                                        Axtarisa uygun bir nəticə tapılmadı
+                                    </p>
 
-                        <div className="grid grid-cols-1 mt-12 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-                            {playlists.map((playlist, index) => (
-                                <Link href={`/videos?playlistId=${playlist.playlistId}`}
-                                      key={playlist.playlistId}
-                                      className="bg-white playlistCard cursor-pointer rounded-2xl overflow-hidden  shadow-sm">
-                                    {/*<Image*/}
-                                    {/*    loading={"lazy"}*/}
-                                    {/*    src={playlist.thumbnail.split("+")[2] ?? playlist.thumbnail.split("+")[1] ?? playlist.thumbnail.split("+")[0]}*/}
-                                    {/*    alt={playlist.title}*/}
-                                    {/*    className="w-full object-cover "*/}
-                                    {/*    height={50}*/}
-                                    {/*    width={500}*/}
-                                    {/*/>  */}
-                                    <img
-                                        src={getBestThumbnailUrl(playlist.thumbnail)}
-                                        alt={playlist.title}
-                                        className="w-full object-cover "
-                                    />
-                                    <div
-                                        className={`px-4 pt-1 min-h-20 flex flex-col justify-between pb-1 ${isCurrentPlaylist(playlist.playlistId)}`}>
-                                        <h3 className="text-lg font-semibold">{playlist.title}</h3>
-                                        <p className="text-gray-500 text-center">{playlist.videoCount} Video</p>
-                                    </div>
-                                </Link>
-                            ))}
-                        </div>
+                                </div>
+                            </div>
+                        ) :
+                        (
+                            <div className="grid grid-cols-1 mt-12 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                                {playlists.map((playlist, index) => (
+                                    <Link href={buildPageLink(playlist.playlistId)}
+                                          key={playlist.playlistId}
+                                          className="bg-white playlistCard cursor-pointer rounded-2xl overflow-hidden  shadow-sm">
+                                        {/*<Image*/}
+                                        {/*    loading={"lazy"}*/}
+                                        {/*    src={playlist.thumbnail.split("+")[2] ?? playlist.thumbnail.split("+")[1] ?? playlist.thumbnail.split("+")[0]}*/}
+                                        {/*    alt={playlist.title}*/}
+                                        {/*    className="w-full object-cover "*/}
+                                        {/*    height={50}*/}
+                                        {/*    width={500}*/}
+                                        {/*/>  */}
+                                        <img
+                                            src={getBestThumbnailUrl(playlist.thumbnail)}
+                                            alt={playlist.title}
+                                            className="w-full object-cover "
+                                        />
+                                        <div
+                                            className={`px-4 pt-1 min-h-20 flex flex-col justify-between pb-1 ${isCurrentPlaylist(playlist.playlistId)}`}>
+                                            <h3 className="text-lg font-semibold">{playlist.title}</h3>
+                                            <p className="text-gray-500 text-center">{playlist.videoCount} Video</p>
+                                        </div>
+                                    </Link>
+                                ))}
+                            </div>
+                        )
                 }
             </div>
         </div>
@@ -71,32 +114,3 @@ const PlaylistsGrid = async ({playlistId, search, videoId, content}) => {
 };
 
 export default PlaylistsGrid;
-
-
-const NoAnyPlaylist = () => {
-    return (
-        <div className=" mt-24 items-center justify-center bg-gray-100">
-            <div className="text-center">
-                <svg
-                    className="mx-auto h-16 w-16 text-gray-400"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                    ></path>
-                </svg>
-                <h2 className="mt-4 text-2xl font-semibold text-gray-700">Heç bir playlst tapılmadı</h2>
-                <p className="mt-2 text-gray-500">
-                    Axtarisa uygun bir nəticə tapılmadı
-                </p>
-
-            </div>
-        </div>
-    );
-}
