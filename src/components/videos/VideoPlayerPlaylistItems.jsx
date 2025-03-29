@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import {getBestThumbnailUrl} from "@/util/Thumbnail";
 
-const VideoPlayerPlaylistItems = ({videos, videoId, playlistId}) => {
+const VideoPlayerPlaylistItems = ({playlistId, videos, searchParams, videoId, content, page}) => {
     const [search, setSearch] = useState('');
     const [filteredVideos, setFilteredVideos] = useState(videos);
 
@@ -15,6 +15,32 @@ const VideoPlayerPlaylistItems = ({videos, videoId, playlistId}) => {
                 : videos.filter(x => x.title.toLowerCase().includes(search.toLowerCase()))
         );
     }, [search, videos]);
+
+
+    const buildPageLink = (dynamicVideoId) => {
+        const params = new URLSearchParams();
+        if (page) {
+            params.set('page', page);
+        }
+
+        if (dynamicVideoId) {
+            params.set('videoId', dynamicVideoId);
+        } else if (videoId) {
+            params.set('videoId', videoId);
+        }
+
+        if (content) {
+            params.set('content', content);
+        }
+        if (searchParams) {
+            params.set('search', searchParams);
+        }
+        if (playlistId) {
+            params.set('playlistId', playlistId);
+        }
+        return `?${params.toString()}`;
+    };
+
 
     return (
         <div className="p-2 bg-gray-900 text-white rounded-lg">
@@ -32,7 +58,7 @@ const VideoPlayerPlaylistItems = ({videos, videoId, playlistId}) => {
                 {filteredVideos.map((video, id) => (
                     <Link
                         scroll={false}
-                        href={`/videos?playlistId=${playlistId}&videoId=${video.videoId}`}
+                        href={buildPageLink(video.videoId)}
                         key={id}
                         className={`flex videosItem items-center space-x-4 p-2 rounded-lg hover:bg-gray-700 ${(videoId == null && id === 0) || video.videoId === videoId ? "bg-gray-800" : ""}`}>
                         {/*<Image*/}

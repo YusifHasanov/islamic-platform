@@ -4,7 +4,7 @@ import VideoPlayerPlaylistItems from "@/components/videos/VideoPlayerPlaylistIte
 
 export const revalidate = 60;
 
-const VideoPlayer = async ({playlistId, videoId}) => {
+const VideoPlayer = async ({playlistId, search, videoId, content, page}) => {
     // Geçerliliği kontrol eden yardımcı fonksiyon
     const isValid = (prop) => prop != null && prop !== "undefined" && prop !== "null";
 
@@ -90,6 +90,9 @@ const VideoPlayer = async ({playlistId, videoId}) => {
                             <VideoPlayerPlaylistItems
                                 playlistId={playlistId}
                                 videos={videos}
+                                page={page}
+                                searchParams={search}
+                                content={content}
                                 videoId={selectedVideo?.videoId}
                             />
                         </div>
