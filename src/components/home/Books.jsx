@@ -5,26 +5,31 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import Image from 'next/image';
 import {Pagination, Navigation} from "swiper/modules";
-import {useEffect, useState} from "react";
-import HttpClient from "@/util/HttpClient";
 
 
+export const books = [
+    {
+        id: 1,
+        image: "https://res.cloudinary.com/dhhlnrons/image/upload/v1742722148/esm/books/tujvd6zrscuqiqhskvxp.jpg",
+        title: "Əhli-Sünnə Əqidəsi",
+        authorName: "Əhli-Sünnə Mədrəsəsi"
+    },
+    {
+        id: 2,
+        image: "https://res.cloudinary.com/dhhlnrons/image/upload/v1742722145/esm/books/qwqgjoagkondanp5gktf.jpg",
+        title: "Əhli-Sünnə Əqidəsi",
+        authorName: "Əhli-Sünnə Mədrəsəsi"
+    },
+    {
+        id: 3,
+        image: "https://res.cloudinary.com/dhhlnrons/image/upload/v1742722117/esm/books/zxwlxh1zsjutjhocvi1x.jpg",
+        title: "Əhli-Sünnə Əqidəsi",
+        authorName: "Əhli-Sünnə Mədrəsəsi"
+    }
+
+];
 export default function Component() {
-    const [books, setBooks] = useState([
-        {
-            image:"https://res.cloudinary.com/dhhlnrons/image/upload/v1742722148/esm/books/tujvd6zrscuqiqhskvxp.jpg",
-            title:"Əhli-Sünnə Əqidəsi"
-        },
-        {
-            image:"https://res.cloudinary.com/dhhlnrons/image/upload/v1742722145/esm/books/qwqgjoagkondanp5gktf.jpg",
-            title:"Asan Əməllər"
-        },
-        {
-            image:"https://res.cloudinary.com/dhhlnrons/image/upload/v1742722117/esm/books/zxwlxh1zsjutjhocvi1x.jpg",
-            title:"Töhfə"
-        }
 
-    ]);
     // useEffect(() => {
     //         HttpClient.get('/books')
     //             .then(res => res.json())
@@ -61,7 +66,8 @@ export default function Component() {
                 >
                     {books.map((book, index) => (
                         <SwiperSlide key={index} className="!flex justify-center">
-                            <div className="group flex w-full max-w-[250px] flex-col items-center transition-all duration-300 hover:-translate-y-2">
+                            <div
+                                className="group flex w-full max-w-[250px] flex-col items-center transition-all duration-300 hover:-translate-y-2">
                                 <div className="relative aspect-[3/4] w-full overflow-hidden rounded-lg shadow-lg">
                                     <Image
                                         src={book.image}

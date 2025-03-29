@@ -4,7 +4,7 @@ import * as React from "react"
 import Link from "next/link"
 import Image from "next/image"
 import {Menu, ChevronDown, ChevronUp} from "lucide-react"
-import {usePathname} from "next/navigation"
+import {usePathname, useRouter} from "next/navigation"
 import {create} from 'zustand'
 import {motion, AnimatePresence} from "framer-motion"
 
@@ -29,7 +29,7 @@ export const NewNavbar = ({menus}) => {
                         <span className="text-white font-bold text-lg">
                             <Link href={'/'}>
                                 {/*<span className="text-[#F7E652]">Əhli Sünnə </span>Mədrəsəsi*/}
-                                <span >Əhli - Sünnə </span>Mədrəsəsi
+                                <span>Əhli - Sünnə </span>Mədrəsəsi
                             </Link>
                         </span>
                     </div>
@@ -224,29 +224,28 @@ function MobileNav({navItems, closeMenu}) {
 
 const MobileNavMenu = ({item, closeMenu}) => {
     const [isOpen, setIsOpen] = React.useState(false)
-
+    const [haveSubMenu, setHaveSubMenu] = React.useState(item.subcategories.length > 0)
+    const router = useRouter()
     return (
         <div className="w-full">
             <div
                 className="flex w-full items-center justify-between px-4 py-3 text-white font-medium border-b border-green-700"
-                onClick={() => item.subcategories.length > 0 ? setIsOpen(!isOpen) : closeMenu()}
+                onClick={() => haveSubMenu ? setIsOpen(!isOpen) : closeMenu()}
             >
                 <Link
                     href={item.href}
                     className="flex-grow"
                     onClick={(e) => {
-                        if (item.subcategories.length > 0) {
-                            e.preventDefault();
-                            setIsOpen(!isOpen);
-                        } else {
-                            closeMenu();
-                        }
+                        e.preventDefault();
+                        closeMenu();
+                        router.push(item.href)
                     }}
                 >
                     {item.name}
                 </Link>
-                {item.subcategories.length > 0 && (
+                {haveSubMenu && (
                     <motion.div
+                        onClick={() => setIsOpen(!isOpen)}
                         animate={{rotate: isOpen ? 180 : 0}}
                         transition={{duration: 0.2}}
                         className="p-1"

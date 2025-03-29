@@ -7,7 +7,7 @@ import Link from "next/link";
 import CacheProvider from "@/util/CacheProvider";
 import Spinner from "@/components/search/Spinner";
 import Image from "next/image";
-import ConsoleLog from "@/components/common/ConsoleLog";
+import {books} from "@/components/home/Books";
 
 export default function SearchPage() {
     const router = useRouter();
@@ -22,7 +22,7 @@ export default function SearchPage() {
     const [loading, setLoading] = useState(true);
     const [articles, setArticles] = useState([]);
     const [videos, setVideos] = useState([]);
-    const [books, setBooks] = useState([]);
+    // const [books, setBooks] = useState([]);
 
     // Fetch data whenever `categoryId` in the URL changes
     useEffect(() => {
@@ -57,7 +57,7 @@ export default function SearchPage() {
             .then((data) => {
                 setArticles(data.articles);
                 setVideos(data.videos);
-                setBooks(data.books);
+                // setBooks(data.books);
             })
             .catch((err) => {
                 console.error("Error fetching data:", err);
@@ -154,7 +154,7 @@ export default function SearchPage() {
                             key={book.id}
                             image={book.image}
                             title={book.title}
-                            info1Label="Author"
+                            info1Label="Müəllif"
                             info1={book.authorName}
                         />
                     ))}
