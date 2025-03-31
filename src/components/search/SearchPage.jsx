@@ -82,6 +82,19 @@ export default function SearchPage() {
         );
     }
 
+    const generateRoute = (playlistId, videoId)=>{
+        const searchParams = new URLSearchParams();
+        if (playlistId != null){
+            searchParams.set("playlistId", playlistId);
+        }
+
+        if (videoId != null){
+            searchParams.set("videoId", videoId);
+        }
+
+        return `/videos?${searchParams}`;
+    }
+
     return (
         <main className="min-h-screen w-full bg-gradient-to-b from-yellow-50 to-orange-50">
             {/* Search Bar */}
@@ -135,7 +148,7 @@ export default function SearchPage() {
                         const thumbnailUrls = video.thumbnail.split("+");
                         return (
                             <Card
-                                href={`/videos?playlistId=${video.playlistId}&videoId=${video.videoId}`}
+                                href={generateRoute(video.playlistId,video.videoId)}
                                 key={video.videoId}
                                 image={thumbnailUrls[2] ?? thumbnailUrls[0]}
                                 title={video.title}
@@ -150,7 +163,7 @@ export default function SearchPage() {
                 <Section title="Kitablar" data={books}>
                     {books?.map((book) => (
                         <Card
-                            href={"/"}
+                            href={"#"}
                             key={book.id}
                             image={book.image}
                             title={book.title}
