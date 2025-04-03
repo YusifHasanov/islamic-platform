@@ -1,11 +1,6 @@
-import React from 'react';
-
 const Page = () => {
-    return (
-        <div>
-          admin
-        </div>
-    );
-};
+  return <div>admin</div>
+}
 
-export default Page;
+export default Page
+

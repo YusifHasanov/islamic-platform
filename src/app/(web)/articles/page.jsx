@@ -1,26 +1,21 @@
-import React from 'react';
-import Articles from "@/layouts/ArticlesPage";
-import Head from "next/head";
-
+import Articles from "@/layouts/ArticlesPage"
 
 export const metadata = {
-    title: 'Məqalələr',
-};
+    title: "Məqalələr | Əhli-Sünnə Mədrəsəsi",
+    description: "Əhli-Sünnə Mədrəsəsi saytında İslam dini haqqında dəyərli və maarifləndirici məqalələri oxuyun.",
+    keywords: "İslam məqalələri, dini məqalələr, Əhli-Sünnə, İslam dini, dini yazılar",
+    openGraph: {
+        title: "Məqalələr | Əhli-Sünnə Mədrəsəsi",
+        description: "Əhli-Sünnə Mədrəsəsi saytında İslam dini haqqında dəyərli və maarifləndirici məqalələri oxuyun.",
+        url: "https://www.ehlisunnemedresesi.az/articles",
+        type: "website",
+    },
+}
 
+const Page = async ({ searchParams }) => {
+    const { page, category } = await searchParams
+    return <Articles page={page} category={category} />
+}
 
-const Page = async ({searchParams}) => {
-   const {page,category} = await searchParams;
-    return (
-        <>
-            <Head>
-                <meta
-                    name="description"
-                    content="Əhli-Sünnə Mədrəsəsi saytında İslam dini haqqında dəyərli və maarifləndirici məqalələri oxuyun."
-                />
-            </Head>
-            <Articles page={page} category={category}/>
-        </>
-    );
-};
+export default Page
 
-export default Page;

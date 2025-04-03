@@ -76,8 +76,8 @@ const NavDropDownMenu = ({item}) => {
 
     const isActive = (href) => {
         const currentPath = pathname;
-        if (href !== '/' && currentPath.startsWith(href)) return 'text-[#F7E652]';
-        if (href === '/' && currentPath === '/') return 'text-[#F7E652]';
+        if (href !== '/' && currentPath.startsWith(href)) return 'text-[#43b365]';
+        if (href === '/' && currentPath === '/') return 'text-[#43b365]';
         return 'text-white';
     };
 
@@ -86,7 +86,7 @@ const NavDropDownMenu = ({item}) => {
             <div onMouseEnter={() => setOpen(true)}>
                 <Link
                     href={item.href}
-                    className={`flex items-center justify-center ${isActive(item.href)} hover:text-[#F7E652] transition-colors duration-200`}
+                    className={`flex items-center justify-center ${isActive(item.href)} hover:text-[#43b365] transition-colors duration-200`}
                 >
                     <span className="mr-1">{item.name}</span>
                     {item.subcategories.length > 0 && (
@@ -275,7 +275,7 @@ const MobileNavMenu = ({item, closeMenu}) => {
                                 <Link
                                     href={childItem.href}
                                     onClick={(e) => closeMenu()}
-                                    className="block hover:text-[#F7E652] transition-colors duration-200"
+                                    className="block hover:text-[#43b365] transition-colors duration-200"
                                 >
                                     {childItem.name}
                                 </Link>

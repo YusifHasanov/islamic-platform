@@ -1,89 +1,73 @@
-'use client'
-import React, {useEffect, useState} from 'react';
-import Link from "next/link";
-import Image from "next/image";
-import {getBestThumbnailUrl} from "@/util/Thumbnail";
+"use client"
+import Link from "next/link"
+import { getBestThumbnailUrl } from "@/util/Thumbnail"
+import Image from "next/image"
 
-const VideoPlayerPlaylistItems = ({playlistId, videos, searchParams, videoId, content, page}) => {
-    const [search, setSearch] = useState('');
-    const [filteredVideos, setFilteredVideos] = useState(videos);
+const VideoPlayerPlaylistItems = ({ playlistId, videos, page, searchParams, content, videoId }) => {
+  const generateRoute = (playlistId, videoId) => {
+    const searchParams = new URLSearchParams()
+    if (playlistId != null) {
+      searchParams.set("playlistId", playlistId)
+    }
 
-    useEffect(() => {
-        setFilteredVideos(
-            search.toLowerCase().trim() === ''
-                ? videos
-                : videos.filter(x => x.title.toLowerCase().includes(search.toLowerCase()))
-        );
-    }, [search, videos]);
+    if (videoId != null) {
+      searchParams.set("videoId", videoId)
+    }
 
+    if (content != null) {
+      searchParams.set("content", content)
+    }
 
-    const buildPageLink = (dynamicVideoId) => {
-        const params = new URLSearchParams();
-        if (page) {
-            params.set('page', page);
-        }
+    if (page != null) {
+      searchParams.set("page", page)
+    }
 
-        if (dynamicVideoId) {
-            params.set('videoId', dynamicVideoId);
-        } else if (videoId) {
-            params.set('videoId', videoId);
-        }
+    return `/videos?${searchParams}`
+  }
 
-        if (content) {
-            params.set('content', content);
-        }
-        if (searchParams) {
-            params.set('search', searchParams);
-        }
-        if (playlistId) {
-            params.set('playlistId', playlistId);
-        }
-        return `?${params.toString()}`;
-    };
-
-
-    return (
-        <div className="p-2 bg-gray-900 text-white rounded-lg">
-            <div className="mb-4">
-                <input
-                    type="text"
-                    placeholder="Search videos..."
-                    onChange={e => setSearch(e.target.value)}
-                    value={search}
-                    className="w-full px-2 py-1 text-gray-900 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+  return (
+    <div className="divide-y divide-gray-700">
+      {videos?.map((video) => {
+        console.log( video.videoId === videoId ? "bg-emerald-900/30 border-l-4 border-emerald-500" : "")
+        return (
+            <Link
+                href={generateRoute(playlistId, video.videoId)}
+                key={video.videoId}
+                className={`flex p-3 hover:bg-gray-700/50 transition-colors ${
+                    video.videoId === videoId ? "bg-emerald-900/30 border-l-4 !border-l-emerald-500" : ""
+                }`}
+            >
+              <div className="flex-shrink-0 relative w-24 h-16 rounded-md overflow-hidden">
+                <Image
+                    src={getBestThumbnailUrl(video.thumbnail) || "/placeholder.svg"}
+                    alt={video.title}
+                    fill
+                    className="object-cover"
                 />
-            </div>
+                <div className="absolute bottom-1 right-1 bg-black/70 text-white text-xs px-1 rounded">12:34</div>
+              </div>
+              <div className="ml-3 flex-1 min-w-0">
+                <p
+                    className={`text-sm font-medium line-clamp-2 ${
+                        video.videoId === videoId ? "text-emerald-400" : "text-white"
+                    }`}
+                >
+                  {video.title}
+                </p>
+                <p className="text-xs text-gray-400 mt-1">
+                  {new Date(video.publishedAt).toLocaleDateString("az-AZ", {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                  })}
+                </p>
+              </div>
+            </Link>
+        )
+      })}
+    </div>
+  )
+}
 
-            <div className="space-y-2">
-                {filteredVideos.map((video, id) => (
-                    <Link
-                        scroll={false}
-                        href={buildPageLink(video.videoId)}
-                        key={id}
-                        className={`flex videosItem items-center space-x-4 p-2 rounded-lg hover:bg-gray-700 ${(videoId == null && id === 0) || video.videoId === videoId ? "bg-gray-800" : ""}`}>
-                        {/*<Image*/}
-                        {/*    loading={"lazy"}*/}
-                        {/*    src={video.thumbnail.split("+")[2]}*/}
-                        {/*    alt={video.title}*/}
-                        {/*    height={20}*/}
-                        {/*    width={200}*/}
-                        {/*    className="w-28 h-20 object-cover rounded-lg"*/}
-                        {/*/>*/}
-                        <img
-                            src={getBestThumbnailUrl(video.thumbnail)}
-                            alt={video.title}
-                            className="w-28 object-cover "
-                        />
-                        <div>
-                            <h4 className="text-white text-md font-medium">
-                                {video.title}
-                            </h4>
-                        </div>
-                    </Link>
-                ))}
-            </div>
-        </div>
-    );
-};
+export default VideoPlayerPlaylistItems
 
-export default VideoPlayerPlaylistItems;

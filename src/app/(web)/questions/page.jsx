@@ -1,14 +1,12 @@
-import React from 'react';
-import QuestionsPage from "@/components/questions/QuestionsPage";
+import QuestionsPage from "@/components/questions/QuestionsPage"
 
 const Page = () => {
-    return (
-        <div>
-            <QuestionsPage/>
-        </div>
-    );
-};
+  return (
+    <div>
+      <QuestionsPage />
+    </div>
+  )
+}
 
-export default Page;
-
+export default Page
 

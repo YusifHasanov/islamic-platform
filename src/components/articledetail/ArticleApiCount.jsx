@@ -1,18 +1,19 @@
-'use client'
-import React, {useEffect} from 'react';
-import {useParams} from "next/navigation";
-import HttpClient from "@/util/HttpClient";
+"use client"
+import { useEffect } from "react"
+import { useParams } from "next/navigation"
+import HttpClient from "@/util/HttpClient"
 
 const ArticleApiCount = () => {
-    const {id} = useParams();
+  const { id } = useParams()
 
-    useEffect(() => {
-        HttpClient.put(`/articles/count/${id}`,null)
-            .then(res => console.log(res))
-            .catch((err) => console.log(err));
-    }, [])
+  useEffect(() => {
+    HttpClient.put(`/articles/count/${id}`, null)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err))
+  }, [])
 
-    return (<></>);
-};
+  return <></>
+}
 
-export default ArticleApiCount;
+export default ArticleApiCount
+
