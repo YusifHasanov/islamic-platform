@@ -141,7 +141,7 @@ const ArticleDetailPage = ({article}) => {
             </div>
 
             <div className="container mx-auto px-4 -mt-10 relative z-10">
-                <div className="bg-white rounded-t-2xl shadow-md p-6 md:p-10">
+                <div className="bg-white rounded-t-2xl shadow-md md:p-10 sm:p-6 p-4">
                     {/* Author Info */}
                     <div className="flex items-center mb-8">
                         <div className="relative h-12 w-12 rounded-full overflow-hidden mr-4">
@@ -160,7 +160,7 @@ const ArticleDetailPage = ({article}) => {
                     <div className="grid grid-cols-1 lg:grid-cols-[1fr_350px] gap-10">
                         {/* Article Content */}
                         <div>
-                            <div className="prose prose-emerald max-w-none">
+                            <div className="prose prose-emerald text-justify max-w-none">
                                 <div dangerouslySetInnerHTML={{__html: article.content}}></div>
                             </div>
 
@@ -212,11 +212,11 @@ const ArticleDetailPage = ({article}) => {
 
                         {/* Sidebar */}
                         <div className="space-y-8">
-                            <div className="bg-gray-50 rounded-xl p-6">
+                            <div className="bg-gray-50 rounded-xl sm:p-6 p-0">
                                 <ArticleDetailCategories/>
                             </div>
 
-                            <div className="bg-gray-50 rounded-xl p-6">
+                            <div className="bg-gray-50 rounded-xl sm:p-6 p-0">
                                 <MostReadArticles article={article}/>
                             </div>
                         </div>

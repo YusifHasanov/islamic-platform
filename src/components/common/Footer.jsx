@@ -32,7 +32,7 @@ const Footer = () => {
                                 Əhli Sünnə Mədrəsəsi
                             </div>
                         </div>
-                        <p className="text-gray-300 text-sm leading-relaxed">
+                        <p className="text-gray-300  text-sm leading-relaxed">
                             Əhli Sünnə Mədrəsəsi iman, fiqh və siyer mövzularında mənəvi dünyanızı zənginləşdirmək üçün
                             məzmunlar
                             təqdim edir.
@@ -168,7 +168,7 @@ const Footer = () => {
                     <div>
                         <h3 className="text-lg font-semibold mb-4 text-green-400">Dəstək
                             Olun</h3> {/* Başlıq dəyişdi */}
-                        <p className="text-gray-300 text-sm mb-4 leading-relaxed"> {/* Təsvir dəyişdi */}
+                        <p className="text-gray-300 text-sm mb-4 text-justify leading-relaxed"> {/* Təsvir dəyişdi */}
                             Mədrəsəmizin fəaliyyətini davam etdirmək və xidmətlərimizi genişləndirmək üçün sizin maddi
                             dəstəyinizə ehtiyacımız var. Aşağıdakı kart hesablarına ianələrinizi göndərə bilərsiniz.
                         </p>

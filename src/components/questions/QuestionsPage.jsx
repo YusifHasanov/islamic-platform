@@ -711,7 +711,7 @@ const OptimizedQuestionCard = memo(function QuestionCard({ question }) {
           className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden hover:border-gray-200 hover:shadow-md transition-shadow duration-200" // Use transition-shadow
       >
         <div className="p-5 md:p-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-3">
+          <h2 className="text-lg font-semibold text-justify text-gray-900 mb-3">
             {question.question}
           </h2>
           <div className="text-gray-600 text-sm leading-relaxed mb-4 relative">
@@ -724,7 +724,7 @@ const OptimizedQuestionCard = memo(function QuestionCard({ question }) {
                 // Animate height based on isExpanded state *only if* expansion is needed
                 animate={{ height: isExpanded || !needsExpansion ? "auto" : collapsedHeight }}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
-                className="overflow-hidden" // Crucial for clipping content during animation
+                className="overflow-hidden text-justify" // Crucial for clipping content during animation
             >
               {/* Render the full answer text */}
               {answerText}

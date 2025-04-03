@@ -10,12 +10,12 @@ const stats = [
 const SocialMediaStats = () => {
     return (
         // Container is managed by HomePage section
-        <div className="text-white flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-16">
+        <div className="text-white  flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-16">
 
             {/* Left Section: Text */}
             <div className="w-full lg:w-5/12 text-center lg:text-left">
                 <h2 className="text-3xl md:text-4xl font-bold mb-4">Bizi İzləyirsinizmi?</h2>
-                <p className="text-gray-300 leading-relaxed text-base md:text-lg">
+                <p className="text-gray-300 text-justify leading-relaxed text-base md:text-lg">
                     Rəqəmsal platformalarda milyonlarla insana çatdıq, ürəklərə toxunduq. Hər paylaşım bir hekayənin başlanğıcı
                     oldu. Sizinlə paylaşdığımız hər məzmun aramızda bir körpü qurdu. Əhli Sünnə Mədrəsəsi olaraq, milyonların
                     ürəyində iman həqiqətlərinin yer alması bizə ümid verir.

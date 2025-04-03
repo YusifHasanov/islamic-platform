@@ -458,7 +458,7 @@ export default function Page() {
                   ) : (
                     paginatedQuestions.map((question) => (
                       <tr key={question.id} className="hover:bg-gray-50">
-                        <td className="px-6 py-4 text-sm font-medium text-gray-900">{question.question}</td>
+                        <td className="px-6 py-4 text-sm font-medium text-justify text-gray-900">{question.question}</td>
                         {showCategories && (
                           <td className="px-6 py-4">
                             <div className="flex flex-wrap gap-1">

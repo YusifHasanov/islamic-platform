@@ -188,7 +188,7 @@ export default function QuestionDetailPage() {
           >
             {/* === Question Header & Metadata === */}
             <header className="space-y-4">
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
+              <h1 className="text-2xl text-justify sm:text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
                 {question.question}
               </h1>
               <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-gray-500 border-t border-b border-gray-100 py-3">
@@ -221,7 +221,7 @@ export default function QuestionDetailPage() {
                 className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 md:p-8"
             >
               {/* Use prose for automatic typography styling */}
-              <div className="prose prose-emerald max-w-none prose-p:text-gray-700 prose-p:leading-relaxed prose-headings:font-semibold prose-headings:text-gray-800 prose-a:text-emerald-600 hover:prose-a:text-emerald-700">
+              <div className="prose text-justify prose-emerald max-w-none prose-p:text-gray-700 prose-p:leading-relaxed prose-headings:font-semibold prose-headings:text-gray-800 prose-a:text-emerald-600 hover:prose-a:text-emerald-700">
                 {/* Render answer content - consider using a markdown renderer if applicable */}
                 {question.answer.split('\n').map((paragraph, index) => (
                     // Filter out empty paragraphs potentially caused by multiple newlines
