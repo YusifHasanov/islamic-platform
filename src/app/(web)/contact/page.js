@@ -1,19 +1,16 @@
-import React from 'react';
-import ContactPage from "@/layouts/ContactPage";
-
-
+import ContactPage from "@/layouts/ContactPage"
 
 export const metadata = {
-    title: 'Əlaqə',
-};
-
+  title: "Əlaqə",
+}
 
 const Page = () => {
-    return (
-        <>
-            <ContactPage/>
-        </>
-    );
-};
+  return (
+    <>
+      <ContactPage />
+    </>
+  )
+}
 
-export default Page;
+export default Page
+

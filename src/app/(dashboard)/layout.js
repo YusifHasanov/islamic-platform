@@ -1,25 +1,28 @@
-'use client'
+"use client"
 
-import useTheme from "@/hooks/useTheme";
-import {LayoutProvider} from "@/components/layout/context/layoutcontext";
-import AppConfig from "@/components/layout/AppConfig";
-import React from "react";
-import SideBar from "@/components/admin/SideBar";
-
+import useTheme from "@/hooks/useTheme"
+import {LayoutProvider} from "@/components/layout/context/layoutcontext"
+import AppConfig from "@/components/layout/AppConfig"
+import SideBar from "@/components/admin/SideBar"
+import Tailwind from "primereact/passthrough/tailwind";
+import {PrimeReactProvider} from "primereact/api";
 
 const Layout = ({children}) => {
-    useTheme();
+    useTheme()
     // useAuthRedirect()
     return (
         <>
-            <SideBar>
-                <LayoutProvider>
-                    {children}
-                    <AppConfig minimal/>
-                </LayoutProvider>
-            </SideBar>
+            <PrimeReactProvider value={{pt: Tailwind}}>
+                <SideBar>
+                    <LayoutProvider>
+                        {children}
+                        <AppConfig minimal/>
+                    </LayoutProvider>
+                </SideBar>
+            </PrimeReactProvider>
         </>
-    );
-};
+    )
+}
 
-export default Layout;
+export default Layout
+

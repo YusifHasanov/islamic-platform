@@ -6,14 +6,22 @@ import { ChevronDown, ChevronUp } from "lucide-react"
 import HttpClient from "@/util/HttpClient"
 import CacheProvider from "@/util/CacheProvider"
 
-const ArticleCategories = ({ page, category }) => {
+const ArticleCategories = ({ page = 0, category }) => {
     const [categories, setCategories] = useState([])
     const [expanded, setExpanded] = useState({})
+    const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
+        setIsLoading(true)
         CacheProvider.fetchData("article_categories", 60, async () => HttpClient.get("/categories"))
-            .then((data) => setCategories(data))
-            .catch((err) => console.log(err))
+            .then((data) => {
+                setCategories(data)
+                setIsLoading(false)
+            })
+            .catch((err) => {
+                console.log(err)
+                setIsLoading(false)
+            })
     }, [])
 
     const toggleAccordion = (id) => {
@@ -32,7 +40,7 @@ const ArticleCategories = ({ page, category }) => {
             <ul className="space-y-1">
                 {filteredCategories.map((item) => {
                     const hasChildren = categories.some((cat) => cat.parentId === item.id)
-                    const isActive = item.id === category
+                    const isActive = Number(item.id) === Number(category)
                     const isExpanded = expanded[item.id]
 
                     return (
@@ -99,12 +107,14 @@ const ArticleCategories = ({ page, category }) => {
     return (
         <div className="mb-8">
             <h3 style={{ lineHeight: "1" }} className="text-lg mb-5 text-gray-800 border-l-4 pl-4 border-yellow-500">
-                Kategoriler
+                Kateqoriyalar
             </h3>
-            {categories.length > 0 ? (
+            {isLoading ? (
+                <div className="py-2 text-gray-500 text-center">Kateqoriyalar yükleniyor...</div>
+            ) : categories.length > 0 ? (
                 renderCategoryTree()
             ) : (
-                <div className="py-2 text-gray-500 text-center">Kategoriler yükleniyor...</div>
+                <div className="py-2 text-gray-500 text-center">Kateqoriya tapılmadı</div>
             )}
         </div>
     )

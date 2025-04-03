@@ -1,24 +1,25 @@
-import {useEffect} from 'react';
-import {redirect, usePathname} from "next/navigation";
+"use client"
 
+import { useEffect } from "react"
+import { redirect, usePathname } from "next/navigation"
 
 const useAuthRedirect = () => {
-    const pathname = usePathname();
+  const pathname = usePathname()
 
-    useEffect(() => {
-        const token = localStorage.getItem('token');
+  useEffect(() => {
+    const token = localStorage.getItem("token")
 
-        if (pathname === '/admin/login' || pathname === '/admin/register') {
-            if (token) {
-                redirect('/admin');
-            }
-        } else {
-            if (!token) {
-                redirect('/admin/login');
-            }
-        }
+    if (pathname === "/admin/login" || pathname === "/admin/register") {
+      if (token) {
+        redirect("/admin")
+      }
+    } else {
+      if (!token) {
+        redirect("/admin/login")
+      }
+    }
+  }, [pathname])
+}
 
-    }, [pathname]);
-};
+export default useAuthRedirect
 
-export default useAuthRedirect;
