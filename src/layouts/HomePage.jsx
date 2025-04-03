@@ -44,7 +44,7 @@ const HomePage = () => {
             {/* Section 4: Social Media Stats */}
             {/* Kept the original background color via inline style as requested, but Tailwind bg-* is preferred */}
             <section id="social-stats" style={{ backgroundColor: "#373D45" }} className="py-16 md:py-20">
-                <div className="container mx-auto px-4">
+                <div className="container mx-auto px-4 ">
                     <SocialMediaStats />
                 </div>
             </section>
