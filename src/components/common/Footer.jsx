@@ -12,6 +12,7 @@ import {
 import Image from "next/image"
 import FooterBankNumber from "@/components/common/FooterBankNumber";
 import {bankData, phones} from "@/util/Const";
+import SupportButton from "@/components/common/SupportButton";
 
 const Footer = () => {
     const currentYear = new Date().getFullYear()
@@ -181,11 +182,12 @@ const Footer = () => {
     */}
                         <div className="space-y-3"> {/* Kartlar arası boşluq */}
                             {/* Nümunə Kart 1 */}
-                            {
-                                bankData.map((bank, index) => (
-                                    <FooterBankNumber key={index} bank={bank}/>
-                                ))
-                            }
+
+                            {/*     bankData.map((bank, index) => (*/}
+                            {/*         <FooterBankNumber key={index} bank={bank}/>*/}
+                            {/*     ))*/}
+                                <SupportButton bankData={bankData} />
+
                         </div>
 
                         {/* Təşəkkür mesajı */}

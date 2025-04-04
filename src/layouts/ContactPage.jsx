@@ -8,6 +8,7 @@ import BankCardCopy from '@/components/contact/BankCardCopy';
 // Client Form komponentini import edirik
 import ContactForm from "@/components/contact/ContactForm";
 import {bankData, phones} from "@/util/Const";
+import ContactAndSupportSidebar from "@/components/contact/ContactAndSupportSidebar";
 
 // --- Səhifə Komponenti (Server Component) ---
 export default function ContactPage() {
@@ -43,47 +44,7 @@ export default function ContactPage() {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16 items-start ">
 
                     {/* --- DƏYİŞDİRİLMİŞ SOL SÜTUN --- */}
-                    <div className="lg:col-span-1 space-y-8  bg-white p-8 rounded-lg shadow-md border border-gray-100">
-
-                        {/* Telefon Bölməsi */}
-                        <div>
-                            <h2 className="text-2xl font-semibold text-gray-900 mb-6 border-b pb-3">Əlaqə Vasitəsi</h2>
-                            <div className="flex items-start gap-4">
-                                <Phone className="h-6 w-6 text-emerald-600 mt-1 flex-shrink-0"/>
-                                <div>
-                                    <h3 className="font-medium text-gray-800">Telefon</h3>
-                                    {/* Real telefon nömrəniz ilə əvəz edin */}
-                                    <div className="flex flex-col items-start">
-                                        {
-                                            phones.map((phone, index) => (
-                                                <a key={index} href={`tel:${phone.replace(/\s/g, '')}`}
-                                                   className="text-gray-600 hover:text-emerald-700">
-                                                    {phone}
-                                                </a>
-                                            ))
-                                        }
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Dəstək Olun Bölməsi */}
-                        <div>
-                            <h2 className="text-2xl font-semibold text-gray-900 mb-6 border-b pb-3 flex items-center gap-2">
-                                Dəstək Olun
-                            </h2>
-                            <p className="text-sm text-gray-600 mb-5">
-                                Fəaliyyətimizə dəstək olmaq üçün aşağıdakı bank hesablarından istifadə edə bilərsiniz.
-                                Allah razı olsun!
-                            </p>
-                            <div className="space-y-3">
-                                {bankData.map((bank, index) => (
-                                    <BankCardCopy key={index} bank={bank}/>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
+                    <ContactAndSupportSidebar/>
                     {/* --- SOL SÜTUN SONU --- */}
 
 
