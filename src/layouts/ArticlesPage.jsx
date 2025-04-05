@@ -7,7 +7,8 @@ import ArticleCard from "@/components/articles/ArticleCard"
 import Pagination from "@/components/common/Pagination"
 import HttpClient from "@/util/HttpClient"
 import CacheProvider from "@/util/CacheProvider"
-import {ChevronDown, LayoutGrid, FolderTree, SearchX} from "lucide-react" // Added icons
+import {ChevronDown, LayoutGrid, FolderTree, SearchX} from "lucide-react"
+import CategorySidebar from "@/components/common/CategorySidebar"; // Added icons
 
 const ArticlesPage = ({page: initialPage = 0, category: initialCategory}) => {
     const router = useRouter()
@@ -316,36 +317,15 @@ const ArticlesPage = ({page: initialPage = 0, category: initialCategory}) => {
                     {/* Sidebar with Categories */}
                     <div className="lg:col-span-1 h-full">
                         {/* Sticky container */}
-                        <div className="sticky top-10 bg-white rounded-xl shadow-sm border border-gray-100 p-5">
-                            <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
-                                <FolderTree size={20} className="mr-2 text-emerald-600 flex-shrink-0"/>
-                                Kateqoriyalar
-                            </h2>
-                            <div className="mt-4 max-h-[60vh] overflow-y-auto pr-1"> {/* Scrollable category list */}
-                                {isLoadingCategories ? (
-                                    <CategorySkeleton/>
-                                ) : (
-                                    <>
-                                        <button
-                                            onClick={() => handleCategorySelect("")}
-                                            className={`flex items-center w-full text-left px-2.5 py-1.5 rounded-md text-sm mb-2 transition-colors ${
-                                                selectedCategory === ""
-                                                    ? "font-semibold text-emerald-700 bg-emerald-50"
-                                                    : "text-gray-700 hover:bg-gray-50 hover:text-emerald-600"
-                                            }`}
-                                        >
-                                            <LayoutGrid size={16} className="mr-2 flex-shrink-0"/>
-                                            Bütün məqalələr
-                                        </button>
-                                        {categories.length > 0 ? (
-                                            renderCategoryTree()
-                                        ) : (
-                                            <p className="text-sm text-gray-500 px-2 py-1">Kateqoriya tapılmadı.</p>
-                                        )}
-                                    </>
-                                )}
-                            </div>
-                        </div>
+                        <CategorySidebar
+                            categories={categories}                // Pass the fetched categories
+                            selectedCategory={selectedCategory}    // Pass the current selection state
+                            onCategorySelect={handleCategorySelect} // Pass the selection handler function
+                            isLoading={isLoadingCategories}       // Pass the category loading state
+                            className="lg:col-span-1 h-full"       // Pass layout classes
+                            // initialExpanded={expandedCategories} // Pass pre-calculated expansion state from parent if needed
+                            // Or let the sidebar manage its own expansion state fully
+                        />
                     </div>
 
                     {/* Main Content */}

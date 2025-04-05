@@ -77,7 +77,7 @@ const sidebarItems = [
     ),
   },
   {
-    href: "/admin/book",
+    href: "/admin/books",
     label: "Kitablar",
     icon: (
       <svg

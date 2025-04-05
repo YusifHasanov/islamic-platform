@@ -28,6 +28,11 @@ const staticMenuItems = [
     href: "/contact",
     subcategories: [],
   },
+  {
+    name: "Kitablar",
+    href: "/books",
+    subcategories: [],
+  },
 ]
 
 const Layout = async ({ children }) => {

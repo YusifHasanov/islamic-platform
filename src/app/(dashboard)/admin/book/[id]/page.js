@@ -19,7 +19,7 @@ const Page = ({ params }) => {
   const [authors, setAuthors] = useState([])
   const [loading, setLoading] = useState(false)
 
-  // Fetch book data
+  // Fetch books data
   useEffect(() => {
     HttpClient.get(`/books/${id}`).then((res) =>
       res
@@ -78,20 +78,20 @@ const Page = ({ params }) => {
         }),
       })
 
-      if (!res.ok) throw new Error("Failed to save book")
+      if (!res.ok) throw new Error("Failed to save books")
       alert("Book updated successfully")
       router.refresh()
     } catch (error) {
       console.error(error)
-      alert("Error updating book")
+      alert("Error updating books")
     } finally {
       setLoading(false)
     }
   }
 
-  // Delete book
+  // Delete books
   const handleDelete = async () => {
-    if (!confirm("Are you sure you want to delete this book?")) return
+    if (!confirm("Are you sure you want to delete this books?")) return
 
     setLoading(true)
     try {
@@ -99,12 +99,12 @@ const Page = ({ params }) => {
         method: "DELETE",
       })
 
-      if (!res.ok) throw new Error("Failed to delete book")
+      if (!res.ok) throw new Error("Failed to delete books")
       alert("Book deleted successfully")
       router.push("/admin/book")
     } catch (error) {
       console.error(error)
-      alert("Error deleting book")
+      alert("Error deleting books")
     } finally {
       setLoading(false)
     }
