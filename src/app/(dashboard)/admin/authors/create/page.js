@@ -43,7 +43,7 @@ const CreateAuthor = () => {
       })
       .catch((err) => {
         console.error("Hata:", err)
-        alert("Error creating book")
+        alert("Error creating books")
       })
       .finally(() => {
         setLoading(false)

@@ -244,13 +244,13 @@ export default function SearchPage() {
                   {results.books.map((book) => (
                       <ModernCard
                           key={book.id}
-                          href={book.href || "#"} // Use book's href if available, otherwise fallback
-                          image={book.image || '/placeholder-book.png'} // Add fallback
+                          href={book.href || "#"} // Use books's href if available, otherwise fallback
+                          image={book.image || '/placeholder-books.png'} // Add fallback
                           title={book.title}
                           info1Label="Müəllif"
                           info1={book.authorName}
                           info1Icon={User}
-                          // Add info2 if available in your static book data
+                          // Add info2 if available in your static books data
                       />
                   ))}
                 </ModernSection>
@@ -482,14 +482,14 @@ function ModernCard({ href, image, title, info1Label, info1, info1Icon: Info1Ico
 //
 //         {/* Books Section */}
 //         <Section title="Kitablar" data={books}>
-//           {books?.map((book) => (
+//           {books?.map((books) => (
 //             <Card
 //               href={"#"}
-//               key={book.id}
-//               image={book.image}
-//               title={book.title}
+//               key={books.id}
+//               image={books.image}
+//               title={books.title}
 //               info1Label="Müəllif"
-//               info1={book.authorName}
+//               info1={books.authorName}
 //             />
 //           ))}
 //         </Section>
