@@ -397,3 +397,48 @@ nav {
 
 
 
+
+
+.videoSlider .swiper-button-prev,
+.videoSlider .swiper-button-next {
+  color: #fff !important;
+
+  background-color: transparent;
+
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  transition: background-color 0.3s ease, opacity 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.videoSlider .swiper-button-prev:hover,
+.videoSlider .swiper-button-next:hover {
+  /*background-color: rgba(255, 255, 255, 0.85);*/
+  background-color: transparent;
+
+}
+
+.videoSlider .swiper-button-disabled {
+  opacity: 0;
+  cursor: auto;
+  pointer-events: none;
+}
+
+.videoSlider .swiper-button-prev::after,
+.videoSlider .swiper-button-next::after {
+  font-size: 18px;
+  font-weight: bold;
+}
+.videoSlider .swiper-pagination-bullet {
+  background-color: rgba(255, 255, 255, 0.5);
+  opacity: 1;
+  transition: background-color 0.3s ease;
+}
+.videoSlider .swiper-pagination-bullet-active {
+  background-color: #ffffff;
+}
+
+
+
+
+

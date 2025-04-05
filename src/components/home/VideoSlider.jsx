@@ -47,131 +47,86 @@ export default function VideoSlider() {
 
 
   return (
-      <Swiper
-          modules={[Pagination, Navigation, Autoplay]}
-          pagination={{ clickable: true }}
-          navigation={true}
-          loop={true}
-          autoplay={{
-            delay: 8000,
-            disableOnInteraction: true,
-          }}
-          className="h-screen w-full"
-          onSlideChange={handleSlideChange}
-      >
-        {slides.map((slide, index) => (
-            <SwiperSlide key={slide.id} className="relative h-full w-full">
-              {/* Video Background */}
-              <video
-                  ref={(el) => (videoRefs.current[index] = el)}
-                  width="1920"
-                  height="1080"
-                  autoPlay={index === 0} // Only autoplay the initially active slide
-                  muted
-                  loop
-                  playsInline
-                  preload="metadata"
-                  className="absolute top-0 left-0 w-full h-full object-cover -z-10"
-              >
-                <source src={slide.videoSrc} type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
+       <Swiper
+           modules={[Pagination, Navigation, Autoplay]}
+           pagination={{ clickable: true }}
+           navigation={true}
+           loop={true}
+           autoplay={{
+             delay: 8000,
+             disableOnInteraction: true,
+           }}
+           className="h-screen w-full videoSlider"
+           onSlideChange={handleSlideChange}
+       >
+         {slides.map((slide, index) => (
+             <SwiperSlide key={slide.id} className="relative h-full w-full">
+               {/* Video Background */}
+               <video
+                   ref={(el) => (videoRefs.current[index] = el)}
+                   width="1920"
+                   height="1080"
+                   autoPlay={index === 0} // Only autoplay the initially active slide
+                   muted
+                   loop
+                   playsInline
+                   preload="metadata"
+                   className="absolute top-0 left-0 w-full h-full object-cover -z-10"
+               >
+                 <source src={slide.videoSrc} type="video/mp4" />
+                 Your browser does not support the video tag.
+               </video>
 
-              {/* Content Overlay */}
-              <div className="absolute inset-0 flex items-center justify-center lg:justify-end text-white bg-black bg-opacity-60 p-6 md:p-10 lg:p-16">
+               {/* Content Overlay */}
+               <div className="absolute inset-0 flex items-center justify-center lg:justify-end text-white bg-black bg-opacity-60 p-6 md:p-10 lg:p-16">
 
-                {/* YouTube Link Button */}
-                <a
-                    href={slide.youtubeLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`Watch "${slide.title}" on YouTube`}
-                    className="absolute top-5 right-5 z-20 flex items-center gap-2 bg-red-600 bg-opacity-80 text-white px-4 py-2 rounded-md hover:bg-opacity-100 transition duration-300"
-                >
-                  <FaYoutube className="h-5 w-5" />
-                  <span className="hidden sm:inline">Videoya keçid et</span>
-                </a>
+                 {/* YouTube Link Button */}
+                 <a
+                     href={slide.youtubeLink}
+                     target="_blank"
+                     rel="noopener noreferrer"
+                     aria-label={`Watch "${slide.title}" on YouTube`}
+                     className="absolute top-5 right-5 z-20 flex items-center gap-2 bg-red-600 bg-opacity-80 text-white px-4 py-2 rounded-md hover:bg-opacity-100 transition duration-300"
+                 >
+                   <FaYoutube className="h-5 w-5" />
+                   <span className="hidden sm:inline">Videoya keçid et</span>
+                 </a>
 
-                {/* Content */}
-                <div className="text-center lg:text-right space-y-4 max-w-lg lg:max-w-xl">
-                  <motion.h1
-                      className="text-3xl md:text-4xl lg:text-5xl font-bold drop-shadow-md"
-                      initial={{ opacity: 0, y: -30 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.8, ease: "easeOut" }}
-                  >
-                    {slide.title}
-                  </motion.h1>
+                 {/* Content */}
+                 <div className="text-center lg:text-right space-y-4 max-w-lg lg:max-w-xl">
+                   <motion.h1
+                       className="text-3xl md:text-4xl lg:text-5xl font-bold drop-shadow-md"
+                       initial={{ opacity: 0, y: -30 }}
+                       animate={{ opacity: 1, y: 0 }}
+                       transition={{ duration: 0.8, ease: "easeOut" }}
+                   >
+                     {slide.title}
+                   </motion.h1>
 
-                  <motion.p
-                      className="text-base md:text-lg lg:text-xl drop-shadow-sm"
-                      initial={{ opacity: 0, y: 30 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-                  >
-                    {slide.subtitle}
-                  </motion.p>
+                   <motion.p
+                       className="text-base md:text-lg lg:text-xl drop-shadow-sm"
+                       initial={{ opacity: 0, y: 30 }}
+                       animate={{ opacity: 1, y: 0 }}
+                       transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+                   >
+                     {slide.subtitle}
+                   </motion.p>
 
-                  {slide.description && (
-                      <motion.p
-                          className="text-sm md:text-base lg:text-lg max-w-xs md:max-w-md lg:max-w-lg opacity-90"
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          transition={{ duration: 1, delay: 0.6 }}
-                      >
-                        {slide.description}
-                      </motion.p>
-                  )}
-                </div>
-              </div>
-            </SwiperSlide>
-        ))}
-        {/* Custom Navigation Styles */}
-        <style jsx global>{`
-          .swiper-button-prev,
-          .swiper-button-next {
-            /* Change text/arrow color */
-            color: #1f2937; /* Dark Gray (Tailwind gray-800) - Good contrast on light bg */
-
-            /* --- CHANGE THIS LINE --- */
-            background-color: rgba(255, 255, 255, 0.6); /* Semi-transparent WHITE background */
-            /* --- END CHANGE --- */
-
-            border-radius: 50%;
-            width: 44px;
-            height: 44px;
-            transition: background-color 0.3s ease, opacity 0.3s ease; /* Added opacity transition */
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional subtle shadow */
-          }
-          .swiper-button-prev:hover,
-          .swiper-button-next:hover {
-            background-color: rgba(255, 255, 255, 0.85); /* Make slightly less transparent on hover */
-            /* Optionally change arrow color on hover too */
-            /* color: #000000; */
-          }
-
-          /* Hide buttons when disabled (e.g., if loop=false and at start/end) */
-          .swiper-button-disabled {
-            opacity: 0;
-            cursor: auto;
-            pointer-events: none;
-          }
-
-          .swiper-button-prev::after,
-          .swiper-button-next::after {
-            font-size: 18px;
-            font-weight: bold;
-          }
-          .swiper-pagination-bullet {
-            background-color: rgba(255, 255, 255, 0.5); /* Adjust inactive bullet opacity if needed */
-            opacity: 1;
-            transition: background-color 0.3s ease;
-          }
-          .swiper-pagination-bullet-active {
-            background-color: #ffffff; /* White active dot */
-          }
-        `}</style>
-      </Swiper>
+                   {slide.description && (
+                       <motion.p
+                           className="text-sm md:text-base lg:text-lg max-w-xs md:max-w-md lg:max-w-lg opacity-90"
+                           initial={{ opacity: 0 }}
+                           animate={{ opacity: 1 }}
+                           transition={{ duration: 1, delay: 0.6 }}
+                       >
+                         {slide.description}
+                       </motion.p>
+                   )}
+                 </div>
+               </div>
+             </SwiperSlide>
+         ))}
+       </Swiper>
   );
 }
 
