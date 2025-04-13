@@ -1,13 +1,14 @@
 import Image from "next/image";
 import Link from "next/link"; // Assuming you use Next.js routing for articles
-import { FiArrowRight } from "react-icons/fi";
-import { BASE_URL } from "@/util/Const"
+import {FiArrowRight} from "react-icons/fi";
+import {BASE_URL} from "@/util/Const"
 // Sample static data - replace with fetched data
 
 
-const ArticleCard = async ({ article }) => {
+const ArticleCard = async ({article}) => {
     return (
-        <div className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col group transition-shadow duration-300 hover:shadow-lg">
+        <div
+            className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col group transition-shadow duration-300 hover:shadow-lg">
             <div className="relative w-full aspect-video overflow-hidden"> {/* Aspect ratio for image */}
                 <Image
                     src={article.image}
@@ -24,14 +25,15 @@ const ArticleCard = async ({ article }) => {
                 <Link href={`/articles/${article.id}`} // Adjust link as per your routing structure
                       className="inline-flex items-center text-sm font-medium text-[#43b365] hover:text-[#59a365] group mt-auto">
                     Davamını Oxu
-                    <FiArrowRight className="ml-1 h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
+                    <FiArrowRight className="ml-1 h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"/>
                 </Link>
             </div>
         </div>
     );
 };
-  const res = await fetch(`${BASE_URL}/articles/popular`)
-  const articles = await res.json()
+
+const res = await fetch(`${BASE_URL}/articles/popular`)
+const articles = await res.json()
 
 export default function Articles() {
     // Fetch articles here if needed
@@ -39,7 +41,7 @@ export default function Articles() {
         // Container is managed by HomePage section
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
             {articles.map((article) => (
-                <ArticleCard key={article.id} article={article} />
+                <ArticleCard key={article.id} article={article}/>
             ))}
         </div>
     );

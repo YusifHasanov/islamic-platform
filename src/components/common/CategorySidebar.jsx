@@ -29,10 +29,12 @@ const ArticleCategorySidebar = ({
                                     onCategorySelect,         // Function to call when a category is selected (passes categoryId string or "")
                                     isLoading = false,        // Boolean to show loading skeleton
                                     initialExpanded = {},     // Optional: Initially expanded categories { [categoryId]: true }
-                                    className = ""            // Optional: Allow passing custom classes
+                                    className = "",
+                                    title // Optional: Allow passing custom classes
                                 }) => {
     const [expandedCategories, setExpandedCategories] = useState(initialExpanded);
 
+    console.log("title:", title);
     // Toggle category expansion state
     const toggleCategory = useCallback((categoryId) => {
         setExpandedCategories((prev) => ({
@@ -147,7 +149,7 @@ const ArticleCategorySidebar = ({
                                 }`}
                             >
                                 <LayoutGrid size={16} className="mr-2.5 flex-shrink-0 opacity-80" />
-                                Bütün məqalələr
+                                {title}
                             </button>
 
                             {/* Category Tree */}

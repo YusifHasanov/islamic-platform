@@ -9,6 +9,7 @@ const ArticleCard = ({ id, title, description, image, date, authorName, authorIm
           src={image || "/placeholder.svg"}
           alt={title}
           fill
+          priority
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="object-cover transition-transform duration-500 hover:scale-105"
         />
