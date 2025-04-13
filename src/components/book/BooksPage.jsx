@@ -1,317 +1,472 @@
-// pages/kitablar/index.js (or app/kitablar/page.js)
-"use client";
+"use client"
+import React, {useState, useEffect, useCallback, useRef, memo} from "react";
+import { FilterProvider } from "@/components/common/Filter/FilterProvider";
+import HttpClient from "@/util/HttpClient";
+import useDebounce from "@/hooks/useDebounce";
+import {formatDate} from "@/util/DateUtil";
+import {motion, AnimatePresence} from "framer-motion";
+import Link from "next/link";
+import Image from "next/image";
+import {
+    Calendar,
+    ChevronDown,
+    ChevronLeft,
+    ChevronRight,
+    ChevronUp,
+    Clock,
+    MessageSquare,
+    TagIcon,
+    Search,
+    RotateCcw
+} from "lucide-react";
+import {booksData} from "@/components/home/Books";
 
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import Head from 'next/head';
-import Link from 'next/link';
-import Image from 'next/image';
-import { useSearchParams, useRouter } from 'next/navigation';
-import { Search, ListFilter, X, ArrowRight, Loader2, SearchX } from 'lucide-react'; // Added SearchX
-import debounce from 'lodash.debounce';
-import { motion, AnimatePresence } from "framer-motion";
-import { booksData as sampleAllBooks } from "@/components/home/Books";
-import CategorySidebar from "@/components/common/CategorySidebar"; // Renamed import for clarity
+export default function BooksPage() {
+    // --- State Variables ---
+    const [books, setBooks] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [filters, setFilters] = useState({
+        categories: [],
+        tags: [],
+        searchQuery: ""
+    });
+    const debouncedSearchQuery = useDebounce(filters.searchQuery, 300);
+    const [page, setPage] = useState(0);
+    const [totalPages, setTotalPages] = useState(1);
+    const searchInputRef = useRef(null);
 
-// --- Import the HIERARCHICAL sidebar component ---
-
-// --- !!! UPDATED SAMPLE DATA STRUCTURE !!! ---
-// Categories now need id, name, parentId
-const sampleHierarchicalCategories = [
-    { id: '1', name: 'Əqidə', parentId: null },
-    { id: '2', name: 'Fiqh', parentId: null },
-    { id: '3', name: 'Hənəfi Fiqhi', parentId: '2' }, // Child of Fiqh
-    { id: '4', name: 'Şafi Fiqhi', parentId: '2' },   // Child of Fiqh
-    { id: '5', name: 'Hədis', parentId: null },
-    { id: '6', name: 'Təfsir', parentId: null },
-    { id: '7', name: 'Əxlaq', parentId: null },
-    { id: '8', name: 'İbadət Əxlaqı', parentId: '7' }, // Child of Əxlaq
-];
-
-// Assume booksData now has categoryId (You MUST update your actual data source)
-// Example update to sampleAllBooks if needed:
-// const sampleAllBooks = [
-//    { id: '1', title: 'Əhli-Sünnə Əqidəsi', author: '...', imageUrl: '...', slug: '...', categoryId: '1', category: 'Əqidə'},
-//    { id: '2', title: 'Müxtəsər Elmihal', author: '...', imageUrl: '...', slug: '...', categoryId: '3', category: 'Hənəfi Fiqhi'}, // Example assignment
-//    ...
-// ];
-// --- End Updated Sample Data ---
-
-
-// --- Book Card Component (Keep as is) ---
-const BookCard = React.memo(({ book }) => (
-    <Link href={`/books/${book.id}`} passHref // Changed link path assuming book detail uses id
-          className="group block bg-white rounded-lg shadow-md border border-gray-200/80 overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1 h-full flex flex-col">
-
-        <div className="relative aspect-[3/4] w-full overflow-hidden">
-            <Image
-                src={book.image || '/images/placeholder_book.png'}
-                alt={book.title}
-                layout="fill"
-                objectFit="cover"
-                className="transition-transform duration-300 group-hover:scale-105"
-            />
-        </div>
-        <div className="p-4 flex flex-col flex-grow justify-between">
-            <div>
-                <h3 className="text-base font-semibold text-gray-800 mb-1 group-hover:text-emerald-700 line-clamp-2">
-                    {book.title}
-                </h3>
-                <p className="text-xs text-gray-500 mb-2">
-                    {book.author}
-                </p>
-            </div>
-            {/* Display category name still, but filtering uses ID */}
-            <span
-                className="mt-2 text-xs inline-block bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded font-medium self-start">
-                    {book.category}
-                </span>
-        </div>
-
-    </Link>
-));
-BookCard.displayName = 'BookCard';
+    // --- Data Fetching ---
+    const fetchBooks = useCallback(async () => {
+        setLoading(true);
+        setError(null);
+        try {
+            // const params = new URLSearchParams({
+            //     page: page.toString(),
+            //     maxResult: "9",
+            //     containsTag: '1',
+            //     containsCategory: '1',
+            // });
+            //
+            // if (debouncedSearchQuery) params.set('searchQuery', debouncedSearchQuery);
+            // if (filters.categories.length > 0) params.set('categoryIds', filters.categories.map(c => c.id).join(','));
+            // if (filters.tags.length > 0) params.set('tagIds', filters.tags.map(t => t.id).join(','));
+            //
+            // const response = await HttpClient.get(`/books?${params.toString()}`);
+            // if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            // const data = await response.json();
 
 
-// --- REMOVE the old FilterSidebar definition ---
 
+            // const content = data?.content || [];
+            // const pageInfo = data?.page || {};
+            const content =  booksData
+            const pageInfo = {};
 
-// --- Main Page Component ---
-export default function BooksListPage() {
-    const router = useRouter();
-    const searchParams = useSearchParams();
+            // Transform the data as needed...
+            setBooks(content.map((book) => ({
+                id: book.id,
+                title: book.title ?? "Kitab başlığı yoxdur",
+                author: book.author ?? "Müəllif qeyd olunmayıb",
+                description: book.description ?? "Təsvir yoxdur",
+                image: book.image ?? "/images/placeholder_book.png",
+                categories: Array.isArray(book.categories) ? book.categories.map(c => ({ id: c.id, name: c.name })) : [],
+                tags: Array.isArray(book.tags) ? book.tags.map(t => ({ id: t.id, name: t.name })) : [],
+                createdDate: book.publishedDate || new Date().toISOString(),
+                readCount: book.viewCount ?? Math.floor(Math.random() * 100) + 10,
+            })));
+            setTotalPages(pageInfo.totalPages ?? 1);
+        } catch (err) {
+            console.error("Error fetching books:", err);
+            setError("Kitablar yüklənərkən xəta baş verdi.");
+            setBooks([]);
+            setTotalPages(1);
+        } finally {
+            setLoading(false);
+        }
+    }, [page, debouncedSearchQuery, filters.categories, filters.tags]);
 
-    // State for search, filter, data, loading
-    const [searchTerm, setSearchTerm] = useState(() => searchParams.get('q') || '');
-    // --- Selected Category now stores ID string ---
-    const [selectedCategoryId, setSelectedCategoryId] = useState(() => searchParams.get('category') || '');
-    const [allBooks, setAllBooks] = useState([]);
-    const [filteredBooks, setFilteredBooks] = useState([]);
-    // --- Categories state now holds hierarchical objects ---
-    const [categories, setCategories] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [isFiltering, setIsFiltering] = useState(false);
-    const [isLoadingCategories, setIsLoadingCategories] = useState(true); // Added for sidebar loading
-
-
-    // Fetch initial data
+    // Fetch books when relevant state changes
     useEffect(() => {
-        setIsLoading(true);
-        setIsLoadingCategories(true); // Start category loading indicator
-        // Simulate fetching books and HIERARCHICAL categories
-        Promise.all([
-            Promise.resolve(sampleAllBooks),           // Replace with your book fetch
-            Promise.resolve(sampleHierarchicalCategories) // Replace with your hierarchical category fetch
-        ]).then(([fetchedBooks, fetchedCategories]) => {
-            // --- Make sure books have categoryId ---
-            // You might need to map/transform fetchedBooks here if they don't have categoryId yet
-            setAllBooks(fetchedBooks);
-            setCategories(fetchedCategories);
-            // Apply initial filtering based on URL params (using category ID now)
-            filterAndSearchBooks(fetchedBooks, searchTerm, selectedCategoryId);
-        }).catch(error => {
-            console.error("Error fetching initial books data:", error);
-        }).finally(() => {
-            setIsLoading(false);
-            setIsLoadingCategories(false); // Finish category loading indicator
-        });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+        fetchBooks();
+    }, [fetchBooks]);
 
-    // --- UPDATED Filtering Logic ---
-    const filterAndSearchBooks = (books, term, categoryId) => {
-        let result = books;
-
-        // Filter by category ID
-        if (categoryId) {
-            // This assumes your book objects have a `categoryId` property
-            // Convert both to string for reliable comparison if IDs might be numbers
-            result = result.filter(book => book.categoryId?.toString() === categoryId.toString());
-            // If books only have category NAME, you'd need a lookup:
-            // const selectedCatObj = categories.find(c => c.id.toString() === categoryId.toString());
-            // if (selectedCatObj) {
-            //    result = result.filter(book => book.category === selectedCatObj.name);
-            // }
+    // Reset page when filters change
+    useEffect(() => {
+        if (page !== 0) {
+            setPage(0);
         }
+    }, [debouncedSearchQuery, filters.categories, filters.tags, page]);
 
-        // Filter by search term
-        if (term) {
-            const lowerCaseTerm = term.toLowerCase();
-            result = result.filter(book =>
-                book.title.toLowerCase().includes(lowerCaseTerm) ||
-                book.author.toLowerCase().includes(lowerCaseTerm)
-            );
+    // Handle filter changes
+    const handleFiltersChange = useCallback((newFilters) => {
+        // Only update if the filters have actually changed
+        if (JSON.stringify(filters) !== JSON.stringify(newFilters)) {
+            setFilters(newFilters);
         }
-        setFilteredBooks(result);
-    };
+    }, [filters]);
 
-
-    // Debounced search handler (Passes category ID now)
-    const debouncedSearch = useCallback(
-        debounce((term, categoryId) => {
-            const params = new URLSearchParams(searchParams.toString());
-            if (term) params.set('q', term); else params.delete('q');
-            if (categoryId) params.set('category', categoryId); else params.delete('category'); // Use categoryId
-            router.push(`/books?${params.toString()}`, { scroll: false });
-
-            setIsFiltering(true);
-            filterAndSearchBooks(allBooks, term, categoryId); // Use categoryId
-            setTimeout(() => setIsFiltering(false), 200);
-        }, 300),
-        [allBooks, router, searchParams]
-    );
-
-
-    // Update state and trigger debounced search when inputs change
-    const handleSearchChange = (e) => {
-        const newSearchTerm = e.target.value;
-        setSearchTerm(newSearchTerm);
-        debouncedSearch(newSearchTerm, selectedCategoryId); // Pass category ID
-    };
-
-    // --- Handler for category selection (takes ID) ---
-    const handleCategorySelect = (categoryId) => { // Renamed and accepts ID string
-        setSelectedCategoryId(categoryId);
-        debouncedSearch(searchTerm, categoryId); // Use category ID
-    };
-
-    // --- Clear filters now sets category ID to empty ---
-    const handleClearFilters = () => {
-        handleCategorySelect(''); // Use the selection handler with empty string
-    };
-
-    const handleClearSearch = () => {
-        setSearchTerm('');
-        debouncedSearch('', selectedCategoryId); // Pass category ID
-    }
+    // Pagination handler
+    const paginate = useCallback((newPage) => {
+        const zeroIndexedPage = newPage - 1;
+        if (zeroIndexedPage >= 0 && zeroIndexedPage < totalPages) {
+            setPage(zeroIndexedPage);
+        }
+    }, [totalPages]);
 
     return (
-        <>
-            <Head>
-                <title>Kitablar - Əhli-Sünnə Mədrəsəsi</title>
-                <meta name="description" content="Əhli-Sünnə Mədrəsəsi tərəfindən nəşr olunan kitabları kəşf edin." />
-            </Head>
-
-            <div className="bg-gray-50 min-h-screen">
-                {/* Simple Header (Keep as is) */}
-                <div className="bg-white border-b border-gray-200 py-8">
-                    {/* ... header content ... */}
-                    <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 tracking-tight">
-                            Mədrəsəmizin Kitabları
-                        </h1>
-                        <p className="mt-2 text-lg text-gray-600">Axtardığınız elmi və mənəvi qaynaqları burada
-                            tapın.</p>
-                    </div>
-                </div>
-
-                <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-                    <div className="lg:grid lg:grid-cols-4 lg:gap-8 items-start">
-
-                        {/* === USE ArticleCategorySidebar === */}
-                        <aside className="lg:col-span-1">
-                            <CategorySidebar
-                                categories={categories}            // Pass hierarchical categories
-                                selectedCategory={selectedCategoryId} // Pass selected ID string
-                                onCategorySelect={handleCategorySelect} // Pass ID selection handler
-                                isLoading={isLoadingCategories}   // Pass category loading state
-                            />
-                            {/* The old FilterSidebar is removed */}
-                        </aside>
-                        {/* =============================== */}
-
-
-                        {/* Main Content Area (Keep as is) */}
-                        <main className="lg:col-span-3 mt-8 lg:mt-0">
-                            {/* Search Bar */}
-                            {/* ... search bar JSX ... */}
-                            <div className="relative mb-8">
-                                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <Search className="h-5 w-5 text-gray-400"/>
-                                </div>
-                                <input
-                                    type="search"
-                                    placeholder="Kitab adı və ya müəllif axtar..."
-                                    value={searchTerm}
-                                    onChange={handleSearchChange}
-                                    className="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 bg-white text-base"
-                                />
-                                {searchTerm && (
-                                    <button
-                                        onClick={handleClearSearch}
-                                        className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
-                                        aria-label="Axtarışı təmizlə"
-                                    >
-                                        <X className="h-5 w-5"/>
-                                    </button>
-                                )}
-                            </div>
-
-
-                            {/* Loading / Results Grid */}
-                            {/* ... loading/filtering/results JSX ... */}
-                            {/* Loading / Results Grid */}
-                            {isLoading ? (
-                                // More detailed Skeleton Grid
-                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                                    {[...Array(9)].map((_, i) => (
-                                        <div key={i}
-                                             className="bg-white rounded-lg shadow-sm border border-gray-100 animate-pulse">
-                                            <div className="aspect-[3/4] bg-gray-200 rounded-t-lg"></div>
-                                            <div className="p-4 space-y-3">
-                                                <div className="h-5 bg-gray-300 rounded w-3/4"></div>
-                                                <div className="h-4 bg-gray-200 rounded w-1/2"></div>
-                                                <div className="h-4 bg-gray-200 rounded w-1/4"></div>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            ) : isFiltering ? (
-                                // Filtering Indicator
-                                <div className="flex items-center justify-center py-16 text-gray-500">
-                                    <Loader2 className="h-8 w-8 animate-spin mr-3"/>
-                                    <span>Filterlənir...</span>
-                                </div>
-                            ) : filteredBooks.length > 0 ? (
-                                // Books Grid with animation
-                                <motion.div
-                                    layout // Animate layout changes
-                                    className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
-                                >
-                                    <AnimatePresence mode="popLayout">
-                                        {filteredBooks.map((book) => (
-                                            <motion.div
-                                                key={book.id}
-                                                layout
-                                                initial={{opacity: 0, scale: 0.95}}
-                                                animate={{opacity: 1, scale: 1}}
-                                                exit={{opacity: 0, scale: 0.95}}
-                                                transition={{duration: 0.2}}
-                                            >
-                                                <BookCard book={book}/>
-                                            </motion.div>
-                                        ))}
-                                    </AnimatePresence>
-                                </motion.div>
-                            ) : (
-                                // No Results Found
-                                <div
-                                    className="text-center py-16 px-6 bg-white rounded-xl border border-gray-100 shadow-sm">
-                                    <SearchX className="h-12 w-12 mx-auto text-emerald-400 mb-4"/>
-                                    <h3 className="text-xl font-semibold text-gray-900 mb-2">Nəticə Tapılmadı</h3>
-                                    <p className="text-gray-600">Axtarışınıza və ya seçdiyiniz filtrə uyğun kitab
-                                        tapılmadı.</p>
-                                    <button
-                                        onClick={handleClearFilters}
-                                        className="mt-6 inline-flex items-center gap-2 px-5 py-2.5 border border-transparent text-sm font-medium rounded-lg shadow-sm text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors"
-                                    >
-                                        Filtrləri Sıfırla
-                                    </button>
-                                </div>
-                            )}
-                        </main>
+        <div className="min-h-screen bg-gradient-to-b from-gray-50 via-white to-white">
+            {/* Header */}
+            <div className="bg-white border-b border-gray-200">
+                <div className="container mx-auto px-4 py-12 md:py-16">
+                    <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+                        <div className="text-center md:text-left">
+                            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 tracking-tight">
+                                Mədrəsəmizin Kitabları
+                            </h1>
+                            <p className="mt-2 text-lg text-gray-600">
+                                Axtardığınız elmi və mənəvi qaynaqları burada tapın.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </>
+
+            <div className="container mx-auto px-4 py-8 relative">
+                {/* Use our FilterProvider component */}
+                <FilterProvider
+                    initialCategories={[]}
+                    initialTags={[]}
+                    initialSearchQuery=""
+                    onFiltersChange={handleFiltersChange}
+                    searchPlaceholder="Kitab adı və ya müəllif axtar..."
+                    searchInputRef={searchInputRef}
+                >
+                    {/* Books List Area */}
+                    <div id="books-list-start" className="mt-6">
+                        {error && (
+                            <div className="my-6 p-4 bg-red-50 border border-red-200 text-red-700 rounded-lg text-center">
+                                {error}
+                            </div>
+                        )}
+
+                        {loading ? (
+                            <BooksSkeletonLoader count={9} />
+                        ) : books.length > 0 ? (
+                            <>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                                    {books.map((book) => (
+                                        <OptimizedBookCard key={book.id} book={book} />
+                                    ))}
+                                </div>
+                                {totalPages > 1 && (
+                                    <OptimizedPagination
+                                        currentPage={page + 1}
+                                        totalPages={totalPages}
+                                        onPageChange={paginate}
+                                    />
+                                )}
+                            </>
+                        ) : (
+                            !error && (
+                                <NoBooksFound
+                                    onReset={() => {
+                                        // FilterProvider handles the reset internally
+                                    }}
+                                    hasFilters={filters.searchQuery || filters.categories.length > 0 || filters.tags.length > 0}
+                                />
+                            )
+                        )}
+                    </div>
+                </FilterProvider>
+            </div>
+        </div>
     );
 }
+
+// Book Card (Memoized + Animation Fix)
+const OptimizedBookCard = memo(function BookCard({ book }) {
+    const [isExpanded, setIsExpanded] = useState(false);
+    const formattedDate = formatDate(book.createdDate); // Assuming formatDate handles potential errors
+
+    const descriptionPreviewThreshold = 180; // Characters
+    const collapsedHeight = "4.5rem"; // Approx 3 lines (adjust as needed based on font/line-height)
+    const descriptionText = book.description || "Təsvir mövcud deyil."; // Fallback for empty description
+    const needsExpansion = descriptionText.length > descriptionPreviewThreshold;
+
+    return (
+        <motion.div
+            layout
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, type: "spring", stiffness: 100, damping: 20 }}
+            className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden hover:border-gray-200 hover:shadow-md transition-shadow duration-200"
+        >
+            <div className="relative aspect-[3/4] w-full overflow-hidden">
+                <img
+                    src={book.image || "/images/placeholder_book.png"}
+                    alt={book.title}
+                    // fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+            </div>
+            <div className="p-5 md:p-6">
+                <h2 className="text-lg font-semibold text-justify text-gray-900 mb-2">
+                    {book.title}
+                </h2>
+                <p className="text-sm text-gray-600 mb-3">
+                    {book.author}
+                </p>
+                <div className="text-gray-600 text-sm leading-relaxed mb-4 relative">
+                    <motion.div
+                        initial={needsExpansion ? { height: collapsedHeight } : { height: "auto" }}
+                        animate={{ height: isExpanded || !needsExpansion ? "auto" : collapsedHeight }}
+                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                        className="overflow-hidden text-justify"
+                    >
+                        {descriptionText}
+                    </motion.div>
+
+                    {/* Gradient overlay: Only show when collapsed AND needs expansion */}
+                    {!isExpanded && needsExpansion && (
+                        <div
+                            className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-white to-100% pointer-events-none"
+                        ></div>
+                    )}
+
+                    {/* Toggle button: Only show if expansion is needed */}
+                    {needsExpansion && (
+                        <button
+                            onClick={() => setIsExpanded(!isExpanded)}
+                            className="text-emerald-800 hover:text-emerald-900 font-medium text-sm mt-2 flex items-center focus:outline-none focus:ring-2 focus:ring-emerald-300 focus:ring-offset-1 rounded"
+                            aria-expanded={isExpanded}
+                        >
+                            {isExpanded ? 'Daha az göstər' : 'Daha çox göstər'}
+                            {isExpanded ? <ChevronUp className="ml-1 h-4 w-4"/> : <ChevronDown className="ml-1 h-4 w-4"/>}
+                        </button>
+                    )}
+                </div>
+
+                {/* Tags */}
+                {book.tags && book.tags.length > 0 && (
+                    <div className="flex flex-wrap gap-2 mb-4">
+                        {book.tags.map(tag => (
+                            <Link key={tag.id}
+                                  href={`/books?tag=${tag.id}&page=1`}
+                                  className="focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-blue-300 rounded-full group">
+                                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 group-hover:bg-blue-200 transition-colors cursor-pointer">
+                                    <TagIcon className="mr-1 h-3 w-3"/>{tag.name}
+                                </span>
+                            </Link>
+                        ))}
+                    </div>
+                )}
+
+                {/* Meta Info */}
+                <div className="flex flex-wrap items-center justify-between gap-y-2 gap-x-4 text-xs text-gray-500 pt-3 border-t border-gray-100">
+                    <span className="flex items-center" title="Nəşr olunma tarixi">
+                        <Calendar className="h-3.5 w-3.5 mr-1.5 text-gray-400" />
+                        {formattedDate}
+                    </span>
+                    <div className="flex items-center gap-x-3">
+                        {book.categories && book.categories.length > 0 && (
+                            <span className="flex items-center" title="Kateqoriyalar">
+                                <MessageSquare className="h-3.5 w-3.5 mr-1 text-gray-400" />
+                                {book.categories.length} kateqoriya
+                            </span>
+                        )}
+                        {book.readCount != null && (
+                            <span className="flex items-center" title="Oxunma sayı">
+                                <Clock className="h-3.5 w-3.5 mr-1 text-gray-400" />
+                                {book.readCount} oxunma
+                            </span>
+                        )}
+                    </div>
+                </div>
+            </div>
+
+            {/* Link to Full Book Details */}
+            <div className="bg-gray-50 px-5 py-3 border-t border-gray-100">
+                <Link href={`/books/${book.id}`} className="text-emerald-600 hover:text-emerald-700 font-medium text-sm flex items-center transition-colors focus:outline-none focus:ring-1 focus:ring-emerald-400 focus:ring-offset-1 rounded -m-1 p-1">
+                    Kitab haqqında ətraflı <ChevronRight className="ml-1 h-4 w-4" />
+                </Link>
+            </div>
+        </motion.div>
+    );
+});
+
+// Skeleton Loader
+function BooksSkeletonLoader({ count = 6 }) {
+    return (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            {Array.from({ length: count }).map((_, index) => (
+                <div key={index} className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden animate-pulse">
+                    <div className="aspect-[3/4] bg-gray-200 rounded-t-lg"></div>
+                    <div className="p-5 md:p-6">
+                        <div className="h-6 bg-gray-200 rounded w-4/5 mb-3"></div>
+                        <div className="h-4 bg-gray-200 rounded w-1/2 mb-4"></div>
+                        <div className="space-y-2 mb-5">
+                            <div className="h-4 bg-gray-200 rounded"></div>
+                            <div className="h-4 bg-gray-200 rounded"></div>
+                            <div className="h-4 bg-gray-200 rounded w-5/6"></div>
+                        </div>
+                        <div className="flex flex-wrap gap-2 mb-5">
+                            <div className="h-5 bg-gray-200 rounded-full w-16"></div>
+                            <div className="h-5 bg-gray-200 rounded-full w-20"></div>
+                        </div>
+                        <div className="flex justify-between items-center pt-3 border-t border-gray-100">
+                            <div className="h-4 bg-gray-200 rounded w-24"></div>
+                            <div className="h-4 bg-gray-200 rounded w-32"></div>
+                        </div>
+                    </div>
+                    <div className="bg-gray-50 px-5 py-3 border-t border-gray-200">
+                        <div className="h-4 bg-gray-200 rounded w-28"></div>
+                    </div>
+                </div>
+            ))}
+        </div>
+    );
+}
+
+// No Books Found Component
+function NoBooksFound({ onReset, hasFilters }) {
+    return (
+        <div className="text-center py-16 px-6 bg-white rounded-xl border border-gray-100 shadow-sm my-6">
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-emerald-50 text-emerald-500 mb-6">
+                <Search className="h-8 w-8" />
+            </div>
+            <h3 className="text-xl font-semibold text-gray-900 mb-3">Heç bir kitab tapılmadı</h3>
+            <p className="text-gray-600 max-w-md mx-auto mb-6 text-sm leading-relaxed">
+                {hasFilters
+                    ? "Seçdiyiniz filtrlərə uyğun nəticə yoxdur. Filtrləri dəyişməyi və ya sıfırlamağı yoxlayın."
+                    : "Görünür, hələ heç bir kitab əlavə edilməyib. Zəhmət olmasa daha sonra təkrar yoxlayın."}
+            </p>
+            {hasFilters && (
+                <button
+                    onClick={onReset}
+                    className="inline-flex items-center gap-2 px-5 py-2.5 border border-transparent text-sm font-medium rounded-lg shadow-sm text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors"
+                >
+                    <RotateCcw size={16}/> Filtrləri Sıfırla
+                </button>
+            )}
+        </div>
+    );
+}
+
+// Pagination Component (Memoized)
+const OptimizedPagination = memo(function Pagination({ currentPage, totalPages, onPageChange }) {
+    if (totalPages <= 1) return null;
+
+    // Basic pagination logic (can be extended for ellipsis, etc.)
+    const pages = [];
+    const maxVisiblePages = 5; // Adjust as needed
+    let startPage, endPage;
+
+    if (totalPages <= maxVisiblePages) {
+        startPage = 1;
+        endPage = totalPages;
+    } else {
+        const maxPagesBeforeCurrent = Math.floor((maxVisiblePages - 1) / 2);
+        const maxPagesAfterCurrent = Math.ceil((maxVisiblePages - 1) / 2);
+
+        if (currentPage <= maxPagesBeforeCurrent) {
+            startPage = 1;
+            endPage = maxVisiblePages;
+        } else if (currentPage + maxPagesAfterCurrent >= totalPages) {
+            startPage = totalPages - maxVisiblePages + 1;
+            endPage = totalPages;
+        } else {
+            startPage = currentPage - maxPagesBeforeCurrent;
+            endPage = currentPage + maxPagesAfterCurrent;
+        }
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+        pages.push(i);
+    }
+
+    const showFirstEllipsis = startPage > 2;
+    const showLastEllipsis = endPage < totalPages - 1;
+
+    return (
+        <div aria-label="Səhifələmə" className="mt-10 flex justify-center items-center space-x-1">
+            <button
+                onClick={() => onPageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+                className={`px-3 py-2 rounded-md text-sm font-medium flex items-center justify-center transition-colors ${
+                    currentPage === 1
+                        ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+                        : "bg-white text-gray-600 hover:bg-gray-50 border border-gray-200 shadow-sm"
+                }`}
+                aria-label="Əvvəlki səhifə"
+                aria-disabled={currentPage === 1}
+            >
+                <ChevronLeft className="h-5 w-5" />
+            </button>
+
+            {/* First page link */}
+            {startPage > 1 && (
+                <button
+                    onClick={() => onPageChange(1)}
+                    className="px-4 py-2 rounded-md text-sm font-medium min-w-[36px] transition-colors bg-white text-gray-600 hover:bg-gray-50 border border-gray-200 shadow-sm"
+                    aria-label="Birinci səhifə"
+                >
+                    1
+                </button>
+            )}
+
+            {/* Ellipsis at the start */}
+            {showFirstEllipsis && (
+                <span className="px-2 py-2 text-sm font-medium text-gray-500">...</span>
+            )}
+
+            {/* Page number buttons */}
+            {pages.map(page => (
+                <button
+                    key={page}
+                    onClick={() => onPageChange(page)}
+                    className={`px-4 py-2 rounded-md text-sm font-medium min-w-[36px] transition-colors border shadow-sm ${
+                        currentPage === page
+                            ? "bg-emerald-600 text-white border-emerald-600 z-10"
+                            : "bg-white text-gray-600 hover:bg-gray-50 border-gray-200"
+                    }`}
+                    aria-current={currentPage === page ? 'page' : undefined}
+                    aria-label={`Səhifə ${page}`}
+                >
+                    {page}
+                </button>
+            ))}
+
+            {/* Ellipsis at the end */}
+            {showLastEllipsis && (
+                <span className="px-2 py-2 text-sm font-medium text-gray-500">...</span>
+            )}
+
+            {/* Last page link */}
+            {endPage < totalPages && (
+                <button
+                    onClick={() => onPageChange(totalPages)}
+                    className="px-4 py-2 rounded-md text-sm font-medium min-w-[36px] transition-colors bg-white text-gray-600 hover:bg-gray-50 border border-gray-200 shadow-sm"
+                    aria-label="Sonuncu səhifə"
+                >
+                    {totalPages}
+                </button>
+            )}
+
+            <button
+                onClick={() => onPageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                className={`px-3 py-2 rounded-md text-sm font-medium flex items-center justify-center transition-colors ${
+                    currentPage === totalPages
+                        ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+                        : "bg-white text-gray-600 hover:bg-gray-50 border border-gray-200 shadow-sm"
+                }`}
+                aria-label="Növbəti səhifə"
+                aria-disabled={currentPage === totalPages}
+            >
+                <ChevronRight className="h-5 w-5" />
+            </button>
+        </div>
+    );
+});

@@ -1,6 +1,8 @@
 import { NewNavbar } from "@/components/common/NewNavbar"
 import { BASE_URL } from "@/util/Const"
 import Footer from "@/components/common/Footer";
+import {ModernNavbar} from "@/components/Navbar/ModernNavbar";
+import React from "react";
 
 const staticMenuItems = [
   {
@@ -19,6 +21,11 @@ const staticMenuItems = [
     subcategories: [],
   },
   {
+    name: "Kitablar",
+    href: "/books",
+    subcategories: [],
+  },
+  {
     name: "Haqqımızda",
     href: "/about",
     subcategories: [],
@@ -26,11 +33,6 @@ const staticMenuItems = [
   {
     name: "Əlaqə",
     href: "/contact",
-    subcategories: [],
-  },
-  {
-    name: "Kitablar",
-    href: "/books",
     subcategories: [],
   },
 ]
@@ -54,6 +56,7 @@ const Layout = async ({ children }) => {
     <>
       {/*<Navbar/>*/}
       <NewNavbar menus={menus} />
+      {/*<ModernNavbar menus={menus} />*/}
       {/*<NavbarOld/>*/}
       {children}
       <Footer />
