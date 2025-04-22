@@ -1,16 +1,16 @@
+// Finally, create an enhanced FilterProviderOld component
 "use client"
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useCallback } from "react";
 import ReusableFilterSidebar, { ActiveFilters, MobileFilterTrigger } from "@/components/common/Filter/ReusableFilterSidebar";
-import { Search, Tag, X } from "lucide-react";
-import { useFilterData } from "@/hooks/useFilterData";
-import { CategoryFilter } from "@/components/common/Filter/CategoryTreeItem";
+import { Search, Tag } from "lucide-react";
+import { useFilterDataOld } from "@/hooks/useFilterDataOld";
+import {CategoryFilter} from "@/components/common/Filter/CategoryTreeItem";
 import TagFilter from "@/components/common/Filter/TagFilter";
-import useFilterStore from "@/store/useFilterStore";
 
 /**
- * A complete filtering solution with Zustand-backed state management
+ * A complete filtering solution with internal state management
  */
-export const FilterProvider = ({
+export const FilterProviderOld = ({
                                    initialCategories = [],
                                    initialTags = [],
                                    initialSearchQuery = "",
@@ -19,12 +19,9 @@ export const FilterProvider = ({
                                    className = "",
                                    searchInputRef = null,
                                    showMobileFilter = true,
-                                   children,
+    children,
                                }) => {
-    // Flag to track if we're in a reset operation
-    const isResettingRef = useRef(false);
-
-    // Use our custom hook for all filter data
+    // Use our custom hook for all filter data and state management
     const {
         allCategories,
         allTags,
@@ -38,10 +35,7 @@ export const FilterProvider = ({
         initialCategories,
         initialTags,
         onChange: ({ categories, tags }) => {
-            // Skip callback during reset operations
-            if (isResettingRef.current) return;
-
-            // Pass the updated filters to the parent (categories and tags)
+            // Pass the updated filters to the parent
             onFiltersChange({
                 categories,
                 tags,
@@ -50,26 +44,16 @@ export const FilterProvider = ({
         }
     });
 
-    // Get search query and setter from Zustand store
-    const { searchQuery, setSearchQuery, clearFilters: clearAllFiltersFn } = useFilterStore();
-
-    // Initialize search query if provided
-    useEffect(() => {
-        if (!searchQuery && initialSearchQuery) {
-            setSearchQuery(initialSearchQuery);
-        }
-    }, [initialSearchQuery, searchQuery, setSearchQuery]);
+    // Search state
+    const [searchQuery, setSearchQuery] = React.useState(initialSearchQuery);
 
     // Handle search input changes
     const handleSearchChange = useCallback((event) => {
         setSearchQuery(event.target.value);
-    }, [setSearchQuery]);
+    }, []);
 
     // Notify parent of search changes
-    useEffect(() => {
-        // Skip callback during reset operations
-        if (isResettingRef.current) return;
-
+    React.useEffect(() => {
         onFiltersChange({
             categories: selectedCategories,
             tags: selectedTags,
@@ -83,39 +67,18 @@ export const FilterProvider = ({
         if (searchInputRef?.current) {
             searchInputRef.current.focus();
         }
-    }, [setSearchQuery, searchInputRef]);
+    }, [searchInputRef]);
 
-    // Clear all filters including search - Improved version
+    // Clear all filters including search
     const clearAllFilters = useCallback((focusSearch = true) => {
-        // Set the resetting flag to prevent multiple callbacks
-        isResettingRef.current = true;
+        setSearchQuery("");
+        clearFilters();
+        if (focusSearch && searchInputRef?.current) {
+            searchInputRef.current.focus();
+        }
+    }, [clearFilters, searchInputRef]);
 
-        // Clear filters in the store
-        clearAllFiltersFn();
-
-        // Use requestAnimationFrame to ensure the store updates are processed
-        requestAnimationFrame(() => {
-            // After a small delay, notify the parent and reset the flag
-            setTimeout(() => {
-                // Notify the parent of the cleared filters
-                onFiltersChange({
-                    categories: [],
-                    tags: [],
-                    searchQuery: ''
-                });
-
-                // Reset the resetting flag
-                isResettingRef.current = false;
-
-                // Focus search input if requested
-                if (focusSearch && searchInputRef?.current) {
-                    searchInputRef.current.focus();
-                }
-            }, 50);
-        });
-    }, [clearAllFiltersFn, onFiltersChange, searchInputRef]);
-
-    // Mobile filter state (this is UI state, not persisted)
+    // Mobile filter state
     const [isMobileFilterVisible, setIsMobileFilterVisible] = React.useState(false);
 
     // Prepare filter sections for the sidebar
@@ -271,5 +234,3 @@ export const FilterProvider = ({
         </div>
     );
 };
-
-export default FilterProvider;

@@ -1,108 +1,151 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect } from "react"
 import { ChevronRight, ChevronDown, Pencil, Trash } from "lucide-react"
-import HttpClient from "@/util/HttpClient"
-import { Toast } from "primereact/toast"
+import HttpClient from "@/util/HttpClient" // Assuming this is your custom HTTP client
+
+// Import shadcn/ui components
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+
+import { Separator } from "@/components/ui/separator"
+
+import {useToast} from "@/hooks/use-toast";
+import {Toaster} from "@/components/ui/toaster";
 
 const CategoriesAdmin = () => {
-  const toast = useRef(null)
   const [categories, setCategories] = useState([])
   const [formData, setFormData] = useState({ id: null, name: "", parentId: null })
   const [isEditing, setIsEditing] = useState(false)
   const [expandedNodes, setExpandedNodes] = useState([])
-
+   const {toast} = useToast()
   // Fetch categories from API
   useEffect(() => {
-    fetchCategories().then((_) => console.log(""))
+    fetchCategories().catch(console.error) // Simplified error logging
   }, [])
 
   const fetchCategories = async () => {
     try {
+      // Assuming HttpClient.get returns a Response object
       const res = await HttpClient.get("/categories")
+      if (!res.ok) {
+        // Handle non-OK responses
+        const errorData = await res.text() // Or res.json() if error details are in JSON
+        throw new Error(`Failed to fetch categories: ${res.status} ${res.statusText} - ${errorData}`)
+      }
       const data = await res.json()
       setCategories(data)
     } catch (err) {
       console.error("Failed to fetch categories:", err)
+      toast({
+        variant: "destructive",
+        title: "Error Fetching Categories",
+        description: err.message || "Could not load categories.",
+      })
     }
   }
 
+  // Generic input handler
   const handleInputChange = (e) => {
     const { name, value } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
+  // Specific handler for shadcn/ui Select component
+  const handleParentCategoryChange = (value) => {
+    // The Select component passes the value directly
+    // Handle the "null" string from the SelectItem if needed
+    setFormData((prev) => ({
+      ...prev,
+      parentId: value === "null" || value === "" ? null : value,
+    }))
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
+    const url = isEditing ? `/categories/${formData.id}` : "/categories"
+    const method = isEditing ? "PUT" : "POST"
+    const actionVerb = isEditing ? "updated" : "created"
+
     try {
-      if (isEditing) {
-        HttpClient.put(`/categories/${formData.id}`, formData)
-          .then((_) =>
-            toast.current.show({
-              severity: "success",
-              summary: "Success",
-              detail: "Category updated successfully",
-            }),
-          )
-          .then(async (_) => await fetchCategories())
-          .catch((err) =>
-            toast.current.show({
-              severity: "error",
-              summary: "Error",
-              detail: err.message,
-            }),
-          )
-      } else {
-        HttpClient.post("/categories", formData)
-          .then((_) =>
-            toast.current.show({
-              severity: "success",
-              summary: "Success",
-              detail: "Category created successfully",
-            }),
-          )
-          .then(async (_) => await fetchCategories())
-          .catch((err) =>
-            toast.current.show({
-              severity: "error",
-              summary: "Error",
-              detail: err.message,
-            }),
-          )
+      const res = await HttpClient[method.toLowerCase()](url, formData) // Use bracket notation for method
+
+      if (!res.ok) {
+        // Handle non-OK responses
+        const errorData = await res.text() // Or res.json() if error details are in JSON
+        throw new Error(`Failed to save category: ${res.status} ${res.statusText} - ${errorData}`)
       }
+
+      // Assuming success if res.ok is true
+      toast({
+        title: "Success",
+        description: `Category ${actionVerb} successfully.`,
+      })
       resetForm()
+      await fetchCategories() // Fetch categories again after successful operation
     } catch (err) {
-      console.error("Failed to save category:", err)
+      console.error(`Failed to ${actionVerb} category:`, err)
+      toast({
+        variant: "destructive",
+        title: `Error ${isEditing ? "Updating" : "Creating"} Category`,
+        description: err.message || `Could not ${actionVerb} the category.`,
+      })
     }
   }
 
   const handleEdit = (category) => {
     setFormData({ id: category.id, name: category.name, parentId: category.parentId })
     setIsEditing(true)
+    // Optional: Scroll to form or give visual indication
+    window.scrollTo({ top: 0, behavior: "smooth" })
   }
 
   const handleDelete = async (id) => {
-    if (!confirm("Are you sure you want to delete this category?")) return
-    try {
-      HttpClient.delete(`/categories/${id}`)
-        .then((_) =>
-          toast.current.show({
-            severity: "success",
-            summary: "Success",
-            detail: "Category deleted successfully",
-          }),
-        )
-        .catch((err) =>
-          toast.current.show({
-            severity: "error",
-            summary: "Error",
-            detail: err.message,
-          }),
-        )
+    // Consider using shadcn/ui Alert Dialog for confirmation
+    if (!confirm("Are you sure you want to delete this category? This might also affect subcategories.")) return
 
-      await fetchCategories()
+    try {
+      const res = await HttpClient.delete(`/categories/${id}`)
+
+      if (!res.ok) {
+        // Handle non-OK responses
+        const errorData = await res.text() // Or res.json() if error details are in JSON
+        throw new Error(`Failed to delete category: ${res.status} ${res.statusText} - ${errorData}`)
+      }
+
+      // Assuming success if res.ok is true
+      toast({
+        title: "Success",
+        description: "Category deleted successfully.",
+      })
+      await fetchCategories() // Refresh list
+      if (formData.id === id) {
+        // Reset form if the edited category was deleted
+        resetForm()
+      }
     } catch (err) {
       console.error("Failed to delete category:", err)
+      toast({
+        variant: "destructive",
+        title: "Error Deleting Category",
+        description: err.message || "Could not delete the category.",
+      })
     }
   }
 
@@ -115,112 +158,148 @@ const CategoriesAdmin = () => {
     setExpandedNodes((prev) => (prev.includes(id) ? prev.filter((nodeId) => nodeId !== id) : [...prev, id]))
   }
 
-  const renderCategoryTree = (parentId = null) => {
+  // Recursive function to render the category tree
+  const renderCategoryTree = (parentId = null, level = 0) => {
     const filteredCategories = categories.filter((cat) => cat.parentId === parentId)
     if (filteredCategories.length === 0) return null
 
     return (
-      <ul className="pl-4 border-l border-gray-300">
-        {filteredCategories.map((category) => (
-          <li key={category.id} className="mt-3">
-            <div className="flex justify-between items-center w-full  space-x-2 border-2 rounded-lg p-1 ">
-              <span>
-                {categories.some((cat) => cat.parentId === category.id) && (
-                  <button onClick={() => toggleNode(category.id)} className="text-gray-600 hover:text-gray-800">
-                    {expandedNodes.includes(category.id) ? (
-                      <ChevronDown className="w-6 h-6" />
-                    ) : (
-                      <ChevronRight className="w-6 h-6" />
-                    )}
-                  </button>
-                )}
-                <span className="text-xl font-medium text-gray-700">{category.name}</span>
-              </span>
-              <div className="flex space-x-2">
-                <button onClick={() => handleEdit(category)} className="text-blue-500 hover:text-blue-700">
-                  <Pencil className="w-6 h-6" />
-                </button>
-                <button onClick={() => handleDelete(category.id)} className="text-red-500 hover:text-red-700">
-                  <Trash className="w-6 h-6" />
-                </button>
-              </div>
-            </div>
-            {expandedNodes.includes(category.id) && renderCategoryTree(category.id)}
-          </li>
-        ))}
-      </ul>
+        <ul className={`${level > 0 ? "pl-6 border-l border-muted-foreground/20" : ""} space-y-2`}>
+          {filteredCategories.map((category) => {
+            const hasChildren = categories.some((cat) => cat.parentId === category.id)
+            const isExpanded = expandedNodes.includes(category.id)
+
+            return (
+                <li key={category.id} className="mt-1">
+                  <div className="flex justify-between items-center w-full space-x-2 border rounded-md p-2 hover:bg-accent/50 transition-colors">
+                    <div className="flex items-center space-x-2 flex-grow min-w-0"> {/* Added flex-grow and min-w-0 */}
+                      {hasChildren ? (
+                          <Button
+                              variant="ghost"
+                              size="icon"
+                              onClick={() => toggleNode(category.id)}
+                              className="flex-shrink-0 h-7 w-7" // Adjusted size and shrink
+                          >
+                            {isExpanded ? (
+                                <ChevronDown className="h-4 w-4" />
+                            ) : (
+                                <ChevronRight className="h-4 w-4" />
+                            )}
+                            <span className="sr-only">{isExpanded ? 'Collapse' : 'Expand'}</span>
+                          </Button>
+                      ) : (
+                          <span className="inline-block w-7 flex-shrink-0"></span> // Placeholder for alignment
+                      )}
+                      <span className="text-base font-medium truncate">{category.name}</span> {/* Added truncate */}
+                    </div>
+                    <div className="flex space-x-1 flex-shrink-0"> {/* Added flex-shrink-0 */}
+                      <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => handleEdit(category)}
+                          className="text-blue-600 hover:text-blue-800 h-7 w-7" // Adjusted size
+                      >
+                        <Pencil className="w-4 h-4" />
+                        <span className="sr-only">Edit {category.name}</span>
+                      </Button>
+                      <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => handleDelete(category.id)}
+                          className="text-red-600 hover:text-red-800 h-7 w-7" // Adjusted size
+                      >
+                        <Trash className="w-4 h-4" />
+                        <span className="sr-only">Delete {category.name}</span>
+                      </Button>
+                    </div>
+                  </div>
+                  {isExpanded && hasChildren && renderCategoryTree(category.id, level + 1)}
+                </li>
+            )
+          })}
+        </ul>
     )
   }
 
+  // --- Render ---
   return (
-    <div className="min-h-screen text-xl bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
-      <Toast ref={toast} />
-      <div className=" mx-auto bg-white rounded-lg shadow p-6">
-        <h1 className="text-2xl font-bold mb-6">Manage Categories</h1>
+      // Added padding to the container instead of min-h-screen
+      <div className="container mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        <Card className="w-full max-w-4xl mx-auto"> {/* Constrain width */}
+          <CardHeader>
+            <CardTitle className="text-2xl font-bold">Manage Categories</CardTitle>
+            <CardDescription>
+              Create, edit, delete, and organize product categories.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            {/* Form Section */}
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <div className="space-y-2">
+                <Label htmlFor="name">Category Name</Label>
+                <Input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    placeholder="e.g., Electronics, Clothing, Books"
+                    required
+                    className="text-base" // Ensure consistent text size
+                />
+              </div>
 
-        {/* Form Section */}
-        <form onSubmit={handleSubmit} className="space-y-4 mb-8">
-          <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-              Category Name
-            </label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleInputChange}
-              className="mt-1 block w-full border border-gray-300 rounded-md py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              placeholder="Enter category name"
-              required
-            />
-          </div>
+              <div className="space-y-2">
+                <Label htmlFor="parentId">Parent Category</Label>
+                <Select
+                    name="parentId"
+                    value={formData.parentId === null ? "null" : String(formData.parentId)} // Ensure value is string or specific "null"
+                    onValueChange={handleParentCategoryChange} // Use specific handler
+                >
+                  <SelectTrigger id="parentId" className="text-base"> {/* Ensure consistent text size */}
+                    <SelectValue placeholder="-- No Parent --" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="null">-- No Parent --</SelectItem>
+                    {categories
+                        .filter(cat => cat.id !== formData.id) // Prevent selecting itself as parent
+                        .map((cat) => (
+                            <SelectItem key={cat.id} value={String(cat.id)}>
+                              {cat.name}
+                            </SelectItem>
+                        ))}
+                  </SelectContent>
+                </Select>
+              </div>
 
-          <div>
-            <label htmlFor="parentId" className="block text-sm font-medium text-gray-700">
-              Parent Category
-            </label>
-            <select
-              id="parentId"
-              name="parentId"
-              value={formData.parentId || ""}
-              onChange={handleInputChange}
-              className="mt-1 block w-full border border-gray-300 rounded-md py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            >
-              <option value="">No Parent</option>
-              {categories.map((cat) => (
-                <option key={cat.id} value={cat.id}>
-                  {cat.name}
-                </option>
-              ))}
-            </select>
-          </div>
+              <div className="flex space-x-3 pt-2">
+                <Button type="submit">
+                  {isEditing ? "Update Category" : "Create Category"}
+                </Button>
+                {isEditing && (
+                    <Button type="button" variant="outline" onClick={resetForm}>
+                      Cancel Edit
+                    </Button>
+                )}
+              </div>
+            </form>
 
-          <div className="flex space-x-2">
-            <button type="submit" className="bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700">
-              {isEditing ? "Update Category" : "Create Category"}
-            </button>
-            {isEditing && (
-              <button
-                type="button"
-                onClick={resetForm}
-                className="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600"
-              >
-                Cancel
-              </button>
-            )}
-          </div>
-        </form>
+            <Separator className="my-8" />
 
-        {/* Category List */}
-        <div>
-          <h2 className="text-lg font-semibold mb-4">Category Tree</h2>
-          {renderCategoryTree()}
-        </div>
+            {/* Category List */}
+            <div>
+              <h2 className="text-xl font-semibold mb-4">Category Tree</h2>
+              {categories.length > 0 ? (
+                  renderCategoryTree() // Render top-level categories
+              ) : (
+                  <p className="text-muted-foreground">No categories found. Create one above!</p>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+        <Toaster /> {/* Add Toaster for shadcn/ui toasts */}
       </div>
-    </div>
   )
 }
 
 export default CategoriesAdmin
-

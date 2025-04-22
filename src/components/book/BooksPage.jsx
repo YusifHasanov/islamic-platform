@@ -133,7 +133,7 @@ export default function BooksPage() {
             </div>
 
             <div className="container mx-auto px-4 py-8 relative">
-                {/* Use our FilterProvider component */}
+                {/* Use our FilterProviderOld component */}
                 <FilterProvider
                     initialCategories={[]}
                     initialTags={[]}
@@ -171,7 +171,7 @@ export default function BooksPage() {
                             !error && (
                                 <NoBooksFound
                                     onReset={() => {
-                                        // FilterProvider handles the reset internally
+                                        // FilterProviderOld handles the reset internally
                                     }}
                                     hasFilters={filters.searchQuery || filters.categories.length > 0 || filters.tags.length > 0}
                                 />

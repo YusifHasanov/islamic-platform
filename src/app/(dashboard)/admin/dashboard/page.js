@@ -20,7 +20,7 @@ const AdminDashboardPage = () => {
   if (typeof window !== 'undefined' && localStorage.getItem('isAdminLoggedIn') !== 'true') {
     return (
         <div className="flex items-center justify-center h-screen">
-             {/* Optional: Add a PrimeReact ProgressSpinner or similar */} 
+             {/* Optional: Add a PrimeReact ProgressSpinner or similar */}
              <p>Loading...</p>
         </div>
     ); // Or a loading spinner component
@@ -33,7 +33,7 @@ const AdminDashboardPage = () => {
           Welcome to the admin dashboard. Use the sidebar to navigate through different sections.
         </p>
          {/* Add more dashboard widgets/cards here as needed */}
-         {/* Example: 
+         {/* Example:
          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
             <Card title="Articles">Count</Card>
             <Card title="Categories">Count</Card>
@@ -45,5 +45,4 @@ const AdminDashboardPage = () => {
   );
 };
 
-export default AdminDashboardPage;
-
+export default AdminDashboardPage; 

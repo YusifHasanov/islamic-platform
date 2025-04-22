@@ -1,7 +1,12 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
+import { usePathname, useRouter } from "next/navigation"
+import { Sun, Moon, Laptop } from 'lucide-react'
+import AdminNavbar from "./AdminNavbar"
+import AdminSidebarNav from "./AdminSidebarNav"
+import useTheme from "@/hooks/useTheme"
 
 const sidebarItems = [
   {
@@ -97,11 +102,10 @@ const sidebarItems = [
       <svg
         className="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
         xmlns="http://www.w3.org/2000/svg"
-        fill="#000000"
+        fill="currentColor"
+        viewBox="0 0 32 32"
       >
-        <g>
-          <path d="M15.255,0c5.424,0,10.764,2.498,10.764,8.473c0,5.51-6.314,7.629-7.67,9.62c-1.018,1.481-0.678,3.562-3.475,3.562   c-1.822,0-2.712-1.482-2.712-2.838c0-5.046,7.414-6.188,7.414-10.343c0-2.287-1.522-3.643-4.066-3.643   c-5.424,0-3.306,5.592-7.414,5.592c-1.483,0-2.756-0.89-2.756-2.584C5.339,3.683,10.084,0,15.255,0z M15.044,24.406   c1.904,0,3.475,1.566,3.475,3.476c0,1.91-1.568,3.476-3.475,3.476c-1.907,0-3.476-1.564-3.476-3.476   C11.568,25.973,13.137,24.406,15.044,24.406z" />
-        </g>
+        <path d="M16 3C9.925 3 5 7.925 5 14c0 4.88 3.468 8.14 5.906 10.281.5.441.938.938 1.313 1.5.375.563.813 1.219 1.188 1.938.188.313.313.563.375.719.063.188.125.375.125.563 0 .75-.5 1.406-1.188 1.813-.688.438-1.5.688-2.438.688-1.5 0-2.813-.563-3.813-1.688S5 25.563 5 24c0-1.125.375-2.125 1.063-3.063S7.563 19.5 8.5 18.75c1.563-1.25 3.438-2.938 3.438-5.75 0-2.25-1.5-4-4-4-2.5 0-4 1.75-4 4 0 .75-.563 1.438-1.313 1.5-.063 0-.125 0-.188 0-1 0-1.813-.75-2-1.75C.25 11.813 4.25 6 10 6c6.075 0 10 4.925 10 11 0 4.88-3.468 8.14-5.906 10.281-.5.441-.938.938-1.313 1.5-.375.563-.813 1.219-1.188 1.938-.188.313-.313.563-.375.719-.063.188-.125.375-.125.563 0 .75.5 1.406 1.188 1.813.688.438 1.5.688 2.438.688 1.5 0 2.813-.563 3.813-1.688S21 25.563 21 24c0-1.125-.375-2.125-1.063-3.063s-1.5-.938-2.438-1.688c-1.563-1.25-3.438-2.938-3.438-5.75 0-2.25 1.5-4 4-4 2.5 0 4 1.75 4 4 0 .75.563 1.438 1.313 1.5.063 0 .125 0 .188 0 1 0 1.813-.75 2-1.75C25.75 11.813 21.75 6 16 6c-6.075 0-11 4.925-11 11 0 1.125.375 2.125 1.063 3.063S7.563 21.5 8.5 22.25c1.563 1.25 3.438 2.938 3.438 5.75 0 1 .438 1.813 1.188 2.438.75.625 1.688.938 2.813.938 1.375 0 2.563-.5 3.563-1.5S21 27.625 21 26.5c0-.563-.125-1.063-.313-1.563-.188-.5-.438-.938-.75-1.313-.313-.375-.625-.688-.938-.938-1.375-1.063-2.563-2.25-3.563-3.563C14.813 18.5 14 17.125 14 15.5c0-1.375.813-2.563 2.438-3.563S19.563 10.75 21 10c1.125-.625 2.125-1.375 3.063-2.313S25.5 6.063 26.25 5.5c1.25-1 1.875-2.375 1.875-4.125C28.125.563 27.563 0 26.813 0 26.125 0 25.5.188 24.938.563c-.563.375-1.125.813-1.688 1.313-.563.5-.938.875-1.125 1.125s-.375.5-.563.75c-1.125 1.375-2.438 2.625-4 3.75-1.563 1.125-3.188 1.875-5 2.25-.563.125-1.063.188-1.563.188z"/>
       </svg>
     ),
   },
@@ -112,26 +116,41 @@ const sidebarItems = [
       <svg
         className="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
         xmlns="http://www.w3.org/2000/svg"
-        fill="#000000"
+        fill="currentColor"
+        viewBox="0 0 32 32"
       >
-        <g>
-          <path d="M15.255,0c5.424,0,10.764,2.498,10.764,8.473c0,5.51-6.314,7.629-7.67,9.62c-1.018,1.481-0.678,3.562-3.475,3.562   c-1.822,0-2.712-1.482-2.712-2.838c0-5.046,7.414-6.188,7.414-10.343c0-2.287-1.522-3.643-4.066-3.643   c-5.424,0-3.306,5.592-7.414,5.592c-1.483,0-2.756-0.89-2.756-2.584C5.339,3.683,10.084,0,15.255,0z M15.044,24.406   c1.904,0,3.475,1.566,3.475,3.476c0,1.91-1.568,3.476-3.475,3.476c-1.907,0-3.476-1.564-3.476-3.476   C11.568,25.973,13.137,24.406,15.044,24.406z" />
-        </g>
+        <path d="M16 3C9.925 3 5 7.925 5 14c0 4.88 3.468 8.14 5.906 10.281.5.441.938.938 1.313 1.5.375.563.813 1.219 1.188 1.938.188.313.313.563.375.719.063.188.125.375.125.563 0 .75-.5 1.406-1.188 1.813-.688.438-1.5.688-2.438.688-1.5 0-2.813-.563-3.813-1.688S5 25.563 5 24c0-1.125.375-2.125 1.063-3.063S7.563 19.5 8.5 18.75c1.563-1.25 3.438-2.938 3.438-5.75 0-2.25-1.5-4-4-4-2.5 0-4 1.75-4 4 0 .75-.563 1.438-1.313 1.5-.063 0-.125 0-.188 0-1 0-1.813-.75-2-1.75C.25 11.813 4.25 6 10 6c6.075 0 10 4.925 10 11 0 4.88-3.468 8.14-5.906 10.281-.5.441-.938.938-1.313 1.5-.375.563-.813 1.219-1.188 1.938-.188.313-.313.563-.375.719-.063.188-.125.375-.125.563 0 .75.5 1.406 1.188 1.813.688.438 1.5.688 2.438.688 1.5 0 2.813-.563 3.813-1.688S21 25.563 21 24c0-1.125-.375-2.125-1.063-3.063s-1.5-.938-2.438-1.688c-1.563-1.25-3.438-2.938-3.438-5.75 0-2.25 1.5-4 4-4 2.5 0 4 1.75 4 4 0 .75.563 1.438 1.313 1.5.063 0 .125 0 .188 0 1 0 1.813-.75 2-1.75C25.75 11.813 21.75 6 16 6c-6.075 0-11 4.925-11 11 0 1.125.375 2.125 1.063 3.063S7.563 21.5 8.5 22.25c1.563 1.25 3.438 2.938 3.438 5.75 0 1 .438 1.813 1.188 2.438.75.625 1.688.938 2.813.938 1.375 0 2.563-.5 3.563-1.5S21 27.625 21 26.5c0-.563-.125-1.063-.313-1.563-.188-.5-.438-.938-.75-1.313-.313-.375-.625-.688-.938-.938-1.375-1.063-2.563-2.25-3.563-3.563C14.813 18.5 14 17.125 14 15.5c0-1.375.813-2.563 2.438-3.563S19.563 10.75 21 10c1.125-.625 2.125-1.375 3.063-2.313S25.5 6.063 26.25 5.5c1.25-1 1.875-2.375 1.875-4.125C28.125.563 27.563 0 26.813 0 26.125 0 25.5.188 24.938.563c-.563.375-1.125.813-1.688 1.313-.563.5-.938.875-1.125 1.125s-.375.5-.563.75c-1.125 1.375-2.438 2.625-4 3.75-1.563 1.125-3.188 1.875-5 2.25-.563.125-1.063.188-1.563.188z"/>
       </svg>
     ),
   },
 ]
 
-function Sidebar({ children }) {
-  // Track dropdown state
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
-  const [revalidateDisabled, setRevalidateDisabled] = useState(false)
+// This component now acts as the main layout wrapper for the admin area
+function AdminLayoutWrapper({ children }) {
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+  const [theme, setTheme] = useTheme();
+  const router = useRouter();
 
+  const handleMobileSidebarToggle = () => {
+    setIsMobileSidebarOpen(!isMobileSidebarOpen);
+  };
+
+  const handleSidebarLinkClick = () => {
+     setIsMobileSidebarOpen(false); // Close mobile sidebar when a link is clicked
+  }
+
+  const handleLogout = () => {
+    console.log("Logout action triggered");
+    localStorage.removeItem('isAdminLoggedIn');
+    router.push('/admin/login');
+  };
+
+  // Revalidation logic remains unchanged for now
+  const [revalidateDisabled, setRevalidateDisabled] = useState(false)
   const revalidate = () => {
     setRevalidateDisabled(true)
     const secret = process.env.NEXT_PUBLIC_REVALIDATE_SECRET
     const paths = ["/articles", "/videos", "/", "/videos/**", "/articles/**"]
-
     Promise.all(
       paths.map((path) =>
         fetch(`/api/revalidate?path=${encodeURIComponent(path)}&secret=${secret}`)
@@ -146,180 +165,33 @@ function Sidebar({ children }) {
 
   return (
     <>
-      <nav className="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
-        <div className="px-3 py-3 lg:px-5 lg:pl-3">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center justify-start rtl:justify-end">
-              {/* Sidebar toggle button (mobile) */}
-              <button
-                data-drawer-target="logo-sidebar"
-                data-drawer-toggle="logo-sidebar"
-                aria-controls="logo-sidebar"
-                type="button"
-                className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100
-                           focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700
-                           dark:focus:ring-gray-600"
-              >
-                <span className="sr-only">Open sidebar</span>
-                <svg
-                  className="w-6 h-6"
-                  aria-hidden="true"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    clipRule="evenodd"
-                    fillRule="evenodd"
-                    d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0
-                       010 1.5H2.75A.75.75 0 012 4.75zm0
-                       10.5a.75.75 0 01.75-.75h7.5a.75.75 0
-                       010 1.5h-7.5a.75.75 0 01-.75-.75zM2
-                       10a.75.75 0 01.75-.75h14.5a.75.75 0
-                       010 1.5H2.75A.75.75 0 012 10z"
-                  />
-                </svg>
-              </button>
-              <Link href="/" className="flex ms-2 md:me-24">
-                <img src="/esm_logo.png" className="h-8 me-3" alt="Esm Logo" />
-                <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">
-                  Ehlisunne Medresesi Admin
-                </span>
-              </Link>
-            </div>
-            <div className="flex items-center">
-              <div className="flex items-center ms-3">
-                <div>
-                  {/* Toggle dropdown on click */}
-                  <button
-                    type="button"
-                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                    className="flex text-sm bg-gray-800 rounded-full
-                               focus:ring-4 focus:ring-gray-300
-                               dark:focus:ring-gray-600"
-                  >
-                    <span className="sr-only">Open user menu</span>
-                    <img
-                      className="w-8 h-8 rounded-full"
-                      src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                      alt="user photo"
-                    />
-                  </button>
-                </div>
-                {/* Conditionally render the dropdown */}
-                {isDropdownOpen && (
-                  <div
-                    className="z-50 my-4 text-base list-none bg-white
-                               divide-y divide-gray-100 rounded shadow
-                               dark:bg-gray-700 dark:divide-gray-600
-                               absolute top-14 right-4"
-                  >
-                    <div className="px-4 py-3" role="none">
-                      <p className="text-sm text-gray-900 dark:text-white" role="none">
-                        neill
-                      </p>
-                      <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
-                        neil.sims@flowbite.com
-                      </p>
-                    </div>
-                    <ul className="py-1" role="none">
-                      <li>
-                        <a
-                          href="#"
-                          className="block px-4 py-2 text-sm text-gray-700
-                                     hover:bg-gray-100 dark:text-gray-300
-                                     dark:hover:bg-gray-600 dark:hover:text-white"
-                          role="menuitem"
-                        >
-                          Dashboard
-                        </a>
-                      </li>
-                      <li>
-                        <button
-                          disabled={revalidateDisabled}
-                          onClick={revalidate}
-                          className="text-sm ml-4 text-gray-900 dark:text-white"
-                          role="none"
-                        >
-                          Revalidate all Menus
-                        </button>
-                      </li>
-                      <li>
-                        <a
-                          href="#"
-                          className="block px-4 py-2 text-sm text-gray-700
-                                     hover:bg-gray-100 dark:text-gray-300
-                                     dark:hover:bg-gray-600 dark:hover:text-white"
-                          role="menuitem"
-                        >
-                          Earnings
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="#"
-                          className="block px-4 py-2 text-sm text-gray-700
-                                     hover:bg-gray-100 dark:text-gray-300
-                                     dark:hover:bg-gray-600 dark:hover:text-white"
-                          role="menuitem"
-                        >
-                          Sign out
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <AdminNavbar
+        theme={theme}
+        onThemeChange={setTheme}
+        isMobileSidebarOpen={isMobileSidebarOpen}
+        onMobileSidebarToggle={handleMobileSidebarToggle}
+        onLogout={handleLogout}
+      />
 
-      <aside
-        aria-label="Sidebar"
-        id="logo-sidebar"
-        className="fixed top-0 left-0 z-40 w-64 h-screen bg-white border-r
-                   border-gray-200 dark:bg-gray-800"
-      >
-        <div className="px-3 py-4 overflow-y-auto">
-          <ul className="space-y-2">
-            {sidebarItems.map((item, index) => (
-              <li key={index}>
-                <Link
-                  href={item.href}
-                  className="flex items-center p-2 text-gray-900
-                             rounded-lg dark:text-white hover:bg-gray-100
-                             dark:hover:bg-gray-700 group"
-                >
-                  {item.icon}
-                  <span className="ml-3">{item.label}</span>
-                  {item.badge && (
-                    <span
-                      className="ml-auto inline-flex items-center justify-center px-2 py-1
-                                 text-sm font-medium text-gray-800 bg-gray-100
-                                 rounded-full dark:bg-gray-700 dark:text-gray-300"
-                    >
-                      {item.badge}
-                    </span>
-                  )}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </aside>
+      <AdminSidebarNav
+          isMobileSidebarOpen={isMobileSidebarOpen}
+          onLinkClick={handleSidebarLinkClick}
+      />
 
-      <div className="p-4 sm:ml-64">
+      <main className="p-4 sm:ml-64 mt-16">
+        {children}
+      </main>
+
+      {/* Mobile Sidebar Overlay */}
+      {isMobileSidebarOpen && (
         <div
-          className="p-4 border-2 border-gray-200 border-dashed
-                        rounded-lg dark:border-gray-700 mt-14"
-        >
-          {children}
-        </div>
-      </div>
+          className="fixed inset-0 z-30 bg-gray-900/50 dark:bg-gray-900/80 sm:hidden"
+          onClick={handleMobileSidebarToggle}
+        ></div>
+      )}
     </>
   )
 }
 
-export default Sidebar
+export default AdminLayoutWrapper;
 
