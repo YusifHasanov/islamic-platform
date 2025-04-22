@@ -164,18 +164,19 @@ export default function RootLayout({ children }) {
   return (
       <html lang="az-AZ" className={roboto.className}>
       <head>
-        <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+        <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests"/>
         <title>Əhli-Sünnə Mədrəsəsi</title>
-        <link rel="canonical" href={domain} />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" />
-        <meta name="description" content="Əhli-Sünnə Mədrəsəsi haqqında məlumatlar və maarifləndirici məqalələr." />
-        <meta name="keywords" content={keywords.join(", ")} />
+        <link rel="canonical" href={domain}/>
+        <link rel="preconnect" href="https://fonts.googleapis.com"/>
+        <link rel="icon" href="/favicon.ico"/>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true"/>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"/>
+        <meta name="description" content="Əhli-Sünnə Mədrəsəsi haqqında məlumatlar və maarifləndirici məqalələr."/>
+        <meta name="keywords" content={keywords.join(", ")}/>
       </head>
       <body className={`antialiased`}>
       {children}
-      <Analytics />
+      <Analytics/>
       </body>
       </html>
   )
