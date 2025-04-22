@@ -21,7 +21,7 @@ export default function QuestionsPage() {
         tags: [],
         searchQuery: ""
     });
-    const debouncedSearchQuery = useDebounce(filters.searchQuery, 300);
+    // const debouncedSearchQuery = useDebounce(filters.searchQuery, 300);
     const [page, setPage] = useState(0);
     const [totalPages, setTotalPages] = useState(1);
     const searchInputRef = useRef(null);
@@ -39,7 +39,7 @@ export default function QuestionsPage() {
                 containsCategory: '1',
             });
 
-            if (debouncedSearchQuery) params.set('searchQuery', debouncedSearchQuery);
+            if (filters.searchQuery) params.set('searchQuery', filters.searchQuery);
             if (filters.categories.length > 0) params.set('categoryIds', filters.categories.map(c => c.id).join(','));
             if (filters.tags.length > 0) params.set('tagIds', filters.tags.map(t => t.id).join(','));
 
@@ -69,7 +69,7 @@ export default function QuestionsPage() {
         } finally {
             setLoading(false);
         }
-    }, [page, debouncedSearchQuery, filters.categories, filters.tags]);
+    }, [page, filters.searchQuery, filters.categories, filters.tags]);
 
     // Fetch questions when relevant state changes
     useEffect(() => {
@@ -81,7 +81,7 @@ export default function QuestionsPage() {
     useEffect(() => {
         // Only reset the page when filters change, not when the page itself changes
         setPage(0);
-    }, [debouncedSearchQuery, filters.categories, filters.tags]); // REMOVE 'page' from here
+    }, [filters.searchQuery, filters.categories, filters.tags]); // REMOVE 'page' from here
 
     // Handle filter changes
     const handleFiltersChange = useCallback((newFilters) => {
