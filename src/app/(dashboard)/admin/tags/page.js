@@ -1,227 +1,110 @@
 "use client"
-import { useState, useEffect, useRef } from "react"
-import HttpClient from "@/util/HttpClient"
-import { Toast } from "primereact/toast"
 
-export default function AdminTagsPage() {
-  const [tags, setTags] = useState([])
-  const [newTag, setNewTag] = useState("")
-  const [editingTag, setEditingTag] = useState(null)
-  const [editingValue, setEditingValue] = useState("")
-  const [selectedTags, setSelectedTags] = useState([])
-  const [loading, setLoading] = useState(false)
-  const toast = useRef(null)
-  // API'den tagleri yükleme
-  const fetchTags = async () => {
-    setLoading(true)
-    try {
-      const response = await HttpClient.get("/tags")
-      const data = await response.json()
-      setTags(data)
-    } catch (error) {
-      toast.current.show({ severity: "error", summary: "Error", detail: "Failed to save articles" })
-      console.error("Tagleri yüklerken bir hata oluştu:", error)
-    } finally {
-      setLoading(false)
-    }
-  }
+import React, { useEffect, useState } from "react";
+import Link from "next/link";
+import { Plus, Edit, Trash2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
+import HttpClient from "@/util/HttpClient";
+
+export default function TagsPage() {
+  const [tags, setTags] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
-    fetchTags()
-  }, [])
-
-  // Yeni tag ekleme
-  const handleAddTag = async (e) => {
-    e.preventDefault()
-    if (newTag.trim()) {
-      setLoading(true)
+    const fetchTags = async () => {
       try {
-        const response = await HttpClient.post("/tags", { name: newTag.trim() })
-        const addedTag = await response.json()
-        setTags([...tags, addedTag])
-        setNewTag("")
-        clearCache()
-      } catch (error) {
-        console.error("Tag eklerken bir hata oluştu:", error)
+        setLoading(true);
+        const res = await HttpClient.get("/tags");
+        if (!res.ok) throw new Error(`Error: ${res.status}`);
+        const data = await res.json();
+        const list = Array.isArray(data) ? data : data?.content || [];
+        setTags(list);
+      } catch (err) {
+        console.error(err);
+        setError("Etiketler yüklenirken bir hata oluştu.");
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
-  }
+    };
+    fetchTags();
+  }, []);
 
-  // Tag silme
-  const handleDeleteTag = async (tagId) => {
-    setLoading(true)
-    try {
-      HttpClient.delete(`/tags/${tagId}`).then((_) => {
-        setTags(tags.filter((tag) => tag.id !== tagId))
-        setSelectedTags(selectedTags.filter((id) => id !== tagId))
-        clearCache()
-      })
-    } catch (error) {
-      console.error("Tag silerken bir hata oluştu:", error)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  // Tag güncelleme
-  const handleUpdateTag = async (e) => {
-    e.preventDefault()
-    if (editingValue.trim() && editingTag) {
-      setLoading(true)
-      try {
-        HttpClient.put(`/tags/${editingTag.id}`, {
-          name: editingValue.trim(),
-        }).then((response) => {
-          setEditingTag(null)
-          setEditingValue("")
-          setTags(tags.map((tag) => (tag.id === response.id ? { ...tag, name: response.name.trim() } : tag)))
-          clearCache()
-        })
-      } catch (error) {
-        console.error("Tag güncellerken bir hata oluştu:", error)
-      } finally {
-        setLoading(false)
-      }
-    }
-  }
-
-  // Multi delete
-  const handleMultiDelete = async () => {
-    setLoading(true)
-    try {
-      const response = await HttpClient.post(`/tags/batch-delete`, { ids: selectedTags })
-      if (response.ok) {
-        setTags(tags.filter((tag) => !selectedTags.includes(tag.id)))
-        setSelectedTags([])
-        clearCache()
-      }
-    } catch (error) {
-      console.error("Tagleri topluca silerken bir hata oluştu:", error)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const clearCache = () => {
-    localStorage.removeItem("tags")
-  }
-
-  // Seçimi toggle et
-  const toggleSelectTag = (tagId) => {
-    setSelectedTags((prev) => (prev.includes(tagId) ? prev.filter((id) => id !== tagId) : [...prev, tagId]))
-  }
+  const filteredTags = tags.filter(tag =>
+    tag.name.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-100 to-gray-200 p-6">
-      <Toast ref={toast} />
-      <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-8">
-        <h1 className="text-3xl font-bold text-gray-800 mb-6">Tag Yönetimi</h1>
-
-        {/* Loading */}
-        {loading && <p className="text-gray-500 mb-4">İşlem yapılıyor...</p>}
-
-        {/* Yeni Tag Ekleme */}
-        <div className="mb-8">
-          <form onSubmit={handleAddTag} className="flex items-center gap-4">
-            <input
-              type="text"
-              placeholder="Yeni bir tag yazın..."
-              value={newTag}
-              onChange={(e) => setNewTag(e.target.value)}
-              className="flex-grow border border-gray-300 rounded-lg px-4 py-3 focus:ring-4 focus:ring-blue-500 focus:outline-none shadow-sm text-gray-700"
-            />
-            <button
-              type="submit"
-              disabled={loading}
-              // onClick={handleAddTag}
-              className={`bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition shadow-md ${loading ? "bg-gray-100" : ""}`}
-            >
-              Ekle
-            </button>
-          </form>
-        </div>
-
-        {/* Multi Delete */}
-        {selectedTags.length > 0 && (
-          <div className="mb-4 flex items-center justify-between bg-red-100 p-4 rounded-lg shadow-md">
-            <p className="text-gray-700 font-medium">{selectedTags.length} tag seçildi</p>
-            <button
-              onClick={handleMultiDelete}
-              className="bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600 transition shadow-md"
-            >
-              Seçileni Sil
-            </button>
-          </div>
-        )}
-
-        {/* Tag Listesi */}
-        <div>
-          <h2 className="text-2xl font-semibold text-gray-800 mb-4">Tag Listesi</h2>
-          {tags.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {tags.map((tag) => (
-                <div
-                  key={tag.id}
-                  className={`flex flex-col gap-3 p-4 rounded-lg shadow-lg transition ${
-                    selectedTags.includes(tag.id) ? "bg-blue-50 border-2 border-blue-500" : "bg-gray-50"
-                  }`}
-                >
-                  {editingTag?.id === tag.id ? (
-                    <form onSubmit={handleUpdateTag} className="flex gap-3">
-                      <input
-                        type="text"
-                        value={editingValue}
-                        onChange={(e) => setEditingValue(e.target.value)}
-                        className="flex-grow border border-gray-300 rounded-lg px-3 py-1 focus:ring-4 focus:ring-blue-500 focus:outline-none"
-                      />
-                      <button
-                        disabled={loading}
-                        type="submit"
-                        className={`bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition ${loading ? "bg-black" : ""}`}
-                      >
-                        Kaydet
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setEditingTag(null)
-                          setEditingValue("")
-                        }}
-                        className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition"
-                      >
-                        İptal
-                      </button>
-                    </form>
-                  ) : (
-                    <div className="flex justify-between items-center">
-                      <span className="text-gray-800 font-medium">{tag.name}</span>
-                      <div className="flex items-center gap-3">
-                        <button
-                          onClick={() => {
-                            setEditingTag(tag)
-                            setEditingValue(tag.name)
-                          }}
-                          className="text-blue-500 hover:text-blue-700"
-                        >
-                          Güncelle
-                        </button>
-                        <button onClick={() => handleDeleteTag(tag.id)} className="text-red-500 hover:text-red-700">
-                          Sil
-                        </button>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          ) : (
-            <p className="text-gray-500">Henüz bir tag eklenmedi.</p>
-          )}
-        </div>
+    <div className="p-6 space-y-6">
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-semibold">Etiket Yönetimi</h1>
+        <Link href="/admin/tags/new">
+          <Button variant="default">
+            <Plus className="mr-2 h-4 w-4" />Yeni Etiket
+          </Button>
+        </Link>
       </div>
+
+      <Card>
+        <CardHeader className="flex items-center justify-between p-4 space-y-0">
+          <Input
+            placeholder="Etiketlerde ara..."
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            className="max-w-sm"
+          />
+        </CardHeader>
+        <CardContent className="p-0">
+          {loading ? (
+            <div className="p-4 text-center">Yükleniyor...</div>
+          ) : error ? (
+            <div className="p-4 text-red-600">{error}</div>
+          ) : (
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>ID</TableHead>
+                  <TableHead>İsim</TableHead>
+                  <TableHead>Açıklama</TableHead>
+                  <TableHead>İşlemler</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {filteredTags.length > 0 ? (
+                  filteredTags.map(tag => (
+                    <TableRow key={tag.id}>
+                      <TableCell>{tag.id}</TableCell>
+                      <TableCell>{tag.name}</TableCell>
+                      <TableCell>{tag.description || "—"}</TableCell>
+                      <TableCell className="flex space-x-2">
+                        <Link href={`/admin/tags/${tag.id}/edit`}>
+                          <Button variant="ghost" size="sm">
+                            <Edit className="h-4 w-4" />
+                          </Button>
+                        </Link>
+                        <Button variant="ghost" size="sm" className="text-destructive">
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={4} className="text-center">
+                      Etiket bulunamadı.
+                    </TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          )}
+        </CardContent>
+      </Card>
     </div>
-  )
+  );
 }
 
