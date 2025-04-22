@@ -252,9 +252,10 @@ const CategoriesAdmin = () => {
               <div className="space-y-2">
                 <Label htmlFor="parentId">Parent Category</Label>
                 <Select
+                    key={formData.id ?? "new"}
                     name="parentId"
-                    value={formData.parentId === null ? "null" : String(formData.parentId)} // Ensure value is string or specific "null"
-                    onValueChange={handleParentCategoryChange} // Use specific handler
+                    value={formData.parentId === null ? "null" : String(formData.parentId)}
+                    onValueChange={handleParentCategoryChange}
                 >
                   <SelectTrigger id="parentId" className="text-base"> {/* Ensure consistent text size */}
                     <SelectValue placeholder="-- No Parent --" />
