@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react'
 import Link from "next/link"
 import { Sun, Moon, Laptop, LogOut, User, Settings, LayoutDashboard, RefreshCw } from 'lucide-react' // Added more icons
 import HttpClient from '@/util/HttpClient';
+import { Select } from "@/components/ui/select"; // optional if you prefer Radix
 
 const AdminNavbar = ({
   theme,
@@ -19,6 +20,9 @@ const AdminNavbar = ({
   const userDropdownRef = useRef(null);  // Ref for user dropdown
   const userButtonRef = useRef(null);    // Ref for user button
   const [isRefreshing, setIsRefreshing] = useState(false); // Refresh state for API call simulation
+  const [refreshDropdownOpen, setRefreshDropdownOpen] = useState(false);
+  const refreshButtonRef = useRef(null);
+  const refreshDropdownRef = useRef(null);
 
   // Dummy user data (replace with actual data later)
   const user = { name: "Admin User", email: "admin@example.com" };
@@ -55,7 +59,7 @@ const AdminNavbar = ({
       // console.log("API Call Successful", data);
       
       // Simülasyon için bekleme
-      await new Promise(resolve => setTimeout(resolve, 1500)); 
+    
       fetch('/ytb-api/Youtube/sync', { 
         method: 'POST',
         headers: {
@@ -78,6 +82,22 @@ const AdminNavbar = ({
     } catch (error) {
       console.error("API Call Failed:", error);
       // Kullanıcıya hata mesajı gösterilebilir
+    } finally {
+      setIsRefreshing(false);
+    }
+  };
+
+  // Pages sync API handler
+  const handlePagesRefresh = async () => {
+    if (isRefreshing) return;
+    setIsRefreshing(true);
+    try {
+      // replace with real endpoint
+      fetch(`/api/revalidate-all?secret=${process.env.NEXT_PUBLIC_REVALIDATE_SECRET}`)
+      .then(() => console.log("Revalidated /articles page."))
+      .catch((err) => console.error("Failed to revalidate /articles page."))
+    } catch (error) {
+      console.error('Pages API Call Failed:', error);
     } finally {
       setIsRefreshing(false);
     }
@@ -106,13 +126,23 @@ const AdminNavbar = ({
           ) {
               setUserDropdownOpen(false);
           }
+          // Close refresh dropdown if click outside
+          if (
+              refreshDropdownOpen &&
+              refreshButtonRef.current &&
+              !refreshButtonRef.current.contains(event.target) &&
+              refreshDropdownRef.current &&
+              !refreshDropdownRef.current.contains(event.target)
+          ) {
+              setRefreshDropdownOpen(false);
+          }
       };
 
       document.addEventListener('mousedown', handleClickOutside); // Use mousedown to catch before click potentially triggers other actions
       return () => {
           document.removeEventListener('mousedown', handleClickOutside);
       };
-  }, [themeDropdownOpen, userDropdownOpen]); // Re-run if dropdown states change
+  }, [themeDropdownOpen, userDropdownOpen, refreshDropdownOpen]); // Re-run if dropdown states change
 
   return (
     <nav className="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
@@ -144,16 +174,44 @@ const AdminNavbar = ({
 
           {/* Right Side Icons: Refresh Button, Theme Switcher + User Menu */}
           <div className="flex items-center space-x-3">
-            {/* Refresh Button */}
-            <button
-              type="button"
-              onClick={handleRefreshClick}
-              disabled={isRefreshing} // Disable button during API call
-              className={`p-2 text-gray-500 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 ${isRefreshing ? 'cursor-not-allowed opacity-50' : ''}`}
-            >
-              <span className="sr-only">Refresh Data</span>
-              <RefreshCw className={`w-5 h-5 ${isRefreshing ? 'animate-spin' : ''}`} />
-            </button>
+            {/* Refresh Dropdown */}
+            <div className="relative">
+              <button
+                ref={refreshButtonRef}
+                type="button"
+                onClick={() => {
+                  setRefreshDropdownOpen(open => !open);
+                  setUserDropdownOpen(false);
+                  setThemeDropdownOpen(false);
+                }}
+                disabled={isRefreshing}
+                className={`p-2 text-gray-500 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 ${isRefreshing ? 'cursor-not-allowed opacity-50' : ''}`}
+              >
+                <span className="sr-only">Refresh Options</span>
+                <RefreshCw className={`w-5 h-5 ${isRefreshing ? 'animate-spin' : ''}`} />
+              </button>
+              {refreshDropdownOpen && (
+                <div
+                  ref={refreshDropdownRef}
+                  className="absolute top-full right-0 z-50 mt-2 w-40 bg-white rounded-lg shadow dark:bg-gray-700"
+                >
+                  <ul>
+                    <li>
+                      <button
+                        onClick={() => { handleRefreshClick(); setRefreshDropdownOpen(false); }}
+                        className="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600"
+                      >Videos</button>
+                    </li>
+                    <li>
+                      <button
+                        onClick={() => { handlePagesRefresh(); setRefreshDropdownOpen(false); }}
+                        className="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600"
+                      >Pages</button>
+                    </li>
+                  </ul>
+                </div>
+              )}
+            </div>
 
             {/* Theme Switcher Dropdown */}
             <div className="relative">
