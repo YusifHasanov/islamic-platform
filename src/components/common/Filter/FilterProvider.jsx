@@ -205,7 +205,7 @@ export const FilterProvider = ({
                         filterSections={filterSections}
                         hasActiveFilters={hasActiveFilters}
                         onClearAllFilters={clearAllFilters}
-                        className="sticky top-8"
+                        className="sticky top-24 max-[500px] "
                     />
                 </aside>
 

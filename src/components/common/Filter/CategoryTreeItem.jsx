@@ -168,7 +168,10 @@ export const CategoryFilter = ({
     }
 
     return (
-        <div className="space-y-0.5 pt-1">
+        <div style={{
+            maxHeight: "400px",
+            overflowY: "auto",
+        }} className="space-y-0.5 pt-1 ">
             {/* "All Articles" Button */}
             <button
                 onClick={() => onCategoryToggle({ id: 'all', name: 'all' }, true)}
