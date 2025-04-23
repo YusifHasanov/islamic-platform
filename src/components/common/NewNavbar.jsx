@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Menu } from "lucide-react"; // Kept Menu icon
 
 import { cn } from "@/lib/utils";
@@ -58,6 +58,7 @@ const generateHref = (item) => {
 // --- Main Navbar Component (Redesigned) ---
 export function NewNavbar({ menus }) {
     const pathname = usePathname();
+    const router = useRouter();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
 
     const isLinkActive = (item) => {
@@ -110,6 +111,7 @@ export function NewNavbar({ menus }) {
                                         {hasSubcategories ? (
                                             <>
                                                 <NavigationMenuTrigger
+                                                    onClick={() => router.push(itemHref)}
                                                     className={cn(
                                                         // Base styles for trigger on green bg
                                                         "text-sm font-medium bg-transparent   text-emerald-100 hover:bg-emerald-600 hover:text-white focus:bg-emerald-600 focus:text-white data-[active]:bg-emerald-600/80 data-[state=open]:bg-emerald-600/80",
