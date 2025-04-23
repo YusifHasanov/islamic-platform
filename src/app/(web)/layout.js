@@ -4,6 +4,8 @@ import Footer from "@/components/common/Footer";
 import {ModernNavbar} from "@/components/Navbar/ModernNavbar";
 import React from "react";
 
+export const dynamic = 'force-dynamic';
+
 const staticMenuItems = [
   {
     name: "Videolar",
@@ -38,7 +40,7 @@ const staticMenuItems = [
 ]
 
 const Layout = async ({ children }) => {
-  const res = await fetch(`${BASE_URL}/categories/menu`)
+  const res = await fetch(`${BASE_URL}/categories/menu`, { cache: 'no-store' })
   const menusData = await res.json()
 
   const addHrefToMenuItems = (menuItems) => {
@@ -50,7 +52,14 @@ const Layout = async ({ children }) => {
   }
   const finalMenus = addHrefToMenuItems(menusData)
 
-  const menus = [...finalMenus, ...staticMenuItems]
+  // Combine fetched and static items, then put items with submenus first
+  const combinedMenus = [...staticMenuItems, ...finalMenus ]
+  const menus = [
+    ...combinedMenus.filter(item => Array.isArray(item.subcategories) && item.subcategories.length > 0),
+    ...combinedMenus.filter(item => !Array.isArray(item.subcategories) || item.subcategories.length === 0),
+  ]
+
+  console.log(menus)
 
   return (
     <>
