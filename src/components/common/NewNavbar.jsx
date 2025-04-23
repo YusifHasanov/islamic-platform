@@ -80,7 +80,7 @@ export function NewNavbar({ menus }) {
     return (
         // Updated Header Styling: Green background, light text, shadow
         <header className="sticky top-0 z-50 w-full  bg-emerald-700 text-emerald-50 shadow-md">
-            <div className="container flex h-16 items-center justify-between px-4 md:px-6">
+            <div className=" flex h-16 items-center justify-between px-4 md:px-6">
                 {/* Logo and Brand */}
                 <Link
                     href="/"
