@@ -59,7 +59,6 @@ const Layout = async ({ children }) => {
     ...combinedMenus.filter(item => !Array.isArray(item.subcategories) || item.subcategories.length === 0),
   ]
 
-  console.log(menus)
 
   return (
     <>
