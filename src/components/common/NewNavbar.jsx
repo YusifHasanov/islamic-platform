@@ -114,7 +114,7 @@ export function NewNavbar({ menus }) {
                                                     onClick={() => router.push(itemHref)}
                                                     className={cn(
                                                         // Base styles for trigger on green bg
-                                                        "text-sm font-medium bg-transparent   text-emerald-100 hover:bg-emerald-600 hover:text-white focus:bg-emerald-600 focus:text-white data-[active]:bg-emerald-600/80 data-[state=open]:bg-emerald-600/80",
+                                                        "text-sm font-medium bg-transparent px-2 text-emerald-100 hover:bg-emerald-600 hover:text-white focus:bg-emerald-600 focus:text-white data-[active]:bg-emerald-600/80 data-[state=open]:bg-emerald-600/80",
                                                         // Active state (section active)
                                                         isActive && "text-white",
                                                         // More prominent if this specific link is active
