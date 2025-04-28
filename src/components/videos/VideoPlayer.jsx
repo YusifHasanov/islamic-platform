@@ -18,9 +18,7 @@ const VideoPlayer = async ({playlistId, search, videoId, content, page}) => {
     // Geçerliliği kontrol eden yardımcı fonksiyon
     const isValid = (prop) => prop != null && prop !== "undefined" && prop !== "null"
 
-    let selectedVideo = null; // Initialize selectedVideo
-    let playlist;
-    let videos = []; // Initialize videos as empty array
+    let selectedVideo, videos, playlist
 
     if(isValid(videoId)){
         const findPlaylistResponse = await fetch(`${BASE_URL}/playlists/of-video/${videoId}`, {
@@ -56,45 +54,31 @@ const VideoPlayer = async ({playlistId, search, videoId, content, page}) => {
         fetch(`${BASE_URL}/videos?playlistId=${playlistId}`, {next: {revalidate: 60}}),
     ])
     playlist = await playlistRes.json()
-
+    videos = await videosRes.json()
     // Fetch videos and format dates immediately
-    try {
-        const fetchedVideosData = await videosRes.json();
-        if (Array.isArray(fetchedVideosData)) {
-            videos = fetchedVideosData.map(video => ({
-                ...video,
-                publishedAtFormatted: formatDate(video.publishedAt)
-            }));
-        }
-    } catch (error) {
-        console.error("Error processing videos data:", error);
-        // Keep videos as empty array on error
-    }
+
+    // try {
+    //     const fetchedVideosData = await videosRes.json();
+    //     if (Array.isArray(fetchedVideosData)) {
+    //         videos = fetchedVideosData.map(video => ({
+    //             ...video,
+    //             publishedAtFormatted: formatDate(video.publishedAt)
+    //         }));
+    //     }
+    // } catch (error) {
+    //     console.error("Error processing videos data:", error);
+    //     // Keep videos as empty array on error
+    // }
 
     // videoId geçerli ise, ayrı fetch ile seçilen videoyu getir; aksi halde playlist içerisinden seç.
-    if (!selectedVideo) { // Check if selectedVideo is still null
+    if (selectedVideo == null) {
         if (isValid(videoId) && isValid(playlistId)) {
-            try {
-                const selectedVideoResponse = await fetch(`${BASE_URL}/videos/${videoId}`, {
-                    next: {revalidate: 60},
-                });
-                const fetchedSelectedVideo = await selectedVideoResponse.json();
-                if (fetchedSelectedVideo && fetchedSelectedVideo.id) { // Check if valid video data returned
-                    selectedVideo = {
-                        ...fetchedSelectedVideo,
-                        publishedAtFormatted: formatDate(fetchedSelectedVideo.publishedAt)
-                    };
-                } else if (videos.length > 0) {
-                    // Fallback to first video in playlist if specific fetch failed
-                    selectedVideo = videos[0];
-                }
-            } catch (error) {
-                 console.error("Error fetching selected video:", error);
-                 if (videos.length > 0) selectedVideo = videos[0]; // Fallback on error
-            }
-        } else if (videos.length > 0) {
-            // If no videoId, select the first video from the list
-             selectedVideo = videos[0];
+            const selectedVideoResponse = await fetch(`${BASE_URL}/videos/${videoId}`, {
+                next: {revalidate: 60},
+            })
+            selectedVideo = await selectedVideoResponse.json()
+        } else {
+            selectedVideo = videos.find((v) => v.playlistId === playlistId) ?? videos[0]
         }
     }
 
