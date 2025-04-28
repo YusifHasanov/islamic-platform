@@ -89,11 +89,12 @@ export function NewNavbar({ menus }) {
                     onClick={() => setIsMobileMenuOpen(false)}
                 >
                     <Image height={35} width={40} src={"/esm_logo.png"} alt="Əhli Sünnə Mədrəsəsi Logo" className="h-8 w-auto sm:h-9" />
-                    {/* Brighter text for brand name */}
-                    <span className="hidden font-bold sm:inline-block text-white whitespace-nowrap group-hover:text-emerald-100 transition-colors">
+                    {/* Brighter text for brand name - Change sm:inline-block to lg:inline-block */}
+                    <span className="hidden font-bold lg:inline-block text-white whitespace-nowrap group-hover:text-emerald-100 transition-colors">
                         Əhli-Sünnə Mədrəsəsi
                     </span>
-                    <span className="sm:hidden font-bold text-white group-hover:text-emerald-100 transition-colors">ƏSM</span>
+                    {/* Show abbreviation below lg screens */}
+                    <span className="lg:hidden font-bold text-white group-hover:text-emerald-100 transition-colors">ƏSM</span>
                 </Link>
 
                 {/* Desktop Navigation */}

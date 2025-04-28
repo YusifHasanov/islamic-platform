@@ -44,7 +44,6 @@ const VideoPlayerPlaylistItems = ({ playlistId, videos, page, searchParams, cont
                     fill
                     className="object-cover"
                 />
-                <div className="absolute bottom-1 right-1 bg-black/70 text-white text-xs px-1 rounded">12:34</div>
               </div>
               <div className="ml-3 flex-1 min-w-0">
                 <p
@@ -54,13 +53,11 @@ const VideoPlayerPlaylistItems = ({ playlistId, videos, page, searchParams, cont
                 >
                   {video.title}
                 </p>
-                <p className="text-xs text-gray-400 mt-1">
-                  {new Date(video.publishedAt).toLocaleDateString("az-AZ", {
-                    year: "numeric",
-                    month: "short",
-                    day: "numeric",
-                  })}
-                </p>
+                {video.publishedAtFormatted && (
+                  <p className="text-xs text-gray-400 mt-1">
+                    {video.publishedAtFormatted}
+                  </p>
+                )}
               </div>
             </Link>
         )
