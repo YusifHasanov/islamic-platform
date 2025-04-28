@@ -2,13 +2,25 @@ import VideoPlayerPlaylistItems from "@/components/videos/VideoPlayerPlaylistIte
 import {CalendarIcon, Clock, Eye, ThumbsUp} from "lucide-react"
 import {BASE_URL} from "@/util/Const";
 
+// Ensure formatDate utility is available or define it here
+const formatDate = (dateString, options = { year: "numeric", month: "short", day: "numeric" }) => {
+    try {
+        return new Date(dateString).toLocaleDateString("az-AZ", options);
+    } catch (e) {
+        console.error("Invalid date for formatting:", dateString);
+        return "Invalid Date";
+    }
+};
+
 export const revalidate = 60
 
 const VideoPlayer = async ({playlistId, search, videoId, content, page}) => {
     // Geçerliliği kontrol eden yardımcı fonksiyon
     const isValid = (prop) => prop != null && prop !== "undefined" && prop !== "null"
 
-    let selectedVideo, videos, playlist
+    let selectedVideo = null; // Initialize selectedVideo
+    let playlist;
+    let videos = []; // Initialize videos as empty array
 
     if(isValid(videoId)){
         const findPlaylistResponse = await fetch(`${BASE_URL}/playlists/of-video/${videoId}`, {
@@ -44,29 +56,57 @@ const VideoPlayer = async ({playlistId, search, videoId, content, page}) => {
         fetch(`${BASE_URL}/videos?playlistId=${playlistId}`, {next: {revalidate: 60}}),
     ])
     playlist = await playlistRes.json()
-    videos = await videosRes.json()
+
+    // Fetch videos and format dates immediately
+    try {
+        const fetchedVideosData = await videosRes.json();
+        if (Array.isArray(fetchedVideosData)) {
+            videos = fetchedVideosData.map(video => ({
+                ...video,
+                publishedAtFormatted: formatDate(video.publishedAt)
+            }));
+        }
+    } catch (error) {
+        console.error("Error processing videos data:", error);
+        // Keep videos as empty array on error
+    }
 
     // videoId geçerli ise, ayrı fetch ile seçilen videoyu getir; aksi halde playlist içerisinden seç.
-    if (selectedVideo == null) {
+    if (!selectedVideo) { // Check if selectedVideo is still null
         if (isValid(videoId) && isValid(playlistId)) {
-            const selectedVideoResponse = await fetch(`${BASE_URL}/videos/${videoId}`, {
-                next: {revalidate: 60},
-            })
-            selectedVideo = await selectedVideoResponse.json()
-        } else {
-            selectedVideo = videos.find((v) => v.playlistId === playlistId) ?? videos[0]
+            try {
+                const selectedVideoResponse = await fetch(`${BASE_URL}/videos/${videoId}`, {
+                    next: {revalidate: 60},
+                });
+                const fetchedSelectedVideo = await selectedVideoResponse.json();
+                if (fetchedSelectedVideo && fetchedSelectedVideo.id) { // Check if valid video data returned
+                    selectedVideo = {
+                        ...fetchedSelectedVideo,
+                        publishedAtFormatted: formatDate(fetchedSelectedVideo.publishedAt)
+                    };
+                } else if (videos.length > 0) {
+                    // Fallback to first video in playlist if specific fetch failed
+                    selectedVideo = videos[0];
+                }
+            } catch (error) {
+                 console.error("Error fetching selected video:", error);
+                 if (videos.length > 0) selectedVideo = videos[0]; // Fallback on error
+            }
+        } else if (videos.length > 0) {
+            // If no videoId, select the first video from the list
+             selectedVideo = videos[0];
         }
     }
 
-    // Format the date
-    const formattedDate = selectedVideo?.publishedAt
-        ? new Date(selectedVideo.publishedAt).toLocaleDateString("az-AZ", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-        })
-        : ""
+    // Final fallback if selectedVideo is somehow still null
+    if (!selectedVideo && videos.length > 0) {
+        selectedVideo = videos[0];
+    }
 
+    // Prepare formatted date for the main video display (use selectedVideo safely)
+    const mainVideoFormattedDate = selectedVideo?.publishedAt
+        ? formatDate(selectedVideo.publishedAt, { year: "numeric", month: "long", day: "numeric" })
+        : "";
 
     return (
         <div className="bg-gradient-to-b from-gray-900 to-gray-800 text-white">
@@ -86,43 +126,14 @@ const VideoPlayer = async ({playlistId, search, videoId, content, page}) => {
 
                         <div className="space-y-4">
                             <h1 className="text-2xl md:text-3xl font-bold text-white">{selectedVideo?.title}</h1>
-
-                            {/*<div className="flex flex-wrap gap-4 text-sm text-gray-300">*/}
-                            {/*  <div className="flex items-center">*/}
-                            {/*    <CalendarIcon className="w-4 h-4 mr-2 text-emerald-400" />*/}
-                            {/*    <span>{formattedDate}</span>*/}
-                            {/*  </div>*/}
-                            {/*  <div className="flex items-center">*/}
-                            {/*    <Eye className="w-4 h-4 mr-2 text-emerald-400" />*/}
-                            {/*    <span>1.2K izləmə</span>*/}
-                            {/*  </div>*/}
-                            {/*  <div className="flex items-center">*/}
-                            {/*    <ThumbsUp className="w-4 h-4 mr-2 text-emerald-400" />*/}
-                            {/*    <span>83 bəyənmə</span>*/}
-                            {/*  </div>*/}
-                            {/*  <div className="flex items-center">*/}
-                            {/*    <Clock className="w-4 h-4 mr-2 text-emerald-400" />*/}
-                            {/*    <span>12:34</span>*/}
-                            {/*  </div>*/}
-                            {/*</div>*/}
-
-                            {/*<div className="pt-4 border-t border-gray-700">*/}
-                            {/*  <p className="text-gray-300">*/}
-                            {/*    {selectedVideo?.description || "Bu video haqqında ətraflı məlumat yoxdur."}*/}
-                            {/*  </p>*/}
-                            {/*</div>*/}
-
-                            {/*<div className="flex flex-wrap gap-2 pt-2">*/}
-                            {/*  <span className="px-3 py-1 bg-emerald-900 text-emerald-100 rounded-full text-xs font-medium">*/}
-                            {/*    İslam*/}
-                            {/*  </span>*/}
-                            {/*  <span className="px-3 py-1 bg-emerald-900 text-emerald-100 rounded-full text-xs font-medium">*/}
-                            {/*    Təfsir*/}
-                            {/*  </span>*/}
-                            {/*  <span className="px-3 py-1 bg-emerald-900 text-emerald-100 rounded-full text-xs font-medium">*/}
-                            {/*    Hədis*/}
-                            {/*  </span>*/}
-                            {/*</div>*/}
+                            <div className="flex flex-wrap gap-4 text-sm text-gray-300">
+                               <div className="flex items-center">
+                                 <CalendarIcon className="w-4 h-4 mr-2 text-emerald-400" />
+                                 <span>{mainVideoFormattedDate}</span>
+                               </div>
+                               {/* ... other metadata like views, likes, duration ... */}
+                            </div>
+                            {/* ... description, tags etc. ... */}
                         </div>
                     </div>
 

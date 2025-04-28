@@ -141,7 +141,7 @@ const ArticleDetailPage = ({article}) => {
             </div>
 
             <div className="container mx-auto px-4 -mt-10 relative z-10">
-                <div className="bg-white rounded-t-2xl shadow-md md:p-10 sm:p-6 p-4">
+                <main className="bg-white rounded-t-2xl shadow-md md:p-10 sm:p-6 p-4">
                     {/* Author Info */}
                     <div className="flex items-center mb-8">
                         <div className="relative h-12 w-12 rounded-full overflow-hidden mr-4">
@@ -158,13 +158,13 @@ const ArticleDetailPage = ({article}) => {
                     </div>
 
                     <div className="grid grid-cols-1 lg:grid-cols-[1fr_350px] gap-10">
-                        {/* Article Content */}
+                        {/* Main Article Content Section */}
                         <div>
                             <div className="prose prose-emerald text-justify max-w-none">
                                 <div dangerouslySetInnerHTML={{__html: article.content}}></div>
                             </div>
 
-                            {/* Action Buttons */}
+                            {/* Action Buttons & Back Link */}
                             <div className="mt-10 pt-6 border-t border-gray-100 flex items-center justify-between">
                                 <ShareArticle article={article}/>
 
@@ -172,21 +172,7 @@ const ArticleDetailPage = ({article}) => {
                                     href="/articles"
                                     className="flex items-center text-emerald-600 hover:text-emerald-700 transition-colors"
                                 >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="20"
-                                        height="20"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        strokeWidth="2"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        className="mr-2"
-                                    >
-                                        <line x1="19" y1="12" x2="5" y2="12"></line>
-                                        <polyline points="12 19 5 12 12 5"></polyline>
-                                    </svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
                                     Bütün məqalələr
                                 </Link>
                             </div>
@@ -199,7 +185,7 @@ const ArticleDetailPage = ({article}) => {
                                         {article.tags.map((tag) => (
                                             <Link
                                                 key={tag.id}
-                                                href={`/articles?tag=${tag.id}`}
+                                                href={`/search?tagId=${tag.id}`}
                                                 className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm hover:bg-emerald-50 hover:text-emerald-600 transition-colors"
                                             >
                                                 {tag.name}
@@ -210,22 +196,22 @@ const ArticleDetailPage = ({article}) => {
                             )}
                         </div>
 
-                        {/* Sidebar */}
+                        {/* Sidebar Section */}
                         <div className="space-y-8">
                             <div className="bg-gray-50 rounded-xl sm:p-6 p-0">
                                 <ArticleDetailCategories/>
                             </div>
 
                             <div className="bg-gray-50 rounded-xl sm:p-6 p-0">
-                                <MostReadArticles article={article}/>
+                                <MostReadArticles />
                             </div>
                         </div>
                     </div>
-                </div>
+                </main>
             </div>
 
             {/* Related Articles */}
-        <RelatedArticles article={article}/>
+            <RelatedArticles article={article}/>
 
             {/* View Count Tracker (Hidden) */}
             <ArticleApiCount articleId={article.id}/>
