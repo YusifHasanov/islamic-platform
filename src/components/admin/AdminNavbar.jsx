@@ -52,25 +52,25 @@ const AdminNavbar = ({
     setIsRefreshing(true);
 
     try {
-      // --- Gerçek API çağrısını buraya ekle --- 
+      // --- Gerçek API çağrısını buraya ekle ---
       // Örnek: const response = await fetch('/api/some-data-refresh');
       // if (!response.ok) throw new Error('API call failed');
       // const data = await response.json();
       // console.log("API Call Successful", data);
-      
+
       // Simülasyon için bekleme
-    
-      fetch('/ytb-api/Youtube/sync', { 
+
+      fetch(`${process.env.NEXT_PUBLIC_BASE_URL_YTB}/Youtube/sync`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
       })
       .then(response => response.json())
-      .then(data => { 
+      .then(data => {
         console.log("API Call Simulation Complete");
         console.log(data);
-        
+
       })
       .catch(error => {
         console.error("API Call Failed:", error);
@@ -327,4 +327,4 @@ const AdminNavbar = ({
   );
 };
 
-export default AdminNavbar; 
+export default AdminNavbar;

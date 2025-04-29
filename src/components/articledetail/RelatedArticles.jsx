@@ -95,7 +95,7 @@ async function RelatedArticles({ article }) {
         const cacheKey = `related_articles_${article.id}`;
         // --- IMPORTANT ---
         // Update fetchUrl if you have a dedicated endpoint for related articles
-        const fetchUrl = `ex-api/articles/popular`; // Fallback: Use popular
+        const fetchUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/articles/popular`; // Fallback: Use popular
 
         try {
             const dataJson = await fetch(`${BASE_URL}/articles/popular`);

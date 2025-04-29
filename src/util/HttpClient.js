@@ -1,6 +1,6 @@
 class HttpClient {
   // static baseUrl = BASE_URL
-  static baseUrl = "/ex-api"
+  static baseUrl = process.env.NEXT_PUBLIC_BASE_URL
 
   static defaultHeaders = {
     "Content-Type": "application/json",
