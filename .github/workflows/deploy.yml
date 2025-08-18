@@ -1,0 +1,131 @@
+name: Build & Deploy (Next.js)
+
+on:
+  push:
+    branches: [ "main" ]
+
+env:
+  IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/esm-frontend
+  # Dış dünyaya açılacak port (host): container 3000'e map edeceğiz
+  APP_PORT: 8086
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    environment: VPS
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Login to GHCR (GITHUB_TOKEN ile)
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata (tags, labels)
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.IMAGE_NAME }}
+          tags: |
+            type=sha
+            type=raw,value=latest
+
+      - name: Build and push image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build-and-push
+    environment: VPS
+
+    steps:
+      - name: Fail fast if required secrets are empty
+        run: |
+          [ -n "${{ secrets.VPS_HOST }}" ] || { echo "❌ VPS_HOST empty"; exit 1; }
+          [ -n "${{ secrets.VPS_USER }}" ] || { echo "❌ VPS_USER empty"; exit 1; }
+          [ -n "${{ secrets.VPS_SSH_KEY }}" ] || { echo "❌ VPS_SSH_KEY empty"; exit 1; }
+          # App env’leri
+          [ -n "${{ secrets.APP_ENV_NODE_ENV }}" ] || { echo "❌ APP_ENV_NODE_ENV empty"; exit 1; }
+          [ -n "${{ secrets.NEXT_PUBLIC_BASE_URL }}" ] || { echo "❌ NEXT_PUBLIC_BASE_URL empty"; exit 1; }
+          [ -n "${{ secrets.NEXT_PUBLIC_BASE_URL_YTB }}" ] || { echo "❌ NEXT_PUBLIC_BASE_URL_YTB empty"; exit 1; }
+          [ -n "${{ secrets.DEFAULT_PLAYLIST_ID }}" ] || { echo "❌ DEFAULT_PLAYLIST_ID empty"; exit 1; }
+          [ -n "${{ secrets.NEXT_PUBLIC_REVALIDATE_SECRET }}" ] || { echo "❌ NEXT_PUBLIC_REVALIDATE_SECRET empty"; exit 1; }
+
+      - name: SSH into server and deploy
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            set -e
+
+            # Network lazımsa oluştur (opsiyonel)
+            docker network create esm_network || true
+
+            IMAGE="${{ env.IMAGE_NAME }}:latest"
+            APP_PORT="${{ env.APP_PORT }}"
+
+            echo "Login GHCR with PAT (server side pull)"
+            echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u "${{ secrets.GHCR_USERNAME }}" --password-stdin
+
+            echo "Pull $IMAGE"
+            docker pull "$IMAGE"
+
+            # .env dosyasını güvenle yaz
+            ENV_FILE="/root/esm-frontend.env"
+            printf "%s\n" \
+              "NODE_ENV=${{ secrets.APP_ENV_NODE_ENV }}" \
+              "NEXT_PUBLIC_BASE_URL=${{ secrets.NEXT_PUBLIC_BASE_URL }}" \
+              "NEXT_PUBLIC_BASE_URL_YTB=${{ secrets.NEXT_PUBLIC_BASE_URL_YTB }}" \
+              "DEFAULT_PLAYLIST_ID=${{ secrets.DEFAULT_PLAYLIST_ID }}" \
+              "NEXT_PUBLIC_REVALIDATE_SECRET=${{ secrets.NEXT_PUBLIC_REVALIDATE_SECRET }}" \
+              > "$ENV_FILE"
+
+            echo "[DEBUG] env (masked):"
+            grep -E '^(NODE_ENV|NEXT_PUBLIC_BASE_URL|NEXT_PUBLIC_BASE_URL_YTB|DEFAULT_PLAYLIST_ID|NEXT_PUBLIC_REVALIDATE_SECRET)=' "$ENV_FILE" \
+              | sed 's/=.*/=****/'
+
+            echo "Stop container using ${APP_PORT} if any"
+            CONTAINER_USING_PORT=$(docker ps --format '{{.ID}} {{.Ports}}' | awk '/:'"$APP_PORT"'->/ {print $1}' | head -n1)
+            [ -n "$CONTAINER_USING_PORT" ] && docker stop "$CONTAINER_USING_PORT" || true
+
+            NEW_NAME="esm-frontend-$(date +%s)"
+            echo "Run $NEW_NAME"
+
+            # Container 3000 dinler, host 8086’ya map ediyoruz
+            docker run -d \
+              --name "$NEW_NAME" \
+              --env-file "$ENV_FILE" \
+              -p ${APP_PORT}:3000 \
+              -v /var/www/esm/uploads:/app/uploads \
+              --network esm_network \
+              --network-alias esm-frontend \
+              "$IMAGE"
+
+            echo "Health check: GET http://127.0.0.1:${APP_PORT}/"
+            for i in $(seq 1 30); do
+              if curl -fsS "http://127.0.0.1:${APP_PORT}/" >/dev/null 2>&1; then
+                echo "UP"
+                break
+              fi
+              sleep 1
+            done
+
+            echo "Cleanup old exited"
+            docker ps -a --filter 'status=exited' --filter 'name=esm-frontend-' --format '{{.ID}}' | xargs -r docker rm
+
+            echo "Prune dangling images"
+            docker image prune -f
