@@ -44,21 +44,13 @@ const AdminNavbar = ({
     setThemeDropdownOpen(false);
   };
 
-  // API Çağrısını simüle eden fonksiyon
   const handleRefreshClick = async () => {
-    if (isRefreshing) return; // Zaten çalışıyorsa tekrar çalıştırma
+    if (isRefreshing) return;
 
     console.log("API Call Triggered (Refresh Button)");
     setIsRefreshing(true);
 
     try {
-      // --- Gerçek API çağrısını buraya ekle ---
-      // Örnek: const response = await fetch('/api/some-data-refresh');
-      // if (!response.ok) throw new Error('API call failed');
-      // const data = await response.json();
-      // console.log("API Call Successful", data);
-
-      // Simülasyon için bekleme
 
       fetch(`${process.env.NEXT_PUBLIC_BASE_URL_YTB}/Youtube/sync`, {
         method: 'POST',
@@ -68,7 +60,7 @@ const AdminNavbar = ({
       })
       .then(response => response.json())
       .then(data => {
-        console.log("API Call Simulation Complete");
+        alert("Successfully Updated Successfully");
         console.log(data);
 
       })
@@ -87,14 +79,13 @@ const AdminNavbar = ({
     }
   };
 
-  // Pages sync API handler
   const handlePagesRefresh = async () => {
     if (isRefreshing) return;
     setIsRefreshing(true);
     try {
       // replace with real endpoint
       fetch(`/api/revalidate-all?secret=${process.env.NEXT_PUBLIC_REVALIDATE_SECRET}`)
-      .then(() => console.log("Revalidated /articles page."))
+      .then(() => alert("Successfully Refreshing Pages"))
       .catch((err) => console.error("Failed to revalidate /articles page."))
     } catch (error) {
       console.error('Pages API Call Failed:', error);

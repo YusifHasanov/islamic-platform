@@ -43,6 +43,7 @@ const Layout = async ({ children }) => {
   const res = await fetch(`${BASE_URL}/categories/menu`, { cache: 'no-store' })
   const menusData = await res.json()
 
+  console.log("menusData", menusData)
   const addHrefToMenuItems = (menuItems) => {
     return menuItems.map((item) => ({
       ...item,

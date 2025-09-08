@@ -11,9 +11,7 @@ import { usePathname } from 'next/navigation';
 const Layout = ({ children }) => {
     useTheme()
     const pathname = usePathname();
-    // useAuthRedirect()
 
-    // Define paths where the admin layout should NOT be used
     const noAdminLayoutPaths = ['/admin/login', '/admin/register'];
     const useAdminLayout = pathname.startsWith('/admin') && !noAdminLayoutPaths.includes(pathname);
 
@@ -22,15 +20,12 @@ const Layout = ({ children }) => {
             <PrimeReactProvider value={{ pt: Tailwind }}>
                 <LayoutProvider>
                     {useAdminLayout ? (
-                        // Admin sayfaları için yeni layout wrapper'ı kullan
                         <AdminLayoutWrapper>
                             {children}
                         </AdminLayoutWrapper>
                     ) : (
-                        // Admin olmayan veya login/register sayfaları için direkt children render et
                         <>
                             {children}
-                            {/* Bu sayfalarda AppConfig gerekli mi? Gerekliyse ekle */}
                             {noAdminLayoutPaths.includes(pathname) && <AppConfig minimal />}
                         </>
                     )}
